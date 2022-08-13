@@ -1,5 +1,22 @@
 package com.dorecipe.main.event.service;
 
-public interface EventService {
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dorecipe.main.event.dao.EventDAO;
+import com.dorecipe.main.event.vo.EventVO;
+
+@Service
+public class EventService {
+
+	@Autowired
+	private EventDAO eventDAO;
+	
+	public List<EventVO> getList(){
+		List<EventVO> eList = eventDAO.getList();
+		return eList;
+	}
+	
 }
