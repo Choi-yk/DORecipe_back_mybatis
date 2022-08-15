@@ -8,7 +8,7 @@ import org.springframework.dao.DataAccessException;
 
 import com.dorecipe.main.notice.vo.Notice;
 
-@Mapper	//mybatis에서 제공하는 것. 객체화 시킴, mybatis가 구현체를 만들어서 IoC컨테이너에 담음
+//@Mapper	//mybatis에서 제공하는 것. 객체화 시킴, mybatis가 구현체를 만들어서 IoC컨테이너에 담음
 public interface NoticeDAO {
 	
 	//만약에 db 컬럼명과 코드의 컬럼명이 다르게 지정됐으면 (귀찮으니까 반드시 같은 명으로 쓰자...!)
@@ -23,19 +23,18 @@ public interface NoticeDAO {
 	// 그래서!! 어노테이션으로 쿼리문을 쓰는 것보다는 xml파일로 쿼리를 몰아!!
 	
 	//@Select("select * from Notice order by notice_num desc")
+	//목록 리스트
 	List<Notice> getList();
-	
 	//상세페이지
 	Notice getdetail(int notice_num);
 	
-	//추상메소드 - 공지사항 전체 리스트
-	//public List selectAllNotice() throws DataAccessException;
 	
-	
-//	int update(Notice notice);
-//	
-//	int insert(Notice notice);
-//	
-//	int delete(int id);
+	//삽입(등록)
+	int insertNotice(Notice notice);
+	//수정
+	int updateNotice(Notice notice);
+	//삭제
+	int deleteNotice(int notice_num);
+
 
 }

@@ -34,10 +34,12 @@ public class NoticeController {
 	
 	//공지사항 상세 조회
 	@RequestMapping("/detail/{notice_num}")
-	public String detail() {
-	   Notice notice = service.getdetail(1);
+	public String detail(int notice_num) {
+	   Notice notice = service.getdetail(notice_num);
 	   
-	   return "redirect:/";
+	   System.out.println(notice);
+	   
+	   return "notice";
 	}
 
 }

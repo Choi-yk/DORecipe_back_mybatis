@@ -16,6 +16,7 @@ public class NoticeServiceImpl implements NoticeService{
 	@Autowired	//참조해서 쓸게!
 	private NoticeDAO noticeDao;
 	
+	//목록 보기
 	@Override
 	public List<Notice> getList() {
 
@@ -24,7 +25,7 @@ public class NoticeServiceImpl implements NoticeService{
 		return list;
 	}
 	
-	
+	//상세페이지
 	@Override
 	public Notice getdetail(int notice_num) {
 		
@@ -33,27 +34,25 @@ public class NoticeServiceImpl implements NoticeService{
 		return notice;
 	}
 
-
 	@Override
 	public int insert(Notice notice) {
 		// TODO Auto-generated method stub
-		return 0;
+		return noticeDao.insertNotice(notice);
 	}
-
 
 	@Override
 	public int update(Notice notice) {
 		// TODO Auto-generated method stub
-		return 0;
+		return noticeDao.updateNotice(notice);
 	}
-
 
 	@Override
 	public int delete(int notice_num) {
 		// TODO Auto-generated method stub
-		return 0;
+		return noticeDao.deleteNotice(notice_num);
 	}
-	
+
+
 	
 	
 }

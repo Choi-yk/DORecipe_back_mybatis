@@ -11,14 +11,6 @@ import com.dorecipe.main.notice.service.NoticeService;
 
 //구현클래스
 @Controller
-public class NoticeControllerImpl implements NoticeControllerInter{
-	
-	@Autowired
-	NoticeService noticeService;
-	
-	
-	@Override
-	public ModelAndView listNotice (HttpServletRequest request, HttpServletResponse response) throws Exception{
-		return null;
-	}
+public class NoticeControllerImpl {
+
 }

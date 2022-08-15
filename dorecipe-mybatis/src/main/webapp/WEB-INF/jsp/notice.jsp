@@ -17,6 +17,8 @@
 				<th> 제목</th>
 				<th> 내용</th>
 				<th> 작성 날짜</th>
+				<th> 수정 </th>
+				<th> 삭제 </th>
 			</tr>
 		</thead>
 		<tbody>
@@ -27,6 +29,12 @@
 					<td>${n.notice_title}</td>
 					<td>${n.notice_content}</td>
 					<td>${n.notice_creDate}</td>
+					<td>
+		   				<a href="#">수정</a>
+		   			</td>
+					<td>
+		   				<a href="#">삭제</a>
+		   			</td>
 				</tr>
 			</c:forEach>	
 		</tbody>
