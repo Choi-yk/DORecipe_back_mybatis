@@ -2,22 +2,19 @@ package com.dorecipe.main.member.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-
 import com.dorecipe.main.member.vo.MemberVO;
 
-// sql 수정??
-@Mapper
 public interface MemberDAO {
-	@Select("select * from member")
+	// 회원목록 전체 조회
 	public List<MemberVO> selectAllMemberList() throws Exception;
 	
-	@Select("select member_id from member where member_id = #{member_id}")
-	public String findByMemberId(String id) throws Exception;
+	// 회원 아이디 조회
+	public MemberVO findByMemberId(String id) throws Exception;
 	
-	@Delete("delete from member where member_id = #{member_id}")
+	// 회원 등록(가입)
+	public int insertMember(MemberVO memberVO) throws Exception;
+	
+	// 회원 삭제(탈퇴)
 	public void deleteMember(String id) throws Exception;
-	//public int insertMember(MemberVO memberVO) throws Exception;
+	
 }

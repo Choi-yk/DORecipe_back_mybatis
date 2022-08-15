@@ -35,6 +35,9 @@ public class MemberController {
 		return "member";
 	}
 	
+	
+	
+	// 회원 삭제(탈퇴)
 	@GetMapping("/delete/{member_id}")
 	public String Delete(String member_id) {
 
