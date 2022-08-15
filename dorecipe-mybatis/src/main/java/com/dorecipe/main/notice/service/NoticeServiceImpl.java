@@ -3,6 +3,7 @@ package com.dorecipe.main.notice.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.dorecipe.main.notice.dao.NoticeDAO;
@@ -23,11 +24,36 @@ public class NoticeServiceImpl implements NoticeService{
 		return list;
 	}
 	
+	
 	@Override
-	public Notice get(int id) {
+	public Notice getdetail(int notice_num) {
 		
-		Notice notice = noticeDao.get(id);
+		Notice notice = noticeDao.getdetail(notice_num);
 		
 		return notice;
 	}
+
+
+	@Override
+	public int insert(Notice notice) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int update(Notice notice) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int delete(int notice_num) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
+	
 }
