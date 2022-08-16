@@ -4,8 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dorecipe.main.recipe.dao.RecipeDAO">
 
+	<!-- 저장한 레시피목록 - savetype=0 -->
 	<select id="getList" resultType="com.dorecipe.main.recipe.vo.RecipeVO">
-		select * from recipe order by recipe_num desc
+		select * from recipe where recipe_savetype=0 order by recipe_num desc
 	</select>
 	
 	<select id="getDetail" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="int">

@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.dorecipe.main.event.service.EventService;
 import com.dorecipe.main.event.vo.EventVO;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
 @RequestMapping("/event")
+@RequiredArgsConstructor
 public class EventController {
 
 	@Autowired
