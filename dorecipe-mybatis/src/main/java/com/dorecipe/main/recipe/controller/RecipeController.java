@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.dorecipe.main.recipe.service.RecipeService;
 import com.dorecipe.main.recipe.vo.RecipeVO;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
 @RequestMapping("/recipe")
+@RequiredArgsConstructor
 public class RecipeController {
 
 	@Autowired

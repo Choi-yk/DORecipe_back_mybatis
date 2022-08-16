@@ -30,14 +30,29 @@
 					<td>${n.notice_content}</td>
 					<td>${n.notice_creDate}</td>
 					<td>
-		   				<a href="#">수정</a>
+		   				<a href="${contextPath}/notice/update/${n.notice_num}">수정</a>
 		   			</td>
 					<td>
-		   				<a href="#">삭제</a>
+		   				<a href="${contextPath}/notice/delete/${n.notice_num}">삭제</a>
 		   			</td>
 				</tr>
 			</c:forEach>	
 		</tbody>
 	</table>
+	
+	<br>
+	
+	<form method="post">
+		<div>
+			<label for="subject">제목</label>
+			<input type="text">
+		</div>
+		<div>
+			<label for="content">내용</label>
+			<textarea cols="50" rows=10" id="notice_content"></textarea>
+		</div>
+		<input type="submit" value="저장">
+	</form>
+	
 </body>
 </html>

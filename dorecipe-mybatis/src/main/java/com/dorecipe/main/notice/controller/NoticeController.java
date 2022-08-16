@@ -5,8 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.dorecipe.main.notice.dao.NoticeDAO;
 import com.dorecipe.main.notice.service.NoticeService;
 import com.dorecipe.main.notice.vo.Notice;
 
@@ -33,13 +37,33 @@ public class NoticeController {
 	}
 	
 	//공지사항 상세 조회
-	@RequestMapping("/detail/{notice_num}")
-	public String detail(int notice_num) {
-	   Notice notice = service.getdetail(notice_num);
-	   
-	   System.out.println(notice);
-	   
-	   return "notice";
+//	@RequestMapping("/detail/{notice_num}")
+//	public String detail(Model model, @PathVariable("notice_num") Integer notice_num) throws Exception {
+//	   Notice notice = service.getdetail(notice_num);
+//	   model.addAttribute("noticedetail",notice);
+//	   
+//	   System.out.println(notice);
+//	   
+//	   return "notice_detail";
+//	}
+	
+//	@GetMapping("/insert")
+//	public String insert(Model model) throws Exception {
+//		List<Notice> list = service.insert(model);
+//		
+//		return "redirect:/notice/list";
+//	}
+	
+	//공지사항 삭제
+	@GetMapping("/delete/{notice_num}")
+	public String Delete(@PathVariable("notice_num") Integer notice_num) throws Exception {
+		service.delete(notice_num);
+		
+		System.out.println("공지사항 삭제 성공!");
+		
+		return "redirect:/notice/list";
 	}
+	
+	
 
 }

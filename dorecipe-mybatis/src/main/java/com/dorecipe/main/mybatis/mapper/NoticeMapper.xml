@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dorecipe.main.notice.dao.NoticeDAO"><!-- 매칭되는 인터페이스의 주소,풀네임 -->
+<mapper namespace="mapper.notice"><!-- 매칭되는 DAOImpl주소,풀네임 -->
 
 	<!-- resultType은 쿼리의 결과를 담을 그릇(반환타입), id는 쿼리문과 매핑되는 DAO에 정의한 함수명 -->
 	
@@ -11,11 +11,12 @@
 	</select>
 
 	<!-- parameterType은 넘겨 받는 입력타입  --> 
-	<insert id="insertNotice" parameterType="com.dorecipe.main.notice.dao.NoticeDAO">
-		insert into notice(notice_title,notice_content)
-		values(#{notice_title},#{notice_content})
+ 	<insert id="insertNotice" parameterType="com.dorecipe.main.notice.dao.NoticeDAO">
+		insert into notice(member_id,notice_title,notice_content,notice_creDate)
+		values(#{member_id},#{notice_title},#{notice_content},now())
 	</insert >
 
+ <!--
 	<update id="updateNotice" parameterType="com.dorecipe.main.notice.dao.NoticeDAO">
 		update
 		set
@@ -23,8 +24,8 @@
 			notice_content = #{notice_content}
 		where notice_num = #{notice_num}
 	</update>
-
-	<delete id="deleteNotice">
+ -->
+	<delete id="deleteNotice" parameterType="int">
 		delete from notice
 		where notice_num=#{notice_num}
 	</delete>
