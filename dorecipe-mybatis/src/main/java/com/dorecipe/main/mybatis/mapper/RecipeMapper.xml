@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dorecipe.main.recipe.dao.RecipeDAO">
+
+	<select id="getList" resultType="com.dorecipe.main.recipe.vo.RecipeVO">
+		select * from recipe order by recipe_num desc
+	</select>
+	
+	<select id="getDetail" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="int">
+      SELECT * from recipe
+      where recipe_num = #{recipe_num}		
+  	</select>
+  	
+	<select id="getBundle" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="int">
+      select r.recipe_num,b.bundle_num,b.bundle from recipe r
+	  inner join r_bundle b
+      on r.recipe_num=b.recipe_num
+      where r.recipe_num = #{recipe_num}		
+  	</select>
+	
+</mapper>

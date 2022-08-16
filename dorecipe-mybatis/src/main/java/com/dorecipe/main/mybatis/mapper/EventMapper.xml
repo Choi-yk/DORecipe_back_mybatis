@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dorecipe.main.event.dao.EventDAO">
+
+	<select id="getList" resultType="com.dorecipe.main.event.vo.EventVO">
+		select * from event order by event_num desc
+	</select>
+	
+	<select id="getDetail" resultType="com.dorecipe.main.event.vo.EventVO"   parameterType="int">
+      SELECT * from event
+      where event_num = #{event_num}		
+  	</select>
+</mapper>
