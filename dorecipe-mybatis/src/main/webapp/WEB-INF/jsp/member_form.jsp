@@ -33,6 +33,7 @@
 			<input type="text">
 		</div>
 		<button type="submit">회원가입</button>
+		
 	</form>
 </body>
 </html>

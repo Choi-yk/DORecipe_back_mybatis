@@ -33,7 +33,7 @@
 		   			<a href="#">수정</a>
 		   		</td>
 		   		<td>
-		   			<a href="#">삭제</a>
+		   			<a href="${contextPath}/knowhow/delete/${knowhow.know_num}">삭제</a>
 		   		</td>
 			</c:forEach>
 		</tbody>

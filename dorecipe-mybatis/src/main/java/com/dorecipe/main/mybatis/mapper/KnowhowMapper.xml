@@ -5,4 +5,8 @@
 	<select id="selectAllKnowhowList" resultType="com.dorecipe.main.knowhow.vo.KnowhowVO">
 		select * from knowhow
 	</select>
+	
+	<delete id="deleteKnowhow" parameterType="int">
+		delete from knowhow where know_num = #{know_num}
+	</delete>
 </mapper>

@@ -23,4 +23,10 @@ public class KnowhowDAOImpl implements KnowhowDAO {
 		return knowhowList;
 	}
 
+	// 노하우 게시물 삭제
+	@Override
+	public int deleteKnowhow(int id) throws Exception {
+		return sqlSession.delete("mapper.knowhow.deleteKnowhow", id);
+	}
+
 }

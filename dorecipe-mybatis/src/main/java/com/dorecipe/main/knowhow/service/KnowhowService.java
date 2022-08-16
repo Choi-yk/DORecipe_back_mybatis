@@ -11,4 +11,5 @@ public interface KnowhowService {
 	// 노하우 게시물 수정
 	
 	// 노하우 게시물 삭제
+	public int DeleteKnowhow(int know_num) throws Exception;
 }

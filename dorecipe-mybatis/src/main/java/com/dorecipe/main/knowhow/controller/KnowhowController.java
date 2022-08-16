@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dorecipe.main.knowhow.service.KnowhowService;
@@ -35,4 +36,12 @@ public class KnowhowController {
 	// 노하우 게시물 수정
 	
 	// 노하우 게시물 삭제
+	public String Delete(@PathVariable("know_num") int know_num) throws Exception {
+		knowhowService.DeleteKnowhow(know_num);
+		
+		System.out.println("삭제됨 - Controller");
+		
+		return "redirect:/knowhow/list";	
+	}
+	
 }
