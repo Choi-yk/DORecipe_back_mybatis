@@ -22,25 +22,25 @@ public class MemberDAOImpl implements MemberDAO {
 		
 		return membersList;
 	}
+	
+	// 회원 정보 수정
+	@Override
+	public int updateMember(MemberVO memberVO) throws Exception {
+		return sqlSession.update("mapper.member.updateMember", memberVO);
+	}
 
 	// 회원 등록(가입)
 	@Override
 	public int insertMember(MemberVO memberVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public MemberVO findByMemberId(String id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.insert("mapper.member.insertMember", memberVO);
 	}
 
 	// 회원 삭제(탈퇴)
 	@Override
-	public void deleteMember(String id) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public int deleteMember(String id) throws Exception {
+		return sqlSession.delete("mapper.member.deleteMember", id);
 	}
+	
+	// 회원 상세
 
 }

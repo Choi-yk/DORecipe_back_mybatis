@@ -8,17 +8,17 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MemberVO {
-	String member_id;
-	String member_pwd;
-	String member_name;
-	String member_email;
-	String member_gender;
-	Date member_birth;
-	String member_phone;
-	String member_imagePath;
-	Date member_joinDate;
-	int member_like;
-	String member_role;
+	private String member_id;
+	private String member_pwd;
+	private String member_name;
+	private String member_email;
+	private String member_gender;
+	private Date member_birth;
+	private String member_phone;
+	private String member_imagePath;
+	private Date member_joinDate;
+	private int member_like;
+	private String member_role;
 	
 	public MemberVO() { }
 

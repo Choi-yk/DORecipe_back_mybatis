@@ -29,12 +29,6 @@ public class MemberServiceImpl implements MemberService {
 		
 		return membersList;
 	}
-
-	@Override
-	public String getMemberId() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	@Override
 	public void DeleteMember(String member_id) throws Exception {
