@@ -5,9 +5,10 @@
 <mapper namespace="com.dorecipe.main.recommendrecipe.dao.RecommendRecipeDAO">
 
 	<select id="getList" resultType="com.dorecipe.main.recommendrecipe.vo.RecommendRecipeVO">
-	select * from recipe r
+	  select * from recipe r
 	  inner join recommendrecipe reco 
-      on r.recipe_num=reco.recipe_num;
+      on r.recipe_num=reco.recipe_num
+      order by r.recipe_num desc
 	</select>
 
 </mapper>

@@ -14,6 +14,7 @@ public class RecommendRecipeVO {
 	private int reco_num;
 	private Date reco_creDate;
 
+	// 레시피테이블과 이너조인
 	private String recipe_title;
 	private String recipe_rpath;
 	
