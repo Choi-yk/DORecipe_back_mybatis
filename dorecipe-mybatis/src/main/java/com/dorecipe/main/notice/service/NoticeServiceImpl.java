@@ -14,7 +14,7 @@ import com.dorecipe.main.notice.vo.Notice;
 public class NoticeServiceImpl implements NoticeService{
 	
 	@Autowired	//참조해서 쓸게!
-	private NoticeDAO noticeDao;
+	private NoticeDAO noticeDao;	//DAO 객체를 주입 받는 곳
 	
 	//목록 보기
 	@Override
@@ -26,30 +26,32 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 	
 	//상세페이지
+//	@Override
+//	public Notice getdetail(int notice_num) {
+//		
+//		Notice notice = noticeDao.getdetail(notice_num);
+//		
+//		return notice;
+//	}
+
+	//등록
+//	@Override
+//	public Notice insert(Notice notice) throws Exception{
+//		// TODO Auto-generated method stub
+//		List<Notice> list = noticeDao.insertNotice(notice);
+//		return notice;
+//	}
+
+	//수정
 	@Override
-	public Notice getdetail(int notice_num) {
-		
-		Notice notice = noticeDao.getdetail(notice_num);
-		
-		return notice;
+	public void update(Notice notice) throws Exception{
+		noticeDao.updateNotice(notice);
 	}
 
+	//삭제
 	@Override
-	public int insert(Notice notice) {
-		// TODO Auto-generated method stub
-		return noticeDao.insertNotice(notice);
-	}
-
-	@Override
-	public int update(Notice notice) {
-		// TODO Auto-generated method stub
-		return noticeDao.updateNotice(notice);
-	}
-
-	@Override
-	public int delete(int notice_num) {
-		// TODO Auto-generated method stub
-		return noticeDao.deleteNotice(notice_num);
+	public void delete(int notice_num) throws Exception{
+		noticeDao.deleteNotice(notice_num);
 	}
 
 

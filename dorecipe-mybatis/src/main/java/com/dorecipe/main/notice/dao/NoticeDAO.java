@@ -24,17 +24,18 @@ public interface NoticeDAO {
 	
 	//@Select("select * from Notice order by notice_num desc")
 	//목록 리스트
-	List<Notice> getList();
+	public List<Notice> getList();
+	
 	//상세페이지
-	Notice getdetail(int notice_num);
+//	Notice getdetail(int notice_num) throws Exception;
 	
 	
 	//삽입(등록)
-	int insertNotice(Notice notice);
+//	public void insertNotice(Notice notice) throws Exception;
 	//수정
-	int updateNotice(Notice notice);
+	public int updateNotice(Notice notice) throws Exception;
 	//삭제
-	int deleteNotice(int notice_num);
+	public int deleteNotice(int notice_num) throws Exception;
 
 
 }
