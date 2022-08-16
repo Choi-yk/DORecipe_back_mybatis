@@ -1,5 +1,27 @@
 package com.dorecipe.main.recipe.service;
 
-public interface RecipeService {
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.dorecipe.main.recipe.dao.RecipeDAO;
+import com.dorecipe.main.recipe.vo.RecipeVO;
+
+@Service
+public class RecipeService {
+
+	@Autowired
+	private RecipeDAO recipeDAO;
+	
+	public List<RecipeVO> getList(){
+		List<RecipeVO> recipeList = recipeDAO.getList();
+		return recipeList;
+	}
+
+	public RecipeVO getDetail(Integer recipe_num) {
+		RecipeVO recipeVO = recipeDAO.getDetail(recipe_num);
+		return recipeVO;
+	}
+	
 }

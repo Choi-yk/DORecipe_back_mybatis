@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dorecipe.main.event.service.EventService;
@@ -22,6 +23,14 @@ public class EventController {
 		List<EventVO> eList = eventService.getList();
 		model.addAttribute("eList", eList);
 		return "event";
+	}
+	
+	@RequestMapping("/detail/{event_num}")
+	public String detail(Model model, @PathVariable("event_num") Integer event_num) {
+		System.out.println("----------------eventController event_num : " + event_num);
+		EventVO eventVO = eventService.getDetail(event_num);
+		model.addAttribute("eventVO",eventVO);
+		return "eventDetail";
 	}
 	
 }

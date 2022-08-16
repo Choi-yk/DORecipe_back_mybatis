@@ -18,5 +18,10 @@ public class EventService {
 		List<EventVO> eList = eventDAO.getList();
 		return eList;
 	}
+
+	public EventVO getDetail(int event_num) {
+		EventVO eventVO = eventDAO.getDetail(event_num);
+		return eventVO;
+	}
 	
 }
