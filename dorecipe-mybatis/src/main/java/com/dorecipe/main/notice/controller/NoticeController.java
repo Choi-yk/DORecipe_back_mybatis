@@ -44,15 +44,28 @@ public class NoticeController {
 //	   
 //	   System.out.println(notice);
 //	   
-//	   return "notice_detail";
+//	   return "noticeDetail";
 //	}
 	
-//	@GetMapping("/insert")
-//	public String insert(Model model) throws Exception {
-//		List<Notice> list = service.insert(model);
-//		
-//		return "redirect:/notice/list";
-//	}
+	//공지사항 등록
+	@GetMapping("/insert")
+	public String insert(Notice notice) throws Exception {
+		service.insert(notice);
+		
+		System.out.println("공지사항 등록 성공!!!");
+		
+		return "redirect:/notice/list";
+	}
+	
+	//공지사항 수정
+	@GetMapping("/update/{notice_num}")
+	public String update(@PathVariable("notice_num") Integer notice_num,Notice notice) throws Exception {
+		service.update(notice_num, notice);
+		
+		System.out.println("공지사항 수정 성공~~~~");
+		
+		return "redirect:/notice/list";
+	}
 	
 	//공지사항 삭제
 	@GetMapping("/delete/{notice_num}")
@@ -65,5 +78,4 @@ public class NoticeController {
 	}
 	
 	
-
 }

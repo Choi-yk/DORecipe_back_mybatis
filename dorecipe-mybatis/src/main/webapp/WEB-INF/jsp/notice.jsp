@@ -26,7 +26,7 @@
 				<tr>
 					<td>${n.notice_num}</td>
 					<td>${n.member_id}</td>
-					<td>${n.notice_title}</td>
+					<td><a href="/notice/detail/${n.notice_num}">${n.notice_title}</td>
 					<td>${n.notice_content}</td>
 					<td>${n.notice_creDate}</td>
 					<td>
@@ -41,17 +41,20 @@
 	</table>
 	
 	<br>
+	<a href="noticeForm.jsp">공지사항 작성</a>
 	
-	<form method="post">
+	<br>
+	<form  method="post">
+			
 		<div>
-			<label for="subject">제목</label>
-			<input type="text">
+			<label for="notice_title">제목</label>
+			<input value="${notice_title}">
 		</div>
 		<div>
-			<label for="content">내용</label>
-			<textarea cols="50" rows=10" id="notice_content"></textarea>
+			<label for="notice_content">내용</label>
+			<input value="${notice_content}">
 		</div>
-		<input type="submit" value="저장">
+		<a href="${contextPath}/notice/insert">등록</a>
 	</form>
 	
 </body>

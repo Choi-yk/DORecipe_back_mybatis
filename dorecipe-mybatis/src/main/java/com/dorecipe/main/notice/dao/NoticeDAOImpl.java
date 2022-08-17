@@ -44,15 +44,17 @@ public class NoticeDAOImpl implements NoticeDAO{
 //	}
 
 	//공지사항 등록(삽입)
-//	@Override
-//	public void insertNotice(Notice notice) throws Exception{
-//		//return mapper.insertNotice(notice);
-//		return sqlSession.insert("mapper.notice.insertNotice",notice);
-//	}
+	@Override
+	public int insertNotice(Notice notice) throws Exception{
+		
+		return sqlSession.insert("mapper.notice.insertNotice",notice);
+		
+		//return mapper.insertNotice(notice);
+	}
 
 	//공지사항 수정
 	@Override
-	public int updateNotice(Notice notice) throws Exception{
+	public int updateNotice(int notice_num,Notice notice) throws Exception{
 		//return mapper.updateNotice(notice);
 		return sqlSession.update("mapper.notice.updateNotice",notice);
 	}

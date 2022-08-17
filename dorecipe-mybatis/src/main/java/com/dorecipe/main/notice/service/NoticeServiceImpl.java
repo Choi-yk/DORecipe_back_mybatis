@@ -35,17 +35,15 @@ public class NoticeServiceImpl implements NoticeService{
 //	}
 
 	//등록
-//	@Override
-//	public Notice insert(Notice notice) throws Exception{
-//		// TODO Auto-generated method stub
-//		List<Notice> list = noticeDao.insertNotice(notice);
-//		return notice;
-//	}
+	@Override
+	public void insert(Notice notice) throws Exception{
+		noticeDao.insertNotice(notice);
+	}
 
 	//수정
 	@Override
-	public void update(Notice notice) throws Exception{
-		noticeDao.updateNotice(notice);
+	public void update(int notice_num,Notice notice) throws Exception{
+		noticeDao.updateNotice(notice_num, notice);
 	}
 
 	//삭제

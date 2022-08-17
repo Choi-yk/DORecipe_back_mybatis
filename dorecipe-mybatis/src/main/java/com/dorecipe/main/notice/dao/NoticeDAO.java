@@ -31,9 +31,9 @@ public interface NoticeDAO {
 	
 	
 	//삽입(등록)
-//	public void insertNotice(Notice notice) throws Exception;
+	public int insertNotice(Notice notice) throws Exception;
 	//수정
-	public int updateNotice(Notice notice) throws Exception;
+	public int updateNotice(int notice_num,Notice notice) throws Exception;
 	//삭제
 	public int deleteNotice(int notice_num) throws Exception;
 

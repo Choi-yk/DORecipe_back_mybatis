@@ -16,10 +16,10 @@ public interface NoticeService {
 //	Notice getdetail(int notice_num);
 	
 	//등록
-//	List<Notice> insert(Model model) throws Exception;
+	void insert(Notice notice) throws Exception;
 	
 	//수정
-	void update(Notice notice) throws Exception;
+	void update(int notice_num,Notice notice) throws Exception;
 	
 	//삭제
 	void delete(int notice_num) throws Exception;
