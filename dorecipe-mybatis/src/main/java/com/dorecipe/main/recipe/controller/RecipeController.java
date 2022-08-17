@@ -30,9 +30,18 @@ public class RecipeController {
 	
 	@RequestMapping("/detail/{recipe_num}")
 	public String detail(Model model, @PathVariable Integer recipe_num) {
+		
+	//레시피번호확인
 	System.out.println("------------------recipeController recipe_num : " + recipe_num);
+	
 	RecipeVO recipeVO = recipeService.getDetail(recipe_num);
+	List<RecipeVO> recipeBundle = recipeService.getBundle(recipe_num);
+	List<RecipeVO> recipeOrder = recipeService.getOrder(recipe_num);
+	
 	model.addAttribute("recipeVO",recipeVO);
+	model.addAttribute("recipeBundle",recipeBundle);
+	model.addAttribute("recipeOrder",recipeOrder);
+	
 	return "recipeDetail";
 	}
 	

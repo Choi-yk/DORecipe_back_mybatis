@@ -16,7 +16,7 @@ public class RecipeDAOImpl implements RecipeDAO{
 	@Autowired
 	public RecipeDAOImpl(SqlSession sqlSession) {
 		mapper = sqlSession.getMapper(RecipeDAO.class);
-	}
+	} 
 	
 	@Override
 	public List<RecipeVO> getList() {
@@ -26,6 +26,16 @@ public class RecipeDAOImpl implements RecipeDAO{
 	@Override
 	public RecipeVO getDetail(Integer recipe_num) {
 		return mapper.getDetail(recipe_num);
+	}
+	
+	@Override
+	public List<RecipeVO> getBundle(Integer recipe_num) {
+		return mapper.getBundle(recipe_num);
+	}
+	
+	@Override
+	public List<RecipeVO> getOrder(Integer recipe_num) {
+		return mapper.getOrder(recipe_num);
 	}
 	
 }

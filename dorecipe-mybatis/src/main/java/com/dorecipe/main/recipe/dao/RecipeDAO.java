@@ -10,4 +10,8 @@ public interface RecipeDAO {
 
 	RecipeVO getDetail(Integer recipe_num);
 	
+	List<RecipeVO> getBundle(Integer recipe_num);
+	
+	List<RecipeVO> getOrder(Integer recipe_num);
+	
 }

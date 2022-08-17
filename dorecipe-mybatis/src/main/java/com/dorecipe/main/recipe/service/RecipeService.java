@@ -24,4 +24,14 @@ public class RecipeService {
 		return recipeVO;
 	}
 	
+	public List<RecipeVO> getBundle(Integer recipe_num) {
+		List<RecipeVO> recipeBundle = recipeDAO.getBundle(recipe_num);
+		return recipeBundle;
+	}
+	
+	public List<RecipeVO> getOrder(Integer recipe_num) {
+		List<RecipeVO> recipeOrder = recipeDAO.getOrder(recipe_num);
+		return recipeOrder;
+	}
+	
 }
