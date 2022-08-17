@@ -20,8 +20,9 @@
 	<select id="selectAllMemberList" resultType="com.dorecipe.main.member.vo.MemberVO">
 		select * from member
 	</select>
+
 <!-- 	
-	<select id="findByMemberId" resultType="string">
+	<select id="findByMemberId" resultType="com.dorecipe.main.member.vo.MemberVO">
 		select member_id from member where member_name = #{member_name} and member_phone = #{member_phone}
 	</select>
 -->		
@@ -30,19 +31,26 @@
 		set member_pwd=#{member_pwd} and member_email=#{member_email} and member_gender=#{member_gender} and member_phone=#{member_phone}
 		where member_id = #{member_id}
 	</update>
-<!-- 
+	
+	<insert id="insertMember" parameterType="com.dorecipe.main.member.dao.MemberDAO">
+		insert into member
+		values(#{member_id}, #{member_pwd}, #{member_name}, "ex@gmail.com" , #{member_gender},
+		 #{member_birth}, #{member_phone}, #{member_imagePath}, now(), #{member_like}, "member")
+	</insert>
+<!--	
 	<insert id="insertMember" parameterType="com.dorecipe.main.member.vo.MemberVO">
 		insert into member
-		values(#{member_id}, #{member_pwd}, #{member_name}, #{member_email}, #{member_gender},
-		 #{member_birth}, #{member_phone}, #{member_imagePath}, now(), #{member_like}, #{member_role})
+		values("ddd", "ddd", "디디", "ddd@naver.com", "여자",
+		 "2004/01/01", "01020040101", null, now(), 0, "member")
 	</insert>
- -->	
-	<insert id="insertMember" parameterType="com.dorecipe.main.member.vo.MemberVO">
-		insert into member(member_id, member_pwd, member_name, member_email, member_gender, member_birth, member_phone, member_joinDate, member_role)
+
+	<insert id="insertMember" parameterType="com.dorecipe.main.member.dao.MemberDAO">
+		insert into member(member_id, member_pwd, member_name, member_email, member_gender, member_birth, member_phone, member_joinDate,member_role)
 		values(#{member_id}, #{member_pwd}, #{member_name}, #{member_email}, #{member_gender},
 		 #{member_birth}, #{member_phone}, now(), #{member_role})
 	</insert>
-
+ -->
+	
 	<delete id="deleteMember" parameterType="string">
 		delete from member where member_id = #{member_id}
 	</delete>

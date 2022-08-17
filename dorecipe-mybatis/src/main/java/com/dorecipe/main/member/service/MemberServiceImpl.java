@@ -33,9 +33,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	//회원 정보 수정
 	@Override
-	public int ModifyMember() throws Exception {
+	public int ModifyMember(String id, MemberVO memberVO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return memberDAO.updateMember(id, memberVO);
 	}
 	
 	// 회원 등록(가입)

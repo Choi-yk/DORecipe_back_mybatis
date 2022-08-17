@@ -20,6 +20,7 @@
 				<th>이름</th>
 				<th>아이디</th>
 				<th>이메일</th>
+				<th>수정</th>
 				<th>삭제</th>
 			</tr>
 		</thead>
@@ -28,6 +29,9 @@
 				<td>${member.member_name}</td>
 				<td>${member.member_id}</td>
 		   		<td>${member.member_email}</td>
+		   		<td>
+		   			<a href="${contextPath}/member/update">수정</a>
+		   		</td>
 		   		<td>
 		   			<a href="${contextPath}/member/delete/${member.member_id}">삭제</a>
 		   		</td>

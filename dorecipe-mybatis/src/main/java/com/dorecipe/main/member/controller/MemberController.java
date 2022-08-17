@@ -1,5 +1,6 @@
 package com.dorecipe.main.member.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +42,7 @@ public class MemberController {
 	}
 	
 	// 회원 정보 수정
-	public String Update() {
+	public String Update(String id, MemberVO memberVO) {
 		return null;
 	}
 	
@@ -52,7 +53,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/join")
-	public String Join(/*HttpServletRequest request*/ MemberVO memberVO) throws Exception {
+	public String Join(MemberVO memberVO /*Model model, HttpServletRequest request*/) throws Exception {
 		//MemberVO memberVO = (MemberVO) request.getParameterMap();
 		
 		memberService.JoinMember(memberVO);
