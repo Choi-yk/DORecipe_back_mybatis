@@ -2,11 +2,14 @@ package com.dorecipe.main.member.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RestController;
 
@@ -38,8 +41,27 @@ public class MemberController {
 	}
 	
 	// 회원 정보 수정
+	public String Update() {
+		return null;
+	}
 	
 	// 회원 등록(가입)
+	@GetMapping("/join")
+	public String Join() throws Exception {
+		return "member_form";
+	}
+	
+	@PostMapping("/join")
+	public String Join(/*HttpServletRequest request*/ MemberVO memberVO) throws Exception {
+		//MemberVO memberVO = (MemberVO) request.getParameterMap();
+		
+		memberService.JoinMember(memberVO);
+		
+		System.out.println("등록됨 - Controller");
+		
+		return "redirect:/member/list";
+		//return memberService.JoinMember(memberVO);
+	}
 	
 	// 회원 삭제(탈퇴)
 	@GetMapping("/delete/{member_id}")

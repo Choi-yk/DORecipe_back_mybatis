@@ -20,6 +20,8 @@ public class MemberDAOImpl implements MemberDAO {
 		List<MemberVO> membersList = null;
 		membersList = sqlSession.selectList("mapper.member.selectAllMemberList");
 		
+		System.out.println("MemberDAO - selectAllMemberList");
+		
 		return membersList;
 	}
 	
@@ -32,6 +34,7 @@ public class MemberDAOImpl implements MemberDAO {
 	// 회원 등록(가입)
 	@Override
 	public int insertMember(MemberVO memberVO) throws Exception {
+
 		return sqlSession.insert("mapper.member.insertMember", memberVO);
 	}
 

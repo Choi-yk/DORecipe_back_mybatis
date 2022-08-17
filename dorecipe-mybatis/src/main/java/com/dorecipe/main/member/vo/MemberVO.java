@@ -2,6 +2,8 @@ package com.dorecipe.main.member.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,9 +15,11 @@ public class MemberVO {
 	private String member_name;
 	private String member_email;
 	private String member_gender;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date member_birth;
 	private String member_phone;
 	private String member_imagePath;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date member_joinDate;
 	private int member_like;
 	private String member_role;
