@@ -40,21 +40,18 @@
 		</tbody>
 	</table>
 	
-	<br>
-	<a href="noticeForm.jsp">공지사항 작성</a>
 	
 	<br>
-	<form  method="post">
-			
+	<form action="/notice/insert" method="post">
 		<div>
 			<label for="notice_title">제목</label>
-			<input value="${notice_title}">
+			<input type="text" name="notice_title">
 		</div>
 		<div>
 			<label for="notice_content">내용</label>
-			<input value="${notice_content}">
+			<input type="text" name="notice_content">
 		</div>
-		<a href="${contextPath}/notice/insert">등록</a>
+		<button type="submit">등록</button>
 	</form>
 	
 </body>

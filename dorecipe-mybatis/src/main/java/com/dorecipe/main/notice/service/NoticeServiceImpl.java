@@ -36,8 +36,14 @@ public class NoticeServiceImpl implements NoticeService{
 
 	//등록
 	@Override
-	public void insert(Notice notice) throws Exception{
-		noticeDao.insertNotice(notice);
+	public int insert(Notice notice) throws Exception{
+		
+		System.out.println("NoticeServiceImpl - insert함수 부분");
+		
+		System.out.println("!!!!!!!!!!!!!!!!notice title " + notice.getNotice_title());
+		System.out.println("!!!!!!!!!!!!!!!!notice content " + notice.getNotice_content());
+		return noticeDao.insertNotice(notice);
+		
 	}
 
 	//수정

@@ -16,7 +16,7 @@ public interface NoticeService {
 //	Notice getdetail(int notice_num);
 	
 	//등록
-	void insert(Notice notice) throws Exception;
+	public int insert(Notice notice) throws Exception;
 	
 	//수정
 	void update(int notice_num,Notice notice) throws Exception;

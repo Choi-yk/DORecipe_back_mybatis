@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dorecipe.main.notice.dao.NoticeDAO;
@@ -48,11 +50,15 @@ public class NoticeController {
 //	}
 	
 	//공지사항 등록
-	@GetMapping("/insert")
+	@PostMapping("/insert")
 	public String insert(Notice notice) throws Exception {
+
+		System.out.println("Controller!!!! notice title " + notice.getNotice_title());
+		System.out.println("Controller!!!! notice content " + notice.getNotice_content());
+		
 		service.insert(notice);
 		
-		System.out.println("공지사항 등록 성공!!!");
+		System.out.println("공지사항 등록 성공!!! - controller");
 		
 		return "redirect:/notice/list";
 	}
