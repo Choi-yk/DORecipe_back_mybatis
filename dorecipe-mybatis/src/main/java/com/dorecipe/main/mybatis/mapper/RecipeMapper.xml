@@ -6,7 +6,7 @@
 
 	<!-- 저장한 레시피목록 - savetype=0 -->
 	<select id="getList" resultType="com.dorecipe.main.recipe.vo.RecipeVO">
-		select recipe_num,recipe_rpath,recipe_title,information_level from recipe where recipe_savetype=0 order by recipe_num desc
+		select * from recipe where recipe_savetype=0 order by recipe_num desc
 	</select>
 	
 	<select id="getDetail" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="int">
@@ -14,7 +14,7 @@
       where recipe_num = #{recipe_num}		
   	</select>
   	
-  	<!-- 레시피재료조회 -->
+  	<!-- 레시피재료 조회 -->
 	<select id="getBundle" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="int">
 	  select r.recipe_num,r.bundle,b.ing_ingredient,b.ing_amount from r_bundle r
 	  inner join b_ingredient b
@@ -22,12 +22,17 @@
       where r.recipe_num = #{recipe_num}
   	</select>
   	
-  	<!-- 요리순서조회 -->
+  	<!-- 요리순서 조회 -->
 	<select id="getOrder" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="int">
 	  select r.recipe_num,o.order_num,o.order_explain,o.order_path from recipe r
 	  inner join r_order o
       on r.recipe_num=o.recipe_num
       where r.recipe_num = #{recipe_num}
+  	</select>
+  	
+  	<!-- 코멘트 조회 -->
+	<select id="getComment" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="int">
+	  select * from comment where recipe_num=#{recipe_num} order by comment_num desc
   	</select>
 	
 </mapper>

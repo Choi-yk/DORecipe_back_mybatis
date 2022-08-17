@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class RecipeVO {
 
+	//레시피테이블
 	private int recipe_num;
 	private String recipe_title;
 	private int recipe_savetype;
@@ -31,19 +32,25 @@ public class RecipeVO {
 	private Date recipe_creDate;
 	private String member_id;
 	
-	
+	//요리묶음 테이블
 	private int bundle_num;
 	private String bundle;
 	
-	
+	//요리재료 테이블
 	private int ing_num;
 	private String ing_ingredient;
 	private String ing_amount;
 	
-	
+	//요리순서 테이블
 	private int order_num;
 	private String order_explain;
 	private String order_path;
+	
+	//코멘트 테이블
+	private int comment_num;
+	private String comment_content;
+	private String comment_path;
+	private Date comment_creDate;
 	
 	
 }

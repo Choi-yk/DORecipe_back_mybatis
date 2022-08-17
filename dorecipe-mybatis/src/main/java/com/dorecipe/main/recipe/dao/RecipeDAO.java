@@ -14,4 +14,7 @@ public interface RecipeDAO {
 	
 	List<RecipeVO> getOrder(Integer recipe_num);
 	
+	List<RecipeVO> getComment(Integer recipe_num);
+	
+	
 }
