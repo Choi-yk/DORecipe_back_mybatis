@@ -30,10 +30,15 @@ const NoticePage = () => {
               <div className="noticeNo">No.</div>
               <div className="noticeTitle">제목</div>
               <div className="noticeDate">작성일자</div>
-              <div className="removeOrDelete">수정 및 삭제</div>
+              <div className="updateOrDelete">수정 및 삭제</div>
             </div>
             {state.map((e) => (
-              <NoticeList key={e.id} removePost={removePost} state={e} />
+              <NoticeList
+                key={e.id}
+                removePost={removePost}
+                // updatePost={updatePost}
+                state={e}
+              />
             ))}
           </ul>
         </div>

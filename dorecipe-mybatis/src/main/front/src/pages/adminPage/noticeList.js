@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const NoticeList = ({ removePost, state }) => {
   const removePostOnclick = () => {
     removePost(state.id);
@@ -9,9 +11,13 @@ const NoticeList = ({ removePost, state }) => {
         <div className="noticeTitle">{state.NoticeTitle}</div>
 
         <div className="noticeDate">{state.NoticeDate}</div>
-        <div className="removeOrDelete">
-          <button>수정</button>
-          <button onClick={removePostOnclick}>삭제</button>
+        <div className="updateOrDelete">
+          <Link className="updateList" to={`/notice/${state.id}`}>
+            수정
+          </Link>
+          <span className="deleteList" onClick={removePostOnclick}>
+            삭제
+          </span>
         </div>
       </li>
     </>
