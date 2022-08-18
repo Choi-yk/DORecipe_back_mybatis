@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -34,6 +35,12 @@ public class EventController {
 		EventVO eventVO = eventService.getDetail(event_num);
 		model.addAttribute("eventVO",eventVO);
 		return "eventDetail";
+	}
+	
+	@GetMapping("/delete/{event_num}")
+	public String Delete(@PathVariable("event_num") Integer event_num) throws Exception {
+		eventService.deleteEvent(event_num);
+		return "redirect:/event/list";	
 	}
 	
 }

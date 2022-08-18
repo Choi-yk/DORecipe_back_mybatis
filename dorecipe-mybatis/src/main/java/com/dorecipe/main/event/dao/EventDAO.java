@@ -12,4 +12,6 @@ public interface EventDAO {
 
 	EventVO getDetail(int event_num);
 	
+	int deleteEvent(int event_num);
+	
 }

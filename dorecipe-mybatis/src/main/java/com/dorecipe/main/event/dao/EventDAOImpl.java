@@ -28,4 +28,8 @@ public class EventDAOImpl implements EventDAO {
 		return mapper.getDetail(event_num);
 	}
 	
+	@Override
+	public int deleteEvent(int event_num) {
+		return mapper.deleteEvent(event_num);
+	}
 }

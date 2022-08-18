@@ -24,4 +24,8 @@ public class EventService {
 		return eventVO;
 	}
 	
+	public int deleteEvent(int event_num) {
+		return eventDAO.deleteEvent(event_num);
+	}
+	
 }

@@ -18,6 +18,7 @@
 				<th> No. </th>
 				<th> 제목 </th>
 				<th> 참여 기간 </th>
+				<th> 삭제 </th>
 			</tr>
 		</thead>
 		<tbody>
@@ -29,6 +30,9 @@
 						${e.event_title}</a>
 					</td>
 					<td>${e.event_creDate}~${e.event_finDate}</td>
+					<td>
+						<a href="${contextPath}/event/delete/${e.event_num}">삭제</a>
+					</td>
 				</tr>
 			</c:forEach>	
 		</tbody>
