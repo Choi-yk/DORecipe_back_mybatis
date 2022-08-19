@@ -37,5 +37,31 @@
 			</c:forEach>	
 		</tbody>
 	</table>
+	
+	<br>
+	<form action="/event/insert" method="post">
+		<div>
+			<label for="event_title">제목</label>
+			<input type="text" name="event_title">
+		</div>
+		<div>
+			<label for="event_path">파일경로</label>
+			<input type="text" name="event_path">
+		</div>
+		<div>
+			<label for="event_content">내용</label>
+			<input type="text" name="event_content">
+		</div>
+		<div>
+			<label for="event_creDate">시작날짜</label>
+			<input type="date" name="event_creDate">
+		</div>
+		<div>
+			<label for="event_finDate">종료</label>
+			<input type="date" name="event_finDate">
+		</div>
+		<button type="submit">등록</button>
+	</form>
+	
 </body>
 </html>

@@ -1,6 +1,5 @@
 package com.dorecipe.main.event.vo;
 
-import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +17,7 @@ public class EventVO {
 	private String event_title;
 	private String event_content;
 	private String event_path;
-	private Date event_creDate;
-	private Date event_finDate;
+	private String event_creDate;
+	private String event_finDate;
 	
 }

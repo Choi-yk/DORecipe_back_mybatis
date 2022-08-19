@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dorecipe.main.event.service.EventService;
@@ -35,6 +36,12 @@ public class EventController {
 		EventVO eventVO = eventService.getDetail(event_num);
 		model.addAttribute("eventVO",eventVO);
 		return "eventDetail";
+	}
+	
+	@PostMapping("/insert")
+	public String insertEvent(EventVO eventVO) {
+		eventService.insertEvent(eventVO);
+		return "redirect:/event/list";
 	}
 	
 	@GetMapping("/delete/{event_num}")

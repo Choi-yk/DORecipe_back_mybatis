@@ -23,9 +23,15 @@ public class EventService {
 		EventVO eventVO = eventDAO.getDetail(event_num);
 		return eventVO;
 	}
+
 	
 	public int deleteEvent(int event_num) {
 		return eventDAO.deleteEvent(event_num);
 	}
+
+	public int insertEvent(EventVO eventVO) {
+		return eventDAO.insertEvent(eventVO);
+	}
+
 	
 }
