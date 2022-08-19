@@ -1,6 +1,7 @@
 package com.dorecipe.main.event.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ public class EventDAOImpl implements EventDAO {
 	@Override
 	public EventVO getDetail(int event_num) {
 		return mapper.getDetail(event_num);
+	}
+	
+	@Override
+	public int insertEvent(EventVO eventVO) {
+		return mapper.insertEvent(eventVO);
 	}
 	
 	@Override
