@@ -1,4 +1,8 @@
 const NoticeDetailPage = () => {
-  return "공지 상세 페이지입니다";
+  return (
+    <>
+      <div>공지사항 상세</div>
+    </>
+  );
 };
 export default NoticeDetailPage;

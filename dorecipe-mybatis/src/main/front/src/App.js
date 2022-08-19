@@ -2,9 +2,9 @@
 import axios from "axios";
 import { useState, useCallback, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NoticePage from "./pages/adminPage";
-import NoticeDetailPage from "./pages/adminPage";
-
+import NoticePage from "./pages/noticePage/noticeListPage";
+import NoticeDetailPage from "./pages/noticePage/noticeDetailPage";
+import AdminPostMng from "./pages/adminPage";
 function App() {
   // const [hello, setHello] = useState("");
 
@@ -19,6 +19,8 @@ function App() {
       <Routes>
         <Route path={"/notice"} element={<NoticePage />} />
         <Route path={"/notice/:noticeId"} element={<NoticeDetailPage />} />
+        <Route path={"/notice/create"} element={<AdminPostMng />} />
+        {/* 별도록 jwt설정해줘서 관리자로 로그인 시에만 접근하도록 하기 */}
       </Routes>
     </BrowserRouter>
   );

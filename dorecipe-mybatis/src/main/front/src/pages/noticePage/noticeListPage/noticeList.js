@@ -8,11 +8,14 @@ const NoticeList = ({ removePost, state }) => {
     <>
       <li>
         <div className="noticeNo">{state.id}</div>
-        <div className="noticeTitle">{state.NoticeTitle}</div>
+        {/* <div className="noticeTitle">{state.NoticeTitle}</div> */}
+        <Link className="noticeTitle" to={`/notice/${state.id}`}>
+          {state.NoticeTitle}
+        </Link>
 
         <div className="noticeDate">{state.NoticeDate}</div>
         <div className="updateOrDelete">
-          <Link className="updateList" to={`/notice/${state.id}`}>
+          <Link className="updateList" to={`/admin/${state.id}`}>
             수정
           </Link>
           <span className="deleteList" onClick={removePostOnclick}>
