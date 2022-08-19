@@ -1,23 +1,42 @@
 import "./style.css";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import NoticeList from "./noticeList";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 const NoticePage = () => {
   const [state, setState] = useState([
     {
-      id: 1,
-      NoticeTitle: "공지 사항1",
-      NoticeDate: "2022/08/18",
-    },
-    {
-      id: 2,
-      NoticeTitle: "공지 사항2",
-      NoticeDate: "2022/08/18",
+      notice_num: 0,
+      notice_title: "",
+      notice_content: "",
+      notice_creDate: "",
     },
   ]);
 
-  const removePost = useCallback((id) => {
-    const removeState = state.filter((item) => item.id !== id);
+  function testAxios() {
+    axios({
+      url: "/notice/list",
+      method: "get",
+      data: {
+        notice_num: "test1",
+        notice_title: "test1",
+        notice_content: "test입닌당",
+        notice_creDate: "2022/08/17",
+      },
+      baseURL: "http://localhost:9000",
+    }).then(function (response) {
+      console.log(response.data);
+      console.log(response.data[0]);
+      setState(response.data);
+    });
+  }
+  useEffect(() => {
+    testAxios();
+  }, []);
+
+  const removePost = useCallback((notice_num) => {
+    const removeState = state.filter((item) => item.notice_num !== notice_num);
     setState(removeState);
   });
 
@@ -38,7 +57,7 @@ const NoticePage = () => {
             </div>
             {state.map((e) => (
               <NoticeList
-                key={e.id}
+                key={e.notice_num}
                 removePost={removePost}
                 // updatePost={updatePost}
                 state={e}
@@ -46,6 +65,7 @@ const NoticePage = () => {
             ))}
           </ul>
         </div>
+        {/* <button onClick={() => testAxios()}>axiosTest</button> */}
       </div>
     </>
   );
