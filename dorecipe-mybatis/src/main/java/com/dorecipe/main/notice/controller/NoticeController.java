@@ -5,26 +5,38 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.dorecipe.main.notice.dao.NoticeDAO;
 import com.dorecipe.main.notice.service.NoticeService;
 import com.dorecipe.main.notice.vo.Notice;
 
 import lombok.RequiredArgsConstructor;
-
-@RequestMapping("/notice")
+@CrossOrigin(origins="http://localhost:3000")
+@RequestMapping(value="/notice")
 @RequiredArgsConstructor	//생성자 주입을 위한.
-@Controller
+@RestController
 public class NoticeController {
 	
 	@Autowired
 	private NoticeService service;	//interface자료형
+	
+	@Autowired
+	private NoticeDAO noticeDao;
+	
+	@RequestMapping(path="/list", method =RequestMethod.GET)
+	public List<Notice> getNotice() {
+		return noticeDao.getList();
+	}
+	
 	
 	//공지사항 전체 목록
 	@RequestMapping("/list")

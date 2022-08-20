@@ -15,14 +15,13 @@ function App() {
   //     .catch((error) => console.log(error));
   // }, []);
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={"/notice"} element={<NoticePage />} />
-        <Route path={"/notice/:noticeId"} element={<NoticeDetailPage />} />
-        <Route path={"/notice/create"} element={<AdminPostMng />} />
-        {/* 별도록 jwt설정해줘서 관리자로 로그인 시에만 접근하도록 하기 */}
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      {/* <Route path={"/notice/list"} element={<NoticePage />} /> */}
+      <Route path={"/"} element={<NoticePage />} />
+      <Route path={"/notice/:noticeId"} element={<NoticeDetailPage />} />
+      <Route path={"/notice/create"} element={<AdminPostMng />} />
+      {/* 별도록 jwt설정해줘서 관리자로 로그인 시에만 접근하도록 하기 */}
+    </Routes>
   );
 
   // return <div>백엔드에서 가져온 데이터입니다 : {hello}</div>;
