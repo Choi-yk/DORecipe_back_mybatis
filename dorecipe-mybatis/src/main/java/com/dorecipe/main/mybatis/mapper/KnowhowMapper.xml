@@ -6,6 +6,11 @@
 		select * from knowhow
 	</select>
 	
+	<insert id="insertKnowhow" parameterType="com.dorecipe.main.knowhow.dao.KnowhowDAO">
+		insert into knowhow(member_id,know_title,know_content,know_creDate,know_path)
+		values("admin",#{know_title},#{know_content},now(),#{know_path})
+	</insert>
+	
 	<delete id="deleteKnowhow" parameterType="int">
 		delete from knowhow where know_num = #{know_num}
 	</delete>

@@ -19,6 +19,7 @@
 			<tr>
 				<th>등록번호</th>
 				<th>제목</th>
+				<th>내용</th>
 				<th>작성일</th>
 				<th>수정</th>
 				<th>삭제</th>
@@ -29,6 +30,7 @@
 				<tr>
 					<td>${knowhow.know_num}</td>
 					<td>${knowhow.know_title}</td>
+					<td>${knowhow.know_content}</td>
 			   		<td>${knowhow.know_creDate}</td>
 			   		<td>
 			   			<a href="${contextPath}/knowhow/update/${knowhow.know_num}">수정</a>
@@ -40,5 +42,8 @@
 			</c:forEach>
 		</tbody>
 	   </table>
+	   
+	   <br>
+	   <a href="${contextPath}/knowhow/insert">노하우 등록하기</a>
 </body>
 </html>

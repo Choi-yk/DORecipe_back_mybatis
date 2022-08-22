@@ -22,6 +22,13 @@ public class KnowhowDAOImpl implements KnowhowDAO {
 		
 		return knowhowList;
 	}
+	
+	// 노하우 게시물 등록
+	@Override
+	public int insertKnowhow(KnowhowVO knowhowVO) throws Exception {
+		
+		return sqlSession.insert("mapper.knowhow.insertKnowhow", knowhowVO);
+	}
 
 	// 노하우 게시물 삭제
 	@Override

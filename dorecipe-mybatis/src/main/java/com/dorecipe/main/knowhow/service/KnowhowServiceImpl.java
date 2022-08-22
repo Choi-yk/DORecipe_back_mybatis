@@ -24,6 +24,18 @@ public class KnowhowServiceImpl implements KnowhowService {
 		return knowhowList;
 	}
 
+	//등록
+	@Override
+	public int insertKnowhow(KnowhowVO knowhowVO) throws Exception{
+		
+		System.out.println("!!!!!!!!!knowhow title " + knowhowVO.getKnow_title());
+		System.out.println("!!!!!!!!!knowhow content " + knowhowVO.getKnow_content());
+		
+		return knowhowDAO.insertKnowhow(knowhowVO);
+		
+	}
+	
+	
 	//삭제
 	@Override
 	public int deleteKnowhow(int know_num) throws Exception {
