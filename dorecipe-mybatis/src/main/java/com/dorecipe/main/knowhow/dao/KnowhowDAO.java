@@ -11,5 +11,5 @@ public interface KnowhowDAO {
 	// 노하우 게시물 수정
 	
 	// 노하우 게시물 삭제
-	public int deleteKnowhow(int id) throws Exception;
+	public int deleteKnowhow(int know_num) throws Exception;
 }

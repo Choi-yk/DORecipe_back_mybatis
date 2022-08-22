@@ -24,9 +24,10 @@ public class KnowhowServiceImpl implements KnowhowService {
 		return knowhowList;
 	}
 
+	//삭제
 	@Override
-	public int DeleteKnowhow(int know_num) throws Exception {
+	public int deleteKnowhow(int know_num) throws Exception {
 		return knowhowDAO.deleteKnowhow(know_num);
 	}
-	
+
 }

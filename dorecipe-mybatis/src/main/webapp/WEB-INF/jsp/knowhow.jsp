@@ -26,15 +26,17 @@
 		</thead>
 		<tbody>
 			<c:forEach var="knowhow" items="${knowhowList}">
-				<td>${knowhow.know_num}</td>
-				<td>${knowhow.know_title}</td>
-		   		<td>${knowhow.know_creDate}</td>
-		   		<td>
-		   			<a href="#">수정</a>
-		   		</td>
-		   		<td>
-		   			<a href="${contextPath}/knowhow/delete/${knowhow.know_num}">삭제</a>
-		   		</td>
+				<tr>
+					<td>${knowhow.know_num}</td>
+					<td>${knowhow.know_title}</td>
+			   		<td>${knowhow.know_creDate}</td>
+			   		<td>
+			   			<a href="${contextPath}/knowhow/update/${knowhow.know_num}">수정</a>
+			   		</td>
+			   		<td>
+			   			<a href="${contextPath}/knowhow/delete/${knowhow.know_num}">삭제</a>
+			   		</td>
+		   		</tr>
 			</c:forEach>
 		</tbody>
 	   </table>
