@@ -35,10 +35,24 @@ public class KnowhowController {
 		return "knowhow";
 	}
 	
+	// 노하우 상세 조회
+	@RequestMapping("/detail/{know_num}")
+	public String detail(Model model, @PathVariable("know_num") Integer know_num) throws Exception {
+		
+		KnowhowVO knowhowVO = knowhowService.getDetail(know_num);
+		model.addAttribute("knowhowVO", knowhowVO);
+		
+		System.out.println("Controller!!!! knowhow title " + knowhowVO.getKnow_title());
+		System.out.println("Controller!!!! knowhow content " + knowhowVO.getKnow_content());
+		
+		
+		return "knowhowDetail";
+	}
+	
 	// 노하우 등록 페이지 이동
 	@GetMapping("/insert")
 	public String insert() throws Exception{
-		return "knowhowDetail";
+		return "knowhowInsert";
 	}
 	
 	// 노하우 게시물 등록
@@ -56,6 +70,13 @@ public class KnowhowController {
 	}
 	
 	// 노하우 게시물 수정
+//	@GetMapping("/update/{know_num}")
+//	public String update(@PathVariable("know_num") Integer know_num, KnowhowVO knowhowVO) throws Exception {
+//		
+//		knowhowService.updateKnowhow(know_num,knowhowVO);
+//		
+//		return "redirect:/knowhow/list";
+//	}
 	
 	// 노하우 게시물 삭제
 	@GetMapping("/delete/{know_num}")

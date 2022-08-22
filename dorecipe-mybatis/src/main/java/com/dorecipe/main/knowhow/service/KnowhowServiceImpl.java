@@ -24,6 +24,18 @@ public class KnowhowServiceImpl implements KnowhowService {
 		return knowhowList;
 	}
 
+	//상세보기
+	@Override
+	public KnowhowVO getDetail(Integer know_num) throws Exception {
+		KnowhowVO knowhowVO = knowhowDAO.getDetail(know_num);
+		
+		System.out.println("!!!!!!!!!knowhow title " + knowhowVO.getKnow_title());
+		System.out.println("!!!!!!!!!knowhow content " + knowhowVO.getKnow_content());
+		
+		
+		return knowhowVO;
+	}
+	
 	//등록
 	@Override
 	public int insertKnowhow(KnowhowVO knowhowVO) throws Exception{

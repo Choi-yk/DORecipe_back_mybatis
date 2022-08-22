@@ -4,22 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>노하우 등록 페이지</title>
+<title>노하우 상세 페이지</title>
 </head>
 <body>
-	
-	<form action="/knowhow/insert" method="post">
-		<div>
-			<label for="know_title">제목</label>
-			<input type="text" name="know_title">
-		</div>
-		<div>
-			<label for="know_content">내용</label>
-			<input type="text" name="know_content">
-		</div>
-		<button type="submit">등록</button>
-	</form>
-	
-	
+	<h1>${know_title}</h1><br>
+	<h3>${know_content}</h3>
+	<h4>${know_path}</h4>
 </body>
 </html>
