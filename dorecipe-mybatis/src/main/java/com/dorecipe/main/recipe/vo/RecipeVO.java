@@ -1,7 +1,5 @@
 package com.dorecipe.main.recipe.vo;
 
-import java.util.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,7 +27,7 @@ public class RecipeVO {
 	private String completion_path3;
 	private String completion_path4;
 	private String completion_tip;
-	private Date recipe_creDate;
+	private String recipe_creDate;
 	private String member_id;
 	
 	//요리묶음 테이블
@@ -50,7 +48,7 @@ public class RecipeVO {
 	private int comment_num;
 	private String comment_content;
 	private String comment_path;
-	private Date comment_creDate;
+	private String comment_creDate;
 	
 	
 }
