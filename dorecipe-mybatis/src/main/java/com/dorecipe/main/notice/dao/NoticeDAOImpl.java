@@ -1,15 +1,9 @@
 package com.dorecipe.main.notice.dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.dorecipe.main.notice.vo.Notice;
@@ -36,12 +30,11 @@ public class NoticeDAOImpl implements NoticeDAO{
 		return list;
 	}
 	
-	//공지사항 상세보기
-//	@Override
-//	public Notice getdetail(int notice_num) throws Exception{
-//		//return mapper.getdetail(notice_num);
-//		
-//	}
+	@Override
+	public Notice getDetail(int notice_num) throws Exception {
+		return sqlSession.selectOne("mapper.notice.getDetail", notice_num);
+	}
+
 
 	//공지사항 등록(삽입)
 	@Override
@@ -54,7 +47,7 @@ public class NoticeDAOImpl implements NoticeDAO{
 
 	//공지사항 수정
 	@Override
-	public int updateNotice(int notice_num,Notice notice) throws Exception{
+	public int updateNotice(Notice notice) throws Exception{
 		//return mapper.updateNotice(notice);
 		return sqlSession.update("mapper.notice.updateNotice",notice);
 	}

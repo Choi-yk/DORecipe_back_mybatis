@@ -20,10 +20,11 @@ import com.dorecipe.main.notice.service.NoticeService;
 import com.dorecipe.main.notice.vo.Notice;
 
 import lombok.RequiredArgsConstructor;
-@CrossOrigin(origins="http://localhost:3000")
+//@CrossOrigin(origins="http://localhost:3000")
 @RequestMapping(value="/notice")
 @RequiredArgsConstructor	//생성자 주입을 위한.
-@RestController
+//@RestController
+@Controller // 잠깐만
 public class NoticeController {
 	
 	@Autowired
@@ -32,10 +33,10 @@ public class NoticeController {
 	@Autowired
 	private NoticeDAO noticeDao;
 	
-	@RequestMapping(path="/list", method =RequestMethod.GET)
-	public List<Notice> getNotice() {
-		return noticeDao.getList();
-	}
+//	@RequestMapping(path="/list", method =RequestMethod.GET)
+//	public List<Notice> getNotice() {
+//		return noticeDao.getList();
+//	}
 	
 	
 	//공지사항 전체 목록
@@ -51,15 +52,15 @@ public class NoticeController {
 	}
 	
 	//공지사항 상세 조회
-//	@RequestMapping("/detail/{notice_num}")
-//	public String detail(Model model, @PathVariable("notice_num") Integer notice_num) throws Exception {
-//	   Notice notice = service.getdetail(notice_num);
-//	   model.addAttribute("noticedetail",notice);
-//	   
-//	   System.out.println(notice);
-//	   
-//	   return "noticeDetail";
-//	}
+	@RequestMapping("/detail/{notice_num}")
+	public String detail(Model model, @PathVariable("notice_num") Integer notice_num) throws Exception {
+	   Notice notice = service.getDetail(notice_num);
+	   model.addAttribute("notice",notice);
+	   
+	   System.out.println(notice + "-----------------------");
+	   
+	   return "noticeDetail";
+	}
 	
 	//공지사항 등록
 	@PostMapping("/insert")
@@ -76,13 +77,20 @@ public class NoticeController {
 	}
 	
 	//공지사항 수정
-	@GetMapping("/update/{notice_num}")
-	public String update(@PathVariable("notice_num") Integer notice_num,Notice notice) throws Exception {
-		service.update(notice_num, notice);
+	@PostMapping("/update")
+	public String update(Notice notice) throws Exception {
+		service.update(notice);
 		
 		System.out.println("공지사항 수정 성공~~~~");
 		
 		return "redirect:/notice/list";
+	}
+	
+	@GetMapping("/update/{notice_num}") //noticeform으로 상세정보 addAttribute
+	public String update2(Model model,@PathVariable Integer notice_num) throws Exception{
+		Notice notice = service.getDetail(notice_num);
+		model.addAttribute("notice",notice);
+		return "noticeForm";
 	}
 	
 	//공지사항 삭제

@@ -27,13 +27,13 @@ public interface NoticeDAO {
 	public List<Notice> getList();
 	
 	//상세페이지
-//	Notice getdetail(int notice_num) throws Exception;
+	public Notice getDetail(int notice_num) throws Exception;
 	
 	
 	//삽입(등록)
 	public int insertNotice(Notice notice) throws Exception;
 	//수정
-	public int updateNotice(int notice_num,Notice notice) throws Exception;
+	public int updateNotice(Notice notice) throws Exception;
 	//삭제
 	public int deleteNotice(int notice_num) throws Exception;
 

@@ -30,7 +30,7 @@
 					<td>${n.notice_content}</td>
 					<td>${n.notice_creDate}</td>
 					<td>
-		   				<a href="${contextPath}/notice/update/${n.notice_num}">수정</a>
+		   				<a href="/notice/update/${n.notice_num}">수정</a>
 		   			</td>
 					<td>
 		   				<a href="${contextPath}/notice/delete/${n.notice_num}">삭제</a>

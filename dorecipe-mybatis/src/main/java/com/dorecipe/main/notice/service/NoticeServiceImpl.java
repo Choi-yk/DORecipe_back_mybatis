@@ -26,13 +26,13 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 	
 	//상세페이지
-//	@Override
-//	public Notice getdetail(int notice_num) {
-//		
-//		Notice notice = noticeDao.getdetail(notice_num);
-//		
-//		return notice;
-//	}
+	@Override
+	public Notice getDetail(int notice_num) throws Exception {
+		
+		Notice notice = noticeDao.getDetail(notice_num);
+		
+		return notice;
+	}
 
 	//등록
 	@Override
@@ -48,8 +48,8 @@ public class NoticeServiceImpl implements NoticeService{
 
 	//수정
 	@Override
-	public void update(int notice_num,Notice notice) throws Exception{
-		noticeDao.updateNotice(notice_num, notice);
+	public void update(Notice notice) throws Exception{
+		noticeDao.updateNotice(notice);
 	}
 
 	//삭제

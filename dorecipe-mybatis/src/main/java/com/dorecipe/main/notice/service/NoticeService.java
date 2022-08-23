@@ -13,13 +13,13 @@ public interface NoticeService {
 	List<Notice> getList();
 	
 	//공지사항 상세페이지 요청
-//	Notice getdetail(int notice_num);
+	Notice getDetail(int notice_num) throws Exception;
 	
 	//등록
 	public int insert(Notice notice) throws Exception;
 	
 	//수정
-	void update(int notice_num,Notice notice) throws Exception;
+	void update(Notice notice) throws Exception;
 	
 	//삭제
 	void delete(int notice_num) throws Exception;
