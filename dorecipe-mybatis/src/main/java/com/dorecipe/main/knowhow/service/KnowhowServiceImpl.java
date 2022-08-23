@@ -32,8 +32,13 @@ public class KnowhowServiceImpl implements KnowhowService {
 		System.out.println("!!!!!!!!!knowhow title " + knowhowVO.getKnow_title());
 		System.out.println("!!!!!!!!!knowhow content " + knowhowVO.getKnow_content());
 		
-		
 		return knowhowVO;
+	}
+	
+	// 수정
+	@Override
+	public int updateKnowhow(KnowhowVO knowhowVO) throws Exception {
+		return knowhowDAO.updateKnowhow(knowhowVO);
 	}
 	
 	//등록
@@ -46,7 +51,6 @@ public class KnowhowServiceImpl implements KnowhowService {
 		return knowhowDAO.insertKnowhow(knowhowVO);
 		
 	}
-	
 	
 	//삭제
 	@Override

@@ -17,7 +17,7 @@
 	</insert>
 	
 	<update id="updateKnowhow" parameterType="com.dorecipe.main.knowhow.dao.KnowhowDAO">
-		update into knowhow(know_title,know_content,know_creDate,know_path)
+		update knowhow
 		set
 			know_title = #{know_title},
 			know_content = #{know_content},

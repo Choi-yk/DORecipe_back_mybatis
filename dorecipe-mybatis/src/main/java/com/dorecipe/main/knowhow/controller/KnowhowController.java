@@ -70,13 +70,22 @@ public class KnowhowController {
 	}
 	
 	// 노하우 게시물 수정
-//	@GetMapping("/update/{know_num}")
-//	public String update(@PathVariable("know_num") Integer know_num, KnowhowVO knowhowVO) throws Exception {
-//		
-//		knowhowService.updateKnowhow(know_num,knowhowVO);
-//		
-//		return "redirect:/knowhow/list";
-//	}
+	@GetMapping("/update/{know_num}")
+	public String update(@PathVariable("know_num") Integer know_num, Model model) throws Exception {
+		KnowhowVO knowhowVO = knowhowService.getDetail(know_num);
+		model.addAttribute("knowhowVO", knowhowVO);
+		
+		return "KnowhowForm";
+	}
+	
+	@PostMapping("/update")
+	public String update(KnowhowVO knowhowVO) throws Exception {
+		knowhowService.updateKnowhow(knowhowVO);
+		
+		System.out.println("수정 - Controller");
+		
+		return "redirect:/knowhow/list";
+	}
 	
 	// 노하우 게시물 삭제
 	@GetMapping("/delete/{know_num}")

@@ -32,6 +32,12 @@ public class KnowhowDAOImpl implements KnowhowDAO {
 		return sqlSession.selectOne("mapper.knowhow.getDetail", know_num);
 	}
 	
+	// 노하우 게시물 수정
+	@Override
+	public int updateKnowhow(KnowhowVO knowhowVO) throws Exception {
+		return sqlSession.update("mapper.knowhow.updateKnowhow", knowhowVO);
+	}
+	
 	// 노하우 게시물 등록
 	@Override
 	public int insertKnowhow(KnowhowVO knowhowVO) throws Exception {
@@ -44,6 +50,5 @@ public class KnowhowDAOImpl implements KnowhowDAO {
 	public int deleteKnowhow(int know_num) throws Exception {
 		return sqlSession.delete("mapper.knowhow.deleteKnowhow", know_num);
 	}
-
 
 }
