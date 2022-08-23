@@ -6,6 +6,26 @@
 		select * from knowhow
 	</select>
 	
+	<select id="getDetail" resultType="com.dorecipe.main.knowhow.vo.KnowhowVO" parameterType="int">
+		select * from knowhow
+		where know_num = #{know_num}
+	</select>
+	
+	<insert id="insertKnowhow" parameterType="com.dorecipe.main.knowhow.dao.KnowhowDAO">
+		insert into knowhow(member_id,know_title,know_content,know_creDate,know_path)
+		values("admin",#{know_title},#{know_content},now(),#{know_path})
+	</insert>
+	
+	<update id="updateKnowhow" parameterType="com.dorecipe.main.knowhow.dao.KnowhowDAO">
+		update knowhow
+		set
+			know_title = #{know_title},
+			know_content = #{know_content},
+			know_creDate = now(),
+			know_path = #{know_path}
+		where know_num = #{know_num}
+	</update>
+	
 	<delete id="deleteKnowhow" parameterType="int">
 		delete from knowhow where know_num = #{know_num}
 	</delete>

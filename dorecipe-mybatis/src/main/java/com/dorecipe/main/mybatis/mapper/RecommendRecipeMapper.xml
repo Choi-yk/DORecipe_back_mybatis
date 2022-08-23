@@ -8,7 +8,7 @@
 	  select * from recipe r
 	  inner join recommendrecipe reco 
       on r.recipe_num=reco.recipe_num
-      order by r.recipe_num desc
+      order by reco.reco_num desc
 	</select>
 
 </mapper>

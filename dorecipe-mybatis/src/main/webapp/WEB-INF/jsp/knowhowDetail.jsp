@@ -5,14 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>이벤트상세</title>
+<title>노하우 상세 페이지</title>
 </head>
 <body>
-	<h1>Event</h1><br>	
-	<h3>${eventVO.event_title}</h3><br>
-	<h5>${eventVO.event_content}</h5>
+	<h1>${knowhowVO.know_title}</h1><br>
+	<h3>${knowhowVO.know_content}</h3><br>
+	<h4>${knowhowVO.know_path}</h4>
 </body>
-<button>
-	<a href="/event/modify/${eventVO.event_num}"> 수정 </a>
-</button>
 </html>

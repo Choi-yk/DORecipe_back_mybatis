@@ -41,7 +41,6 @@
 		insert into member
 		values(#{member_id}, #{member_pwd}, #{member_name},  #{member_email}, #{member_gender},
 		 #{member_birth}, #{member_phone}, #{member_imagePath}, now(), #{member_like}, "member")
-
 	</insert>
 <!--	
 	<insert id="insertMember" parameterType="com.dorecipe.main.member.vo.MemberVO">

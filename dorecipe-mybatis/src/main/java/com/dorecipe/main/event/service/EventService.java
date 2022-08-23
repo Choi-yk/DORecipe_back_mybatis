@@ -32,6 +32,10 @@ public class EventService {
 	public int insertEvent(EventVO eventVO) {
 		return eventDAO.insertEvent(eventVO);
 	}
+	
+	public int updateEvent(EventVO eventVO) {
+		return eventDAO.updateEvent(eventVO);
+	}
 
 	
 }

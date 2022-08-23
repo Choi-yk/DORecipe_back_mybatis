@@ -17,6 +17,17 @@
 		insert into event(member_id,event_title,event_content,event_path,event_creDate,event_finDate)
 		values('admin',#{event_title},#{event_content},#{event_path},#{event_creDate},#{event_finDate})
 	</insert >
+	
+	<update id="updateEvent" parameterType="com.dorecipe.main.event.dao.EventDAO">
+		update event
+		set 
+			event_title = #{event_title},
+			event_content = #{event_content},
+			event_path = #{event_path},
+			event_creDate = #{event_creDate},
+			event_finDate = #{event_finDate}
+		where event_num = #{event_num}
+	</update>
 
   	<delete id="deleteEvent" parameterType="int">
 		delete from event where event_num = #{event_num}
