@@ -37,21 +37,21 @@ public class NoticeController {
 	//react연동 -> 주석 해제
 //	@RequestMapping(path="/list", method =RequestMethod.GET)
 //	public List<Notice> getNotice() {
-//		return noticeDao.getList();
+//		return service.getList();
 //	}
 	
 	
 	//공지사항 전체 목록
-//	@RequestMapping("/list")
-//	public String list(Model model) {
-//		List<Notice> list = service.getList();
-//		
-//		model.addAttribute("list",list);
-//		
-//		System.out.println(list);
-//		
-//	    return "notice";
-//	}
+	@RequestMapping("/list")
+	public String list(Model model) {
+		List<Notice> list = service.getList();
+		
+		model.addAttribute("list",list);
+		
+		System.out.println(list);
+		
+	    return "notice";
+	}
 	
 	//공지사항 상세 조회
 	@RequestMapping("/detail/{notice_num}")
