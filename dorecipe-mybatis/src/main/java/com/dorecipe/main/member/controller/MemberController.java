@@ -21,7 +21,7 @@ import com.dorecipe.main.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 
 
-@CrossOrigin(origins = "http://localhost:3000") //리액트 기본 포트 번호 3000
+//@CrossOrigin(origins = "http://localhost:3000") //리액트 기본 포트 번호 3000
 @RequestMapping("/member")
 @RequiredArgsConstructor
 @Controller
@@ -62,25 +62,21 @@ public class MemberController {
 //	
 	// 회원 정보 수정
 	@GetMapping("/update/{member_id}")
-//	@RequestMapping("/update/{member_id}")
 	public String Update(@PathVariable("member_id") String member_id, Model model) throws Exception {
 	
-		List<MemberVO> membersList = memberService.listMembers();
-		
-		model.addAttribute("membersList", membersList);
-	
-//		memberService.ModifyMember(member_id,member);
-//		return "redirect:/member/update/";
+		MemberVO memberVO = memberService.listMemberDetails(member_id);
+		model.addAttribute("member",memberVO);
 		return "member_update_form";
+//		return "member_form";
 		
 	}
 	
 	@PostMapping("/update")
-	public String Update(@PathVariable("member_id") String member_id, MemberVO member) throws Exception {
+//	public String Update(@PathVariable("member_id") String member_id, MemberVO member) throws Exception {
+		public String Update(String member_id, MemberVO memberVO) throws Exception {
 		
-		memberService.ModifyMember(member_id,member);
-//		return "redirect:/member/update/";
-//		System.out.println(member.toString());
+		memberService.ModifyMember(memberVO);
+		System.out.println("수정됨");
 		return "redirect:/member/list";
 		
 	}
@@ -99,7 +95,7 @@ public class MemberController {
 		
 		memberService.JoinMember(memberVO);
 		
-		System.out.println("등록됨 - Controller");
+//		System.out.println("등록됨 - Controller");
 		
 		return "redirect:/member/list";
 		//return memberService.JoinMember(memberVO);
@@ -110,7 +106,7 @@ public class MemberController {
 	public String Delete(@PathVariable("member_id") String member_id) throws Exception {
 		memberService.DeleteMember(member_id);
 		
-		System.out.println("삭제됨 - Controller");
+//		System.out.println("삭제됨 - Controller");
 		
 		return "redirect:/member/list";
 	}

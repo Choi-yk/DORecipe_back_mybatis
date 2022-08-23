@@ -26,15 +26,17 @@
 		</thead>
 		<tbody>
 			<c:forEach var="member" items="${membersList}">
-				<td>${member.member_name}</td>
-				<td>${member.member_id}</td>
-		   		<td>${member.member_email}</td>
-		   		<td>
-		   			<a href="${contextPath}/member/update/${member.member_id}">수정</a>
-		   		</td>
-		   		<td>
-		   			<a href="${contextPath}/member/delete/${member.member_id}">삭제</a>
-		   		</td>
+				<tr>
+					<td>${member.member_name}</td>
+					<td>${member.member_id}</td>
+		   			<td>${member.member_email}</td>
+			   		<td>
+			   			<a href="${contextPath}/member/update/${member.member_id}">수정</a>
+			   		</td>
+			   		<td>
+			   			<a href="${contextPath}/member/delete/${member.member_id}">삭제</a>
+			   		</td>
+		   		</tr>
 			</c:forEach>
 		</tbody>
 	   </table>
