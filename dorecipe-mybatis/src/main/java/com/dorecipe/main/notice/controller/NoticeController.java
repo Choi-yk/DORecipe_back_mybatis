@@ -20,36 +20,33 @@ import com.dorecipe.main.notice.service.NoticeService;
 import com.dorecipe.main.notice.vo.Notice;
 
 import lombok.RequiredArgsConstructor;
-//@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins="http://localhost:3000")
 @RequestMapping(value="/notice")
 @RequiredArgsConstructor	//생성자 주입을 위한.
-//@RestController
-@Controller // 잠깐만
+@RestController
+//@Controller // 잠깐만
 public class NoticeController {
 	
 	@Autowired
 	private NoticeService service;	//interface자료형
 	
-	@Autowired
-	private NoticeDAO noticeDao;
-	
-//	@RequestMapping(path="/list", method =RequestMethod.GET)
-//	public List<Notice> getNotice() {
-//		return noticeDao.getList();
-//	}
+	@RequestMapping(path="/list", method =RequestMethod.GET)
+	public List<Notice> getNotice() {
+		return service.getList();
+	}
 	
 	
 	//공지사항 전체 목록
-	@RequestMapping("/list")
-	public String list(Model model) {
-		List<Notice> list = service.getList();
-		
-		model.addAttribute("list",list);
-		
-		System.out.println(list);
-		
-	    return "notice";
-	}
+//	@RequestMapping("/list")
+//	public String list(Model model) {
+//		List<Notice> list = service.getList();
+//		
+//		model.addAttribute("list",list);
+//		
+//		System.out.println(list);
+//		
+//	    return "notice";
+//	}
 	
 	//공지사항 상세 조회
 	@RequestMapping("/detail/{notice_num}")
@@ -86,7 +83,8 @@ public class NoticeController {
 		return "redirect:/notice/list";
 	}
 	
-	@GetMapping("/update/{notice_num}") //noticeform으로 상세정보 addAttribute
+	//noticeform으로 상세정보 addAttribute
+	@GetMapping("/update/{notice_num}")
 	public String update2(Model model,@PathVariable Integer notice_num) throws Exception{
 		Notice notice = service.getDetail(notice_num);
 		model.addAttribute("notice",notice);
