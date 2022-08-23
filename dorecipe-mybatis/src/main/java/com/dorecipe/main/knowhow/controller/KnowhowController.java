@@ -30,7 +30,7 @@ public class KnowhowController {
 		
 		model.addAttribute("knowhowList", knowhowList);
 		
-		System.out.println("노하우 목록 출력 됨~~~~ - Controller");
+		System.out.println("노하우 목록 출력 됨~~~~ - Controller" + knowhowList);
 		
 		return "knowhow";
 	}
@@ -42,6 +42,7 @@ public class KnowhowController {
 		KnowhowVO knowhowVO = knowhowService.getDetail(know_num);
 		model.addAttribute("knowhowVO", knowhowVO);
 		
+		System.out.println("Controller!!!! knowhow num " + knowhowVO.getKnow_num());
 		System.out.println("Controller!!!! knowhow title " + knowhowVO.getKnow_title());
 		System.out.println("Controller!!!! knowhow content " + knowhowVO.getKnow_content());
 		
@@ -71,25 +72,30 @@ public class KnowhowController {
 	
 	// 노하우 게시물 수정
 	@GetMapping("/update/{know_num}")
-	public String update(@PathVariable("know_num") Integer know_num, Model model) throws Exception {
+	public String update(@PathVariable("know_num") int know_num, Model model) throws Exception {
 		KnowhowVO knowhowVO = knowhowService.getDetail(know_num);
+
 		model.addAttribute("knowhowVO", knowhowVO);
 		
 		return "KnowhowForm";
 	}
 	
-	@PostMapping("/update")
+	@PostMapping("/update") // 보내!!!!
 	public String update(KnowhowVO knowhowVO) throws Exception {
 		knowhowService.updateKnowhow(knowhowVO);
 		
-		System.out.println("수정 - Controller");
+		System.out.println("Controller - knowhow num " + knowhowVO.getKnow_num());
+		System.out.println("Controller - knowhow title " + knowhowVO.getKnow_title());
+		System.out.println("Controller - knowhow content " + knowhowVO.getKnow_content());
+		
+//		System.out.println("수정됨 - Controller");
 		
 		return "redirect:/knowhow/list";
 	}
 	
 	// 노하우 게시물 삭제
 	@GetMapping("/delete/{know_num}")
-	public String delete(@PathVariable("know_num") Integer know_num) throws Exception {
+	public String delete(@PathVariable("know_num") int know_num) throws Exception {
 		knowhowService.deleteKnowhow(know_num);
 		
 		System.out.println("삭제됨 - Controller");

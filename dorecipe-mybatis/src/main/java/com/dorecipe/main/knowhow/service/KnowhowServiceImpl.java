@@ -26,7 +26,7 @@ public class KnowhowServiceImpl implements KnowhowService {
 
 	//상세보기
 	@Override
-	public KnowhowVO getDetail(Integer know_num) throws Exception {
+	public KnowhowVO getDetail(int know_num) throws Exception {
 		KnowhowVO knowhowVO = knowhowDAO.getDetail(know_num);
 		
 		System.out.println("!!!!!!!!!knowhow title " + knowhowVO.getKnow_title());
@@ -38,6 +38,10 @@ public class KnowhowServiceImpl implements KnowhowService {
 	// 수정
 	@Override
 	public int updateKnowhow(KnowhowVO knowhowVO) throws Exception {
+		System.out.println("Service - knowhow num " + knowhowVO.getKnow_num());
+		System.out.println("Service - knowhow title " + knowhowVO.getKnow_title());
+		System.out.println("Service - knowhow content " + knowhowVO.getKnow_content());
+		
 		return knowhowDAO.updateKnowhow(knowhowVO);
 	}
 	

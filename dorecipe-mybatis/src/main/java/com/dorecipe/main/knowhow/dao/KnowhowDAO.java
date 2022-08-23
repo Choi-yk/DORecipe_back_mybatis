@@ -9,7 +9,7 @@ public interface KnowhowDAO {
 	public List<KnowhowVO> selectAllKnowhowList() throws Exception;
 	
 	// 노하우 상세 조회
-	public KnowhowVO getDetail(Integer know_num) throws Exception;
+	public KnowhowVO getDetail(int know_num) throws Exception;
 	
 	// 노하우 게시물 등록
 	public int insertKnowhow(KnowhowVO knowhowVO) throws Exception;

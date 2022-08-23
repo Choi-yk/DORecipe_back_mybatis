@@ -17,6 +17,6 @@ public interface KnowhowService {
 	// 노하우 게시물 삭제
 	public int deleteKnowhow(int know_num) throws Exception;
 
-	public KnowhowVO getDetail(Integer know_num) throws Exception;
+	public KnowhowVO getDetail(int know_num) throws Exception;
 
 }
