@@ -12,11 +12,11 @@ public interface KnowhowService {
 	public int insertKnowhow(KnowhowVO knowhowVO) throws Exception;
 	
 	// 노하우 게시물 수정
+	public int updateKnowhow(KnowhowVO knowhowVO) throws Exception;
 	
 	// 노하우 게시물 삭제
 	public int deleteKnowhow(int know_num) throws Exception;
 
 	public KnowhowVO getDetail(Integer know_num) throws Exception;
 
-	
 }
