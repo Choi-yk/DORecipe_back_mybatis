@@ -21,8 +21,8 @@
 			<input name="member_name" type="text">
 		</div>
 		<div>
-			<label for="member_eamil">이메일</label>
-			<input name="member_eamil" type="text">
+			<label for="member_email">이메일</label>
+			<input name="member_email" type="text">
 		</div>
 		<div>
 			<label for="member_gender">성별</label>

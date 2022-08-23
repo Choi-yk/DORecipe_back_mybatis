@@ -2,6 +2,8 @@ package com.dorecipe.main.member.vo;
 
 import java.util.Date;
 
+import javax.validation.constraints.Email;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
@@ -46,8 +48,8 @@ public class MemberVO {
 	// 데이터 출력
 	@Override
 	public String toString() {
-		return "Member [member_id=" + member_id + "member_pwd=" + member_pwd +"member_name=" + member_name + ", member_email= " + member_email 
-				+ "member_gender=" + member_gender + "member_birth=" + member_birth + "member_phone=" + member_phone + "member_imagePath=" + member_imagePath 
-				+ "member_joinDate=" + member_joinDate + "member_like=" + member_like + "member_role=" + member_role + "]";
+		return "Member [member_id=" + member_id + " member_pwd=" + member_pwd +" member_name=" + member_name + " member_email=" + member_email 
+				+ " member_gender=" + member_gender + " member_birth=" + member_birth + " member_phone=" + member_phone + " member_imagePath=" + member_imagePath 
+				+ " member_joinDate=" + member_joinDate + " member_like=" + member_like + " member_role=" + member_role + "]";
 	}
 }

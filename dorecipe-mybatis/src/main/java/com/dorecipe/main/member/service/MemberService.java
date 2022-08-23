@@ -16,4 +16,7 @@ public interface MemberService {
 	
 	// 회원 삭제(탈퇴)
 	public int DeleteMember(String member_id) throws Exception;
+
+	// 회원 상세 조회
+	public List<MemberVO> listMemberDetails(String member_id) throws Exception;
 }

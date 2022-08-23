@@ -1,6 +1,5 @@
 import http from "../http-common";
 const getAll = () => {
-  console.log("액시오스 성공 ㅜㅜ");
   return http.get("/notice/list");
 };
 

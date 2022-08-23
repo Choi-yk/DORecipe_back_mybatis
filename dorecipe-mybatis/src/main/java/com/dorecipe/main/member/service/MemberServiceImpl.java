@@ -31,6 +31,15 @@ public class MemberServiceImpl implements MemberService {
 		return membersList;
 	}
 	
+	//회원 정보 상세 조회
+	@Override
+	public List<MemberVO> listMemberDetails(String member_id) throws Exception {
+		List<MemberVO> memberDetailList = null;
+		memberDetailList = memberDAO.selectAllMemberDetail(member_id);
+				
+		return memberDetailList;
+	}
+	
 	//회원 정보 수정
 	@Override
 	public int ModifyMember(String id, MemberVO memberVO) throws Exception {

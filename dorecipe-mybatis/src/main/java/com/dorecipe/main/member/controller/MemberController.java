@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ import com.dorecipe.main.member.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 
 
-//@CrossOrigin(origins = "http://localhost:3000") 리액트 기본 포트 번호 3000
+@CrossOrigin(origins = "http://localhost:3000") //리액트 기본 포트 번호 3000
 @RequestMapping("/member")
 @RequiredArgsConstructor
 @Controller
@@ -41,10 +42,50 @@ public class MemberController {
 		return "member_list";
 	}
 	
+//	// 회원 정보 수정
+//	@GetMapping("/update/{member_id}")
+//	public String Update(String id, MemberVO memberVO) {
+//		return null;
+//	}
+	
+	
 	// 회원 정보 수정
-	public String Update(String id, MemberVO memberVO) {
-		return null;
+//	@RequestMapping("/update/{member_id}")
+//	public String updateMember(@PathVariable("member_id") String member_id, MemberVO member) throws Exception {
+//	
+//		memberService.ModifyMember(member_id,member);
+////		return "redirect:/member/update/";
+//		return "member_update_form";
+//		
+//	}
+//	
+//	
+	// 회원 정보 수정
+	@GetMapping("/update/{member_id}")
+//	@RequestMapping("/update/{member_id}")
+	public String Update(@PathVariable("member_id") String member_id, Model model) throws Exception {
+	
+		List<MemberVO> membersList = memberService.listMembers();
+		
+		model.addAttribute("membersList", membersList);
+	
+//		memberService.ModifyMember(member_id,member);
+//		return "redirect:/member/update/";
+		return "member_update_form";
+		
 	}
+	
+	@PostMapping("/update")
+	public String Update(@PathVariable("member_id") String member_id, MemberVO member) throws Exception {
+		
+		memberService.ModifyMember(member_id,member);
+//		return "redirect:/member/update/";
+//		System.out.println(member.toString());
+		return "redirect:/member/list";
+		
+	}
+		
+	
 	
 	// 회원 등록(가입)
 	@GetMapping("/join")

@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect } from "react";
 import NoticeList from "./noticeList";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import CommentService from "../../../services/CommentService";
 
 const NoticePage = () => {
   const [state, setState] = useState([
@@ -27,10 +28,11 @@ const NoticePage = () => {
       baseURL: "http://localhost:9000",
     }).then(function (response) {
       console.log(response.data);
-      console.log(response.data[0]);
+      // console.log(response.data[0]);
       setState(response.data);
     });
   }
+
   useEffect(() => {
     testAxios();
   }, []);
@@ -38,6 +40,11 @@ const NoticePage = () => {
   const removePost = useCallback((notice_num) => {
     const removeState = state.filter((item) => item.notice_num !== notice_num);
     setState(removeState);
+    axios
+      .get(`http://localhost:9000/notice/delete/${notice_num}`)
+      .then((data) => {
+        console.log(data);
+      });
   });
 
   return (

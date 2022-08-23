@@ -67,7 +67,17 @@ public class MemberDAOImpl implements MemberDAO {
 		
 		return sqlSession.delete("mapper.member.deleteMember", id);
 	}
-	
 	// 회원 상세
+	@Override
+	public List<MemberVO> selectAllMemberDetail(String id) throws Exception {
+		List<MemberVO> memberDetailList = null;
+		memberDetailList = sqlSession.selectList("mapper.member.selectAllMemberDetail",id);
+		
+		System.out.println("MemberDAO - selectAllMemberDetail");
+		
+		return memberDetailList;
+	}
+	
+	
 
 }
