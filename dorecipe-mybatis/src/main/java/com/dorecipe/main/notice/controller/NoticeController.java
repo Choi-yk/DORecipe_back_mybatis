@@ -20,10 +20,11 @@ import com.dorecipe.main.notice.service.NoticeService;
 import com.dorecipe.main.notice.vo.Notice;
 
 import lombok.RequiredArgsConstructor;
-//@CrossOrigin(origins="http://localhost:3000")
+//@CrossOrigin(origins="http://localhost:3000")   //react연동 -> 주석 해제
 @RequestMapping(value="/notice")
 @RequiredArgsConstructor	//생성자 주입을 위한.
-//@RestController
+
+//@RestController   //react연동 -> 주석 해제
 @Controller // 잠깐만
 public class NoticeController {
 	
@@ -32,7 +33,8 @@ public class NoticeController {
 	
 	@Autowired
 	private NoticeDAO noticeDao;
-	
+
+	//react연동 -> 주석 해제
 //	@RequestMapping(path="/list", method =RequestMethod.GET)
 //	public List<Notice> getNotice() {
 //		return noticeDao.getList();

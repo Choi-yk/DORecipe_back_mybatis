@@ -13,15 +13,17 @@ public interface MemberDAO {
 	//public Optional<MemberVO> findById(String member_id) throws Exception;
 	
 	// 회원 정보 상세
-	public List<MemberVO> selectAllMemberDetail(String id) throws Exception;
+	public MemberVO selectAllMemberDetail(String id) throws Exception;
 	
 	// 회원 정보 수정
-	public int updateMember(String id, MemberVO memberVO) throws Exception;
+	public int updateMember(MemberVO memberVO) throws Exception;
 	
 	// 회원 등록(가입)
 	public int insertMember(MemberVO memberVO) throws Exception;
 	
 	// 회원 삭제(탈퇴)
 	public int deleteMember(String id) throws Exception;
+
+
 	
 }

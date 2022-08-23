@@ -9,7 +9,8 @@ public interface MemberService {
 	public List<MemberVO> listMembers() throws Exception;
 
 	//회원 정보 수정
-	public int ModifyMember(String id, MemberVO memberVO) throws Exception;
+//	public void ModifyMember(MemberVO memberVO) throws Exception;
+	public void ModifyMember(MemberVO memberVO) throws Exception;
 	
 	// 회원 등록(가입)
 	public int JoinMember(MemberVO memberVO) throws Exception;
@@ -18,5 +19,5 @@ public interface MemberService {
 	public int DeleteMember(String member_id) throws Exception;
 
 	// 회원 상세 조회
-	public List<MemberVO> listMemberDetails(String member_id) throws Exception;
+	public MemberVO listMemberDetails(String member_id) throws Exception;
 }

@@ -33,11 +33,6 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectOne("mapper.member.findById", member_id);
 	}
 */	
-	// 회원 정보 수정
-	@Override
-	public int updateMember(String id, MemberVO memberVO) throws Exception {
-		return sqlSession.update("mapper.member.updateMember", id);
-	}
 
 	// 회원 등록(가입)
 	@Override
@@ -69,15 +64,20 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	// 회원 상세
 	@Override
-	public List<MemberVO> selectAllMemberDetail(String id) throws Exception {
-		List<MemberVO> memberDetailList = null;
-		memberDetailList = sqlSession.selectList("mapper.member.selectAllMemberDetail",id);
-		
-		System.out.println("MemberDAO - selectAllMemberDetail");
-		
-		return memberDetailList;
+	public MemberVO selectAllMemberDetail(String id) throws Exception {
+//		해당 아이디의 회원정보 가져오기
+		System.out.println("회원정보 가져오기~~~~");
+		return sqlSession.selectOne("mapper.member.selectAllMemberDetail", id);
+	
 	}
 	
-	
+		// 회원 정보 수정
+	@Override
+	public int updateMember(MemberVO memberVO) throws Exception {
+		System.out.println(memberVO.getMember_id()+"   "+memberVO.getMember_email());
+		System.out.println(memberVO);
+		return sqlSession.update("mapper.member.updateMember", memberVO);
+	}
+
 
 }
