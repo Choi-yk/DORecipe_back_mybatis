@@ -34,7 +34,7 @@ public class EventController {
 	}
 	
 	@RequestMapping("/detail/{event_num}") //이벤트 상세 조회
-	public EventVO detail(Model model, @PathVariable("event_num") Integer event_num) {
+	public EventVO detail(@PathVariable("event_num") Integer event_num) {
 		System.out.println(event_num+"eventnum가져옴?----------------------");
 		return eventService.getDetail(event_num);
 	}

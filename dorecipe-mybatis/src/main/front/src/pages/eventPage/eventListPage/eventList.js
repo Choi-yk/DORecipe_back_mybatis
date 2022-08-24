@@ -7,7 +7,7 @@ const EventList = ({ removePost, state }) => {
 
   return (
     <>
-      <li>
+      <li> 
         <div className="eventNo">{state.event_num}</div>
         {/* <div className="eventTitle">{state.EventTitle}</div> */}
         <Link className="eventTitle" to={`/event/detail/${state.event_num}`}>
@@ -27,4 +27,5 @@ const EventList = ({ removePost, state }) => {
     </>
   );
 };
+
 export default EventList;

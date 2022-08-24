@@ -17,22 +17,12 @@ const EventPage = () => {
   ]);
 
   function testAxios() {
-    axios({
-      url: "/event/list",
-      method: "get",
-      data: {
-        event_num: "test1",
-        event_title: "test1",
-        event_path: "test1",
-        event_content: "test1",
-        event_creDate: "2022/08/17",
-        event_finDate: "2022/08/17",
-      },
-      baseURL: "http://localhost:9000",
-    }).then(function (response) {
-      console.log(response.data);
-      setState(response.data);
-    });
+
+    axios.get('http://localhost:9000/event/list')
+      .then((result)=>{
+        setState(result.data)
+      })
+
   }
 
   useEffect(() => {
@@ -53,9 +43,9 @@ const EventPage = () => {
     <>
       <div className="eventWrap">
         <h2>| Event |</h2>
-        <Link className="updateList" to={"/event/create"}>
+        {/* <Link className="updateList" to={"/event/create"}>
           등록
-        </Link>
+        </Link> */}
         <div className="eventTableWrap">
           <ul>
             <div className="tableHead">

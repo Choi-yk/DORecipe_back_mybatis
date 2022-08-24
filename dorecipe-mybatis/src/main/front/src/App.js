@@ -14,7 +14,7 @@ function App() {
       {/* <Route path={"/"} element={<NoticePage />} /> */}
       <Route path={"/notice"} element={<NoticePage />} />
       <Route path={"/event/list"} element={<EventPage />} />
-      <Route path={"/event/detail/:detailId"} element={<EventDetailPage />} />
+      <Route path={"/event/detail/:detailId"} element={<EventDetailPage />}/>
       <Route path={"/notice/:noticeId"} element={<NoticeDetailPage />} />
       <Route path={"/notice/create"} element={<AdminPostMng />} />
       {/* 별도록 jwt설정해줘서 관리자로 로그인 시에만 접근하도록 하기 */}

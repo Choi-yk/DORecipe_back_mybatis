@@ -3,7 +3,6 @@ import { useState, useCallback, useEffect } from "react";
 import NoticeList from "./noticeList";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import CommentService from "../../../services/CommentService";
 
 const NoticePage = () => {
   const [state, setState] = useState([
