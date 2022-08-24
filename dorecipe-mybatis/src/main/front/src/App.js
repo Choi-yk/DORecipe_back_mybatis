@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import NoticePage from "./pages/noticePage/noticeListPage";
 import EventPage from "./pages/eventPage/eventListPage";
 import NoticeDetailPage from "./pages/noticePage/noticeDetailPage";
+import NoticeUpdatePage from "./pages/noticePage/noticeFormPage";
 import AdminPostMng from "./pages/adminPage";
 import EventDetailPage from "./pages/eventPage/eventDetailPage";
 import KnowhowPage from "./pages/knowhowPage/knowhowListPage";
@@ -16,10 +17,13 @@ function App() {
       {/* <Route path={"/notice/list"} element={<NoticePage />} /> */}
       {/* <Route path={"/"} element={<NoticePage />} /> */}
       <Route path={"/notice/list"} element={<NoticePage />} />
+      <Route path={"/notice/detail/:noticeId"} element={<NoticeDetailPage />} />
+      <Route path={"/notice/update/:noticeId"} element={<NoticeUpdatePage />} />
+      
       <Route path={"/event/list"} element={<EventPage />} />
       <Route path={"/knowhow/list"} element={<KnowhowPage />} />
       <Route path={"/event/detail/:detailId"} element={<EventDetailPage />}/>
-      <Route path={"/notice/detail/:noticeId"} element={<NoticeDetailPage />} />
+      
       <Route path={"/knowhow/detail/:knowhowId"} element={<KnowhowDetailPage />} />
       <Route path={"/notice/create"} element={<AdminPostMng />} />
       {/* 별도록 jwt설정해줘서 관리자로 로그인 시에만 접근하도록 하기 */}
