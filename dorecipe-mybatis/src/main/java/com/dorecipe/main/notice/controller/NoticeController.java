@@ -53,6 +53,13 @@ public class NoticeController {
 	    return "notice";
 	}
 	
+	// react연동 -> 주석해제
+	//공지사항 상세 조회
+//	@RequestMapping(path="/{notice_num}", method=RequestMethod.GET)
+//	public Notice detail(@PathVariable("notice_num") Integer notice_num) throws Exception {
+//	   return service.getDetail(notice_num);
+//	}
+	
 	//공지사항 상세 조회
 	@RequestMapping("/detail/{notice_num}")
 	public String detail(Model model, @PathVariable("notice_num") Integer notice_num) throws Exception {
