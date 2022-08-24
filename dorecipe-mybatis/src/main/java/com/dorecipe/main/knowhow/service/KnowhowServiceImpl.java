@@ -19,7 +19,7 @@ public class KnowhowServiceImpl implements KnowhowService {
 		List<KnowhowVO> knowhowList = null;
 		knowhowList = knowhowDAO.selectAllKnowhowList();
 		
-		System.out.println("DAO 주입 완 - sercvice");
+		System.out.println("DAO 주입 완 - service");
 		
 		return knowhowList;
 	}
