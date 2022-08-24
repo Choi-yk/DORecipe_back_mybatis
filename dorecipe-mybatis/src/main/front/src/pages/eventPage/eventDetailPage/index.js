@@ -3,6 +3,8 @@ import axios from "axios";
 import { useEffect } from "react";
 import "./style.css";
 import { useParams } from "react-router-dom";
+// import '../../../bootstrap.min.css';
+// import { setEvent } from "../../../store";
 
 
 
@@ -22,10 +24,11 @@ const EventDetailPage = () => {
   ]);
 
   function Axios() {
+
     const event_num = params.detailId; // app.js에서 보내줌
 
     console.log(event_num+"가져옴?");
-    
+
     axios.get('http://localhost:9000/event/detail/'+event_num)
     .then((result)=>{ setState(result.data) })
     .catch(()=>{
@@ -45,7 +48,7 @@ const EventDetailPage = () => {
       <h3>참여기간 : {state.event_creDate}~{state.event_finDate}</h3>
       <h2>{state.event_title}</h2>
       <hr/>
-      <img src={state.event_path} alt={state.event_path+"ㅇㅇ"}></img>
+      <img className="eventImg" src={state.event_path} alt={state.event_path+"ㅇㅇ"}/>
       <p>{state.event_content}</p>
     </div>
     </>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,11 +26,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EventController {
 
+	//react 연동
+	
 	@Autowired
 	private EventService eventService;
 	
 	@RequestMapping(path="/list",method = RequestMethod.GET)
-	public List<EventVO> getEvent(){
+	public List<EventVO> getEvent(){ //이벤트 전체 조회
 		return eventService.getList();
 	}
 	
@@ -39,20 +42,14 @@ public class EventController {
 		return eventService.getDetail(event_num);
 	}
 	
-//	@RequestMapping("/list") // 이벤트 전체 조회
-//	public String EventList(Model model) {
-//		List<EventVO> eList = eventService.getList();
-//		model.addAttribute("eList", eList);
-//		return "event";
-//	}
+	@GetMapping("/delete/{event_num}") // 이벤트 삭제
+	public String Delete(@PathVariable("event_num") Integer event_num) throws Exception {
+		eventService.deleteEvent(event_num);
+		return "redirect:/event/list";	
+	}
 	
-//	@RequestMapping("/detail/{event_num}") //이벤트 상세 조회
-//	public String detail(Model model, @PathVariable("event_num") Integer event_num) {
-//		System.out.println("----------------eventController event_num : " + event_num);
-//		EventVO eventVO = eventService.getDetail(event_num);
-//		model.addAttribute("eventVO",eventVO);
-//		return "eventDetail";
-//	}
+	
+	//아직..
 	
 	@PostMapping("/insert") // 이벤트 삽입
 	public String insertEvent(EventVO eventVO) {
@@ -60,11 +57,6 @@ public class EventController {
 		return "redirect:/event/list";
 	}
 	
-	@GetMapping("/delete/{event_num}") // 이벤트 삭제
-	public String Delete(@PathVariable("event_num") Integer event_num) throws Exception {
-		eventService.deleteEvent(event_num);
-		return "redirect:/event/list";	
-	}
 	
 	@PostMapping("/update") // 이벤트 수정
 	public String updateEvent(EventVO eventVO) {

@@ -43,9 +43,9 @@ const EventPage = () => {
     <>
       <div className="eventWrap">
         <h2>| Event |</h2>
-        {/* <Link className="updateList" to={"/event/create"}>
+        <Link className="updateList" to={"/notice/create"}>
           등록
-        </Link> */}
+        </Link>
         <div className="eventTableWrap">
           <ul>
             <div className="tableHead">
