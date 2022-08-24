@@ -13,12 +13,12 @@ const NoticeDetailPage = () => {
       notice_title: "",
       notice_content: "",
       notice_creDate: "",
-    },
+    }
   ]);
 
   function testAxios() {
     axios({
-      url: "/notice/"+noticeId,
+      url: "/notice/detail/"+noticeId,
       method: "get",
       data: {
         notice_num: "test",
@@ -39,9 +39,9 @@ const NoticeDetailPage = () => {
   }, []);
   
   // console.log(noticeId);
-  // console.log(state.notice_title);
-  // console.log(state.notice_creDate);
-  // console.log(state.notice_content);
+  // console.log(noticeState.notice_title);
+  // console.log(noticeState.notice_creDate);
+  // console.log(noticeState.notice_content);
 
   return (
     <>
