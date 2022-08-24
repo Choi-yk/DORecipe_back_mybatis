@@ -27,7 +27,7 @@ const NoticeList = ({ removePost, state }) => {
       <li>
         <div className="noticeNo">{state.notice_num}</div>
         {/* <div className="noticeTitle">{state.NoticeTitle}</div> */}
-        <Link className="noticeTitle" to={`/notice/${state.notice_num}`}>
+        <Link className="noticeTitle" to={`/notice/detail/${state.notice_num}`}>
           {state.notice_title}
         </Link>
 

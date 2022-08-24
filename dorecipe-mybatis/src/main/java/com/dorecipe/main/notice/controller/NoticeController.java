@@ -20,12 +20,12 @@ import com.dorecipe.main.notice.service.NoticeService;
 import com.dorecipe.main.notice.vo.Notice;
 
 import lombok.RequiredArgsConstructor;
-//@CrossOrigin(origins="http://localhost:3000")   //react연동 -> 주석 해제
+
+@CrossOrigin(origins="http://localhost:3000")   //react연동 -> 주석 해제
 @RequestMapping(value="/notice")
 @RequiredArgsConstructor	//생성자 주입을 위한.
-
-//@RestController   //react연동 -> 주석 해제
-@Controller // 잠깐만
+@RestController   //react연동 -> 주석 해제
+//@Controller // 잠깐만
 public class NoticeController {
 	
 	@Autowired
@@ -35,41 +35,41 @@ public class NoticeController {
 	private NoticeDAO noticeDao;
 
 	//react연동 -> 주석 해제
-//	@RequestMapping(path="/list", method =RequestMethod.GET)
-//	public List<Notice> getNotice() {
-//		return service.getList();
-//	}
-	
-	
 	//공지사항 전체 목록
-	@RequestMapping("/list")
-	public String list(Model model) {
-		List<Notice> list = service.getList();
-		
-		model.addAttribute("list",list);
-		
-		System.out.println(list);
-		
-	    return "notice";
+	@RequestMapping(path="/list", method =RequestMethod.GET)
+	public List<Notice> getNotice() {
+		return service.getList();
 	}
+	
+	
+//	@RequestMapping("/list")
+//	public String list(Model model) {
+//		List<Notice> list = service.getList();
+//		
+//		model.addAttribute("list",list);
+//		
+//		System.out.println(list);
+//		
+//	    return "notice";
+//	}
 	
 	// react연동 -> 주석해제
 	//공지사항 상세 조회
-//	@RequestMapping(path="/{notice_num}", method=RequestMethod.GET)
-//	public Notice detail(@PathVariable("notice_num") Integer notice_num) throws Exception {
-//	   return service.getDetail(notice_num);
-//	}
+	@RequestMapping("/detail/{notice_num}")
+	public Notice detail(@PathVariable("notice_num") Integer notice_num) throws Exception {
+	   return service.getDetail(notice_num);
+	}
 	
 	//공지사항 상세 조회
-	@RequestMapping("/detail/{notice_num}")
-	public String detail(Model model, @PathVariable("notice_num") Integer notice_num) throws Exception {
-	   Notice notice = service.getDetail(notice_num);
-	   model.addAttribute("notice",notice);
-	   
-	   System.out.println(notice + "-----------------------");
-	   
-	   return "noticeDetail";
-	}
+//	@RequestMapping("/detail/{notice_num}")
+//	public String detail(Model model, @PathVariable("notice_num") Integer notice_num) throws Exception {
+//	   Notice notice = service.getDetail(notice_num);
+//	   model.addAttribute("notice",notice);
+//	   
+//	   System.out.println(notice + "-----------------------");
+//	   
+//	   return "noticeDetail";
+//	}
 	
 	//공지사항 등록
 	@PostMapping("/insert")
