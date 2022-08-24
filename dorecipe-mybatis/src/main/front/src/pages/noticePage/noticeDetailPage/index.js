@@ -7,7 +7,7 @@ const NoticeDetailPage = () => {
 
   let {noticeId} = useParams();
 
-  const [noticeState, setNoticeState] = useState([
+  const [state, setState] = useState([
     {
       notice_num: 0,
       notice_title: "",
@@ -24,13 +24,12 @@ const NoticeDetailPage = () => {
         notice_num: "test",
         notice_title: "test",
         notice_content: "test",
-        notice_creDate: "2022/08/24",
+        notice_creDate: "2022/08/24"
       },
       baseURL: "http://localhost:9000",
     }).then(function (response) {
       console.log(response.data);
-      // console.log(response.data[0]);
-      setNoticeState(response.data);
+      setState(response.data);
     });
   }
 
@@ -39,9 +38,9 @@ const NoticeDetailPage = () => {
   }, []);
   
   // console.log(noticeId);
-  // console.log(noticeState.notice_title);
-  // console.log(noticeState.notice_creDate);
-  // console.log(noticeState.notice_content);
+  // console.log(state.notice_title);
+  // console.log(state.notice_creDate);
+  // console.log(state.notice_content);
 
   return (
     <>
@@ -49,9 +48,9 @@ const NoticeDetailPage = () => {
       <li>
           <div className="noticeWrap">
             <h2>| Notice |</h2>
-            <div className="noticeDetailTitle noticeBorder">{noticeState.notice_title}</div>  
-            <div className="noticeDetailDate">{noticeState.notice_creDate}</div>
-            <div>{noticeState.notice_content}</div>
+            <div className="noticeDetailTitle noticeBorder">{state.notice_title}</div>  
+            <div className="noticeDetailDate">{state.notice_creDate}</div>
+            <div>{state.notice_content}</div>
           </div>
       </li>
     </>
