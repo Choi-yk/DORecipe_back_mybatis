@@ -45,7 +45,7 @@ const EventDetailPage = () => {
     <>
     <div className="eventCenter">
       <h2>| Event |</h2>
-      <h3>참여기간 : {state.event_creDate}~{state.event_finDate}</h3>
+      <h4>참여기간 : {state.event_creDate}~{state.event_finDate}</h4>
       <h2>{state.event_title}</h2>
       <hr/>
       <img className="eventImg" src={state.event_path} alt={state.event_path+"ㅇㅇ"}/>

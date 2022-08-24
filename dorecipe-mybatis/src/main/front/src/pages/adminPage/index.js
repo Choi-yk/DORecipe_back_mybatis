@@ -2,10 +2,17 @@ import { useState} from "react";
 import "./style.css";
 import '../.././bootstrap.min.css';
 import {Nav} from 'react-bootstrap'
+import axios from "axios";
 
 
 const AdminPostMng = () => {
 
+
+  function axios(){
+
+  axios.post('http://localhost:9000/event/list');
+
+  }
   let [tap, setTap] = useState(0)
 
   // const [postState, setPostState] = useState([
@@ -51,7 +58,9 @@ const AdminPostMng = () => {
                   }} eventKey="link2">노하우</Nav.Link>
                 </Nav.Item>
             </Nav>
+
             <TabContent tap={tap}/>
+            
       </div>
     </>
   )
@@ -60,11 +69,13 @@ const AdminPostMng = () => {
 
 function TabContent({tap}){
   return(
-[<div>
+[
+<div>
   <form>
+    <h4 className="left">공지사항</h4>
     <table className="left">
-    <h4>공지사항</h4>
-      <tr>
+      <thead>
+        <tr>
           <td>제목</td>
           <td>
             <input
@@ -74,27 +85,31 @@ function TabContent({tap}){
               placeholder=" 제목을 입력해주세요"
             />
           </td>
-      </tr>
-      <tr>
-          <td>내용</td>
-            <td>
-              <textarea 
-                className="text" 
-                rows="4" 
-                cols="50"
-              ></textarea>
-            </td>
-      </tr>     
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td>내용</td>
+              <td>
+                <textarea 
+                  className="text" 
+                  rows="4" 
+                  cols="50"
+                ></textarea>
+              </td>
+        </tr>   
+      </tbody>  
     </table>
-      <button className="left2 btn-secondary">등록</button>
+      <button className="left2 btn btn-outline-secondary">등록</button>
   </form>
 </div>
 ,// 공지사항 끝
 
 <div>
   <form method="post" action="/event/insert">
+    <h4 className="left">이벤트</h4>
     <table className="left">
-    <h4>이벤트</h4>
+    <thead>
       <tr>
           <td>제목</td>
           <td>
@@ -107,6 +122,7 @@ function TabContent({tap}){
             />
           </td>
       </tr>
+      </thead><tbody>
       <tr>
         <td>파일 첨부</td>
           <td>
@@ -119,15 +135,15 @@ function TabContent({tap}){
           </td>
       </tr>
       <tr>
-            <td>내용</td>
-            <td>
-              <textarea 
-                name="event_content"
-                className="text" 
-                rows="4" 
-                cols="50"
-              ></textarea>
-            </td>
+          <td>내용</td>
+          <td>
+            <textarea 
+              name="event_content"
+              className="text" 
+              rows="4" 
+              cols="50"
+            ></textarea>
+          </td>
       </tr>
       <tr>
         <td>이벤트 기간</td>
@@ -135,18 +151,20 @@ function TabContent({tap}){
           <input name="event_creDate" className="date" type="date"/> ~
           <input name="event_finDate" className="date" type="date"/>
         </td>
-      </tr>     
+      </tr>  
+      </tbody>   
     </table>
-      <button type="submit" className="left2 btn-secondary">등록</button>
+      <button type="submit" className="left2 btn btn-outline-secondary">등록</button>
   </form>
 </div>
 ,// 이벤트 끝
 
 <div>
   <form method="post" action="/event/insert">
+    <h4 className="left">노하우</h4>
     <table className="left">
-    <h4>노하우</h4>
-      <tr>
+      <thead>
+        <tr>
           <td>제목</td>
           <td>
             <input
@@ -156,29 +174,32 @@ function TabContent({tap}){
               placeholder=" 제목을 입력해주세요"
             />
           </td>
-      </tr>
-      <tr>
-        <td>파일 첨부</td>
-          <td>
-            <input
-              type="file"
-              id="postTitle"
-              placeholder=" 제목을 입력해주세요"
-            />
-          </td>
-      </tr>
-      <tr>
-            <td>내용</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>파일 첨부</td>
+            <td>
+              <input
+                type="file"
+                id="postTitle"
+                placeholder=" 제목을 입력해주세요"
+              />
+            </td>
+        </tr>
+        <tr>
+          <td>내용</td>
             <td>
               <textarea 
                 className="text" 
                 rows="4" 
                 cols="50"
               ></textarea>
-            </td>
-      </tr>
+          </td>
+        </tr>
+      </tbody>
     </table>
-      <button type="submit" className="left2 btn-secondary">등록</button>
+      <button type="submit" className="left2 btn btn-outline-secondary">등록</button>
   </form>
 </div>
 //노하우 끝
