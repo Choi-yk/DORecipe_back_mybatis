@@ -29,7 +29,6 @@ const NoticeUpdatePage = () => {
 			baseURL: "http://localhost:9000",
 		}).then(function(response) {
 			console.log(response.data);
-			// console.log(response.data[0]);
 			setState(response.data);
 		});
 	}
@@ -46,8 +45,6 @@ const NoticeUpdatePage = () => {
 					<div className="noticeWrap">
 						<h2>| Notice |</h2>
 						<div className="noticeBorder"/>
-						{/* <div className="noticeDetailDate">{state.notice_creDate}</div>
-						<div>{state.notice_content}</div> */}
 					</div>
 				</li>
 				<form method="post" action={"http://localhost:9000/notice/update"}>
@@ -55,6 +52,18 @@ const NoticeUpdatePage = () => {
 					<input type="hidden" name="notice_num" defaultValue={state.notice_num} />
 						<thead>
 							<tr>
+								<td>글번호</td>
+								<td>
+									<input type="text"
+										className="text center"
+										defaultValue={state.notice_num}
+										disabled
+									/>
+								</td>
+							</tr>
+						</thead>
+						<tbody>
+						<tr>
 								<td>제목</td>
 								<td>
 									<input
@@ -64,12 +73,9 @@ const NoticeUpdatePage = () => {
 										name="notice_title"
 										placeholder=" 제목을 입력해주세요"
 										defaultValue={state.notice_title}
-										// onChange={(e) => console.log(e.target.value) }
 									></input>
 								</td>
 							</tr>
-						</thead>
-						<tbody>
 							<tr>
 								<td>내용</td>
 								<td>
@@ -79,13 +85,12 @@ const NoticeUpdatePage = () => {
 										cols="50"
 										name="notice_content"
 										defaultValue={state.notice_content}
-										// onChange={(e) => console.log(e.target.value) }
 									></textarea>
 								</td>
 							</tr>
 						</tbody>
 					</table>
-					<button type="submit" className="left2 btn-secondary">수정</button>
+					<button type="submit" className="left2 btn btn-secondary">수정</button>
 				</form>
 			</div>
 		</>
