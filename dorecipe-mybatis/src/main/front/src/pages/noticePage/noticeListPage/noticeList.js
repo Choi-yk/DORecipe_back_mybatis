@@ -6,22 +6,6 @@ const NoticeList = ({ removePost, state }) => {
     removePost(state.notice_num);
   };
 
-  // function testAxios() {
-  //   axios({
-  //     url: "/notice/list",
-  //     method: "get",
-  //     data: {
-  //       notice_num: "test1",
-  //       notice_title: "test1",
-  //       notice_content: "test입닌당",
-  //       notice_creDate: "2022/08/17",
-  //     },
-  //     baseURL: "http://localhost:9000",
-  //   }).then(function (response) {
-  //     console.log(response.data);
-  //   });
-  // }
-
   return (
     <>
       <li>

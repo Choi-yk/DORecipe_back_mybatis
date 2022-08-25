@@ -37,9 +37,10 @@
 	</update>
 	
 	<insert id="insertMember" parameterType="com.dorecipe.main.member.dao.MemberDAO">
-		insert into member
-		values(#{member_id}, #{member_pwd}, #{member_name},  #{member_email}, #{member_gender},
-		 #{member_birth}, #{member_phone}, default, now(), #{member_like}, "member")
+	 insert into member
+(member_id,member_pwd,member_name,member_email,member_gender,member_birth,member_phone,member_joinDate,member_like,member_role,member_imagePath)
+ values(#{member_id}, #{member_pwd}, #{member_name}, #{member_email},#{member_gender}, #{member_birth},#{member_phone},now(),0,"member", default);
+	
 	</insert>
 	
 	<delete id="deleteMember" parameterType="string">

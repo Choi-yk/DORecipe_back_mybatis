@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import NoticePage from "./pages/noticePage/noticeListPage";
 import NoticeDetailPage from "./pages/noticePage/noticeDetailPage";
 import AdminPostMng from "./pages/adminPage";
+import JoinMemberPage from "./pages/joinMemberPage";
+import MemberListPage from "./pages/memberListPage";
 function App() {
   return (
     <Routes>
@@ -13,6 +15,9 @@ function App() {
       <Route path={"/notice"} element={<NoticePage />} />
       <Route path={"/notice/:noticeId"} element={<NoticeDetailPage />} />
       <Route path={"/notice/create"} element={<AdminPostMng />} />
+      <Route path={"/join"} element={<JoinMemberPage />} />
+      <Route path={"/member"} element={<MemberListPage />} />
+
       {/* 별도록 jwt설정해줘서 관리자로 로그인 시에만 접근하도록 하기 */}
       {/* <Route path="*" element={<div>없는 페이지임</div>} /> */}
     </Routes>
