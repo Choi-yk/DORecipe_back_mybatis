@@ -51,7 +51,7 @@ const KnowhowPage = () => {
         <>
             <div className="knowWrap">
                 <h2>| Knowhow |</h2>
-                <Link className="updateList" to={"/knowhow/create"}>
+                <Link className="updateList" to={"/notice/create"}>
                     등록
                 </Link>
                 <div className="knowTableWrap">

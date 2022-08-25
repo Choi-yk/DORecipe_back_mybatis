@@ -70,7 +70,8 @@ function TabContent({tap}){
   return(
 [
 <div>
-  <form>
+  <form method="post"
+  	action="http://localhost:9000/notice/insert">
     <h4 className="left">공지사항</h4>
     <table className="left">
       <thead>
@@ -78,6 +79,7 @@ function TabContent({tap}){
           <td>제목</td>
           <td>
             <input
+            	name="notice_title"
               className="text"
               type="text"
               id="postTitle"
@@ -91,6 +93,7 @@ function TabContent({tap}){
             <td>내용</td>
               <td>
                 <textarea 
+                	name="notice_content"
                   className="text" 
                   rows="4" 
                   cols="50"
@@ -164,7 +167,8 @@ function TabContent({tap}){
 ,// 이벤트 끝
 
 <div>
-  <form method="post" action="/event/insert">
+  <form method="post"
+  	action="http://localhost:9000/knowhow/insert">
     <h4 className="left">노하우</h4>
     <table className="left">
       <thead>
@@ -172,6 +176,7 @@ function TabContent({tap}){
           <td>제목</td>
           <td>
             <input
+            	name="know_title"
               className="text"
               type="text"
               id="postTitle"
@@ -185,6 +190,7 @@ function TabContent({tap}){
           <td>파일 첨부</td>
             <td>
               <input
+              	name="know_path"
                 type="file"
                 id="postTitle"
                 placeholder=" 제목을 입력해주세요"
@@ -195,6 +201,7 @@ function TabContent({tap}){
           <td>내용</td>
             <td>
               <textarea 
+              	name="know_content"
                 className="text" 
                 rows="4" 
                 cols="50"
