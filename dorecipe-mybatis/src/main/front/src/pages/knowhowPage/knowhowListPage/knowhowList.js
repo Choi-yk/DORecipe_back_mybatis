@@ -14,7 +14,7 @@ const KnowhowList = ({ removePost, state }) => {
                 </Link>
                 <div className="knowDate">{state.know_creDate}</div>
                 <div className="updateOrDelete">
-                    <Link className="updateList" to={`/admin/${state.know_num}`}>
+                    <Link className="updateList" to={`/knowhow/update/${state.know_num}`}>
                         수정
                     </Link>
                     <span className="deleteList" onClick={removePostOnclick}>
