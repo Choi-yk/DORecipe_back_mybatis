@@ -9,7 +9,9 @@
 </head>
 <body>
 	<form action="/knowhow/update" method="post">
-	
+		<!-- know_num 가져옴 -->
+		<input type="hidden" name="know_num" value="${knowhowVO.know_num}">
+		
 		<div>
 			<label for="know_title">제목</label>
 			<input type="text" name="know_title" value="${knowhowVO.know_title}"/>

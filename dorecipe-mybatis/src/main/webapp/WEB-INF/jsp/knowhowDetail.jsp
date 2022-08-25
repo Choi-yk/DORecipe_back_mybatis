@@ -9,6 +9,7 @@
 </head>
 <body>
 	<h1>${knowhowVO.know_title}</h1><br>
+	<p>${knowhowVO.know_creDate}</p><br>
 	<h3>${knowhowVO.know_content}</h3><br>
 	<h4>${knowhowVO.know_path}</h4>
 </body>

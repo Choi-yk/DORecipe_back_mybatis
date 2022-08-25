@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dorecipe.main.knowhow.vo.KnowhowVO;
+import com.dorecipe.main.member.vo.MemberVO;
 
 @Repository
 public class KnowhowDAOImpl implements KnowhowDAO {
@@ -27,7 +28,7 @@ public class KnowhowDAOImpl implements KnowhowDAO {
 	
 	// 노하우 상세 보기
 	@Override
-	public KnowhowVO getDetail(Integer know_num) throws Exception{
+	public KnowhowVO getDetail(int know_num) throws Exception{
 //		return knowhowDAO.getDetail(know_num);
 		return sqlSession.selectOne("mapper.knowhow.getDetail", know_num);
 	}
@@ -35,7 +36,12 @@ public class KnowhowDAOImpl implements KnowhowDAO {
 	// 노하우 게시물 수정
 	@Override
 	public int updateKnowhow(KnowhowVO knowhowVO) throws Exception {
+		System.out.println("DAO - knowhow num " + knowhowVO.getKnow_num());
+		System.out.println("DAO - knowhow title " + knowhowVO.getKnow_title());
+		System.out.println("DAO - knowhow content " + knowhowVO.getKnow_content());
+		
 		return sqlSession.update("mapper.knowhow.updateKnowhow", knowhowVO);
+//		return knowhowDAO.updateKnowhow(knowhowVO);
 	}
 	
 	// 노하우 게시물 등록

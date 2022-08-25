@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="/event/modify" method="post">
+	<form action="/event/update" method="post">
 	
 		<div>
 			<label for="event_title">제목</label>

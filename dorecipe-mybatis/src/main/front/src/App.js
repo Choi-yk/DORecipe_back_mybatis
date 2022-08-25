@@ -3,8 +3,13 @@ import axios from "axios";
 import { useState, useCallback, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import NoticePage from "./pages/noticePage/noticeListPage";
+import EventPage from "./pages/eventPage/eventListPage";
 import NoticeDetailPage from "./pages/noticePage/noticeDetailPage";
+import NoticeUpdatePage from "./pages/noticePage/noticeFormPage";
 import AdminPostMng from "./pages/adminPage";
+import EventDetailPage from "./pages/eventPage/eventDetailPage";
+import KnowhowPage from "./pages/knowhowPage/knowhowListPage";
+import KnowhowDetailPage from "./pages/knowhowPage/knowhowDetailPage";
 import JoinMemberPage from "./pages/joinMemberPage";
 import MemberListPage from "./pages/memberListPage";
 function App() {
@@ -12,8 +17,15 @@ function App() {
     <Routes>
       {/* <Route path={"/notice/list"} element={<NoticePage />} /> */}
       {/* <Route path={"/"} element={<NoticePage />} /> */}
-      <Route path={"/notice"} element={<NoticePage />} />
-      <Route path={"/notice/:noticeId"} element={<NoticeDetailPage />} />
+      <Route path={"/notice/list"} element={<NoticePage />} />
+      <Route path={"/notice/detail/:noticeId"} element={<NoticeDetailPage />} />
+      <Route path={"/notice/update/:noticeId"} element={<NoticeUpdatePage />} />
+      
+      <Route path={"/event/list"} element={<EventPage />} />
+      <Route path={"/knowhow/list"} element={<KnowhowPage />} />
+      <Route path={"/event/detail/:detailId"} element={<EventDetailPage />}/>
+      
+      <Route path={"/knowhow/detail/:knowhowId"} element={<KnowhowDetailPage />} />
       <Route path={"/notice/create"} element={<AdminPostMng />} />
       <Route path={"/join"} element={<JoinMemberPage />} />
       <Route path={"/member"} element={<MemberListPage />} />

@@ -30,8 +30,8 @@
 					</td>
 					<td>${e.event_creDate}~${e.event_finDate}</td>
 					<td>
-						<a href="/event/modify/${e.event_num}">수정</a>
-						<a href="${contextPath}/event/delete/${e.event_num}">삭제</a>
+						<a href="/event/update/${e.event_num}">수정</a>
+						<a href="/event/delete/${e.event_num}">삭제</a>
 					</td>
 				</tr>
 			</c:forEach>	

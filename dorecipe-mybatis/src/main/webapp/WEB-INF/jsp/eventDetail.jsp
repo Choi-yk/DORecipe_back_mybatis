@@ -12,7 +12,4 @@
 	<h3>${eventVO.event_title}</h3><br>
 	<h5>${eventVO.event_content}</h5>
 </body>
-<button>
-	<a href="/event/modify/${eventVO.event_num}"> 수정 </a>
-</button>
 </html>
