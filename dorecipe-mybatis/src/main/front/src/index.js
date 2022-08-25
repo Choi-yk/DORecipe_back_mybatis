@@ -16,11 +16,11 @@ root.render(
 <>
 
 
-   <Provider store={store}>
+   {/* <Provider store={store}> */}
     <BrowserRouter>
     {/* <SwaggerUI url="https://petstore.swagger.io/v2/swagger.json" /> */}
       <App />
     </BrowserRouter>
-   </Provider>
+   {/* </Provider> */}
 </>
 );
