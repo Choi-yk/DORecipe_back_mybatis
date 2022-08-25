@@ -7,7 +7,7 @@ const NoticeUpdatePage = () => {
 
 	let { noticeId } = useParams();
 
-	const [noticeState, setNoticeState] = useState([
+	const [state, setState] = useState([
 		{
 			notice_num: 0,
 			notice_title: "",
@@ -18,7 +18,7 @@ const NoticeUpdatePage = () => {
 
 	function testAxios() {
 		axios({
-			url: "/notice/update/" + noticeId,
+			url: "/notice/detail/" + noticeId,
 			method: "get",
 			data: {
 				notice_num: "",
@@ -30,7 +30,7 @@ const NoticeUpdatePage = () => {
 		}).then(function(response) {
 			console.log(response.data);
 			// console.log(response.data[0]);
-			setNoticeState(response.data);
+			setState(response.data);
 		});
 	}
 
@@ -38,46 +38,56 @@ const NoticeUpdatePage = () => {
 		testAxios();
 	}, []);
 
-
 	return (
 		<>
-		<div>
-		
-		<li>
-			<div className="noticeWrap">
-				<h2>| Notice |</h2>
-				<div className="noticeDetailTitle noticeBorder">{noticeState.notice_title}</div>
-				<div className="noticeDetailDate">{noticeState.notice_creDate}</div>
-				<div>{noticeState.notice_content}</div>
+			<div>
+			
+				<li>
+					<div className="noticeWrap">
+						<h2>| Notice |</h2>
+						<div className="noticeBorder"/>
+						{/* <div className="noticeDetailDate">{state.notice_creDate}</div>
+						<div>{state.notice_content}</div> */}
+					</div>
+				</li>
+				<form method="post" action={"http://localhost:9000/notice/update"}>
+					<table className="left">
+					<input type="hidden" name="notice_num" defaultValue={state.notice_num} />
+						<thead>
+							<tr>
+								<td>제목</td>
+								<td>
+									<input
+										className="text"
+										type="text"
+										id="postTitle"
+										name="notice_title"
+										placeholder=" 제목을 입력해주세요"
+										defaultValue={state.notice_title}
+										// onChange={(e) => console.log(e.target.value) }
+									></input>
+								</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>내용</td>
+								<td>
+									<textarea
+										className="text"
+										rows="4"
+										cols="50"
+										name="notice_content"
+										defaultValue={state.notice_content}
+										// onChange={(e) => console.log(e.target.value) }
+									></textarea>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<button type="submit" className="left2 btn-secondary">수정</button>
+				</form>
 			</div>
-		</li>
-			<form>
-				<table className="left">
-					<tr>
-						<td>제목</td>
-						<td>
-							<input
-								className="text"
-								type="text"
-								id="postTitle"
-								placeholder=" 제목을 입력해주세요"
-							>{noticeState.notice_title}</input>
-						</td>
-					</tr>
-					<tr>
-						<td>내용</td>
-						<td>
-							<textarea
-								className="text"
-								rows="4"
-								cols="50"
-							></textarea>
-						</td>
-					</tr>
-				</table>
-				<button className="left2 btn-secondary">수정</button>
-			</form>
-		</div>
 		</>
 	)
 }

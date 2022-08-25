@@ -84,23 +84,29 @@ public class NoticeController {
 		return "redirect:/notice/list";
 	}
 	
+	// react연동 -> 주석해제
 	//공지사항 수정
 	@PostMapping("/update")
-	public String update(Notice notice) throws Exception {
+	public void update2(Notice notice) throws Exception{
 		service.update(notice);
-		
-		System.out.println("공지사항 수정 성공~~~~");
-		
-		return "redirect:/notice/list";
 	}
 	
+//	@PostMapping("/update")
+//	public String update(Notice notice) throws Exception {
+//		service.update(notice);
+//		
+//		System.out.println("공지사항 수정 성공~~~~");
+//		
+//		return "redirect:/notice/list";
+//	}
+	
 	//noticeform으로 상세정보 addAttribute
-	@GetMapping("/update/{notice_num}")
-	public String update2(Model model,@PathVariable Integer notice_num) throws Exception{
-		Notice notice = service.getDetail(notice_num);
-		model.addAttribute("notice",notice);
-		return "noticeForm";
-	}
+//	@GetMapping("/update/{notice_num}")
+//	public String update2(Model model,@PathVariable Integer notice_num) throws Exception{
+//		Notice notice = service.getDetail(notice_num);
+//		model.addAttribute("notice",notice);
+//		return "noticeForm";
+//	}
 	
 	//공지사항 삭제
 	@GetMapping("/delete/{notice_num}")
