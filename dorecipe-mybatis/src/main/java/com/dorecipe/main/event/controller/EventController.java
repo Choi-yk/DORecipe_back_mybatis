@@ -35,7 +35,7 @@ public class EventController {
 		return eventService.getList();
 	}
 	
-	@RequestMapping("/detail/{event_num}") //이벤트 상세 조회
+	@GetMapping("/detail/{event_num}") //이벤트 상세 조회
 	public EventVO detail(@PathVariable("event_num") Integer event_num) {
 		System.out.println(event_num+"eventnum가져옴?----------------------");
 		return eventService.getDetail(event_num);
@@ -48,27 +48,18 @@ public class EventController {
 	}
 	
 	
-	//아직..
 	@PostMapping("/insert") // 이벤트 삽입
 	public void insertEvent(EventVO eventVO) {
 		eventService.insertEvent(eventVO);
 	}
-	
+
 	
 	@PostMapping("/update") // 이벤트 수정
-	public String updateEvent(EventVO eventVO) {
+	public void updateEvent(EventVO eventVO) {
+		System.out.println(eventVO);
 		eventService.updateEvent(eventVO);
-		System.out.println("수정------------------------------" + eventVO);
-		return "redirect:/event/list";
 	}
 	
-	@GetMapping("/update/{event_num}") // eventForm.xml로 addAttribute
-	public String updateEvent2(Model model,
-							   @PathVariable Integer event_num) {
-		EventVO eventVO = eventService.getDetail(event_num);
-		model.addAttribute("eventVO",eventVO);
-		return "eventForm";
-	}
 	
 	
 }

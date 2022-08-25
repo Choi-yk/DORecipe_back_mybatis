@@ -12,6 +12,7 @@ const EventDetailPage = () => {
 
   const params = useParams();
 
+  
   let [state, setState] = useState([
     {
       event_num: 0,

@@ -15,6 +15,7 @@
     border-radius: 10px;
     margin-bottom: 5%;
     margin-top: 5%;
+    margin-left: 50px;
 }
 
 .date{
@@ -30,4 +31,8 @@
 
 .left2{
     margin-left: 39%;
+}
+
+.center{
+    text-align: center;
 }

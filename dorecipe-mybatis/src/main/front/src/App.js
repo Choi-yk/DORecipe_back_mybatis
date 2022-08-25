@@ -12,6 +12,7 @@ import KnowhowPage from "./pages/knowhowPage/knowhowListPage";
 import KnowhowDetailPage from "./pages/knowhowPage/knowhowDetailPage";
 import JoinMemberPage from "./pages/joinMemberPage";
 import MemberListPage from "./pages/memberListPage";
+import EventModify from "./pages/eventPage/eventMod";
 function App() {
   return (
     <Routes>
@@ -24,6 +25,7 @@ function App() {
       <Route path={"/event/list"} element={<EventPage />} />
       <Route path={"/knowhow/list"} element={<KnowhowPage />} />
       <Route path={"/event/detail/:detailId"} element={<EventDetailPage />}/>
+      <Route path={"/event/update/:detailId"} element={<EventModify />}/>
       
       <Route path={"/knowhow/detail/:knowhowId"} element={<KnowhowDetailPage />} />
       <Route path={"/notice/create"} element={<AdminPostMng />} />

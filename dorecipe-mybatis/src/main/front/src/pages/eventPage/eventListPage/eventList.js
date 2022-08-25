@@ -16,7 +16,7 @@ const EventList = ({ removePost, state }) => {
 
         <div className="eventDate">{state.event_creDate}~{state.event_finDate}</div>
         <div className="updateOrDelete">
-          <Link className="updateList" to={`/admin/${state.event_num}`}>
+          <Link className="updateList" to={`/event/update/${state.event_num}`}>
             수정
           </Link>
           <span className="deleteList" onClick={removePostOnclick}>
