@@ -10,7 +10,6 @@ const AdminPostMng = () => {
 
   function axios(){
 
-  axios.post('http://localhost:9000/event/list');
 
   }
   let [tap, setTap] = useState(0)
@@ -106,7 +105,9 @@ function TabContent({tap}){
 ,// 공지사항 끝
 
 <div>
-  <form method="post" action="/event/insert">
+  <form method="post" 
+        action="http://localhost:9000/event/insert"
+        >
     <h4 className="left">이벤트</h4>
     <table className="left">
     <thead>
@@ -154,7 +155,10 @@ function TabContent({tap}){
       </tr>  
       </tbody>   
     </table>
-      <button type="submit" className="left2 btn btn-outline-secondary">등록</button>
+    <button type="submit" 
+            className="left2 btn btn-outline-secondary"
+            //onClick={}
+            >등록</button>
   </form>
 </div>
 ,// 이벤트 끝
@@ -199,7 +203,7 @@ function TabContent({tap}){
         </tr>
       </tbody>
     </table>
-      <button type="submit" className="left2 btn btn-outline-secondary">등록</button>
+    <button className="left2 btn btn-outline-secondary" type="submit">등록</button>
   </form>
 </div>
 //노하우 끝

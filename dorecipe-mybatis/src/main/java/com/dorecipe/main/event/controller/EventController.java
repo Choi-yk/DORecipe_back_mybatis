@@ -21,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 
 @CrossOrigin(origins="http://localhost:3000")
 @RestController
-//@Controller
 @RequestMapping("/event")
 @RequiredArgsConstructor
 public class EventController {
@@ -50,11 +49,9 @@ public class EventController {
 	
 	
 	//아직..
-	
 	@PostMapping("/insert") // 이벤트 삽입
-	public String insertEvent(EventVO eventVO) {
+	public void insertEvent(EventVO eventVO) {
 		eventService.insertEvent(eventVO);
-		return "redirect:/event/list";
 	}
 	
 	
