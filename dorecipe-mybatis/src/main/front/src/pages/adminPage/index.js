@@ -9,8 +9,6 @@ import { Link } from "react-router-dom";
 
 const AdminPostMng = () => {
 	
-  function axios() {}
-  
   let [tap, setTap] = useState(0);
 
   return (
@@ -62,7 +60,7 @@ const AdminPostMng = () => {
 
 function TabContent(props){
 
-// event
+// event---------------------------------------------------------------
   const [event_title, onChangeEventTitle, setTitle] = useInput("");
   const [event_path, onChangeEventPath, setPath] = useInput("");
   const [event_content, onChangeEventContent, setContent] = useInput("");
@@ -78,11 +76,6 @@ function TabContent(props){
     return;
 
   },[event_title]);
-
-
-  const eventHandler= (()=>{
-    alert("등록 되었습니다.")
-  })
 
   const data = {
     event_title: `${event_title}`,
@@ -117,7 +110,7 @@ function TabContent(props){
       [event_title,event_path,event_content,event_creDate,event_finDate]
     );
 }
-  // 끝
+  // 끝-----------------------------------------------------------
 
 
 
@@ -206,7 +199,7 @@ function TabContent(props){
                   type="date"
                   required
                   onChange={onChangeEventFinDate}
-                  />
+          />
         </td>
       </tr>  
       </tbody>   
