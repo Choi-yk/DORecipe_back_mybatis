@@ -3,15 +3,14 @@
   height: 100%;
 }
 
-.fa-circle-exclamation {
+/* .fa-circle-exclamation {
   color: #8d3232;
   display: none;
-  /* visibility: hidden; */
-}
-.toggleExclamation {
+} */
+/* .toggleExclamation {
   display: contents;
   visibility: visible;
-}
+} */
 .popupBubbleWrap {
   transform: translateX(50%);
 }
@@ -41,17 +40,16 @@ form {
 form > input {
   width: 14.5em;
   height: 2em;
-  /* margin-top: 1em; */
-  /* margin-right: 1em; */
+
   margin: 0.2em 0.2em 0.2em 0;
 }
 select {
   width: 15em;
   height: 2em;
-  /* margin-right: 1em; */
 }
 .formLabels {
   display: block;
+  font-weight: 700;
   margin: 1em 0;
 }
 .submitJoinBtn {

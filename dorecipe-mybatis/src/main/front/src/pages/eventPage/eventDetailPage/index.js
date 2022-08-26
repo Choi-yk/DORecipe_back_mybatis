@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 const EventDetailPage = () => {
   const params = useParams();
 
+  
   let [state, setState] = useState([
     {
       event_num: 0,
