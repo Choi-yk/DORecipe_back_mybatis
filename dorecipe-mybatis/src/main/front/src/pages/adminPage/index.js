@@ -156,6 +156,45 @@ function TabContent(props){
     }
     // knowhow 끝-----------------------------------------------------------
 
+// notice ----------------------------------------------------------------------------------
+
+  const [notice_title, onChangeNoticeTitle, setNoticeTitle] = useInput("");
+  const [notice_content, onChangeNoticeContent, setNoticeContent] = useInput("");
+  
+  useEffect(()=>{
+    if (notice_title.length > 0 ? setEmptyError(false) : setEmptyError(true))
+    return;
+  },[notice_title]);
+	
+  const noticeData = {
+ 	notice_title: `${notice_title}`,
+   	notice_content: `${notice_content}`
+  }
+  
+  const noticeBlob = new Blob([JSON.stringify(noticeData)],{
+   	type : "application/json",
+  });	
+  	
+  //const formData = new FormData();
+  formData.append("noticeData",noticeBlob);
+  
+  formData.append("notice_title",noticeData.notice_title);
+  formData.append("notice_content",noticeData.notice_content);
+
+  function Axios(){
+    axios({
+      method: "POST",
+      url : "http://localhost:9000/notice/insert",
+      headers: { "Content-Type": "multipart/form-data" },
+      data: formData
+    }).then((response)=>{
+      console.log(response.data);
+    },
+      [notice_title,notice_content]
+    ); 
+  }
+// notice 끝---------------------------------------------------------------------------------
+  
 
   return(
 [
@@ -173,6 +212,7 @@ function TabContent(props){
               type="text"
               id="postTitle"
               placeholder=" 제목을 입력해주세요"
+              onChange={onChangeNoticeTitle}
             />
           </td>
         </tr>
@@ -180,10 +220,21 @@ function TabContent(props){
       <tbody>
         <tr>
             <td>내용</td>
+            <textarea 
+	          name="event_content"
+	          className="text" 
+	          rows="4" 
+	          cols="50"
+	          required
+	          onChange={onChangeNoticeContent}
+	        ></textarea>
         </tr>   
       </tbody>  
     </table>
-      <button className="left2 btn btn-outline-secondary">등록</button>
+      <button type="button"
+      	onClick={Axios}
+      	disabled={error}
+      	className="left2 btn btn-outline-secondary">등록</button>
   </form>
 </div>
 ,// 공지사항 끝
