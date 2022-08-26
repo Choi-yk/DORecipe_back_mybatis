@@ -5,6 +5,7 @@ import "../../style/bootstrap.min.css";
 import { Nav } from "react-bootstrap";
 import axios from "axios";
 import { useInput } from "../../hooks/useInput";
+import { Link } from "react-router-dom";
 
 const AdminPostMng = () => {
 	
@@ -16,7 +17,7 @@ const AdminPostMng = () => {
     <>
       <div className="postMngWrap">
         <h3 className="left">게시물 등록</h3>
-        <hr className="left" />
+        <hr className="left width" />
         <Nav className="left width" variant="tabs" defaultActiveKey="link0">
           <Nav.Item>
             <Nav.Link
@@ -62,11 +63,11 @@ const AdminPostMng = () => {
 function TabContent(props){
 
 // event
-  const [event_title, onChangeEventTitle] = useInput("");
-  const [event_path, onChangeEventPath] = useInput("");
-  const [event_content, onChangeEventContent] = useInput("");
-  const [event_creDate, onChangeEventCreDate] = useInput("");
-  const [event_finDate, onChangeEventFinDate] = useInput("");
+  const [event_title, onChangeEventTitle, setTitle] = useInput("");
+  const [event_path, onChangeEventPath, setPath] = useInput("");
+  const [event_content, onChangeEventContent, setContent] = useInput("");
+  const [event_creDate, onChangeEventCreDate, setCDate] = useInput("");
+  const [event_finDate, onChangeEventFinDate, setFDate] = useInput("");
 
   const [emptyError, setEmptyError] = useState(null);
   const [error, setError] = useState(null);
@@ -76,16 +77,11 @@ function TabContent(props){
     if (event_title.length > 0 ? setEmptyError(false) : setEmptyError(true))
     return;
 
-    // if (event_content.length > 0 ? setEmptyError(false) : setEmptyError(true))
-    // return;
-
-  },[event_title]); // ,event_content
+  },[event_title]);
 
 
-  const eventHandler = useCallback((e)=>{
-      e.preventDefault();
-      alert("등록 되었습니다.")
-      
+  const eventHandler= (()=>{
+    alert("등록 되었습니다.")
   })
 
   const data = {
@@ -180,6 +176,7 @@ function TabContent(props){
             <input
               name="event_path"
               type="file"
+              onChange={onChangeEventPath}
             />
           </td>
       </tr>
@@ -213,11 +210,12 @@ function TabContent(props){
       </tr>  
       </tbody>   
     </table>
+    <Link className="mt-3 left2 btn btn-outline-secondary" to={"/event/list"}>이벤트페이지</Link>
     <button type="button" 
-            className="left2 btn btn-outline-secondary"
+            className="left3 btn btn-outline-secondary"
             onClick={eventHandler}
             disabled={error}
-            >등록</button>
+    >등록</button>
   </form>
 </div>
 ,// 이벤트 끝

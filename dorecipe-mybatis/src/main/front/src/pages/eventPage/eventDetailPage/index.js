@@ -50,13 +50,13 @@ const EventDetailPage = () => {
           참여기간 : {state.event_creDate}~{state.event_finDate}
         </h4>
         <h2>{state.event_title}</h2>
-        <hr />
+        <hr className="hr"/>
         <img
           className="eventImg"
           src={state.event_path}
           alt={state.event_path + "이거 못 찾았음"}
         />
-        <p>{state.event_content}</p>
+        <p className="left width">{state.event_content}</p>
       </div>
     </>
   );

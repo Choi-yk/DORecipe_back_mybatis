@@ -40,6 +40,12 @@ const EventModify = () => {
     Axios();
   }, []);
 
+  function backToList(){
+    
+    // Location.href = 'http://localhost:3000/event/list';
+    alert('성공?');
+  }
+
   return (
   <>
     <h2 >| Event수정 |</h2>
@@ -123,6 +129,7 @@ const EventModify = () => {
         </table>
     <button type="submit" 
             className="left2 btn btn-outline-secondary"
+            onClick={backToList}
             >수정</button>
   </form>
 </div>

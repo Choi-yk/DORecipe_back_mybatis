@@ -2,6 +2,15 @@
     margin-left: 20%;
     margin-top: 2%;
 }
+
+.left2{
+    margin-left: 20%;
+}
+
+.left3{
+    margin-left: 19%;
+}
+
 .width{
     width: 60%;
 }
@@ -29,10 +38,7 @@
     margin-left: 10px;
 }
 
-.left2{
-    margin-left: 39%;
-}
-
 .center{
     text-align: center;
 }
+
