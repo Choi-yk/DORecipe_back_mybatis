@@ -31,7 +31,7 @@ const EventModify = () => {
     axios.get('http://localhost:9000/event/detail/'+event_num)
     .then((result)=>{ setState(result.data) })
     .catch(()=>{
-      console.log("실패... 이벤트디테일페이지")
+      console.log("실패... 이벤트수정페이지")
     })
 
   }
@@ -55,14 +55,14 @@ const EventModify = () => {
             </td>
              <td>
               <input type="text"
-                     className="text center"  
+                     className="text"  
                      defaultValue={state.event_num}
                      disabled
-                     />
+              />
               <input type="hidden" 
                      name="event_num" 
                      defaultValue={state.event_num} 
-                     />
+              />
             </td>
           </tr>
         </thead>
@@ -86,7 +86,7 @@ const EventModify = () => {
                   name="event_path"
                   type="file"
                   id="postTitle"
-                  defaultValue={state.event_path} 
+                  defaultValue={state.event_path}
                 />
               </td>
           </tr>

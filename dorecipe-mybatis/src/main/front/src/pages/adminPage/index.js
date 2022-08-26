@@ -1,40 +1,15 @@
-import { useState} from "react";
+import { useCallback, useEffect, useState} from "react";
 import "./style.css";
 import '../.././bootstrap.min.css';
 import {Nav} from 'react-bootstrap'
 import axios from "axios";
+import { useInput } from "../../hooks/useInput";
 
 
 const AdminPostMng = () => {
 
-
-  function axios(){
-
-
-  }
   let [tap, setTap] = useState(0)
 
-  // const [postState, setPostState] = useState([
-  //   {
-  //     id: 1,
-  //     noticeType: "공지사항",
-  //     // NoticeTitle: "공지사항1",
-  //     // NoticeDate: "2022/08/19",
-  //   },
-  //   {
-  //     id: 2,
-  //     noticeType: "노하우",
-  //     // NoticeTitle: "공지사항1",
-  //     // NoticeDate: "2022/08/19",
-  //   },
-  //   {
-  //     id: 3,
-  //     noticeType: "이벤트",
-  //     // NoticeTitle: "공지사항1",
-  //     // NoticeDate: "2022/08/19",
-  //   },
-  // ]);
-  
   return (
     <>
       <div className="postMngWrap">
@@ -66,12 +41,77 @@ const AdminPostMng = () => {
 }
 
 
-function TabContent({tap}){
+
+
+function TabContent(props){
+
+// event
+  const [event_title, onChangeEventTitle] = useInput("");
+  const [event_path, onChangeEventPath] = useInput("");
+  const [event_content, onChangeEventContent] = useInput("");
+  const [event_creDate, onChangeEventCreDate] = useInput("");
+  const [event_finDate, onChangeEventFinDate] = useInput("");
+
+  const [emptyError, setEmptyError] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(()=>{
+
+    if (event_title.length > 0 ? setEmptyError(false) : setEmptyError(true))
+    return;
+
+    // if (event_content.length > 0 ? setEmptyError(false) : setEmptyError(true))
+    // return;
+
+  },[event_title]); // ,event_content
+
+
+  const eventHandler = useCallback((e)=>{
+      e.preventDefault();
+      alert("등록 되었습니다.")
+      
+  })
+
+  const data = {
+    event_title: `${event_title}`,
+    event_path: `${event_path}`,
+    event_content: `${event_content}`,
+    event_creDate: `${event_creDate}`,
+    event_finDate: `${event_finDate}`,
+  }
+  
+  const blob = new Blob([JSON.stringify(data)],{
+    type : "application/json",
+  });
+  
+  const formData = new FormData();
+  formData.append("data",blob);
+
+  formData.append("event_title",data.event_title);
+  formData.append("event_path",data.event_path);
+  formData.append("event_content",data.event_content);
+  formData.append("event_creDate",data.event_creDate);
+  formData.append("event_finDate",data.event_finDate);
+
+  
+  axios({
+    method: "POST",
+    url : "http://localhost:9000/event/insert",
+    headers: { "Content-Type": "multipart/form-data" },
+    data: formData
+  }).then((response)=>{
+    console.log(response.data);
+  },
+    [event_title,event_path,event_content,event_creDate,event_finDate]
+  );
+  // 끝
+
+
+
   return(
 [
 <div>
-  <form method="post"
-  	action="http://localhost:9000/notice/insert">
+  <form>
     <h4 className="left">공지사항</h4>
     <table className="left">
       <thead>
@@ -108,9 +148,7 @@ function TabContent({tap}){
 ,// 공지사항 끝
 
 <div>
-  <form method="post" 
-        action="http://localhost:9000/event/insert"
-        >
+  <form>
     <h4 className="left">이벤트</h4>
     <table className="left">
     <thead>
@@ -120,9 +158,10 @@ function TabContent({tap}){
             <input
               name="event_title"
               className="text"
+              required
               type="text"
-              id="postTitle"
               placeholder=" 제목을 입력해주세요"
+              onChange={onChangeEventTitle}
             />
           </td>
       </tr>
@@ -133,8 +172,6 @@ function TabContent({tap}){
             <input
               name="event_path"
               type="file"
-              id="postTitle"
-              placeholder=" 제목을 입력해주세요"
             />
           </td>
       </tr>
@@ -146,21 +183,32 @@ function TabContent({tap}){
               className="text" 
               rows="4" 
               cols="50"
+              required
+              onChange={onChangeEventContent}
             ></textarea>
           </td>
       </tr>
       <tr>
         <td>이벤트 기간</td>
         <td>
-          <input name="event_creDate" className="date" type="date"/> ~
-          <input name="event_finDate" className="date" type="date"/>
+          <input name="event_creDate" className="date" 
+                  type="date"
+                  required
+                  onChange={onChangeEventCreDate}
+          /> ~
+          <input name="event_finDate" className="date" 
+                  type="date"
+                  required
+                  onChange={onChangeEventFinDate}
+                  />
         </td>
       </tr>  
       </tbody>   
     </table>
-    <button type="submit" 
+    <button type="button" 
             className="left2 btn btn-outline-secondary"
-            //onClick={}
+            onClick={eventHandler}
+            disabled={error}
             >등록</button>
   </form>
 </div>
@@ -215,7 +263,7 @@ function TabContent({tap}){
 </div>
 //노하우 끝
 
-][tap]// tap 0은 공지사항 1은 이벤트 2는 노하우
+][props.tap]// tap 0은 공지사항 1은 이벤트 2는 노하우
     )
   }
 
