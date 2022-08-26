@@ -1,9 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleExclamation,
+  faExclamation,
+  CircleExclamation,
+  faCircleQuestion,
+  faQuestion,
+} from "@fortawesome/free-solid-svg-icons";
 import "./style.css";
 import { useInput } from "../../hooks/useInput";
 import axios from "axios";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import styled from "styled-components";
+import Button from "react-bootstrap/Button";
+import OverlayTrigger from "react-bootstrap/esm/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
 
 const SignUpTemplate = () => {
   /** input state설정해주기 */
@@ -21,9 +31,11 @@ const SignUpTemplate = () => {
   const [birthdate, onChangeBday, setBday] = useInput(""); //생일
   const [member_birth, setDOB] = useState(""); //생년월일
 
-  /** 에러메세지 */
+  /** 아이디 중복 확인 */
+  const [duplicateCheck, setDuplicateChk] = useState(null); //중복 확인
+
+  /** 비번 & 확인 불일치 에러메세지 */
   const [error, setError] = useState(null);
-  const [emptyError, setEmptyError] = useState(null);
 
   //비번과 확인비번일치확인
   useEffect(() => {
@@ -36,13 +48,8 @@ const SignUpTemplate = () => {
       }
     }
   }, [member_pwd, confirm_pwd]);
-  //필수사항 공백인거 경고문구 표시
-  useEffect(() => {
-    if (member_name.length > 0 ? setEmptyError(false) : setEmptyError(true))
-      return;
-  }, [member_name]);
 
-  //생일 19XX-XX-XX형태로
+  //생일 XXXX-XX-XX형태
   useEffect(() => {
     if (
       birthYear.length === 4 &&
@@ -118,7 +125,6 @@ const SignUpTemplate = () => {
           return;
         }
       }
-
       const data = {
         member_id: `${member_id}`,
         member_pwd: `${member_pwd}`,
@@ -133,12 +139,13 @@ const SignUpTemplate = () => {
         member_role: "member",
       };
       console.log(data.member_id);
+      // formData blob json형태로 보내기
       const blob = new Blob([JSON.stringify(data)], {
         type: "application/json",
       });
+
       const formData = new FormData();
       formData.append("data", blob);
-
       formData.append("member_id", data.member_id);
       formData.append("member_pwd", data.member_pwd);
       formData.append("member_name", data.member_name);
@@ -156,10 +163,71 @@ const SignUpTemplate = () => {
         console.log(response.data);
       });
     },
-    [member_id, member_pwd, confirm_pwd, member_phone, member_email]
+    [
+      member_id,
+      member_pwd,
+      confirm_pwd,
+      member_phone,
+      member_email,
+      member_gender,
+      member_phone,
+    ]
   );
-
-  useEffect(() => {});
+  /**아이디 중복 체크 */
+  const onDuplicateCheck = useCallback(() => {
+    axios({
+      url: "/member/list",
+      method: "get",
+      data: { member_id: "" },
+      baseURL: "http://localhost:9000",
+    }).then(function (response) {
+      const takenID = [];
+      response.data.map((e) => {
+        takenID.push(e.member_id);
+      });
+      setDuplicateChk(!takenID.includes(member_id));
+    });
+  }, [member_id]);
+  const popover = (
+    // <Popover id="popover-basic">
+    <Popover>
+      <Popover.Body>사용 불가능한 아이디입니다.</Popover.Body>
+    </Popover>
+  );
+  const DuplicateIdHint = () => (
+    <>
+      {/* 버튼 커스텀화 */}
+      <style type="text/css">
+        {`
+    .btn-success {
+      width: 0.5em;
+      height: 1.8em;
+      font-size:12px;
+      border-radius: 100%;
+      background-color: #8d3232;
+      color: #fffdf5;
+      margin-left:1em;
+      text-align:center;
+      padding-right:15px;
+      padding-bottom:22px;
+      border:1px solid #8d3232;
+      margin-bottom:1px;
+    }
+    .btn-success:hover{
+      background-color: #463635;
+      border:1px solid #463635;
+    }
+    .btn-success:active{
+      background-color: #463635;
+    }
+    .
+    `}
+      </style>
+      <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+        <Button variant="success"> ? </Button>
+      </OverlayTrigger>
+    </>
+  );
 
   return (
     <>
@@ -167,11 +235,12 @@ const SignUpTemplate = () => {
         <form className="form">
           <div className="formLabels">
             아이디
-            <FontAwesomeIcon
-              //   className="fa-circle-exclamation"
-              icon={faCircleExclamation}
-            />
-            필수 : 영문,숫자포함 6 ~20자
+            {member_id.length === 0 && (
+              <WarningMsg>
+                필수 : 영문 또는 숫자포함 6 ~20자{" "}
+                <FontAwesomeIcon icon={faExclamation} />
+              </WarningMsg>
+            )}
           </div>
           <input
             type="text"
@@ -181,18 +250,30 @@ const SignUpTemplate = () => {
             placeholder="내용을 입력해주세요"
             value={member_id}
             onChange={onChangeMemId}
+            disabled={duplicateCheck} //한번만 가능하도록
           />
+
           <button
             type="button"
             className="duplicateCheckId"
-            // onClick="duplicateCheck()"
+            onClick={onDuplicateCheck}
+            disabled={duplicateCheck} //한번만 가능하도록
           >
-            중복확인
+            {duplicateCheck === false
+              ? "중복확인"
+              : duplicateCheck === null
+              ? "중복확인"
+              : "확인완료"}
           </button>
+          {duplicateCheck === false ? <DuplicateIdHint /> : <></>}
           <div className="formLabels">
             비밀번호
-            <FontAwesomeIcon icon={faCircleExclamation} />
-            필수 : 대소문자 특수문자($ ! % @) 포함 9 ~ 18
+            {member_pwd.length === 0 && (
+              <WarningMsg>
+                필수 : 대소문자 특수문자($ ! % @) 포함 9 ~ 18{" "}
+                <FontAwesomeIcon icon={faExclamation} />
+              </WarningMsg>
+            )}
           </div>
           <input
             className="member_pwd"
@@ -207,13 +288,10 @@ const SignUpTemplate = () => {
           <div className="formLabels">
             비밀번호 확인
             {error && (
-              <span>
-                <FontAwesomeIcon
-                  //   className="fa-circle-exclamation"
-                  icon={faCircleExclamation}
-                />
-                필수 : 비밀번호가 불일치합니다.
-              </span>
+              <WarningMsg>
+                필수 : 비밀번호가 불일치합니다{" "}
+                <FontAwesomeIcon icon={faExclamation} />
+              </WarningMsg>
             )}
           </div>
           <input
@@ -228,10 +306,10 @@ const SignUpTemplate = () => {
           />
           <div className="formLabels">
             이름
-            {emptyError && (
-              <span>
-                <FontAwesomeIcon icon={faCircleExclamation} /> 필수
-              </span>
+            {member_name.length == 0 && (
+              <WarningMsg>
+                필수 <FontAwesomeIcon icon={faExclamation} />
+              </WarningMsg>
             )}
           </div>
           <input
@@ -244,11 +322,13 @@ const SignUpTemplate = () => {
           />
           <div className="formLabels">
             생년월일
-            <FontAwesomeIcon
-              className="fa-circle-exclamation"
-              icon={faCircleExclamation}
-            />
-            필수
+            {(birthYear.length == 0 ||
+              birthMonth.length == 0 ||
+              birthdate.length == 0) && (
+              <WarningMsg>
+                필수 <FontAwesomeIcon icon={faExclamation} />
+              </WarningMsg>
+            )}
           </div>
           <input
             type="text"
@@ -264,7 +344,7 @@ const SignUpTemplate = () => {
             value={birthMonth}
             onChange={onChangeMonth}
           >
-            <option value="default">월</option>
+            <option value="">월</option>
             <option value="01">1월</option>
             <option value="02">2월</option>
             <option value="03">3월</option>
@@ -282,26 +362,27 @@ const SignUpTemplate = () => {
             type="text"
             className="bDay"
             placeholder="일(2자)"
-            // value={birthdate.replace(" ", 0)}
             value={birthdate}
             maxLength={2}
             onChange={onChangeBday}
           />
-          <div className="formLabels">
-            성별
-            <FontAwesomeIcon icon={faCircleExclamation} />
-            필수
-          </div>
+          <div className="formLabels">성별</div>
           <select
             name="member_gender"
-            defaultValue="성별"
-            onSelect={onChangeGender}
+            value={member_gender}
+            onChange={onChangeGender}
             required
           >
+            <option value="">성별</option>
             <option value="남자">남자</option>
             <option value="여자">여자</option>
             <option value="선택안함">선택안함</option>
           </select>
+          {member_gender == "" && (
+            <WarningMsg>
+              필수 <FontAwesomeIcon icon={faExclamation} />
+            </WarningMsg>
+          )}
           <div className="formLabels">이메일</div>
           <input
             type="email"
@@ -310,13 +391,14 @@ const SignUpTemplate = () => {
             value={member_email}
             onChange={onChangeEmail}
             placeholder="이메일을 입력해주세요."
+            autoComplete="off"
             required
           />
-          <FontAwesomeIcon
-            className="fa-circle-exclamation"
-            icon={faCircleExclamation}
-          />
-          필수
+          {member_email.length == 0 && (
+            <WarningMsg>
+              필수 <FontAwesomeIcon icon={faExclamation} />
+            </WarningMsg>
+          )}
           <div className="formLabels">휴대전화</div>
           <input
             className="phoneNum"
@@ -328,11 +410,11 @@ const SignUpTemplate = () => {
             value={member_phone.replace("-", "")}
             onChange={onChangePh}
           />
-          <FontAwesomeIcon
-            icon={faCircleExclamation}
-            className="fa-circle-exclamation"
-          />
-          필수
+          {member_email.length == 0 && (
+            <WarningMsg>
+              필수 <FontAwesomeIcon icon={faExclamation} />
+            </WarningMsg>
+          )}
           <button
             className="submitJoinBtn"
             type="button"
@@ -347,3 +429,11 @@ const SignUpTemplate = () => {
   );
 };
 export default SignUpTemplate;
+
+const WarningMsg = styled.div`
+  display: inline-block;
+  margin-left: 1em;
+  color: #8d3232;
+  font-size: smaller;
+  font-weight: 400;
+`;

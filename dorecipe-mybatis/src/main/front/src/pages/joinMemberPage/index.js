@@ -1,5 +1,5 @@
 import MainLayout from "../../layout/mainLayOut";
-import SignUpTemplate from "../../components/signUpCp";
+import SignUpTemplate from "../../components/JoinMemberCp";
 const JoinMemberPage = () => {
   return (
     <>

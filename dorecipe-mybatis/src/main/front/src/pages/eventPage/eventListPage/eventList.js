@@ -7,18 +7,21 @@ const EventList = ({ removePost, state }) => {
 
   return (
     <>
-      <li> 
-        <div className="eventNo">{state.event_num}</div>
+      <li>
+        <div className="noticeNo">{state.event_num}</div>
         {/* <div className="eventTitle">{state.EventTitle}</div> */}
-        <Link className="eventTitle" to={`/event/detail/${state.event_num}`}>
+        <Link className="noticeTitle" to={`/event/detail/${state.event_num}`}>
           {state.event_title}
         </Link>
 
-        <div className="eventDate">{state.event_creDate}~{state.event_finDate}</div>
+        <div className="noticeDate">
+          {state.event_creDate}~{state.event_finDate}
+        </div>
         <div className="updateOrDelete">
           <Link className="updateList" to={`/event/update/${state.event_num}`}>
             수정
           </Link>
+
           <span className="deleteList" onClick={removePostOnclick}>
             삭제
           </span>

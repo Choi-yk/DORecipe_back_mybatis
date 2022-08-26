@@ -1,44 +1,60 @@
 import { useCallback, useEffect, useState} from "react";
 import "./style.css";
-import '../.././bootstrap.min.css';
-import {Nav} from 'react-bootstrap'
+import "../../style/bootstrap.min.css";
+// import "../.././bootstrap.min.css";
+import { Nav } from "react-bootstrap";
 import axios from "axios";
 import { useInput } from "../../hooks/useInput";
 
-
 const AdminPostMng = () => {
-
-  let [tap, setTap] = useState(0)
+	
+  function axios() {}
+  
+  let [tap, setTap] = useState(0);
 
   return (
     <>
       <div className="postMngWrap">
-          <h3 className="left">게시물 등록</h3>
-            <hr className="left"/>
-            <Nav className="left width" variant="tabs"  defaultActiveKey="link0">
-                <Nav.Item>
-                  <Nav.Link onClick={()=>{
-                    setTap(0);
-                  }} eventKey="link0">공지사항</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link onClick={()=>{
-                    setTap(1);
-                  }} eventKey="link1">이벤트</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link onClick={()=>{
-                    setTap(2);
-                  }} eventKey="link2">노하우</Nav.Link>
-                </Nav.Item>
-            </Nav>
+        <h3 className="left">게시물 등록</h3>
+        <hr className="left" />
+        <Nav className="left width" variant="tabs" defaultActiveKey="link0">
+          <Nav.Item>
+            <Nav.Link
+              onClick={() => {
+                setTap(0);
+              }}
+              eventKey="link0"
+            >
+              공지사항
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link
+              onClick={() => {
+                setTap(1);
+              }}
+              eventKey="link1"
+            >
+              이벤트
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link
+              onClick={() => {
+                setTap(2);
+              }}
+              eventKey="link2"
+            >
+              노하우
+            </Nav.Link>
+          </Nav.Item>
+        </Nav>
 
-            <TabContent tap={tap}/>
-            
+        <TabContent tap={tap} />
       </div>
     </>
-  )
-}
+  );
+};
 
 
 
@@ -131,14 +147,6 @@ function TabContent(props){
       <tbody>
         <tr>
             <td>내용</td>
-              <td>
-                <textarea 
-                	name="notice_content"
-                  className="text" 
-                  rows="4" 
-                  cols="50"
-                ></textarea>
-              </td>
         </tr>   
       </tbody>  
     </table>
