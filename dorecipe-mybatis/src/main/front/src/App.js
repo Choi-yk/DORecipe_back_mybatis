@@ -20,12 +20,12 @@ function App() {
       <Route path={"/notice/list"} element={<NoticePage />} />
       <Route path={"/notice/detail/:noticeId"} element={<NoticeDetailPage />} />
       <Route path={"/notice/update/:noticeId"} element={<NoticeUpdatePage />} />
-      
+
       <Route path={"/event/list"} element={<EventPage />} />
       <Route path={"/knowhow/list"} element={<KnowhowPage />} />
-      <Route path={"/event/detail/:detailId"} element={<EventDetailPage />}/>
-      
-      <Route path={"/knowhow/detail/:knowhowId"} element={<KnowhowDetailPage />} />
+      <Route path={"/event/detail/:detailId"} element={<EventDetailPage />} />
+
+      <Route path={"/knowhow/detail/:knowhowId"} element={<KnowhowDetailPage />}/>
       <Route path={"/notice/create"} element={<AdminPostMng />} />
       <Route path={"/join"} element={<JoinMemberPage />} />
       <Route path={"/member"} element={<MemberListPage />} />
