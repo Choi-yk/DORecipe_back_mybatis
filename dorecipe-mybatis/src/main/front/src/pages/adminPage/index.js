@@ -105,17 +105,18 @@ function TabContent(props){
   formData.append("event_creDate",data.event_creDate);
   formData.append("event_finDate",data.event_finDate);
 
-  
-  axios({
-    method: "POST",
-    url : "http://localhost:9000/event/insert",
-    headers: { "Content-Type": "multipart/form-data" },
-    data: formData
-  }).then((response)=>{
-    console.log(response.data);
-  },
-    [event_title,event_path,event_content,event_creDate,event_finDate]
-  );
+  function Axios(){
+    axios({
+      method: "POST",
+      url : "http://localhost:9000/event/insert",
+      headers: { "Content-Type": "multipart/form-data" },
+      data: formData
+    }).then((response)=>{
+      console.log(response.data);
+    },
+      [event_title,event_path,event_content,event_creDate,event_finDate]
+    );
+}
   // 끝
 
 
@@ -213,7 +214,7 @@ function TabContent(props){
     <Link className="mt-3 left2 btn btn-outline-secondary" to={"/event/list"}>이벤트페이지</Link>
     <button type="button" 
             className="left3 btn btn-outline-secondary"
-            onClick={eventHandler}
+            onClick={Axios}
             disabled={error}
     >등록</button>
   </form>
