@@ -73,6 +73,7 @@ const EventModify = () => {
   formData.append("event_content",data.event_content);
   formData.append("event_creDate",data.event_creDate);
   formData.append("event_finDate",data.event_finDate);
+  // formData.append("state",state);
 
     
   

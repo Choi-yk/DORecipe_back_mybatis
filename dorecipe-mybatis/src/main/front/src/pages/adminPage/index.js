@@ -70,26 +70,11 @@ function TabContent(props){
   const [emptyError, setEmptyError] = useState(null);
   const [error, setError] = useState(null);
 
-  // useEffect(()=>{
-
-  //   if (event_title.length > 0 ? setEmptyError(false) : setEmptyError(true))
-  //   return;
-
-  // },[event_title]);
-
-const title = useRef(/\s/);
 
 const eventHandler = useCallback(
   (e)=>{
   e.preventDefault();
-  if(!title.current.test){
-    if(
-      !alert("제목을 입력해 주세요")
-    ){
-      setTitle("");
-      return;
-    }
-  }
+  
 
   const data = {
     event_title: `${event_title}`,
@@ -112,7 +97,15 @@ const eventHandler = useCallback(
   formData.append("event_creDate",data.event_creDate);
   formData.append("event_finDate",data.event_finDate);
 
-
+  // data 비워져 있으면 보내지 않고 alert
+  if(data.event_title === "" || 
+     data.event_content === "" ||
+     data.event_creDate === "" ||
+     data.event_finDate === ""  ){
+        alert('제목, 내용, 이벤트기간을 입력해 주세요.');
+      }else{
+        alert("등록되었습니다.");
+        
     axios({
       method: "POST",
       url : "http://localhost:9000/event/insert",
@@ -120,11 +113,12 @@ const eventHandler = useCallback(
       data: formData
     }).then((response)=>{
       console.log(response.data);
-      alert("등록되었습니다.");
-      
+      document.getElementsByName('event_title').value="";
     });
+  }
   },
-      [event_title,event_path,event_content,event_creDate,event_finDate]
+  [event_title,event_path,event_content,event_creDate,event_finDate]
+
   );
 
   // 끝-----------------------------------------------------------
@@ -192,7 +186,7 @@ const eventHandler = useCallback(
    	type : "application/json",
   });	
   	
-  //const formData = new FormData();
+  const formData = new FormData();
   formData.append("noticeData",noticeBlob);
   
   formData.append("notice_title",noticeData.notice_title);
@@ -257,29 +251,31 @@ const eventHandler = useCallback(
 ,// 공지사항 끝-------------------------------------------------------
 
 <div>
-  <form>
-    <h4 className="left">이벤트</h4>
+  <h4 className="left">이벤트</h4>
     <table className="left">
     <thead>
       <tr>
           <td>제목</td>
           <td>
-             {event_title.length === 0 &&
-              event_content.length === 0 &&
-              event_creDate.length === 0 &&
-              event_finDate.length === 0 &&
-             (
+             {
+             (event_title.length === 0 ||
+              event_content.length === 0 ||
+              event_creDate.length === 0 ||
+              event_finDate.length === 0) &&(
               <WarningMsg>
               제목, 내용, 이벤트 기간을 입력해 주세요
               </WarningMsg>
-            )}
+             )
+            }
             <input
               name="event_title"
               className="text"
+              id="eventData1"
               required
               type="text"
               placeholder=" 제목을 입력해주세요"
               onChange={onChangeEventTitle}
+              maxLength={50}
             />
             
           </td>
@@ -289,7 +285,7 @@ const eventHandler = useCallback(
         <td>파일 첨부</td>
           <td>
             <input
-              name="event_path"
+              name="event_path eventData"
               type="file"
               onChange={onChangeEventPath}
             />
@@ -300,7 +296,7 @@ const eventHandler = useCallback(
           <td>
             <textarea 
               name="event_content"
-              className="text" 
+              className="text eventData" 
               rows="4" 
               cols="50"
               required
@@ -311,12 +307,12 @@ const eventHandler = useCallback(
       <tr>
         <td>이벤트 기간</td>
         <td>
-          <input name="event_creDate" className="date" 
+          <input name="event_creDate" className="date eventData" 
                   type="date"
                   required
                   onChange={onChangeEventCreDate}
           /> ~
-          <input name="event_finDate" className="date" 
+          <input name="event_finDate" className="date eventData" 
                   type="date"
                   required
                   onChange={onChangeEventFinDate}
@@ -331,7 +327,6 @@ const eventHandler = useCallback(
             onClick={eventHandler}
             disabled={error}
     >등록</button>
-  </form>
 </div>
 ,// 이벤트 끝-------------------------------------------------------
 
