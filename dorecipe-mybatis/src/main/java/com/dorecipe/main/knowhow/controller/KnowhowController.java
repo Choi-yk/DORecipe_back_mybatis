@@ -32,59 +32,25 @@ public class KnowhowController {
 	// 노하우 목록 전체 조회
 	@RequestMapping("/list")
 	public List<KnowhowVO> getKnowhow() throws Exception {
+		System.out.println("노하우 목록 출력 됨~~~~ - Controller");
+		
 		return knowhowService.listKnowhow();
 	}
-	
-//	@RequestMapping("/list")
-//	public String list(Model model) throws Exception {
-//		List<KnowhowVO> knowhowList = knowhowService.listKnowhow();
-//		
-//		model.addAttribute("knowhowList", knowhowList);
-//		
-//		System.out.println("노하우 목록 출력 됨~~~~ - Controller" + knowhowList);
-//		
-//		return "knowhow";
-//	}
 	
 	//react연동 -> 주석 해제
 	// 노하우 상세 조회
 	@RequestMapping("/detail/{know_num}")
 	public KnowhowVO detail(@PathVariable("know_num") Integer know_num) throws Exception {
+		System.out.println("노하우 상세페이지 출력 됨~~~~" + know_num +" - Controller");
 		return knowhowService.getDetail(know_num);
-	}
-	
-//	@RequestMapping("/detail/{know_num}")
-//	public String detail(Model model, @PathVariable("know_num") Integer know_num) throws Exception {
-//		
-//		KnowhowVO knowhowVO = knowhowService.getDetail(know_num);
-//		model.addAttribute("knowhowVO", knowhowVO);
-//		
-//		System.out.println("Controller!!!! knowhow num " + knowhowVO.getKnow_num());
-//		System.out.println("Controller!!!! knowhow title " + knowhowVO.getKnow_title());
-//		System.out.println("Controller!!!! knowhow content " + knowhowVO.getKnow_content());
-//		
-//		
-//		return "knowhowDetail";
-//	}
-	
-	// 노하우 등록 페이지 이동
-	@GetMapping("/insert")
-	public String insert() throws Exception{
-		return "knowhowInsert";
 	}
 	
 	// 노하우 게시물 등록
 	@PostMapping("/insert")
-	public String insert(KnowhowVO knowhowVO) throws Exception {
-		
-		System.out.println("Controller!!!! knowhow title " + knowhowVO.getKnow_title());
-		System.out.println("Controller!!!! knowhow content " + knowhowVO.getKnow_content());
-		
-		knowhowService.insertKnowhow(knowhowVO);
-		
+	public void insert(KnowhowVO knowhowVO) throws Exception {
 		System.out.println("노하우 등록 성공!!! - controller");
 		
-		return "redirect:/knowhow/list";
+		knowhowService.insertKnowhow(knowhowVO);
 	}
 	
 	// 노하우 게시물 수정

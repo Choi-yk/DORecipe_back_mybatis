@@ -129,7 +129,89 @@ const eventHandler = useCallback(
 
   // 끝-----------------------------------------------------------
 
+    // knowhow------------------------------------------------------
+    const [know_title, onChangeKnowhowTitle, setKnowhowTitle] = useInput("");
+    const [know_content, onChangeKnowhowContent, setKnowhowContent] = useInput("");
+    // const [know_creDate, onChangeKnowhoCreDate, setKnowhowCDate] = useInput("");
+    const [know_path, onChangeKnowhowPath, setKnowhowPath] = useInput("");
+  
+    useEffect(() => {
+      if(know_title.length > 0 ? setEmptyError(false) : setEmptyError(true))
+        return;
+    }, [know_title]);
+  
+    const KnowData = {
+      know_title: `${know_title}`,
+      know_content: `${know_content}`,
+      // know_creDate: `${know_creDate}`,
+      know_path: `${know_path}`
+    }
+  
+    const KnowBlob = new Blob([JSON.stringify(KnowData)], {
+      type: "application/json"
+    });
+  
+    const KnowFormData= new FormData();
+    KnowFormData.append("data", KnowBlob);
+  
+    KnowFormData.append("know_title", KnowData.know_title);
+    KnowFormData.append("know_content", KnowData.know_content);
+    // KnowFormData.append("know_creDate", KnowData.know_creDate);
+    KnowFormData.append("know_path", KnowData.know_path);
+  
+    function KnowAxios() {
+      axios({
+        method: "post",
+        url: "http://localhost:9000/knowhow/insert",
+        headers: { "Content-Type": "multipart/form-data" },
+        data: KnowData
+      }).then((response) => {
+        console.log(response.data);
+      },
+        [know_title, know_content, know_path]
+      );
+    }
+    // knowhow 끝-----------------------------------------------------------
 
+// notice ----------------------------------------------------------------------------------
+
+  const [notice_title, onChangeNoticeTitle, setNoticeTitle] = useInput("");
+  const [notice_content, onChangeNoticeContent, setNoticeContent] = useInput("");
+  
+  useEffect(()=>{
+    if (notice_title.length > 0 ? setEmptyError(false) : setEmptyError(true))
+    return;
+  },[notice_title]);
+	
+  const noticeData = {
+ 	notice_title: `${notice_title}`,
+   	notice_content: `${notice_content}`
+  }
+  
+  const noticeBlob = new Blob([JSON.stringify(noticeData)],{
+   	type : "application/json",
+  });	
+  	
+  //const formData = new FormData();
+  formData.append("noticeData",noticeBlob);
+  
+  formData.append("notice_title",noticeData.notice_title);
+  formData.append("notice_content",noticeData.notice_content);
+
+  function Axios(){
+    axios({
+      method: "POST",
+      url : "http://localhost:9000/notice/insert",
+      headers: { "Content-Type": "multipart/form-data" },
+      data: formData
+    }).then((response)=>{
+      console.log(response.data);
+    },
+      [notice_title,notice_content]
+    ); 
+  }
+// notice 끝---------------------------------------------------------------------------------
+  
 
   return(
 [
@@ -147,6 +229,7 @@ const eventHandler = useCallback(
               type="text"
               id="postTitle"
               placeholder=" 제목을 입력해주세요"
+              onChange={onChangeNoticeTitle}
             />
           </td>
         </tr>
@@ -154,10 +237,21 @@ const eventHandler = useCallback(
       <tbody>
         <tr>
             <td>내용</td>
+            <textarea 
+	          name="event_content"
+	          className="text" 
+	          rows="4" 
+	          cols="50"
+	          required
+	          onChange={onChangeNoticeContent}
+	        ></textarea>
         </tr>   
       </tbody>  
     </table>
-      <button className="left2 btn btn-outline-secondary">등록</button>
+      <button type="button"
+      	onClick={Axios}
+      	disabled={error}
+      	className="left2 btn btn-outline-secondary">등록</button>
   </form>
 </div>
 ,// 공지사항 끝-------------------------------------------------------
@@ -242,8 +336,7 @@ const eventHandler = useCallback(
 ,// 이벤트 끝-------------------------------------------------------
 
 <div>
-  <form method="post"
-  	action="http://localhost:9000/knowhow/insert">
+  <form>
     <h4 className="left">노하우</h4>
     <table className="left">
       <thead>
@@ -253,9 +346,11 @@ const eventHandler = useCallback(
             <input
             	name="know_title"
               className="text"
+              required
               type="text"
               id="postTitle"
               placeholder=" 제목을 입력해주세요"
+              onChange={onChangeKnowhowTitle}
             />
           </td>
         </tr>
@@ -267,8 +362,7 @@ const eventHandler = useCallback(
               <input
               	name="know_path"
                 type="file"
-                id="postTitle"
-                placeholder=" 제목을 입력해주세요"
+                onChange={onChangeKnowhowPath}
               />
             </td>
         </tr>
@@ -277,15 +371,22 @@ const eventHandler = useCallback(
             <td>
               <textarea 
               	name="know_content"
+                required
                 className="text" 
                 rows="4" 
                 cols="50"
+                placeholder="내용을 입력해주세요"
+                onChange={onChangeKnowhowContent}
               ></textarea>
           </td>
         </tr>
       </tbody>
     </table>
-    <button className="left2 btn btn-outline-secondary" type="submit">등록</button>
+    <Link className="mt-3 left2 btn btn-outline-secondary" to={"/knowhow/list"}>노하우페이지</Link>
+    <button type="button" className="left2 btn btn-outline-secondary"
+      onClick={KnowAxios} disabled={error}>
+      등록
+    </button>
   </form>
 </div>
 //노하우 끝-------------------------------------------------------
