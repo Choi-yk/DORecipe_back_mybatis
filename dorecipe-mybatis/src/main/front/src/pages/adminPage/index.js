@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState} from "react";
+import { useCallback, useEffect, useRef, useState} from "react";
 import "./style.css";
 import "../../style/bootstrap.min.css";
-// import "../.././bootstrap.min.css";
 import { Nav } from "react-bootstrap";
 import axios from "axios";
 import { useInput } from "../../hooks/useInput";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const AdminPostMng = () => {
 	
@@ -70,12 +70,26 @@ function TabContent(props){
   const [emptyError, setEmptyError] = useState(null);
   const [error, setError] = useState(null);
 
-  useEffect(()=>{
+  // useEffect(()=>{
 
-    if (event_title.length > 0 ? setEmptyError(false) : setEmptyError(true))
-    return;
+  //   if (event_title.length > 0 ? setEmptyError(false) : setEmptyError(true))
+  //   return;
 
-  },[event_title]);
+  // },[event_title]);
+
+const title = useRef(/\s/);
+
+const eventHandler = useCallback(
+  (e)=>{
+  e.preventDefault();
+  if(!title.current.test){
+    if(
+      !alert("제목을 입력해 주세요")
+    ){
+      setTitle("");
+      return;
+    }
+  }
 
   const data = {
     event_title: `${event_title}`,
@@ -98,7 +112,7 @@ function TabContent(props){
   formData.append("event_creDate",data.event_creDate);
   formData.append("event_finDate",data.event_finDate);
 
-  function Axios(){
+
     axios({
       method: "POST",
       url : "http://localhost:9000/event/insert",
@@ -106,10 +120,13 @@ function TabContent(props){
       data: formData
     }).then((response)=>{
       console.log(response.data);
-    },
+      alert("등록되었습니다.");
+      
+    });
+  },
       [event_title,event_path,event_content,event_creDate,event_finDate]
-    );
-}
+  );
+
   // 끝-----------------------------------------------------------
 
 
@@ -143,7 +160,7 @@ function TabContent(props){
       <button className="left2 btn btn-outline-secondary">등록</button>
   </form>
 </div>
-,// 공지사항 끝
+,// 공지사항 끝-------------------------------------------------------
 
 <div>
   <form>
@@ -153,6 +170,15 @@ function TabContent(props){
       <tr>
           <td>제목</td>
           <td>
+             {event_title.length === 0 &&
+              event_content.length === 0 &&
+              event_creDate.length === 0 &&
+              event_finDate.length === 0 &&
+             (
+              <WarningMsg>
+              제목, 내용, 이벤트 기간을 입력해 주세요
+              </WarningMsg>
+            )}
             <input
               name="event_title"
               className="text"
@@ -161,6 +187,7 @@ function TabContent(props){
               placeholder=" 제목을 입력해주세요"
               onChange={onChangeEventTitle}
             />
+            
           </td>
       </tr>
       </thead><tbody>
@@ -207,12 +234,12 @@ function TabContent(props){
     <Link className="mt-3 left2 btn btn-outline-secondary" to={"/event/list"}>이벤트페이지</Link>
     <button type="button" 
             className="left3 btn btn-outline-secondary"
-            onClick={Axios}
+            onClick={eventHandler}
             disabled={error}
     >등록</button>
   </form>
 </div>
-,// 이벤트 끝
+,// 이벤트 끝-------------------------------------------------------
 
 <div>
   <form method="post"
@@ -261,12 +288,18 @@ function TabContent(props){
     <button className="left2 btn btn-outline-secondary" type="submit">등록</button>
   </form>
 </div>
-//노하우 끝
+//노하우 끝-------------------------------------------------------
 
 ][props.tap]// tap 0은 공지사항 1은 이벤트 2는 노하우
     )
   }
 
-
+const WarningMsg = styled.div`
+  display: inline-block;
+  margin-left: 4em;
+  color: #8d3232;
+  font-size: smaller;
+  font-weight: 400;
+`;
 
 export default AdminPostMng;

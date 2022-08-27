@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import axios from "axios";
-import { useEffect } from "react";
 import "./style.css";
 import { useParams } from "react-router-dom";
+import { useInput } from "../../../hooks/useInput";
+import { Link } from "react-router-dom";
+
 // import '../../../bootstrap.min.css';
 // import { setEvent } from "../../../store";
 
@@ -40,19 +42,64 @@ const EventModify = () => {
     Axios();
   }, []);
 
-  function backToList(){
-    
-    // Location.href = 'http://localhost:3000/event/list';
-    alert('성공?');
+
+  
+  
+  const [event_num, onChangeEventNum, setNum] = useInput("");
+  const [event_title, onChangeEventTitle, setTitle] = useInput("");
+  const [event_path, onChangeEventPath, setPath] = useInput("");
+  const [event_content, onChangeEventContent, setContent] = useInput("");
+  const [event_creDate, onChangeEventCreDate, setCDate] = useInput("");
+  const [event_finDate, onChangeEventFinDate, setFDate] = useInput("");
+  
+  const modHandler = useCallback((e)=>{
+
+  e.preventDefault();
+
+  const data = {
+    event_num: `${event_num}`,
+    event_title: `${event_title}`,
+    event_path: `${event_path}`,
+    event_content: `${event_content}`,
+    event_creDate: `${event_creDate}`,
+    event_finDate: `${event_finDate}`,
   }
+  
+  
+  const formData = new FormData();
+  formData.append("event_num",params.detailId);
+  formData.append("event_title",data.event_title);
+  formData.append("event_path",data.event_path);
+  formData.append("event_content",data.event_content);
+  formData.append("event_creDate",data.event_creDate);
+  formData.append("event_finDate",data.event_finDate);
+
+    
+  
+    axios({
+      method: "POST",
+      url : "http://localhost:9000/event/update",
+      headers: { "Content-Type": "multipart/form-data" },
+      data: formData
+    }).then((response)=>{
+      console.log(response.data);
+      alert("수정되었습니다.");
+    },
+      [event_num,event_title,event_path,event_content,event_creDate,event_finDate]
+    );
+  })
+
+
+
+
+
+
 
   return (
   <>
     <h2 >| Event수정 |</h2>
     <div>
-      <form method="post" 
-        action="http://localhost:9000/event/update"
-        >
+      <form>
         <table className="left">
         <thead>
           <tr>
@@ -64,10 +111,6 @@ const EventModify = () => {
                      className="text"  
                      defaultValue={state.event_num}
                      disabled
-              />
-              <input type="hidden" 
-                     name="event_num" 
-                     defaultValue={state.event_num} 
               />
             </td>
           </tr>
@@ -81,6 +124,7 @@ const EventModify = () => {
                   className="text"
                   type="text"
                   id="postTitle"
+                  onChange={onChangeEventTitle}
                   defaultValue={state.event_title} 
                 />
               </td>
@@ -92,6 +136,7 @@ const EventModify = () => {
                   name="event_path"
                   type="file"
                   id="postTitle"
+                  onChange={onChangeEventPath}
                   defaultValue={state.event_path}
                 />
               </td>
@@ -104,6 +149,7 @@ const EventModify = () => {
                   className="text" 
                   rows="4" 
                   cols="50"
+                  onChange={onChangeEventContent}
                   defaultValue={state.event_content} 
                 ></textarea>
               </td>
@@ -116,20 +162,23 @@ const EventModify = () => {
                 className="date" 
                 type="date"
                 defaultValue={state.event_creDate} 
+                onChange={onChangeEventCreDate}
                 /> ~
               <input 
                 name="event_finDate" 
                 className="date" 
                 type="date"
                 defaultValue={state.event_finDate} 
+                onChange={onChangeEventFinDate}
                 />
             </td>
           </tr>  
           </tbody>   
         </table>
-    <button type="submit" 
+        <Link className="mt-3 left2 btn btn-outline-secondary" to={"/event/list"}>목록으로</Link>
+    <button type="button" 
             className="left2 btn btn-outline-secondary"
-            onClick={backToList}
+            onClick={modHandler}
             >수정</button>
   </form>
 </div>
