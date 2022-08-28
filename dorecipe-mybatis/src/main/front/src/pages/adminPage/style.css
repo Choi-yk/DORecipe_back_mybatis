@@ -17,7 +17,7 @@
 
 
 .text{
-	width: 110%;
+   width: 110%;
     outline: invert;
     border: 0;
     background-color: rgb(222, 222, 224);
@@ -28,7 +28,7 @@
 }
 
 .date{
-	width: 30%;
+   width: 30%;
     outline: invert;
     border: 0;
     background-color: rgb(236, 236, 238);
@@ -41,4 +41,3 @@
 .center{
     text-align: center;
 }
-

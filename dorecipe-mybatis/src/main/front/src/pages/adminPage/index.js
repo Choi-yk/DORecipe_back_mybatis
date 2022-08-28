@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const AdminPostMng = () => {
-	
+   
   let [tap, setTap] = useState(0);
 
   return (
@@ -180,16 +180,16 @@ const eventHandler = useCallback(
     if (notice_title.length > 0 ? setEmptyError(false) : setEmptyError(true))
     return;
   },[notice_title]);
-	
+   
   const noticeData = {
- 	notice_title: `${notice_title}`,
-   	notice_content: `${notice_content}`
+    notice_title: `${notice_title}`,
+      notice_content: `${notice_content}`
   }
   
   const noticeBlob = new Blob([JSON.stringify(noticeData)],{
-   	type : "application/json",
-  });	
-  	
+      type : "application/json",
+  });   
+     
   const formData = new FormData();
   formData.append("noticeData",noticeBlob);
   
@@ -222,7 +222,7 @@ const eventHandler = useCallback(
           <td>제목</td>
           <td>
             <input
-            	name="notice_title"
+               name="notice_title"
               className="text"
               type="text"
               id="postTitle"
@@ -236,20 +236,20 @@ const eventHandler = useCallback(
         <tr>
             <td>내용</td>
             <textarea 
-	          name="event_content"
-	          className="text" 
-	          rows="4" 
-	          cols="50"
-	          required
-	          onChange={onChangeNoticeContent}
-	        ></textarea>
+             name="event_content"
+             className="text" 
+             rows="4" 
+             cols="50"
+             required
+             onChange={onChangeNoticeContent}
+           ></textarea>
         </tr>   
       </tbody>  
     </table>
       <button type="button"
-      	onClick={Axios}
-      	disabled={error}
-      	className="left2 btn btn-outline-secondary">등록</button>
+         onClick={Axios}
+         disabled={error}
+         className="left2 btn btn-outline-secondary">등록</button>
   </form>
 </div>
 ,// 공지사항 끝-------------------------------------------------------
@@ -347,7 +347,7 @@ const eventHandler = useCallback(
           <td>제목</td>
           <td>
             <input
-            	name="know_title"
+               name="know_title"
               className="text"
               required
               type="text"
@@ -363,7 +363,7 @@ const eventHandler = useCallback(
           <td>파일 첨부</td>
             <td>
               <input
-              	name="know_path"
+                 name="know_path"
                 type="file"
                 onChange={onChangeKnowhowPath}
               />
@@ -373,7 +373,7 @@ const eventHandler = useCallback(
           <td>내용</td>
             <td>
               <textarea 
-              	name="know_content"
+                 name="know_content"
                 required
                 className="text" 
                 rows="4" 
