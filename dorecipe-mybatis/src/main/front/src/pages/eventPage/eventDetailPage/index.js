@@ -26,8 +26,6 @@ const EventDetailPage = () => {
   function Axios() {
     const event_num = params.detailId; // app.js에서 보내줌
 
-    console.log(event_num + "가져옴?");
-
     axios
       .get("http://localhost:9000/event/detail/" + event_num)
       .then((result) => {

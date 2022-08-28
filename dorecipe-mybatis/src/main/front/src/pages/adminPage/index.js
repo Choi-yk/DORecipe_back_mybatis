@@ -102,7 +102,7 @@ const eventHandler = useCallback(
      data.event_content === "" ||
      data.event_creDate === "" ||
      data.event_finDate === ""  ){
-        alert('제목, 내용, 이벤트기간을 입력해 주세요.');
+        alert('제목, 내용, 이벤트 기간을 입력해 주세요.');
       }else{
         alert("등록되었습니다.");
         
@@ -113,7 +113,11 @@ const eventHandler = useCallback(
       data: formData
     }).then((response)=>{
       console.log(response.data);
-      document.getElementsByName('event_title').value="";
+      document.getElementById('eventData1').value = "";
+      document.getElementById('eventData2').value = "";
+      document.getElementById('eventData3').value = "";
+      document.getElementById('eventData4').value = "";
+      document.getElementById('eventData5').value = "";
     });
   }
   },
@@ -287,6 +291,7 @@ const eventHandler = useCallback(
             <input
               name="event_path eventData"
               type="file"
+              id="eventData2"
               onChange={onChangeEventPath}
             />
           </td>
@@ -300,6 +305,7 @@ const eventHandler = useCallback(
               rows="4" 
               cols="50"
               required
+              id="eventData3"
               onChange={onChangeEventContent}
             ></textarea>
           </td>
@@ -310,11 +316,13 @@ const eventHandler = useCallback(
           <input name="event_creDate" className="date eventData" 
                   type="date"
                   required
+                  id="eventData4"
                   onChange={onChangeEventCreDate}
           /> ~
           <input name="event_finDate" className="date eventData" 
                   type="date"
                   required
+                  id="eventData5"
                   onChange={onChangeEventFinDate}
           />
         </td>

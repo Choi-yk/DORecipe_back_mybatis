@@ -45,16 +45,22 @@ const EventModify = () => {
 
   
   
-  const [event_num, onChangeEventNum, setNum] = useInput("");
-  const [event_title, onChangeEventTitle, setTitle] = useInput("");
-  const [event_path, onChangeEventPath, setPath] = useInput("");
-  const [event_content, onChangeEventContent, setContent] = useInput("");
-  const [event_creDate, onChangeEventCreDate, setCDate] = useInput("");
-  const [event_finDate, onChangeEventFinDate, setFDate] = useInput("");
+  let [event_num, onChangeEventNum, setNum] = useInput("");
+  let [event_title, onChangeEventTitle, setTitle] = useInput("");
+  let [event_path, onChangeEventPath, setPath] = useInput("");
+  let [event_content, onChangeEventContent, setContent] = useInput("");
+  let [event_creDate, onChangeEventCreDate, setCDate] = useInput("");
+  let [event_finDate, onChangeEventFinDate, setFDate] = useInput("");
   
   const modHandler = useCallback((e)=>{
 
-  e.preventDefault();
+    e.preventDefault();
+  
+    event_title = document.getElementById('eventTitle').value;
+    event_path = document.getElementById('eventPath').value;
+    event_content = document.getElementById('eventContent').value;
+    event_creDate = document.getElementById('eventCreDate').value;
+    event_finDate = document.getElementById('eventFinDate').value;
 
   const data = {
     event_num: `${event_num}`,
@@ -73,9 +79,16 @@ const EventModify = () => {
   formData.append("event_content",data.event_content);
   formData.append("event_creDate",data.event_creDate);
   formData.append("event_finDate",data.event_finDate);
-  // formData.append("state",state);
 
-    
+
+    //data에 ""이 하나라도 있으면 alert
+      if(data.event_title === "" || 
+     data.event_content === "" ||
+     data.event_creDate === "" ||
+     data.event_finDate === ""  ){
+        alert('제목, 내용, 이벤트 기간을 입력해 주세요.');
+
+      }else{
   
     axios({
       method: "POST",
@@ -83,12 +96,14 @@ const EventModify = () => {
       headers: { "Content-Type": "multipart/form-data" },
       data: formData
     }).then((response)=>{
-      console.log(response.data);
       alert("수정되었습니다.");
-    },
+      //이벤트 리스트로 이동
+      window.location.href = "http://localhost:3000/event/list"
+    });
+  }
+},
       [event_num,event_title,event_path,event_content,event_creDate,event_finDate]
     );
-  })
 
 
 
@@ -124,7 +139,7 @@ const EventModify = () => {
                   name="event_title"
                   className="text"
                   type="text"
-                  id="postTitle"
+                  id="eventTitle"
                   onChange={onChangeEventTitle}
                   defaultValue={state.event_title} 
                 />
@@ -136,7 +151,7 @@ const EventModify = () => {
                 <input
                   name="event_path"
                   type="file"
-                  id="postTitle"
+                  id="eventPath"
                   onChange={onChangeEventPath}
                   defaultValue={state.event_path}
                 />
@@ -148,6 +163,7 @@ const EventModify = () => {
                 <textarea 
                   name="event_content"
                   className="text" 
+                  id="eventContent"
                   rows="4" 
                   cols="50"
                   onChange={onChangeEventContent}
@@ -160,7 +176,8 @@ const EventModify = () => {
             <td>
               <input 
                 name="event_creDate" 
-                className="date" 
+                className="date"
+                id="eventCreDate" 
                 type="date"
                 defaultValue={state.event_creDate} 
                 onChange={onChangeEventCreDate}
@@ -168,6 +185,7 @@ const EventModify = () => {
               <input 
                 name="event_finDate" 
                 className="date" 
+                id="eventFinDate"
                 type="date"
                 defaultValue={state.event_finDate} 
                 onChange={onChangeEventFinDate}
