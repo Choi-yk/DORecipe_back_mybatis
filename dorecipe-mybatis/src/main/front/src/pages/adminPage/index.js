@@ -137,38 +137,49 @@ const eventHandler = useCallback(
       if(know_title.length > 0 ? setEmptyError(false) : setEmptyError(true))
         return;
     }, [know_title]);
-  
-    const KnowData = {
-      know_title: `${know_title}`,
-      know_content: `${know_content}`,
-      // know_creDate: `${know_creDate}`,
-      know_path: `${know_path}`
-    }
-  
-    const KnowBlob = new Blob([JSON.stringify(KnowData)], {
-      type: "application/json"
+
+    const insertKnowhow = useCallback((e) => {
+      e.preventDefault();
+
+      const KnowData = {
+        know_title: `${know_title}`,
+        know_content: `${know_content}`,
+        // know_creDate: `${know_creDate}`,
+        know_path: `${know_path}`
+      }
+    
+      const KnowBlob = new Blob([JSON.stringify(KnowData)], {
+        type: "application/json"
+      });
+    
+      const KnowFormData= new FormData();
+      KnowFormData.append("data", KnowBlob);
+    
+      KnowFormData.append("know_title", KnowData.know_title);
+      KnowFormData.append("know_content", KnowData.know_content);
+      // KnowFormData.append("know_creDate", KnowData.know_creDate);
+      KnowFormData.append("know_path", KnowData.know_path);
+    
+      if(KnowData.know_title === "" || KnowData.know_content === "") 
+           alert("제목과 내용을 입력해 주세요.");
+      else {
+        axios({
+          method: "post",
+          url: "http://localhost:9000/knowhow/insert",
+          headers: { "Content-Type": "multipart/form-data" },
+          data: KnowData
+        }).then((response) => {
+          console.log(response.data);
+          alert("노하우가 등록되었습니다.");
+          //노하우 리스트로 이동
+          window.location.href = "http://localhost:3000/knowhow/list"
+        },
+          [know_title, know_content, know_path]
+        );
+      }
     });
+    
   
-    const KnowFormData= new FormData();
-    KnowFormData.append("data", KnowBlob);
-  
-    KnowFormData.append("know_title", KnowData.know_title);
-    KnowFormData.append("know_content", KnowData.know_content);
-    // KnowFormData.append("know_creDate", KnowData.know_creDate);
-    KnowFormData.append("know_path", KnowData.know_path);
-  
-    function KnowAxios() {
-      axios({
-        method: "post",
-        url: "http://localhost:9000/knowhow/insert",
-        headers: { "Content-Type": "multipart/form-data" },
-        data: KnowData
-      }).then((response) => {
-        console.log(response.data);
-      },
-        [know_title, know_content, know_path]
-      );
-    }
     // knowhow 끝-----------------------------------------------------------
 
 // notice ----------------------------------------------------------------------------------
@@ -393,7 +404,7 @@ const eventHandler = useCallback(
     </table>
     <Link className="mt-3 left2 btn btn-outline-secondary" to={"/knowhow/list"}>노하우페이지</Link>
     <button type="button" className="left2 btn btn-outline-secondary"
-      onClick={KnowAxios} disabled={error}>
+      onClick={insertKnowhow} disabled={error}>
       등록
     </button>
   </form>
