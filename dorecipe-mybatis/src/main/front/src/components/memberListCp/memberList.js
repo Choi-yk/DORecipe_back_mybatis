@@ -7,17 +7,14 @@ const MemberList = ({ removePost, state, isLoading, hasItems, countState }) => {
 
   return (
     <>
-      {hasItems === 0 ? (
+      {hasItems == 0 ? (
         <li> 가입한 회원이 없습니다. </li>
       ) : (
         <li>
-          <div className="noticeNo">
-            {hasItems} {state.member_name}
-          </div>
+          <div className="noticeNo">{state.member_name}</div>
           <Link className="noticeTitle" to={`/member/${state.member_id}`}>
             {state.member_id}
           </Link>
-
           <div className="noticeDate">{state.member_email}</div>
           <div className="updateOrDelete">
             <Link className="updateList" to={`/admin/${state.member_id}`}>

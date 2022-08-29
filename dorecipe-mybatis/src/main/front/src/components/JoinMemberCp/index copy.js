@@ -5,7 +5,10 @@ import { useInput } from "../../hooks/useInput";
 import axios from "axios";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import OverlayTrigger from "react-bootstrap/esm/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
+import ScrollableContent from "../../components/_common/scrollable";
 
 const SignUpTemplate = () => {
   /** input state설정해주기 */
@@ -28,8 +31,6 @@ const SignUpTemplate = () => {
 
   /** 비번 & 확인 불일치 에러메세지 */
   const [error, setError] = useState(null);
-
-  const navigate = useNavigate();
 
   //비번과 확인비번일치확인
   useEffect(() => {
@@ -80,19 +81,20 @@ const SignUpTemplate = () => {
   const onJoinMemberHandler = useCallback(
     (e) => {
       e.preventDefault();
-
-      if (duplicateCheck == null) {
-        setDuplicateChk(null);
-        return alert("아이디 중복 확인을 해주세요.");
-      } else if (duplicateCheck == false) {
-        setDuplicateChk(false);
-        setMemId(member_id);
-        return alert("아이디 중복 확인을 해주세요.");
-      } else if (duplicateCheck == true) {
-        setDuplicateChk(true);
-        return setMemId(member_id);
+      if (!idExp.current.test(member_id)) {
+        if (
+          !alert("아이디 형식이 일치하지 않습니다(영문,대소문자 6 ~ 20 자)")
+        ) {
+          setMemId("");
+          return;
+        }
       }
-
+      if (setDuplicateChk != true) {
+        if (!alert("아이디 중복체크를 해주시길 바랍니다.")) {
+          setMemId("");
+          return;
+        }
+      }
       if (!pwdExp.current.test(member_pwd)) {
         if (
           !alert(
@@ -105,13 +107,21 @@ const SignUpTemplate = () => {
         }
       }
       if (!phoneReg.current.test(member_phone)) {
-        if (!alert("전화번호 형식이 올바르지 않습니다")) {
+        if (
+          !alert(
+            "비밀번호 형식이 일치하지 않습니다(대소문자 특수문자 포함  9 ~ 18자)"
+          )
+        ) {
           setPhone("");
           return;
         }
       }
       if (!emailReg.current.test(member_email)) {
-        if (!alert("이메일형식이 올바르지 않습니다.")) {
+        if (
+          !alert(
+            "비밀번호 형식이 일치하지 않습니다(대소문자 특수문자 포함  9 ~ 18자)"
+          )
+        ) {
           setEmail("");
           return;
         }
@@ -167,38 +177,20 @@ const SignUpTemplate = () => {
   );
   /**아이디 중복 체크 */
   const onDuplicateCheck = useCallback(() => {
-    axios({
-      url: "/member/list",
-      method: "get",
-      data: { member_id: "" },
-      baseURL: "http://localhost:9000",
-    })
-      .then(function (response) {
+    if (member_id.length > 0) {
+      axios({
+        url: "/member/list",
+        method: "get",
+        data: { member_id: "" },
+        baseURL: "http://localhost:9000",
+      }).then(function (response) {
         const takenID = [];
         response.data.map((e) => {
           takenID.push(e.member_id);
         });
-
-        if (takenID.includes(member_id)) {
-          setDuplicateChk(false);
-          setMemId("");
-          alert("사용불가능한 아이디입니다.");
-
-          console.log(member_id);
-        } else {
-          if (idExp.current.test(member_id)) {
-            setDuplicateChk(true);
-            setMemId(member_id);
-            console.log(member_id);
-          } else {
-            setMemId("");
-            return alert("아이디 형식이 올바르지 않습니다");
-          }
-        }
-      })
-      .then(function () {
-        navigate("/member");
+        setDuplicateChk(!takenID.includes(member_id));
       });
+    }
   }, [member_id]);
 
   return (
@@ -207,30 +199,18 @@ const SignUpTemplate = () => {
         <form className="form">
           <div className="formLabels">
             아이디
-            {/* {member_id.length === 0 ? (
+            {member_id.length === 0 || duplicateCheck == null ? (
               <WarningMsg>
                 필수 <FontAwesomeIcon icon={faExclamationCircle} /> : 영문 또는
                 숫자포함 6 ~20자{" "}
               </WarningMsg>
             ) : duplicateCheck == true ? (
               <WarningMsg>사용가능한 아이디입니다. </WarningMsg>
-            ) : duplicateCheck == null ? (
-              <></>
             ) : (
               <WarningMsg>
                 사용불가능한 아이디입니다.{" "}
                 <FontAwesomeIcon icon={faExclamationCircle} />
               </WarningMsg>
-            )} */}
-            {member_id.length === 0 || duplicateCheck == null ? (
-              <WarningMsg>
-                필수 <FontAwesomeIcon icon={faExclamationCircle} /> : 영문 또는
-                숫자포함 6 ~20자{" "}
-              </WarningMsg>
-            ) : (
-              duplicateCheck == true && (
-                <WarningMsg>사용가능한 아이디입니다. </WarningMsg>
-              )
             )}
           </div>
           <input
@@ -250,13 +230,10 @@ const SignUpTemplate = () => {
             onClick={onDuplicateCheck}
             disabled={duplicateCheck} //한번만 가능하도록
           >
-            {duplicateCheck === false
-              ? "중복확인"
-              : duplicateCheck === null
+            {duplicateCheck === false || duplicateCheck == null
               ? "중복확인"
               : "확인완료"}
           </button>
-          {/* ㄴ{duplicateCheck === false ? <DuplicateIdHint /> : <></>} */}
           <div className="formLabels">
             비밀번호
             {member_pwd.length === 0 && (

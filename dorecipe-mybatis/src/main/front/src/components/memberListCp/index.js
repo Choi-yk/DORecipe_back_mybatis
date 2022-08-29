@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./style.css";
+// import { Scrollable } from "../../style/common.js";
 const List = () => {
   const [state, setState] = useState([
     { member_id: "", member_name: "", member_email: "" },
@@ -63,26 +64,30 @@ const List = () => {
     <>
       <ListWrapper>
         <ListTitle> | Member | </ListTitle>
-        <ListTblWrap>
+        <div>
           <ul>
             <TableHead>
               <div className="noticeNo">이름</div>
               <div className="noticeTitle">아이디</div>
               <div className="noticeDate">이메일</div>
               <div className="updateOrDelete">수정 및 삭제</div>
+              {/* 수정은 로그인한 회원이 하도록 기능 옮기기 */}
             </TableHead>
-
-            {state.map((e) => (
-              <MemberList
-                key={e.member_id}
-                removePost={removePost}
-                state={e}
-                isLoading={isLoading}
-                hasItems={hasItems}
-              />
-            ))}
+            <Scrollable>
+              <div>
+                {state.map((e) => (
+                  <MemberList
+                    key={e.member_id}
+                    removePost={removePost}
+                    state={e}
+                    isLoading={isLoading}
+                    hasItems={hasItems}
+                  />
+                ))}
+              </div>
+            </Scrollable>{" "}
           </ul>
-        </ListTblWrap>
+        </div>
       </ListWrapper>
     </>
   );
@@ -96,14 +101,43 @@ const ListWrapper = styled.div`
 const ListTitle = styled.h2`
   text-align: center;
   margin: 1em 0;
-  margin-bottom: 2em;
   font-weight: 700;
 `;
 
-const ListTblWrap = styled.div`
-  margin: 1em 0;
-  /* align-items: center; */
-  & ul > li {
+const TableHead = styled.div`
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  border-bottom: 2px solid #ad939156;
+  padding: 0.5em 0;
+
+  & > div {
+    font-weight: 700;
+  }
+`;
+const Scrollable = styled.section`
+  width: 100%;
+  margin: 0 auto;
+
+  & > div {
+    padding: 0 0.6rem;
+    width: 102%;
+    height: 300px;
+    overflow-y: auto;
+    margin: 0 auto;
+    transform: translateX(-1%);
+    ::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+    ::-webkit-scrollbar-thumb {
+      height: 30%;
+      background-color: #fffdf5;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: #8d3232;
+    }
+  }
+  & > div > li {
     list-style: none;
     display: inline-flex;
     justify-content: center;
@@ -112,11 +146,4 @@ const ListTblWrap = styled.div`
     padding: 1em 0;
     border-bottom: 1px solid #ad939156;
   }
-`;
-const TableHead = styled.div`
-  display: inline-flex;
-  width: 100%;
-  justify-content: center;
-  border-bottom: 1px solid #ad939156;
-  padding: 0.5em 0;
 `;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const FooterWrapper = styled.footer`
   display: flex;
-  width: 100vw;
+  width: 100%;
   height: 15em;
   background-color: #8d3232;
   align-items: center;
