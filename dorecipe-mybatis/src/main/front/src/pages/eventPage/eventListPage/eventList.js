@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+
 const EventList = ({ removePost, state }) => {
   const removePostOnclick = () => {
     removePost(state.event_num);

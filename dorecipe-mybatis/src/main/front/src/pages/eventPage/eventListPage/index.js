@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect } from "react";
 import EventList from "./eventList";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import MainLayout from "../../../layout/mainLayOut";
 
 const EventPage = () => {
   const [state, setState] = useState([
@@ -42,6 +43,7 @@ const EventPage = () => {
 
   return (
     <>
+      <MainLayout>
       <div className="eventWrap">
         <h2>| Event |</h2>
         <Link className="updateList" to={"/notice/create"}>
@@ -66,6 +68,7 @@ const EventPage = () => {
           </ul>
         </div>
       </div>
+      </MainLayout>
     </>
   );
 };
