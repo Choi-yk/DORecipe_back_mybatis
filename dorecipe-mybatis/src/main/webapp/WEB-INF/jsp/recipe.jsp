@@ -23,5 +23,7 @@
 		<br>
 	</table>
 	</c:forEach>
+	<br>
+	<a href="${contextPath}/recipe/insert">레시피 등록하기</a>
 </body>
 </html>

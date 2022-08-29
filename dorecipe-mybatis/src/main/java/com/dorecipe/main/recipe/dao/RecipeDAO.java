@@ -16,5 +16,7 @@ public interface RecipeDAO {
 	
 	List<RecipeVO> getComment(Integer recipe_num);
 	
+	// 레시피 등록
+	int insertRecipe(RecipeVO recipeVO);
 	
 }
