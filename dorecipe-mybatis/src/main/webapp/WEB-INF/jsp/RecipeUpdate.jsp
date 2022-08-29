@@ -9,7 +9,7 @@
 </head>
 <body>
 	<form action="/recipe/update" method="post">
-
+	<input type="hidden" name="recipe_num" value="${recipeVO.recipe_num}">
 		<div>
 			<label for="recipe_title">레시피 제목</label>
 			<input type="text" name="recipe_title" value="${recipeVO.recipe_title}">
