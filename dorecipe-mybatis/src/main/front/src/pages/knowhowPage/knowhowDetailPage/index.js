@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import './style.css'
 
 const KnowhowDetailPage = () => {
@@ -56,6 +56,7 @@ const KnowhowDetailPage = () => {
                 <div>{state.know_content}</div>
               </div>
           </li>
+          <Link className="mt-3 left btn btn-outline-secondary" to={"/knowhow/list"}>목록으로 돌아가기</Link>
         </>
     );
 }
