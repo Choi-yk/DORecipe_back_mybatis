@@ -51,7 +51,7 @@ const EventPage = () => {
         </Link>
         <div className="eventTableWrap">
           <ul>
-            <div className="tableHead">
+            <div className="etableHead">
               <div className="eventNo">No.</div>
               <div className="eventTitle">제목</div>
               <div className="eventDate">참여 기간</div>

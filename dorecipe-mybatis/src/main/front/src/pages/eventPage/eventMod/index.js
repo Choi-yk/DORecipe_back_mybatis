@@ -44,6 +44,7 @@ const EventModify = () => {
   const[files, setFiles] = useState('');
 
   const onLoadFile = (e)=>{
+
     const file = e.target.files;
     setFiles(file);
   };
@@ -54,15 +55,15 @@ const EventModify = () => {
     preview();
     return() => preview();
 
-  }, []);
-  
+  });
+  // 미리보기
   const preview = ()=>{
     if(!files) return false;
     const imgEl = document.querySelector('.img_box');
     const reader = new FileReader();
 
     reader.onload = () =>
-      (imgEl.style.backgroundImage = `url( ${reader.result})`);
+      (imgEl.style.backgroundImage = `url(${reader.result})`);
 
       reader.readAsDataURL(files[0]);
   }
@@ -95,20 +96,21 @@ const EventModify = () => {
   
   
   const formData = new FormData();
-  formData.append("event_num",params.detailId);
-  formData.append("event_title",data.event_title);
-  formData.append("event_path",files[0]);
-  formData.append("event_content",data.event_content);
-  formData.append("event_creDate",data.event_creDate);
-  formData.append("event_finDate",data.event_finDate);
+    formData.append("event_num",params.detailId);
+    formData.append("event_title",data.event_title);
+    formData.append("event_path",data.event_path);
+    formData.append("event_image",files[0]);
+    formData.append("event_content",data.event_content);
+    formData.append("event_creDate",data.event_creDate);
+    formData.append("event_finDate",data.event_finDate);
 
 
     //data에 ""이 하나라도 있으면 alert
       if(data.event_title === "" || 
-     data.event_content === "" ||
-     data.event_creDate === "" ||
-     data.event_finDate === ""  ){
-        alert('제목, 내용, 이벤트 기간을 입력해 주세요.');
+         data.event_content === "" ||
+         data.event_creDate === "" ||
+         data.event_finDate === ""  ){
+         alert('제목, 내용, 이벤트 기간을 입력해 주세요.');
 
       }else{
   
@@ -139,7 +141,7 @@ const EventModify = () => {
     <h2 >| event |</h2>
     <div>
       <form>
-        <table className="left">
+        <table className="left dpib">
         <thead>
           <tr>
             <td>
@@ -218,15 +220,19 @@ const EventModify = () => {
           </tr>  
           </tbody>   
         </table>
+
+    <div className="mt-5 bottom imgPreview floatRight">
+        {/* <h4 className="eventCenter">{state.event_path}</h4> */}
         <div className="img_box"/>
-        <Link className="mt-3 left2 btn btn-outline-secondary" to={"/event/list"}>목록으로</Link>
+    </div>
+    <br/>
+    <Link className="left btn btn-outline-secondary" to={"/event/list"}>목록으로</Link>
     <button type="button" 
-            className="left2 btn btn-outline-secondary"
+            className="mt-1 left2 btn btn-outline-secondary"
             onClick={modHandler}
             >수정</button>
       </form>
     </div>
-    <div className="bottom"/>
     </MainLayout>
   </>
   );

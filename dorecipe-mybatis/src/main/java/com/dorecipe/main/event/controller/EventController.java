@@ -30,6 +30,9 @@ public class EventController {
 	@Autowired
 	private EventService eventService;
 	
+//	private static final String ARTICLE_IMAGE_REPO = "C:\\event\\article_image"; //잠깐
+
+	
 	@RequestMapping(path="/list",method = RequestMethod.GET)
 	public List<EventVO> getEvent(){ //이벤트 전체 조회
 		return eventService.getList();
@@ -37,7 +40,6 @@ public class EventController {
 	
 	@GetMapping("/detail/{event_num}") //이벤트 상세 조회
 	public EventVO detail(@PathVariable("event_num") Integer event_num) {
-		System.out.println(event_num+"eventnum가져옴?----------------------");
 		return eventService.getDetail(event_num);
 	}
 	
@@ -56,7 +58,6 @@ public class EventController {
 	
 	@PostMapping("/update") // 이벤트 수정
 	public void updateEvent(EventVO eventVO) {
-		System.out.println(eventVO);
 		eventService.updateEvent(eventVO);
 	}
 	

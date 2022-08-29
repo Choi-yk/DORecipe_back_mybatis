@@ -92,6 +92,7 @@ const eventHandler = useCallback(
   formData.append("data",blob);
 
   formData.append("event_title",data.event_title);
+  formData.append("event_image",files[0]);
   formData.append("event_path",data.event_path);
   formData.append("event_content",data.event_content);
   formData.append("event_creDate",data.event_creDate);
@@ -113,6 +114,7 @@ const eventHandler = useCallback(
       data: formData
     }).then((response)=>{
       console.log(response.data);
+      // window.location.reload();
       document.getElementById('eventData1').value = "";
       document.getElementById('eventData2').value = "";
       document.getElementById('eventData3').value = "";
@@ -124,6 +126,33 @@ const eventHandler = useCallback(
   [event_title,event_path,event_content,event_creDate,event_finDate]
 
   );
+
+
+  //파일 읽고 저장
+  const[files, setFiles] = useState('');
+
+  const onLoadFile = (e)=>{
+
+    const file = e.target.files;
+    setFiles(file);
+  };
+
+  useEffect(() => {
+    preview();
+    return() => preview();
+
+  });
+  // 미리보기
+  const preview = ()=>{
+    if(!files) return false;
+    const imgEl = document.querySelector('.img_box');
+    const reader = new FileReader();
+
+    reader.onload = () =>
+      (imgEl.style.backgroundImage = `url(${reader.result})`);
+
+      reader.readAsDataURL(files[0]);
+  }
 
   // 끝-----------------------------------------------------------
 
@@ -262,7 +291,7 @@ const eventHandler = useCallback(
 
 <div>
   <h4 className="left">이벤트</h4>
-    <table className="left">
+    <table className="left dpib">
     <thead>
       <tr>
           <td>제목</td>
@@ -298,7 +327,7 @@ const eventHandler = useCallback(
               name="event_path eventData"
               type="file"
               id="eventData2"
-              onChange={onChangeEventPath}
+              onChange={onChangeEventPath && onLoadFile}
             />
           </td>
       </tr>
@@ -335,6 +364,12 @@ const eventHandler = useCallback(
       </tr>  
       </tbody>   
     </table>
+
+    <div className="mt-5 bottom imgPreview floatRight">
+        <h4 className="eventCenter">{event_path}</h4>
+        <div className="img_box"/>
+    </div>
+
     <Link className="mt-3 left2 btn btn-outline-secondary" to={"/event/list"}>이벤트페이지</Link>
     <button type="button" 
             className="left3 btn btn-outline-secondary"

@@ -41,7 +41,6 @@ public class EventDAOImpl implements EventDAO {
 	
 	@Override
 	public int updateEvent(EventVO eventVO) {
-		System.out.println(eventVO + "다오에 옴?");
 		return mapper.updateEvent(eventVO);
 	}
 	

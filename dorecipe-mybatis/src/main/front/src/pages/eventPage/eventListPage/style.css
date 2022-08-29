@@ -8,6 +8,7 @@ h2 {
 }
 /* 표 */
 .etableHead {
+  
   display: inline-flex;
   width: 100%;
   justify-content: center;
