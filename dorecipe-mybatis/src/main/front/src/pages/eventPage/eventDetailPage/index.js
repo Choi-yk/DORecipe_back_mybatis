@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import "./style.css";
-import { useParams } from "react-router-dom";
+import { useParams,Link } from "react-router-dom";
 import MainLayout from "../../../layout/mainLayOut";
 
 
@@ -43,13 +43,13 @@ const EventDetailPage = () => {
     <MainLayout>
       <div className="eventCenter">
         <div>
-          <button type="button" className="btn btn-outline-secondary"> 이전으로 </button>
-          <h2>| Event |</h2>
+          <Link className="btn btn-outline-secondary centerLeft" to={"/event/list"}>이전으로</Link>
+          <h2>| Event |</h2><br/>
         </div>
         <h4>
           참여기간 : {state.event_creDate}~{state.event_finDate}
-        </h4>
-        <h2>{state.event_title}</h2>
+        </h4><br/>
+        <h2>{state.event_title}</h2><br/>
         <hr className="hr"/>
         <img
           className="eventImg"

@@ -4,9 +4,8 @@ import "./style.css";
 import { useParams } from "react-router-dom";
 import { useInput } from "../../../hooks/useInput";
 import { Link } from "react-router-dom";
+import MainLayout from "../../../layout/mainLayOut";
 
-// import '../../../bootstrap.min.css';
-// import { setEvent } from "../../../store";
 
 
 
@@ -38,14 +37,38 @@ const EventModify = () => {
 
   }
 
+
+
+  // 파일 보내기
+
+  const[files, setFiles] = useState('');
+
+  const onLoadFile = (e)=>{
+    const file = e.target.files;
+    setFiles(file);
+  };
+
   useEffect(() => {
     Axios();
+
+    preview();
+    return() => preview();
+
   }, []);
-
-
   
+  const preview = ()=>{
+    if(!files) return false;
+    const imgEl = document.querySelector('.img_box');
+    const reader = new FileReader();
+
+    reader.onload = () =>
+      (imgEl.style.backgroundImage = `url( ${reader.result})`);
+
+      reader.readAsDataURL(files[0]);
+  }
+
+  // --
   
-  let [event_num, onChangeEventNum, setNum] = useInput("");
   let [event_title, onChangeEventTitle, setTitle] = useInput("");
   let [event_path, onChangeEventPath, setPath] = useInput("");
   let [event_content, onChangeEventContent, setContent] = useInput("");
@@ -63,7 +86,6 @@ const EventModify = () => {
     event_finDate = document.getElementById('eventFinDate').value;
 
   const data = {
-    event_num: `${event_num}`,
     event_title: `${event_title}`,
     event_path: `${event_path}`,
     event_content: `${event_content}`,
@@ -75,7 +97,7 @@ const EventModify = () => {
   const formData = new FormData();
   formData.append("event_num",params.detailId);
   formData.append("event_title",data.event_title);
-  formData.append("event_path",data.event_path);
+  formData.append("event_path",files[0]);
   formData.append("event_content",data.event_content);
   formData.append("event_creDate",data.event_creDate);
   formData.append("event_finDate",data.event_finDate);
@@ -102,7 +124,7 @@ const EventModify = () => {
     });
   }
 },
-      [event_num,event_title,event_path,event_content,event_creDate,event_finDate]
+      [event_title,event_path,event_content,event_creDate,event_finDate]
     );
 
 
@@ -113,7 +135,8 @@ const EventModify = () => {
 
   return (
   <>
-    <h2 >| Event수정 |</h2>
+  <MainLayout>
+    <h2 >| event |</h2>
     <div>
       <form>
         <table className="left">
@@ -152,7 +175,8 @@ const EventModify = () => {
                   name="event_path"
                   type="file"
                   id="eventPath"
-                  onChange={onChangeEventPath}
+                  accept="img/*"
+                  onChange={onLoadFile}
                   defaultValue={state.event_path}
                 />
               </td>
@@ -194,15 +218,17 @@ const EventModify = () => {
           </tr>  
           </tbody>   
         </table>
+        <div className="img_box"/>
         <Link className="mt-3 left2 btn btn-outline-secondary" to={"/event/list"}>목록으로</Link>
     <button type="button" 
             className="left2 btn btn-outline-secondary"
             onClick={modHandler}
             >수정</button>
-  </form>
-</div>
-
-    </>
+      </form>
+    </div>
+    <div className="bottom"/>
+    </MainLayout>
+  </>
   );
 
   
