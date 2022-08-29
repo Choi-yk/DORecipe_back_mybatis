@@ -63,17 +63,16 @@ public class KnowhowController {
 		return "KnowhowForm";
 	}
 	
+	//react연동 -> 주석 해제
 	@PostMapping("/update") // 보내!!!!
-	public String update(KnowhowVO knowhowVO) throws Exception {
-		knowhowService.updateKnowhow(knowhowVO);
-		
+	public void update(KnowhowVO knowhowVO) throws Exception {
 		System.out.println("Controller - knowhow num " + knowhowVO.getKnow_num());
 		System.out.println("Controller - knowhow title " + knowhowVO.getKnow_title());
 		System.out.println("Controller - knowhow content " + knowhowVO.getKnow_content());
 		
-//		System.out.println("수정됨 - Controller");
+		System.out.println("수정됨 - Controller");
 		
-		return "redirect:/knowhow/list";
+		knowhowService.updateKnowhow(knowhowVO);
 	}
 	
 	// 노하우 게시물 삭제

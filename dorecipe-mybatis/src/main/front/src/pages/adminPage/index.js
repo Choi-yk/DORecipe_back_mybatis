@@ -173,43 +173,48 @@ const eventHandler = useCallback(
 
 // notice ----------------------------------------------------------------------------------
 
-  const [notice_title, onChangeNoticeTitle, setNoticeTitle] = useInput("");
-  const [notice_content, onChangeNoticeContent, setNoticeContent] = useInput("");
+  let [notice_title, onChangeNoticeTitle, setNoticeTitle] = useInput("");
+  let [notice_content, onChangeNoticeContent, setNoticeContent] = useInput("");
   
-  useEffect(()=>{
-    if (notice_title.length > 0 ? setEmptyError(false) : setEmptyError(true))
-    return;
-  },[notice_title]);
-   
-  const noticeData = {
-    notice_title: `${notice_title}`,
-      notice_content: `${notice_content}`
-  }
-  
-  const noticeBlob = new Blob([JSON.stringify(noticeData)],{
-      type : "application/json",
-  });   
+  const insertNotice = useCallback((e)=>{
+	  
+	  
+	  const noticeData = {
+    	notice_title: `${notice_title}`,
+      	notice_content: `${notice_content}`
+	  }
+	  
+	  const noticeBlob = new Blob([JSON.stringify(noticeData)],{
+	      type : "application/json",
+	  });   
+	     
+	  const formData = new FormData();
+	  formData.append("noticeData",noticeBlob);
+	  
+	  formData.append("notice_title",noticeData.notice_title);
+	  formData.append("notice_content",noticeData.notice_content);
+	
+	  
+	  if(noticeData.notice_title === "" || noticeData.notice_content ===""){
+		alert("제목과 내용을 입력해주세요.");
+	  }else{
+    	axios({
+      		method: "POST",
+      		url : "http://localhost:9000/notice/insert",
+      		headers: { "Content-Type": "multipart/form-data" },
+      		data: formData
+	    }).then((response)=>{
+	      	console.log(response.data);
+	  		document.getElementById('noticeTitle').value="";
+	  		document.getElementById('noticeContent').value="";
+	     	alert("공지사항이 등록되었습니다.");
+	     	window.location.href="http://localhost:3000/notice/list";
+	    	});
+	  }
+    }, [notice_title,notice_content]);
      
-  const formData = new FormData();
-  formData.append("noticeData",noticeBlob);
-  
-  formData.append("notice_title",noticeData.notice_title);
-  formData.append("notice_content",noticeData.notice_content);
-
-  function Axios(){
-    axios({
-      method: "POST",
-      url : "http://localhost:9000/notice/insert",
-      headers: { "Content-Type": "multipart/form-data" },
-      data: formData
-    }).then((response)=>{
-      console.log(response.data);
-    },
-      [notice_title,notice_content]
-    ); 
-  }
 // notice 끝---------------------------------------------------------------------------------
-  
+
 
   return(
 [
@@ -222,10 +227,10 @@ const eventHandler = useCallback(
           <td>제목</td>
           <td>
             <input
-               name="notice_title"
+              id="noticeTitle"
+              name="notice_title"
               className="text"
               type="text"
-              id="postTitle"
               placeholder=" 제목을 입력해주세요"
               onChange={onChangeNoticeTitle}
             />
@@ -236,6 +241,7 @@ const eventHandler = useCallback(
         <tr>
             <td>내용</td>
             <textarea 
+             id="noticeContent"
              name="event_content"
              className="text" 
              rows="4" 
@@ -247,7 +253,7 @@ const eventHandler = useCallback(
       </tbody>  
     </table>
       <button type="button"
-         onClick={Axios}
+         onClick={insertNotice}
          disabled={error}
          className="left2 btn btn-outline-secondary">등록</button>
   </form>
