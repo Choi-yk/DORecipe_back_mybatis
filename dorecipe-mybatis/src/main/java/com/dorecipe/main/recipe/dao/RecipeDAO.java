@@ -19,4 +19,10 @@ public interface RecipeDAO {
 	// 레시피 등록
 	int insertRecipe(RecipeVO recipeVO);
 	
+	// 레시피 수정
+	int updateRecipe(RecipeVO recipeVO);
+	
+	// 레시피 삭제
+	int deleteRecipe(int recipe_num);
+
 }

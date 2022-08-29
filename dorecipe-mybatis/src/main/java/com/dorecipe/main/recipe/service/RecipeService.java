@@ -48,4 +48,14 @@ public class RecipeService {
 		return recipeDAO.insertRecipe(recipeVO);
 	}
 	
+	//레시피 수정
+	public int updateRecipe(RecipeVO recipeVO) {
+		return recipeDAO.updateRecipe(recipeVO);
+	}
+	
+	//레시피 삭제
+	public int deleteRecipe(int recipe_num) {
+		return recipeDAO.deleteRecipe(recipe_num);
+	}
+	
 }

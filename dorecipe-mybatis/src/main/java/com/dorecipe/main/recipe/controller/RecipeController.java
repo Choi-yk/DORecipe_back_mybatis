@@ -70,5 +70,28 @@ public class RecipeController {
 		return "redirect:/recipe/list";
 	}
 	
+	//레시피 수정
+	@GetMapping("/update")
+	public String update() {
+		return "RecipeUpdate"; //jsp
+	}
+	@PostMapping("/update")
+	public String update(RecipeVO recipeVO) {
+		recipeService.updateRecipe(recipeVO);
+		
+		System.out.println("레시피 수정 - Controller");
+		
+		return "redirect:/recipe/list";
+	}
+	
+	//레시피 삭제
+	@GetMapping("delete/{recipe_num}")
+	public String delete(@PathVariable("recipe_num") Integer recipe_num) {
+		recipeService.deleteRecipe(recipe_num);
+		
+		System.out.println("레시피 삭제 성공!! - controller ");
+		
+		return "redirect:/recipe/list";
+	}
 	
 }
