@@ -3,9 +3,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import "./style.css";
 import { useParams } from "react-router-dom";
-// import '../../../bootstrap.min.css';
-// import { setEvent } from "../../../store";
-
+import MainLayout from "../../../layout/mainLayOut";
 
 
 const EventDetailPage = () => {
@@ -42,8 +40,12 @@ const EventDetailPage = () => {
 
   return (
     <>
+    <MainLayout>
       <div className="eventCenter">
-        <h2>| Event |</h2>
+        <div>
+          <button type="button" className="btn btn-outline-secondary"> 이전으로 </button>
+          <h2>| Event |</h2>
+        </div>
         <h4>
           참여기간 : {state.event_creDate}~{state.event_finDate}
         </h4>
@@ -56,6 +58,8 @@ const EventDetailPage = () => {
         />
         <p className="left width">{state.event_content}</p>
       </div>
+      <div className="bottom"/>
+      </MainLayout>
     </>
   );
 };

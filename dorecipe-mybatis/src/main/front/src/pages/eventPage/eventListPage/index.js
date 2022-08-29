@@ -68,6 +68,7 @@ const EventPage = () => {
           </ul>
         </div>
       </div>
+      <div className="bottom"/>
       </MainLayout>
     </>
   );

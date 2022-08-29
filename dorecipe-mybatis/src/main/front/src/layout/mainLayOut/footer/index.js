@@ -1,14 +1,12 @@
 import { Link } from "react-router-dom";
 import { FooterWrapper, FooterRight, FooterLeft } from "./style";
-
+import { MainLogo } from "../../../components/_common/mainLogo";
 const LayOutFooter = () => {
   return (
     <>
       <FooterWrapper>
         <FooterRight>
-          <Link to="/">
-            <img className="logo" src="" />
-          </Link>
+          <MainLogo />
         </FooterRight>
         <FooterLeft>
           <div>
