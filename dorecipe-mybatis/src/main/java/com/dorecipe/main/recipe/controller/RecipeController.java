@@ -5,17 +5,23 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.dorecipe.main.recipe.service.RecipeService;
 import com.dorecipe.main.recipe.vo.RecipeVO;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
+//@CrossOrigin(origins="http://localhost:3000")   //react연동 -> 주석 해제
 @RequestMapping("/recipe")
 @RequiredArgsConstructor
+//@RestController	//react연동 -> 주석 해제
+@Controller
 public class RecipeController {
 
 	@Autowired
@@ -48,5 +54,21 @@ public class RecipeController {
 	
 	return "recipeDetail";
 	}
+	
+	//레시피등록
+	@GetMapping("/insert")
+	public String insert() {
+		return "RecipeInsert"; // jsp test
+	}
+	
+	@PostMapping("/insert")
+	public String insert(RecipeVO recipeVO) {
+		recipeService.insertRecipe(recipeVO);
+		
+		System.out.println("레시피 등록됨 - Controller");
+		
+		return "redirect:/recipe/list";
+	}
+	
 	
 }

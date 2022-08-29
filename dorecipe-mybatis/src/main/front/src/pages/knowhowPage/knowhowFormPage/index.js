@@ -72,10 +72,8 @@ const KnowhowUpdatePage = () => {
       formData.append("know_content", data.know_content);
       formData.append("know_path", data.know_path);
      
-      if(data.know_title === "") 
-         alert("제목을 입력해 주세요.");
-      else if(data.know_content === "")
-         alert("내용을 입력해 주세요.");
+      if(data.know_title === "" || data.know_content === "") 
+         alert("제목과 내용을 입력해 주세요.");
       else {
          axios({
             method: "post",
@@ -84,9 +82,9 @@ const KnowhowUpdatePage = () => {
             data: formData
           }).then((response) => {
             console.log(response.data);
-          alert("수정되었습니다.");
-          //노하우 리스트로 이동
-          window.location.href = "http://localhost:3000/knowhow/list"
+            alert("수정되었습니다.");
+            //노하우 리스트로 이동
+            window.location.href = "http://localhost:3000/knowhow/list"
           });
       }
      }, [knowhowId, know_title, know_content, know_path]

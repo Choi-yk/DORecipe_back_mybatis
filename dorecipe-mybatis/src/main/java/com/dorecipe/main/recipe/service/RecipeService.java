@@ -43,4 +43,9 @@ public class RecipeService {
 		return comment;
 	}
 	
+	//레시피 등록
+	public int insertRecipe(RecipeVO recipeVO) {
+		return recipeDAO.insertRecipe(recipeVO);
+	}
+	
 }

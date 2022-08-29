@@ -47,5 +47,11 @@ public class RecipeDAOImpl implements RecipeDAO{
 	public List<RecipeVO> getComment(Integer recipe_num) {
 		return mapper.getComment(recipe_num);
 	}
+
+	// 레시피 등록
+	@Override
+	public int insertRecipe(RecipeVO recipeVO) {
+		return mapper.insertRecipe(recipeVO);
+	}
 	
 }
