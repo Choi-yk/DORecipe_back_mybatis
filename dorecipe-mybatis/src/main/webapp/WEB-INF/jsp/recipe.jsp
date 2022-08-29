@@ -28,7 +28,7 @@
 					<td><a href="/recipe/detail/${r.recipe_num}">${r.recipe_title}</td>
 					<td><a href="/recipe/detail/${r.recipe_num}">${r.recipe_rpath}</a></td>
 					<td>${r.information_level}</td>
-					<td><a href="/recipe/update">수정</a></td>
+					<td><a href="/recipe/update/${r.recipe_num}">수정</a></td>
 					<td><a href="/recipe/delete/${r.recipe_num}">삭제</a></td>
 				</tr>
 			</c:forEach>

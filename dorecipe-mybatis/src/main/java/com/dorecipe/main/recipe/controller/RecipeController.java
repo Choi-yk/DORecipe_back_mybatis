@@ -71,8 +71,15 @@ public class RecipeController {
 	}
 	
 	//레시피 수정
-	@GetMapping("/update")
-	public String update() {
+	@GetMapping("/update/{recipe_num}")
+	public String update(@PathVariable("recipe_num") int recipe_num, Model model) {
+		RecipeVO recipeVO = recipeService.getDetail(recipe_num);
+		
+		System.out.println(recipe_num);
+		System.out.println(recipeVO.getRecipe_title());
+		
+		model.addAttribute("recipeVO", recipeVO);
+		
 		return "RecipeUpdate"; //jsp
 	}
 	@PostMapping("/update")

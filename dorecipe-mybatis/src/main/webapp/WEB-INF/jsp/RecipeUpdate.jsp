@@ -5,21 +5,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>레시피 등록 테스트</title>
+<title>레시피 수정 테스트</title>
 </head>
 <body>
 	<form action="/recipe/update" method="post">
+
 		<div>
 			<label for="recipe_title">레시피 제목</label>
-			<input type="text" name="recipe_title" value="${RecipeVO.recipe_title}">
+			<input type="text" name="recipe_title" value="${recipeVO.recipe_title}">
 		</div>
 		<div>
 			<label for="recipe_introduce">레시피 소개</label>
-			<input type="text" name="recipe_introduce" value="${RecipeVO.recipe_introduce}">
+			<input type="text" name="recipe_introduce" value="${recipeVO.recipe_introduce}">
 		</div>
 		<div>
 			<label for="recipe_url">동영상</label>
-			<input type="text" name="recipe_url" value="${RecipeVO.recipe_url}">
+			<input type="text" name="recipe_url" value="${recipeVO.recipe_url}">
 		</div>
 		<!-- 대표이미지 빼고! -->
 		
@@ -77,10 +78,9 @@
 		<!-- 태그 -->
 		<div>
 			<label for="recipe_tag">태그</label>
-			<textarea name="recipe_tag"
+			<input name="recipe_tag"
 			 placeholder="주재료, 효능, 대상 등을 태그로 남기시면 내 레시피를 찾기 더 쉬워져요."
 			 value="${recipeVO.recipe_tag}">
-			</textarea>
 		</div>
 		
 		<button type="submit">수정</button>
