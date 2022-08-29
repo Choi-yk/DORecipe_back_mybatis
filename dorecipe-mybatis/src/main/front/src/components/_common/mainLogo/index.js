@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 export const MainLogo = () => {
   return (
-    <Link to={""}>
+    <Link to={"/"}>
       <LogoWrap>
         <img className="logo" src="/img/doRecipeLogo.gif" alt="logo"></img>
       </LogoWrap>
