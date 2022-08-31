@@ -28,6 +28,14 @@ const LoginPage = () => {
 	useEffect(() => {
 		Axios();
 	}, []);
+	
+	
+	const memberLogin = useCallback((e)=>{
+		
+		
+		
+	},
+	[member_id,member_pwd]);
 
 	return (
 		<>
@@ -49,12 +57,13 @@ const LoginPage = () => {
 								placeholder="아이디"
 							/>
 							<input
+								name="memeber_pwd"
 								class="pwdInput"
 								required
 								type="password"
 								placeholder="비밀번호"
 							/>
-							<button type="submit" name="loginBtn" onclick="alertBlanks()">
+							<button type="submit" name="loginBtn" onclick={memberLogin}>
 								로그인
 							</button>
 						</form>
