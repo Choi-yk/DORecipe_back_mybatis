@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import MainLayout from "../../layout/mainLayOut";
 import { MainLogo } from "../../components/_common/mainLogo";
-import JoinMemberPage from "../joinMemberPage";
 
 const LoginPage = () => {
 	
