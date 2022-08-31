@@ -80,6 +80,21 @@
          <textarea name="recipe_tag"></textarea>
       </div>
       
+      <!-- 재료묶음 -->
+      <div>
+         <h2>재료 묶음</h2>
+         <hr>
+         <div id="bunbun">
+           	<button type="button" onclick="delBundle(this)">X</button>
+           	<span>재료묶음<input name="r_bundle" placeHolder="스테이크 소스"></input></span>
+           	<span id="ingre">
+           		<span>재료<input name="ing_ingredient" placeHolder="캐찹"></span>
+           		<span>양<input name="ing_amount" placeHolder="1/2컵"></input></span>
+           	</span>
+         </div>
+         <button type="button" onclick="addBundle()">재료  묶음 추가</button>
+      </div>
+      
       <!-- 조리순서 -->
       <div>
          <h2>조리 순서</h2>
@@ -135,6 +150,28 @@
    //    console.log(order_num);
    // }
    
+   //재료 묶음 추가
+   function addBundle(){
+	   const bunbun = document.getElementById("bunbun");
+	   const new_bundle = document.createElement('div');
+	   
+	   console.log(bunbun);
+	   
+	   new_bundle.innerHTML = 
+		   `
+           	<button type="button" onclick="delBundle(this)">X</button>
+           	<span>재료묶음<input name="r_bundle"></input></span>
+           	<span id="ingre">
+           		<span>재료<input name="ing_ingredient"></input></span>
+           		<span>양<input name="ing_amount"></input></span>
+           	</span>
+		   `;
+	   bunbun.appendChild(new_bundle);
+   }
+   //재료 묶음 추가 삭제
+   function delBundle(obj){
+	   document.getElementById("bunbun").removeChild(obj.parentNode);
+   }
    function delOrder(obj) { // 삭제
       document.getElementById("orderForm").removeChild(obj.parentNode);
    }

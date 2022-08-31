@@ -37,11 +37,86 @@
   	
   	<!-- 레시피 등록 test -->
   	<insert id="insertRecipe" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
-  		insert into recipe
-  		values(null, #{recipe_title}, 0, #{recipe_introduce}, #{recipe_url}, "이미지", #{recipe_tag},
-  		#{category_kind}, #{category_theme}, #{category_way}, #{category_ing}, #{information_person}, #{information_time}, #{information_level},
-  		"완성1", "완성2", "완성3", "완성4", "팁",
-  		now(), "admin")
+  		insert into recipe(recipe_num,
+		    recipe_title,
+		    recipe_savetype,
+		    recipe_introduce,
+		    recipe_url,
+		    recipe_rpath,
+		    recipe_tag,
+		    category_kind,
+		    category_theme,
+		    category_way,
+		    category_ing,
+		    information_person,
+		    information_time,
+		    information_level,
+		    completion_path1,
+		    completion_path2,
+		    completion_path3,
+		    completion_path4,
+		    completion_tip,
+		    recipe_creDate,
+		    member_id
+		    )
+  		values(
+  		     null, 
+	  		 #{recipe_title},
+	  		 0,
+	  		  #{recipe_introduce}, 
+	  		  #{recipe_url}, 
+	  		  "이미지", 
+	  		  #{recipe_tag},
+	  		#{category_kind}, 
+	  		#{category_theme}, 
+	  		#{category_way}, 
+	  		#{category_ing}, 
+	  		#{information_person}, 
+	  		#{information_time}, 
+	  		#{information_level},
+	  		"완성1", 
+	  		"완성2", 
+	  		"완성3", 
+	  		"완성4", 
+	  		"팁",
+	  		now(), 
+	  		"admin"
+	  		);
+  		
+  		 insert into r_bundle(
+  				 recipe_num
+    			,bundle_num
+    			,bundle
+  		) values(
+  		       (select IFNULL(max(recipe_num),0) from recipe   ALIAS_FOR_SUBQUERY )
+  		      ,(select IFNULL(max(bundle_num),0)+1 from r_bundle ALIAS_FOR_SUBQUERY 
+  			   where  recipe_num = (select IFNULL(max(recipe_num),0) from recipe   ALIAS_FOR_SUBQUERY )
+  			   ) 
+  			 ,#{bundle}
+  		);
+  			 	
+	
+  		insert into b_ingredient(
+  			 recipe_num
+  			,bundle_num
+    		,ing_num
+    		,ing_ingredient
+    		,ing_amount
+  		) values(
+  			(select IFNULL(max(recipe_num),0) from recipe   ALIAS_FOR_SUBQUERY )
+           ,(select IFNULL(max(bundle_num),0) from r_bundle ALIAS_FOR_SUBQUERY 
+	         where  recipe_num = (select IFNULL(max(recipe_num),0) from recipe   ALIAS_FOR_SUBQUERY )
+		    ) 
+  		   ,(select IFNULL(max(ing_num),0)+1 from b_ingredient ALIAS_FOR_SUBQUERY 
+  			 where recipe_num = (select IFNULL(max(recipe_num),0) from recipe   ALIAS_FOR_SUBQUERY )
+  			 and bundle_num   = (select IFNULL(max(bundle_num),0) from r_bundle ALIAS_FOR_SUBQUERY 
+  			                     where  recipe_num = (select IFNULL(max(recipe_num),0) from recipe   ALIAS_FOR_SUBQUERY )
+  			                    )
+             ) 
+  			,#{ing_ingredient}
+  			,#{ing_amount}		
+  		);
+  		
   	</insert>
   	
   	<!-- 레시피 수정 -->
