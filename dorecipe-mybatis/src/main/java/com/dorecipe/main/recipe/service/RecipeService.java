@@ -48,6 +48,18 @@ public class RecipeService {
 		return recipeDAO.insertRecipe(recipeVO);
 	}
 	
+	public int insertBundle(RecipeVO recipeVO) {
+		return recipeDAO.insertBundle(recipeVO);
+	}
+	
+	public int insertIngredient(RecipeVO recipeVO) {
+		return recipeDAO.insertIngredient(recipeVO);
+	}
+	
+	public int insertOrder(RecipeVO recipeVO) {
+		return recipeDAO.insertOrder(recipeVO);
+	}
+	
 	//레시피 수정
 	public int updateRecipe(RecipeVO recipeVO) {
 		return recipeDAO.updateRecipe(recipeVO);

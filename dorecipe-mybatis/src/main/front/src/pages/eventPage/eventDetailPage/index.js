@@ -54,6 +54,7 @@ const EventDetailPage = () => {
         <img
           className="eventImg"
           src={state.event_path}
+          // 21068696-db71-49c0-b496-c204bd9c3685_duke2.png
           alt={state.event_path + "이거 못 찾았음"}
         />
         <p className="left width">{state.event_content}</p>

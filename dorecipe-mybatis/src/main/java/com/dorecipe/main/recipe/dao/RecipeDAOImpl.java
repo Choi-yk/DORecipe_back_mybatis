@@ -54,6 +54,25 @@ public class RecipeDAOImpl implements RecipeDAO{
 		return mapper.insertRecipe(recipeVO);
 	}
 	
+	@Override
+	public int insertBundle(RecipeVO recipeVO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
+	public int insertIngredient(RecipeVO recipeVO) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
+	public int insertOrder(RecipeVO recipeVO) {
+		// TODO Auto-generated method stub
+		return mapper.insertOrder(recipeVO);
+	}
+	
+	
 	// 레시피 수정
 	@Override
 	public int updateRecipe(RecipeVO recipeVO) {

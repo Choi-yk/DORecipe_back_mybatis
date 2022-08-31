@@ -220,11 +220,13 @@ const EventModify = () => {
           </tr>  
           </tbody>   
         </table>
-
-    <div className="mt-5 bottom imgPreview floatRight">
-        {/* <h4 className="eventCenter">{state.event_path}</h4> */}
+        
+    {/* 이미지 */}
+    <div className="mt-5 imgPreview floatRight">
         <div className="img_box"/>
     </div>
+
+
     <br/>
     <Link className="left btn btn-outline-secondary" to={"/event/list"}>목록으로</Link>
     <button type="button" 

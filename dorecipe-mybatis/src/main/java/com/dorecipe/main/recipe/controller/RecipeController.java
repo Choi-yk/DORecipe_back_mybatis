@@ -63,7 +63,9 @@ public class RecipeController {
 	
 	@PostMapping("/insert")
 	public String insert(RecipeVO recipeVO) {
+		
 		recipeService.insertRecipe(recipeVO);
+		recipeService.insertOrder(recipeVO);
 		
 		System.out.println("레시피 등록됨 - Controller");
 		

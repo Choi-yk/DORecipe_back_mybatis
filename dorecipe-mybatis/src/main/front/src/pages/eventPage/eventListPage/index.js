@@ -37,7 +37,6 @@ const EventPage = () => {
       .get(`http://localhost:9000/event/delete/${event_num}`)
       .then((data) => {
         console.log(data);
-        Location.href = "/event/list";
       });
   });
 
@@ -51,7 +50,7 @@ const EventPage = () => {
         </Link>
         <div className="eventTableWrap">
           <ul>
-            <div className="etableHead">
+            <div className="tableHead">
               <div className="eventNo">No.</div>
               <div className="eventTitle">제목</div>
               <div className="eventDate">참여 기간</div>
