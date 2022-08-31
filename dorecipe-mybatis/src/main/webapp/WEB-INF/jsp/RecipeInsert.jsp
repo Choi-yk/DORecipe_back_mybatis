@@ -80,15 +80,18 @@
          <textarea name="recipe_tag"></textarea>
       </div>
       
-      <!-- 요리순서 -->
+      <!-- 조리순서 -->
       <div>
-         <h2>요리 순서</h2>
+         <h2>조리 순서</h2>
          <hr>
          <div id="orderForm">
             <button type="button" onclick="delOrder(this)">X</button>
+            <input type="hidden" name="recipe_num">
             <table id="orderTable">
                <tr>
                   <td>
+                     <input type="hidden" name="recipe_num">
+                  	 <p name="order_num" value="1">1</p>
                      <textarea name="order_explain"></textarea>
                   </td>
                   <td>
@@ -98,7 +101,7 @@
                </tr>
             </table>
          </div>
-         <button type="button" onclick="addOrder()" style="width: 100%;">요리 순서 추가</button>
+         <button type="button" style="width: 100%;">요리 순서 추가</button>
       </div>
       
       <br>
@@ -106,25 +109,31 @@
    </form>
 </body>
 <script>
-   function addOrder() { // 추가
-      const orderForm = document.getElementById("orderForm");
-      const new_table = document.createElement('table');
+   // function addOrder() { // 추가
+   //    const orderForm = document.getElementById("orderForm");
+   //    const new_table = document.createElement('table');
+   
+   //    let order_num = 1;
 
-      new_table.innerHTML =
-         `<button type="button" onclick="delOrder(this)">X</button>
-         <table id="orderTable">
-         <tr>
-         <td>
-            <textarea name="order_explain"></textarea>
-         </td>
-         <td>
-         <td>
-            <img name="order_path" alt="이미지" src="#">
-         </td>
-      </tr>
-   </table>`;
-      orderForm.appendChild(new_table);
-   }
+   //    order_num++;
+
+   //    new_table.innerHTML =
+   //       `<button type="button" onclick="delOrder(this)">X</button>
+   //       <table id="orderTable">
+   //       <tr>
+   //       <td>
+   //       	<p value="order_num">` + order_num + `</p>
+   //          <textarea name="order_explain"></textarea>
+   //       </td>
+   //       <td>
+   //       <td>
+   //          <img name="order_path" alt="이미지" src="#">
+   //       </td>
+   //    </tr>
+   // </table>`;
+   //    orderForm.appendChild(new_table);
+   //    console.log(order_num);
+   // }
    
    function delOrder(obj) { // 삭제
       document.getElementById("orderForm").removeChild(obj.parentNode);
