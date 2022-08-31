@@ -18,8 +18,7 @@ public interface RecipeDAO {
 	
 	// 레시피 등록
 	int insertRecipe(RecipeVO recipeVO);
-	int insertBundle(RecipeVO recipeVO);
-	int insertIngredient(RecipeVO recipeVO);
+	
 	int insertOrder(RecipeVO recipeVO);
 	
 	// 레시피 수정
@@ -28,7 +27,6 @@ public interface RecipeDAO {
 	// 레시피 삭제
 	int deleteRecipe(int recipe_num);
 
-
-
+	int getRecipeNum();
 
 }

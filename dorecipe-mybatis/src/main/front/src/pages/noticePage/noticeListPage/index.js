@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect } from "react";
 import NoticeList from "./noticeList";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import MainLayout from "../../../layout/mainLayOut";
 
 const NoticePage = () => {
   const [state, setState] = useState([
@@ -48,6 +49,7 @@ const NoticePage = () => {
 
   return (
     <>
+    <MainLayout>
       <div className="noticeWrap">
         <h2>| Notice |</h2>
         <Link className="updateList" to={"/notice/create"}>
@@ -73,6 +75,8 @@ const NoticePage = () => {
         </div>
         {/* <button onClick={() => testAxios()}>axiosTest</button> */}
       </div>
+      <div className="bottom"/>
+      </MainLayout>
     </>
   );
 };

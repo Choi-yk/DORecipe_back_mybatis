@@ -42,18 +42,15 @@ public class RecipeService {
 		List<RecipeVO> comment = recipeDAO.getComment(recipe_num);
 		return comment;
 	}
+	//레시피 번호 가져오기
+	public int getRecipeNum() {
+		int recipe_num = recipeDAO.getRecipeNum();
+		return recipe_num;
+	}
 	
 	//레시피 등록
 	public int insertRecipe(RecipeVO recipeVO) {
 		return recipeDAO.insertRecipe(recipeVO);
-	}
-	
-	public int insertBundle(RecipeVO recipeVO) {
-		return recipeDAO.insertBundle(recipeVO);
-	}
-	
-	public int insertIngredient(RecipeVO recipeVO) {
-		return recipeDAO.insertIngredient(recipeVO);
 	}
 	
 	public int insertOrder(RecipeVO recipeVO) {

@@ -35,17 +35,26 @@
 	  select * from comment where recipe_num=#{recipe_num} order by comment_num desc
   	</select>
   	
+  	<!-- 레시피 번호 가장 높은 수 가져오기 -->
+  	<select id="getRecipeNum" resultType="int">
+	  select recipe_num from recipe order by recipe_num desc limit 1;
+  	</select>
+  	
   	<!-- 레시피 등록 test -->
   	<insert id="insertRecipe" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
   		insert into recipe
-  		values(null, #{recipe_title}, 0, #{recipe_introduce}, #{recipe_url}, "이미지", #{recipe_tag},
+  		values(#{recipe_num}, #{recipe_title}, 0, #{recipe_introduce}, #{recipe_url}, "이미지", #{recipe_tag},
   		#{category_kind}, #{category_theme}, #{category_way}, #{category_ing}, #{information_person}, #{information_time}, #{information_level},
-  		"완성1", "완성2", "완성3", "완성4", "팁",  now(), "admin")
+  		"완성1", "완성2", "완성3", "완성4", "팁",
+  		now(), "admin")
   	</insert>
   	
   	<insert id="insertOrder" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
   		insert into r_order
-  		values(7,1,#{order_explain}, "이미지경로")
+  		values(#{recipe_num},
+  			   (select ifnull(max(order_num),0)+1 from r_order ALIAS_FOR_SUBQUERY where recipe_num = #{recipe_num}),
+  			   #{order_explain},
+  			   #{order_path})
   	</insert>
   	
   	<!-- 레시피 수정 -->

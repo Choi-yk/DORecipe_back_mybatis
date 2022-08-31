@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './style.css'
+import MainLayout from '../../../layout/mainLayOut';
 
 const NoticeDetailPage = () => {
 
@@ -44,6 +45,7 @@ const NoticeDetailPage = () => {
 
   return (
     <>
+    <MainLayout>
       {/* <div>공지사항 상세</div> */}
       <li>
           <div className="noticeWrap">
@@ -53,6 +55,8 @@ const NoticeDetailPage = () => {
             <div>{state.notice_content}</div>
           </div>
       </li>
+      <div className='bottom' />
+      </MainLayout>
     </>
   );
 };
