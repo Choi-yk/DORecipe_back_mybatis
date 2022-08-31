@@ -60,10 +60,8 @@ const LoginPage = () => {
 						</form>
 					</div>
 
-					{/* 아이디, 비밀번호 찾기, 회원가입 */}
 					<div class="linkWraps">
-					<Link to={"#"}>아이디 찾기</Link> | <Link to={"#"}>비밀번호 찾기</Link> | <Link to={"/join"}>회원가입</Link>
-
+						<Link to={"/join"}>회원가입</Link>
 					</div>
 				</div>
 			</div>
