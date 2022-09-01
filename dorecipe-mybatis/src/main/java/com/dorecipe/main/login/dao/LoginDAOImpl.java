@@ -7,16 +7,13 @@ import org.springframework.stereotype.Repository;
 import com.dorecipe.main.member.vo.MemberVO;
 
 @Repository
-public class LoginDAOImpl implements LoginDAO {
-
+public class LoginDAOImpl implements LoginDAO{
+	
 	@Autowired
 	SqlSession sqlSession;
 	
 	@Override
 	public int Login(MemberVO memberVO) throws Exception {
-		return sqlSession.selectOne("mapper.login.Login");
+		return sqlSession.selectOne("mapper.login.memberLogin",memberVO);
 	}
-
-	
-	
 }
