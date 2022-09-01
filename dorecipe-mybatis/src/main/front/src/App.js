@@ -21,7 +21,8 @@ import MemberListPage from "./pages/memberListPage";
 
 import MainPage from "./pages/mainPage";
 
-//import LoginPage from "./pages/loginPage";
+import LoginPage from "./pages/loginPage";
+
 function App() {
   return (
     <Routes>
@@ -51,7 +52,7 @@ function App() {
       <Route path={"/notice/create"} element={<AdminPostMng />} />
       <Route path={"/join"} element={<JoinMemberPage />} />
       <Route path={"/member"} element={<MemberListPage />} />
-      {/* <Route path={"/"} element={<LoginPage />} /> 로그인페이지 */}
+      <Route path={"/login"} element={<LoginPage />} />
       <Route path={"/"} element={<MainPage />} />
       {/* 별도록 jwt설정해줘서 관리자로 로그인 시에만 접근하도록 하기 */}
       {/* <Route path="*" element={<div>없는 페이지임</div>} /> */}
