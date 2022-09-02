@@ -49,10 +49,10 @@ public class RecipeDAOImpl implements RecipeDAO{
 	}
 	
 	// 번호 가져오기
-	@Override
-	public int getRecipeNum() {
-		return mapper.getRecipeNum();
-	}
+//	@Override
+//	public int getRecipeNum() {
+//		return mapper.getRecipeNum();
+//	}
 	
 	
 	// 레시피 등록
@@ -61,10 +61,10 @@ public class RecipeDAOImpl implements RecipeDAO{
 		return mapper.insertRecipe(recipeVO);
 	}
 	
-	@Override
-	public int insertOrder(RecipeVO recipeVO) {
-		return mapper.insertOrder(recipeVO);
-	}
+//	@Override
+//	public int insertOrder(RecipeVO recipeVO) {
+//		return mapper.insertOrder(recipeVO);
+//	}
 	
 	// 레시피 수정
 	@Override
@@ -77,4 +77,20 @@ public class RecipeDAOImpl implements RecipeDAO{
 	public int deleteRecipe(int recipe_num) {
 		return mapper.deleteRecipe(recipe_num);
 	}
+
+	//번들 등록
+	@Override
+	public int insertBundleIngredients(RecipeVO recipeVO) {
+		return mapper.insertBundleIngredients(recipeVO);
+	}
+
+	// 요리 순서 등록
+	@Override
+	public int insertRecipeOrder(RecipeVO recipeVO) {
+		return mapper.insertRecipeOrder(recipeVO);
+	}
+//	
+//	public List<RecipeOrders> insertMultipleRecipeOrders(String[] orderArray){
+//		return mapper.insertRecipeOrder()
+//	}
 }

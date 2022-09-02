@@ -71,8 +71,7 @@ function TabContent(props){
   const [error, setError] = useState(null);
 
 
-const eventHandler = useCallback(
-  (e)=>{
+const eventHandler = useCallback((e) => {
   e.preventDefault();
   
 
@@ -94,7 +93,7 @@ const eventHandler = useCallback(
 
   formData.append("data",blob);
 
-  formData.append("event_image",files[0]); //파일 formData.append
+  formData.append("event_image",Eventfiles[0]); //파일 formData.append
   formData.append("event_title",data.event_title);
   formData.append("event_path",data.event_path);
   formData.append("event_content",data.event_content);
@@ -118,27 +117,18 @@ const eventHandler = useCallback(
       data: formData
     }).then((response)=>{
       console.log(response.data);
-      // window.location.reload();
-      document.getElementById('eventData1').value = "";
-      document.getElementById('eventData2').value = "";
-      document.getElementById('eventData3').value = "";
-      document.getElementById('eventData4').value = "";
-      document.getElementById('eventData5').value = "";
-      setFiles('');
-      
+      window.location.href = "http://localhost:3000/event/list"
     });
+    }
   }
-  },
-  [event_title,event_path,event_content,event_creDate,event_finDate]
-
   );
 
 
  
   //파일 files에 넣기
-  const[files, setFiles] = useState('');
+  const[Eventfiles, setFiles] = useState('');
 
-  const onLoadFile = (e)=>{
+  const onLoadEventFile = (e)=>{
   
     //이미지명 담기
     onChangeEventPath(e);
@@ -156,16 +146,16 @@ const eventHandler = useCallback(
   });
   const preview = ()=>{
 
-    if(!files) return false;
+    if(!Eventfiles) return false;
     const imgEl = document.querySelector('.img_box');
     const reader = new FileReader();
 
     reader.onload = () =>
       (imgEl.style.backgroundImage = `url(${reader.result})`);
-      if(!files[0]){
-        // console.log('')
+      if(!Eventfiles[0]){
+        
       }else{
-      reader.readAsDataURL(files[0]);
+      reader.readAsDataURL(Eventfiles[0]);
     }
   }
 
@@ -174,22 +164,15 @@ const eventHandler = useCallback(
     // knowhow------------------------------------------------------
     const [know_title, onChangeKnowhowTitle, setKnowhowTitle] = useInput("");
     const [know_content, onChangeKnowhowContent, setKnowhowContent] = useInput("");
-    // const [know_creDate, onChangeKnowhoCreDate, setKnowhowCDate] = useInput("");
     const [know_path, onChangeKnowhowPath, setKnowhowPath] = useInput("");
   
-    useEffect(() => {
-      if(know_title.length > 0 ? setEmptyError(false) : setEmptyError(true))
-        return;
-    }, [know_title]);
-
     const insertKnowhow = useCallback((e) => {
       e.preventDefault();
 
       const KnowData = {
         know_title: `${know_title}`,
         know_content: `${know_content}`,
-        // know_creDate: `${know_creDate}`,
-        know_path: `${know_path}`
+        know_path: `${know_path.replace(/c:\\fakepath\\/i,'')}`
       }
     
       const KnowBlob = new Blob([JSON.stringify(KnowData)], {
@@ -199,9 +182,9 @@ const eventHandler = useCallback(
       const KnowFormData= new FormData();
       KnowFormData.append("data", KnowBlob);
     
+      KnowFormData.append("know_image",KnowFiles[0]);
       KnowFormData.append("know_title", KnowData.know_title);
       KnowFormData.append("know_content", KnowData.know_content);
-      // KnowFormData.append("know_creDate", KnowData.know_creDate);
       KnowFormData.append("know_path", KnowData.know_path);
     
       if(KnowData.know_title === "" || KnowData.know_content === "") 
@@ -211,17 +194,49 @@ const eventHandler = useCallback(
           method: "post",
           url: "http://localhost:9000/knowhow/insert",
           headers: { "Content-Type": "multipart/form-data" },
-          data: KnowData
+          data: KnowFormData
         }).then((response) => {
           console.log(response.data);
           alert("노하우가 등록되었습니다.");
           //노하우 리스트로 이동
           window.location.href = "http://localhost:3000/knowhow/list"
-        },
-          [know_title, know_content, know_path]
-        );
+        });
       }
+    }
+    );
+
+    const[KnowFiles, setKnowFiles] = useState('');
+
+    const onLoadKnowFile = (e)=>{
+    
+      //이미지명 담기
+      onChangeKnowhowPath(e);
+  
+      //파일담기
+      const file2 = e.target.files;
+      setKnowFiles(file2);
+    };
+  
+    // 미리보기
+    useEffect(() => {
+      KnowPreview();
+      return() => KnowPreview();
+  
     });
+    const KnowPreview = ()=>{
+  
+      if(!KnowFiles) return false;
+      const imgEl2 = document.querySelector('.img_box2');
+      const reader2 = new FileReader();
+  
+      reader2.onload = () =>
+      (imgEl2.style.backgroundImage = `url(${reader2.result})`);
+      if(!KnowFiles[0]){
+          console.log('파일x')
+        }else{
+        reader2.readAsDataURL(KnowFiles[0]);
+      }
+    }
     
   
     // knowhow 끝-----------------------------------------------------------
@@ -352,11 +367,11 @@ const eventHandler = useCallback(
         <td>파일 첨부</td>
           <td>
             <input
-              name="event_path eventData"
+              name="event_path"
               type="file"
               id="eventData2"
               accept="image/*"
-              onChange={onLoadFile}
+              onChange={onLoadEventFile}
             />
           </td>
       </tr>
@@ -365,7 +380,7 @@ const eventHandler = useCallback(
           <td>
             <textarea 
               name="event_content"
-              className="text eventData" 
+              className="text" 
               placeholder=" 내용을 입력해주세요"
               rows="4" 
               cols="50"
@@ -411,7 +426,7 @@ const eventHandler = useCallback(
 <div>
   <form>
     <h4 className="left">노하우</h4>
-    <table className="left">
+    <table className="left dpib">
       <thead>
         <tr>
           <td>제목</td>
@@ -421,7 +436,7 @@ const eventHandler = useCallback(
               className="text"
               required
               type="text"
-              id="postTitle"
+              id="knowData1"
               placeholder=" 제목을 입력해주세요"
               onChange={onChangeKnowhowTitle}
             />
@@ -433,9 +448,11 @@ const eventHandler = useCallback(
           <td>파일 첨부</td>
             <td>
               <input
-                 name="know_path"
+                name="know_path"
                 type="file"
-                onChange={onChangeKnowhowPath}
+                id="knowData2"
+                accept="image/*"
+                onChange={onLoadKnowFile}
               />
             </td>
         </tr>
@@ -455,8 +472,13 @@ const eventHandler = useCallback(
         </tr>
       </tbody>
     </table>
+
+    <div className="mt-5 bottom imgPreview floatRight">
+        <div className="img_box2"/>
+    </div>
+
     <Link className="mt-3 left2 btn btn-outline-secondary" to={"/knowhow/list"}>노하우페이지</Link>
-    <button type="button" className="left2 btn btn-outline-secondary"
+    <button type="button" className="left3 btn btn-outline-secondary"
       onClick={insertKnowhow} disabled={error}>
       등록
     </button>

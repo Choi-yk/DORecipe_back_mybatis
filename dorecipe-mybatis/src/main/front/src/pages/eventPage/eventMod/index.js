@@ -70,9 +70,6 @@ const EventModify = () => {
       reader.readAsDataURL(files[0]);
   }
 
-   const imgDelete = ()=>{
-
-   }
 
   // --
   

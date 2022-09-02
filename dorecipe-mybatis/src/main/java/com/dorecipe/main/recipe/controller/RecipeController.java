@@ -63,11 +63,42 @@ public class RecipeController {
 	
 	@PostMapping("/insert")
 	public String insert(RecipeVO recipeVO) {
-		//레시피 저장
 		recipeService.insertRecipe(recipeVO);
+		recipeService.insertBundleIngredients(recipeVO);
+		System.out.println("레시피 등록됨 - Controller");
 		
 		return "redirect:/recipe/list";
 	}
+	
+	//번들 재료 추가
+	@PostMapping("/insertBundleIngredient")
+	public String insertBundleIngredients(RecipeVO recipeVO) {
+		recipeService.insertBundleIngredients(recipeVO);
+		System.out.println("레시피 등록됨 - Controller");
+		
+		return "redirect:/recipe/list";
+	}
+	
+	//번들 추가
+	@PostMapping("/insertBundle")
+	public String insertBundle(RecipeVO recipeVO) {
+		recipeService.insertBundleIngredients(recipeVO);
+		System.out.println("레시피 등록됨 - Controller");
+		
+		return "redirect:/recipe/list";
+	}
+	
+	
+	//요리 순서 추가
+	@PostMapping("/insertRecipeOrder")
+	public String insertRecipeOrder(RecipeVO recipeVO) {
+		recipeService.insertRecipeOrder(recipeVO);
+		System.out.println("레시피 등록됨 - Controller");
+		
+		return "redirect:/recipe/list";
+	}
+	
+	
 	
 	//레시피 수정
 	@GetMapping("/update/{recipe_num}")

@@ -32,14 +32,45 @@ const KnowhowUpdatePage = () => {
          },
          baseURL: "http://localhost:9000",
       }).then(function(response) {
-         console.log(response.data);
          setState(response.data);
       });
    }
 
-   useEffect(() => {
-      KnowAxios_get();
-   }, []);
+
+    // 파일 보내기
+
+  const[files, setFiles] = useState('');
+
+  const onLoadFile = (e)=>{
+
+    onChangeKnowhowPath(e);
+
+    const file = e.target.files;
+    setFiles(file);
+  };
+
+  useEffect(() => {
+    KnowAxios_get();
+
+    preview();
+    return() => preview();
+
+  });
+  // 미리보기
+  const preview = ()=>{
+    if(!files) return false;
+    const imgEl = document.querySelector('.img_box');
+    const reader = new FileReader();
+
+    reader.onload = () =>
+      (imgEl.style.backgroundImage = `url(${reader.result})`);
+
+      reader.readAsDataURL(files[0]);
+  }
+
+
+  // --
+
 
    // 수정한 값 보내기
    let [know_title, onChangeKnowhowTitle, setKnowhowTitle] = useInput("");
@@ -62,11 +93,12 @@ const KnowhowUpdatePage = () => {
          know_num: `${knowhowId}`,
          know_title: `${know_title}`,
          know_content: `${know_content}`,
-         know_path: `${know_path}`
+         know_path: `${know_path.replace(/c:\\fakepath\\/i,'')}`
       }
      
       const formData= new FormData();
      
+      formData.append("know_image",files[0])
       formData.append("know_num", knowhowId);
       formData.append("know_title", data.know_title);
       formData.append("know_content", data.know_content);
@@ -113,10 +145,6 @@ const KnowhowUpdatePage = () => {
                               defaultValue={state.know_num}
                               disabled
                            />
-                           <input type="hidden"
-                              name="know_num"
-                              defaultValue={state.know_num}
-                           />
                         </td>
                      </tr>
                   </thead>
@@ -142,8 +170,8 @@ const KnowhowUpdatePage = () => {
                               name="know_path"
                               type="file"
                               id="postTitle"
+                              onChange={onLoadFile}
                               defaultValue={state.know_path}
-                              onChange={onChangeKnowhowPath}
                            />
                         </td>
                      </tr>
@@ -164,6 +192,16 @@ const KnowhowUpdatePage = () => {
 
                   </tbody>
                </table>
+
+
+               {/* 이미지 */}
+               <div className="mt-5 imgPreview floatRight">
+                  <img className="img_box" alt=""/>
+                  {/* src={state.event_path}  */}
+               </div>
+
+
+
                <Link className="mt-3 left2 btn btn-outline-secondary" to={"/knowhow/list"}>목록으로 돌아가기</Link>
                <button type="button" className="left2 btn btn-outline-secondary"
                   onClick={modHandler}>

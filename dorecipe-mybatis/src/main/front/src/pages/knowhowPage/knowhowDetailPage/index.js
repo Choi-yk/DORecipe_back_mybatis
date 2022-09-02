@@ -52,7 +52,7 @@ const KnowhowDetailPage = () => {
                 <h2>| Notice |</h2>
                 <div className="knowDetailTitle knowBorder">{state.know_title}</div>  
                 <div className="knowDetailDate">{state.know_creDate}</div>
-                <img className="knowDetailImage" src={state.know_path} alt={"knowhowImage"+knowhowId} />
+                <img className="knowDetailImage" src={state.know_path} alt={state.know_path} />
                 <div>{state.know_content}</div>
               </div>
           </li>

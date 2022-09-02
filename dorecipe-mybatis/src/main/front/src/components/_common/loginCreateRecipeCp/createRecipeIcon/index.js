@@ -12,7 +12,7 @@ const CreateRecipeIcon = ({ userState }) => {
   //로그인되었다면 레시피 등록 페이지로, 안되면 로그인 화면으로
   const navigate = useNavigate();
   const onClickRecipe = () => {
-    navigate("/");
+    navigate("/recipe/create");
   };
 
   const popover = (
