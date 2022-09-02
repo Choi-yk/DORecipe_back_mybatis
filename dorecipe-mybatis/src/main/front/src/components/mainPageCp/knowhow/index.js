@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import BannerLayout from "../../_common/bannerLayout";
 
@@ -11,70 +12,36 @@ const KnowhowMain = () => {
 
   const [state, setState] = useState([
     {
-      recipe_rank: 1,
-      recipeImg: "/img/example1.png",
-      recipe_name: "음식명",
-      user_name: "사용자명",
-    },
-    {
-      recipe_rank: 2,
-      recipeImg: "/img/example2.png",
-      recipe_name: "음식명",
-      user_name: "사용자명",
-    },
-    {
-      recipe_rank: 3,
-      recipeImg: "/img/example3.png",
-      recipe_name: "음식명",
-      user_name: "사용자명",
-    },
-    {
-      recipe_rank: 4,
-      recipeImg: "/img/example4.png",
-      recipe_name: "음식명",
-      user_name: "사용자명",
-    },
-    {
-      recipe_rank: 5,
-      recipeImg: "/img/example5.png",
-      recipe_name: "음식명",
-      user_name: "사용자명",
-    },
-    {
-      recipe_rank: 6,
-      recipeImg: "/img/example1.png",
-      recipe_name: "음식명",
-      user_name: "사용자명",
-    },
-    {
-      recipe_rank: 7,
-      recipeImg: "/img/example2.png",
-      recipe_name: "음식명",
-      user_name: "사용자명",
-    },
-    {
-      recipe_rank: 8,
-      recipeImg: "/img/example3.png",
-      recipe_name: "음식명",
-      user_name: "사용자명",
-    },
-    {
-      recipe_rank: 9,
-      recipeImg: "/img/example4.png",
-      recipe_name: "음식명",
-      user_name: "사용자명",
-    },
-    {
-      recipe_rank: 10,
-      recipeImg: "/img/example5.png",
-      recipe_name: "음식명",
-      user_name: "사용자명",
-    },
-  ]);
-  for (let i = 0; i < state.length; i++) {
-    console.log(state[i].recipe_rank);
-  }
-  console.log(state);
+        know_num: 0,
+        know_title: "",
+        know_content: "",
+        know_creDate: "",
+        know_path: ""
+    }]);
+
+    function testAxios() {
+        axios({
+          url: "/knowhow/list",
+          method: "get",
+          data: {
+            know_num: "test",
+            know_title: "test",
+            know_content: "test",
+            know_creDate: "2022/08/24",
+            know_path: "test_path"
+          },
+          baseURL: "http://localhost:9000",
+        }).then(function (response) {
+          console.log(response.data);
+          // console.log(response.data[0]);
+          setState(response.data);
+        });
+    }
+
+    useEffect(() => {
+        testAxios();
+    }, []);
+  
 
   return (
     <>
@@ -86,18 +53,17 @@ const KnowhowMain = () => {
             return (
               <>
                 <SwiperSlide className="slide1">
-                  <Link to={`notice/${e.recipe_name}`} className="links">
+                  <Link to={`knowhow/detail/${e.know_num}`} className="links">
                     <RecipeWrap key={e}>
                       {/* <RecipeRank>{e.recipe_rank}</RecipeRank>{" "} */}
                       <RecipeImg>
                         <img
                           className="bannerimg"
-                          src={e.recipeImg}
+                          src={e.know_path}
                           alt="bannerimg"
                         ></img>
                       </RecipeImg>
-                      <div className="recipe_name">{e.recipe_name}</div>
-                      <div className="user_name">{e.user_name}</div>
+                      <div className="recipe_name">{e.know_title}</div>
                     </RecipeWrap>
                   </Link>
                 </SwiperSlide>
@@ -128,6 +94,7 @@ const RecipeWrap = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   margin: 3em 4em;
+  text-align: center;
   & > Link {
     text-decoration: none;
   }
@@ -135,7 +102,10 @@ const RecipeWrap = styled.div`
 
 const RecipeImg = styled.div`
   & > img {
-    width: 15em;
+    // width: 15em;
+    width: 300px;
+    height 200px;
     padding-bottom: 0.5em;
+    object-fit: cover;
   }
 `;
