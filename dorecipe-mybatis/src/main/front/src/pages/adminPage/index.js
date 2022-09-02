@@ -60,7 +60,7 @@ const AdminPostMng = () => {
 
 function TabContent(props){
 
-// event---------------------------------------------------------------
+// event--------------------------------------
   const [event_title, onChangeEventTitle, setTitle] = useInput("");
   const [event_path, onChangeEventPath, setPath] = useInput("");
   const [event_content, onChangeEventContent, setContent] = useInput("");
@@ -87,8 +87,11 @@ const eventHandler = useCallback(
   const blob = new Blob([JSON.stringify(data)],{
     type : "application/json",
   });
-  
+
+//=-------------------------------
+
   const formData = new FormData();
+
   formData.append("data",blob);
 
   formData.append("event_image",files[0]); //파일 formData.append
@@ -121,6 +124,7 @@ const eventHandler = useCallback(
       document.getElementById('eventData3').value = "";
       document.getElementById('eventData4').value = "";
       document.getElementById('eventData5').value = "";
+      setFiles('');
       
     });
   }
@@ -135,9 +139,7 @@ const eventHandler = useCallback(
   const[files, setFiles] = useState('');
 
   const onLoadFile = (e)=>{
-    
-    //
-    const realName = e.target.value.replace(/c:\\fakepath\\/i,'');
+  
     //이미지명 담기
     onChangeEventPath(e);
 
@@ -394,7 +396,6 @@ const eventHandler = useCallback(
     </table>
 
     <div className="mt-5 bottom imgPreview floatRight">
-        <h4 className="eventCenter">{event_path.replace(/c:\\fakepath\\/i,'')}</h4>
         <div className="img_box"/>
     </div>
 

@@ -45,6 +45,8 @@ const EventModify = () => {
 
   const onLoadFile = (e)=>{
 
+    onChangeEventPath(e);
+
     const file = e.target.files;
     setFiles(file);
   };
@@ -68,6 +70,10 @@ const EventModify = () => {
       reader.readAsDataURL(files[0]);
   }
 
+   const imgDelete = ()=>{
+
+   }
+
   // --
   
   let [event_title, onChangeEventTitle, setTitle] = useInput("");
@@ -88,7 +94,7 @@ const EventModify = () => {
 
   const data = {
     event_title: `${event_title}`,
-    event_path: `${event_path}`,
+    event_path: `${event_path.replace(/c:\\fakepath\\/i,'')}`,
     event_content: `${event_content}`,
     event_creDate: `${event_creDate}`,
     event_finDate: `${event_finDate}`,
@@ -138,7 +144,7 @@ const EventModify = () => {
   return (
   <>
   <MainLayout>
-    <h2 >| event |</h2>
+    <h2 >| Event |</h2>
     <div>
       <form>
         <table className="left dpib">
@@ -223,7 +229,8 @@ const EventModify = () => {
         
     {/* 이미지 */}
     <div className="mt-5 imgPreview floatRight">
-        <div className="img_box"/>
+        <img className="img_box" alt=""/>
+        {/* src={state.event_path}  */}
     </div>
 
 

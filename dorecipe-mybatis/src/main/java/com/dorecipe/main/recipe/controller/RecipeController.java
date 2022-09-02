@@ -63,20 +63,8 @@ public class RecipeController {
 	
 	@PostMapping("/insert")
 	public String insert(RecipeVO recipeVO) {
-		System.out.println(recipeVO);
-		//저장된 레시피 번호 중 가장 높은 수 가져와 +1, recipeVO.setRecipe_num에 넣기 -- 레시피테이블 recipe_num auto_increment지우기
-		recipeVO.setRecipe_num( recipeService.getRecipeNum()+1 );
-		
 		//레시피 저장
 		recipeService.insertRecipe(recipeVO);
-		
-		for( int i = 0 ; i < 4 /*explain 갯수*/ ; i++ ) {
-		recipeService.insertOrder(recipeVO);
-		}
-		
-		
-		
-		System.out.println("레시피 등록됨 - Controller");
 		
 		return "redirect:/recipe/list";
 	}

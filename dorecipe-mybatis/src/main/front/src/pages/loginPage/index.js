@@ -32,10 +32,10 @@ const LoginPage = () => {
 	
 	const memberLogin = useCallback((e)=>{
 		
+	})	
 		
-		
-	},
-	[member_id,member_pwd]);
+	// },
+	// [member_id,member_pwd]);
 
 	return (
 		<>
