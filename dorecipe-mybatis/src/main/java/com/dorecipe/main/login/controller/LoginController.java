@@ -31,7 +31,6 @@ public class LoginController {
 	@Autowired
 	LoginService loginService;
 	
-//	MemberVO memberVO;
 	
 	//멤버 로그인
 	@GetMapping("/login") 
@@ -39,57 +38,25 @@ public class LoginController {
 		return "loginForm";
 	}
 	
-	@PostMapping("/loginexe")
-	public String login(@RequestParam(value="member_id",defaultValue="--") String member_id,
-						@RequestParam(value="member_pwd",defaultValue="--") String member_pwd,
-						Model model) throws Exception {
-		String strReturn = "";
-		String strMessage = "";
-		
-		MemberVO memberVO = loginService.Login(member_id);
-
-		System.out.println("!!!!!!!member_id = "+ memberVO.getMember_id());
-		System.out.println("!!!!!!!member_pwd = " + memberVO.getMember_pwd());
-		
-		if(memberVO != null) {
-			strReturn = "loginForm";
-			strMessage = "아이디가 존재하지 않습니다";
-		}else {
-			if(!member_pwd.equals(memberVO.getMember_pwd())) {
-				strReturn = "loginForm";
-				strMessage = "비밀번호가 일치하지 않습니다";
-			}
-			System.out.println("~~~~~~~~member_id = "+ memberVO.getMember_id());
-			System.out.println("~~~~~~~~member_pwd = " + memberVO.getMember_pwd());
+	@PostMapping("/login")
+	public String login(MemberVO memberVO, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
 			
-			strReturn = "successLogin";
-			strMessage = "로그인 성공";
-		}
-		
-//		model.addAttribute("message", strMessage);
-		
-		return strReturn;
-		
-//			@RequestParam Map<String,String> map, Model model, HttpSession session) throws Exception{
-//			
-//		
-//		if(map.get("member_id") == null || map.get("member_pwd") == null) {
-//			model.addAttribute("msg", "아이디 또는 비밀번호를 입력해주세요");
-//			return "loginForm";
-//		}
-//		
-//		MemberVO memberVO = loginService.Login(map);
-//		
-//		if(memberVO != null) {
-//			session.setAttribute("memberVO", memberVO);
-//			System.out.println("!!!!!!!member_id = "+ memberVO.getMember_id());
-//			System.out.println("!!!!!!!member_pwd = " + memberVO.getMember_pwd());
-//			return "successLogin";
-//		}else {
-//			model.addAttribute("msg", "아이디 또는 비밀번호가 올바르지 않습니다.");
-//			return "loginForm";
-//		}
-				
+			HttpSession session = req.getSession();
+			memberVO = loginService.Login(memberVO);
+			
+			if(memberVO == null) {
+				session.setAttribute("member",null);
+				rttr.addFlashAttribute("msg",false);
+				System.out.println("memberVO 객체가 null..............");
+			}else {
+				session.setAttribute("member", memberVO);
+				System.out.println("memberVO 객체에 값 들어감!!!!!!!!!!!");
+				System.out.println("!!!!!!!member_id = "+ memberVO.getMember_id());
+				System.out.println("!!!!!!!member_pwd = " + memberVO.getMember_pwd());
+			}
+			
+			return "loginForm";
+
 	}
 	
 //	//로그아웃

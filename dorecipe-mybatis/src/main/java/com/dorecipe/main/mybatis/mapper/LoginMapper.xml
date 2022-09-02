@@ -6,8 +6,8 @@
 <mapper namespace="mapper.login">
 
 	<select id="memberLogin" resultType="com.dorecipe.main.member.vo.MemberVO">
-		select count(*) from member
-		where member_id=#{member_id}
+		select member_id,member_pwd from member
+		where member_id=#{member_id} and member_pwd=#{member_pwd}
 	</select>
 
 </mapper>
