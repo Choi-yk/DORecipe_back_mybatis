@@ -18,13 +18,15 @@ dependencies {
    implementation 'org.springframework.boot:spring-boot-starter-web'
    implementation 'org.springframework.boot:spring-boot-devtools'
    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+//   implementation 'commons-io:commons-io:2.6'	//의존성 주입
+
    
    annotationProcessor 'org.projectlombok:lombok'   //컴파일 단계에서 어노테이션을 분석하고 처리하기 위해 사용
    compileOnly 'org.projectlombok:lombok'   //lombok 설정
    testImplementation 'org.springframework.boot:spring-boot-starter-test'   //서버 자동 재실행 설정
    
    implementation 'org.springframework.boot:spring-boot-starter-validation'   //validation 유효성검사
-   //implementation 'org.springframework.boot:spring-boot-starter-security'   //security 설정
+   implementation 'org.springframework.boot:spring-boot-starter-security'   //security 설정/
 
    	runtimeOnly 'mysql:mysql-connector-java'   //mysql 설정
    
