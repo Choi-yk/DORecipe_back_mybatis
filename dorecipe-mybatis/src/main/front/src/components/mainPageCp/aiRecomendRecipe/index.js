@@ -169,16 +169,3 @@ const RecipeImg = styled.div`
     padding-bottom: 0.5em;
   }
 `;
-// const RecipeRank = styled.div`
-//   border: 1px solid ${(props) => props.theme.accentedColor};
-//   display: inline-block;
-//   padding-top: 0.5em;
-//   font-size: 1em;
-//   width: 3em;
-//   height: 3em;
-//   color: #fffdf5;
-//   text-align: center;
-//   border-radius: 0.6em;
-//   background-color: #463635;
-//   transform: translate(-30%, 70%);
-// `;

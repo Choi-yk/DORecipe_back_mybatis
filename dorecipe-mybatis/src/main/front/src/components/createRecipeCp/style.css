@@ -1,10 +1,17 @@
+.swiper-wrapper {
+  margin-top: 0;
+}
+
+form {
+  height: 100vh;
+}
 .links {
   text-decoration: none;
 }
 .recipe_name,
 .recipe_name::after {
   color: #463635;
-  fsont-weight: 700;
+  font-weight: 700;
 }
 .user_name,
 .user_name::after {
@@ -12,4 +19,7 @@
 }
 .recipe_name:hover {
   color: #8d3232;
+}
+.slide {
+  height: 100vh;
 }

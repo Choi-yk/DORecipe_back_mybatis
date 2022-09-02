@@ -43,19 +43,19 @@ public class RecipeService {
 		return comment;
 	}
 	//레시피 번호 가져오기
-	public int getRecipeNum() {
-		int recipe_num = recipeDAO.getRecipeNum();
-		return recipe_num;
-	}
+//	public int getRecipeNum() {
+//		int recipe_num = recipeDAO.getRecipeNum();
+//		return recipe_num;
+//	}
 	
 	//레시피 등록
 	public int insertRecipe(RecipeVO recipeVO) {
 		return recipeDAO.insertRecipe(recipeVO);
 	}
 	
-	public int insertOrder(RecipeVO recipeVO) {
-		return recipeDAO.insertOrder(recipeVO);
-	}
+//	public int insertOrder(RecipeVO recipeVO) {
+//		return recipeDAO.insertOrder(recipeVO);
+//	}
 	
 	//레시피 수정
 	public int updateRecipe(RecipeVO recipeVO) {
@@ -65,6 +65,19 @@ public class RecipeService {
 	//레시피 삭제
 	public int deleteRecipe(int recipe_num) {
 		return recipeDAO.deleteRecipe(recipe_num);
+	}
+
+	//번들 추가
+	public int insertBundleIngredients(RecipeVO recipeVO) {
+		return recipeDAO.insertBundleIngredients(recipeVO);
+		
+	}
+
+	//레시피 순서 추가
+	public int insertRecipeOrder(RecipeVO recipeVO) {
+		return recipeDAO.insertRecipeOrder(recipeVO);
+
+		
 	}
 	
 }

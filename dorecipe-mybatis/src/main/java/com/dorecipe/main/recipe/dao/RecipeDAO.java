@@ -16,17 +16,21 @@ public interface RecipeDAO {
 	
 	List<RecipeVO> getComment(Integer recipe_num);
 	
+	
+	
 	// 레시피 등록
 	int insertRecipe(RecipeVO recipeVO);
-	
-	int insertOrder(RecipeVO recipeVO);
 	
 	// 레시피 수정
 	int updateRecipe(RecipeVO recipeVO);
 	
 	// 레시피 삭제
 	int deleteRecipe(int recipe_num);
+	
+	//번들 등록
+	int insertBundleIngredients(RecipeVO recipeVO);
 
-	int getRecipeNum();
+	//레시피 순서 등록
+	int insertRecipeOrder(RecipeVO recipeVO);
 
 }

@@ -7,7 +7,7 @@
 <title>레시피 등록 테스트</title>
 </head>
 <body>
-   <form action="/recipe/insert" method="post">
+   <form action="/recipe/insert" method="post" id="form1">
  
       <div>
          <label for="recipe_title">레시피 제목</label>
@@ -49,7 +49,7 @@
             <option value="돼지고기">돼지고기</option>
          </select>
       </div>
-      
+    
       <!-- 요리정보 -->
       <div>
          <h2>요리정보<h2>
@@ -73,11 +73,31 @@
             <option value="중급">중급</option>
          </select>
       </div>
-      
+       
+       
       <!-- 태그 -->
       <div>
          <label for="recipe_tag">태그</label>
          <textarea name="recipe_tag"></textarea>
+<<<<<<< HEAD
+      </div>     
+
+      </form>
+      <form  action="/recipe/insertRecipeOrder" method="post" id="form2">
+      <!-- 요리순서 -->
+      <div>
+         <h2>요리 순서</h2>
+        
+         <hr>
+         <div id="orderForm">
+            
+            <table id="orderTable">
+               <tr>
+                  <td> 레시피 번호 :<input type="text"  name="orderVoList[0].recipe_num"/>
+                  <button type="button" onclick="delOrder(this)">X</button>
+                   레시피 순서 : <input type="text" name="orderVoList[0].order_num"/>
+                     <textarea name="orderVoList[0].order_explain"></textarea>
+=======
       </div>
       
       <!-- 재료묶음 -->
@@ -138,22 +158,83 @@
                      <input type="hidden" name="recipe_num">
                   	 <p name="order_num" value="1">3</p>
                      <textarea name="order_explain[]"></textarea>
+>>>>>>> cea3776bb6c16a29a9ed2ab4cfd8b3a80dc8b1fb
                   </td>
                   <td>
-                  <td>
-                     <img name="order_path" alt="이미지" src="#">
+                     <img name="orderVoList[0].order_path" alt="이미지" src="#">
                   </td>
                </tr>
+               <tr>
+                  <td> 레시피 번호 :<input type="text" name="orderVoList[1].recipe_num"/>
+                  <button type="button" onclick="delOrder(this)">X</button>
+                   레시피 순서 : <input type="text" name="orderVoList[1].order_num"/>
+                     <textarea name="orderVoList[1].order_explain"></textarea>
+                  </td>
+                  <td>
+                     <img name="orderVoList[1].order_path" alt="이미지" src="#">
+                  </td>
+               </tr>
+               <tr>
+                  <td> 레시피 번호 :<input type="text" name="orderVoList[2].recipe_num"/>
+                  <button type="button" onclick="delOrder(this)">X</button>
+                   레시피 순서 : <input type="text" name="orderVoList[2].order_num"/>
+                     <textarea name="orderVoList[2].order_explain"></textarea>
+                  </td>
+                  <td>
+                     <img name="orderVoList[2].order_path" alt="이미지" src="#">
+                  </td>
+               </tr>
+             
+            
             </table>
          </div>
+<<<<<<< HEAD
+         <button type="button" class="btnCount" style="width: 100%;">요리 순서 추가</button>
+=======
          <button type="button" onclick="addOrder()" style="width: 10%;">요리 순서 추가</button>
+>>>>>>> cea3776bb6c16a29a9ed2ab4cfd8b3a80dc8b1fb
       </div>
       
+      </form>
       <br>
-      <button type="submit">등록</button>
-   </form>
+  <input type="button" value="등록" onclick="submitForms()"/>
 </body>
 <script>
+<<<<<<< HEAD
+
+submitForms = function(){
+    document.getElementById("form1").submit();
+    document.getElementById("form2").submit();
+}
+
+
+let btnCount = document.querySelector(".btnCount");
+let n =0;
+
+btnCount.addEventListener("click", function() {
+	  n += 1;
+	  console.log(n);
+	  addOrder();
+	});
+
+   function addOrder() { // 추가
+      const orderForm = document.getElementById("orderForm");
+      const new_table = document.createElement('table');
+
+      new_table.innerHTML =
+         `<tr>레시피 번호 :<input type="text" name="orderVoList[n].recipe_num"/>
+                  <td><button type="button" onclick="delOrder(this)">X</button> 레시피 순서 : <input type="text" name="orderVoList[n].order_num"/>
+                     <textarea name="orderVoList[n].order_explain"></textarea>
+                  </td>
+                  <td>
+                  <td>
+                     <img name="orderVoList[n].order_path" alt="이미지" src="#">
+                  </td>
+               </tr>
+   `;
+      orderForm.appendChild(new_table);
+   }
+=======
 function addOrder() { // 추가
     const orderForm = document.getElementById("orderForm");
     const new_table = document.createElement('table');
@@ -184,6 +265,7 @@ function addOrder() { // 추가
     console.log(order_num);
 
 }
+>>>>>>> cea3776bb6c16a29a9ed2ab4cfd8b3a80dc8b1fb
    
    //재료 묶음 추가
    function addBundle(){
@@ -208,7 +290,8 @@ function addOrder() { // 추가
 	   document.getElementById("bunbun").removeChild(obj.parentNode);
    }
    function delOrder(obj) { // 삭제
-      document.getElementById("orderForm").removeChild(obj.parentNode);
+	   alert("제거!")
+      document.getElementById("orderTable").removeChild(obj.parentNode);
    }
 </script>
 </html>

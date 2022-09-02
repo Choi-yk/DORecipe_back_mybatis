@@ -1,5 +1,7 @@
 package com.dorecipe.main.recipe.vo;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,6 +45,8 @@ public class RecipeVO {
 	private int order_num;
 	private String order_explain;
 	private String order_path;
+	
+	private List<RecipeVO> orderVoList;
 	
 	//코멘트 테이블
 	private int comment_num;
