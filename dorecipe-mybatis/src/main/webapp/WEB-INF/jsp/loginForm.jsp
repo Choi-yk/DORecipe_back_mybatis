@@ -7,7 +7,7 @@
 <title>로그인 테스트</title>
 </head>
 <body>
-<form action="#" method="get">
+<form action="/login" method="post">
 	<input
 		name="member_id"
 		class="idInput"
@@ -16,20 +16,20 @@
 		placeholder="아이디"
 	/>
 	<input
-		name="memeber_pwd"
+		name="member_pwd"
 		class="pwdInput"
 		required
 		type="password"
 		placeholder="비밀번호"
 	/>
-	<button type="submit" name="loginBtn" onclick={memberLogin}>
+	<button type="submit" name="loginBtn">
 		로그인
 	</button>
 </form>
 </body>
 <script>
 function memberLogin() {
-		
+	// window.location.href = "http://localhost:3000/"	
 }
 </script>
 </html>

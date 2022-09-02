@@ -1,5 +1,7 @@
 package com.dorecipe.main.login.service;
 
-public interface LoginService {
+import com.dorecipe.main.member.vo.MemberVO;
 
+public interface LoginService {
+	public int Login(MemberVO memberVO) throws Exception;
 }

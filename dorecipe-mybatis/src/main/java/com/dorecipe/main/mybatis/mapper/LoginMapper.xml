@@ -5,6 +5,9 @@
 
 <mapper namespace="mapper.login">
 
-
+	<select id="memberLogin" parameterType="com.dorecipe.main.member.vo.MemberVO" resultType="int">
+		select count(*) from member
+		where member_id=#{member_id} and member_pwd=#{member_pwd}
+	</select>
 
 </mapper>
