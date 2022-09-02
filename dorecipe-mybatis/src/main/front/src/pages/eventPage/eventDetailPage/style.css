@@ -1,0 +1,16 @@
+h2 {
+  text-align: center;
+  margin: 1em 0;
+}
+
+.hr{
+  margin: auto;
+  width: 60%;
+}
+
+.eventCenter{
+  text-align: center;
+}
+.centerRight{
+  margin-right: 56%;
+}
