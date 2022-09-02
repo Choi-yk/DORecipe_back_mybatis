@@ -256,7 +256,7 @@ const SignUpTemplate = () => {
               ? "중복확인"
               : "확인완료"}
           </button>
-          {/* ㄴ{duplicateCheck === false ? <DuplicateIdHint /> : <></>} */}
+          {/* {duplicateCheck === false ? <DuplicateIdHint /> : <></>} */}
           <div className="formLabels">
             비밀번호
             {member_pwd.length === 0 && (

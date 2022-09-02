@@ -65,4 +65,20 @@ public class RecipeDAOImpl implements RecipeDAO{
 	public int deleteRecipe(int recipe_num) {
 		return mapper.deleteRecipe(recipe_num);
 	}
+
+	//번들 등록
+	@Override
+	public int insertBundleIngredients(RecipeVO recipeVO) {
+		return mapper.insertBundleIngredients(recipeVO);
+	}
+
+	// 요리 순서 등록
+	@Override
+	public int insertRecipeOrder(RecipeVO recipeVO) {
+		return mapper.insertRecipeOrder(recipeVO);
+	}
+//	
+//	public List<RecipeOrders> insertMultipleRecipeOrders(String[] orderArray){
+//		return mapper.insertRecipeOrder()
+//	}
 }

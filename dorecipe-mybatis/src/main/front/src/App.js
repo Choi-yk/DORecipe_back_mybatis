@@ -20,6 +20,7 @@ import JoinMemberPage from "./pages/joinMemberPage";
 import MemberListPage from "./pages/memberListPage";
 
 import MainPage from "./pages/mainPage";
+import CreateRecipePage from "./pages/createRecipePage";
 
 //import LoginPage from "./pages/loginPage";
 function App() {
@@ -55,6 +56,7 @@ function App() {
       <Route path={"/"} element={<MainPage />} />
       {/* 별도록 jwt설정해줘서 관리자로 로그인 시에만 접근하도록 하기 */}
       {/* <Route path="*" element={<div>없는 페이지임</div>} /> */}
+      <Route path={"/recipe/create"} element={<CreateRecipePage />} />
     </Routes>
   );
 

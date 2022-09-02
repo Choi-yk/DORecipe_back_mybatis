@@ -14,7 +14,7 @@ const LoginCreateRecipeLogo = () => {
   //state
   // const userInfo = useSelector((state) => state.user.info);
   //리덕스 사용 X, 로그인 구현 안돼서 임시로..
-  const [userInfo, setUserInfo] = useState(false);
+  const [userInfo, setUserInfo] = useState(true);
 
   //logout dispatch
 

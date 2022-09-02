@@ -7,7 +7,7 @@ const NavBar = () => {
       <NavWrapper>
         <ul>
           <li>
-            <Link className="navLinks" to={""}>
+            <Link className="navLinks" to={"/"}>
               메인
             </Link>
           </li>

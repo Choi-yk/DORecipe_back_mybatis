@@ -57,5 +57,18 @@ public class RecipeService {
 	public int deleteRecipe(int recipe_num) {
 		return recipeDAO.deleteRecipe(recipe_num);
 	}
+
+	//번들 추가
+	public int insertBundleIngredients(RecipeVO recipeVO) {
+		return recipeDAO.insertBundleIngredients(recipeVO);
+		
+	}
+
+	//레시피 순서 추가
+	public int insertRecipeOrder(RecipeVO recipeVO) {
+		return recipeDAO.insertRecipeOrder(recipeVO);
+
+		
+	}
 	
 }

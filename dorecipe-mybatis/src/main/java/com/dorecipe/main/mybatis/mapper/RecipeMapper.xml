@@ -42,7 +42,40 @@
   		#{category_kind}, #{category_theme}, #{category_way}, #{category_ing}, #{information_person}, #{information_time}, #{information_level},
   		"완성1", "완성2", "완성3", "완성4", "팁",
   		now(), "admin")
+  		
   	</insert>
+  	
+  	<!--
+  	<insert id="insertBundle" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  	insert into b_ingredient values(#{recipe_num},#{bundle_num},#{ing_num}, #{ing_ingredient},#{ing_amount});
+  	</insert>
+  	
+  	 	<insert id="insertBundle" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  	insert into b_ingredient values(#{bundle_num},#{ing_num}, #{ing_ingredient},#{ing_amount});
+  	</insert>
+  	-->
+    <insert id="insertBundleIngredients" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  	insert into b_ingredient values(#{recipe_num}, #{bundle_num},#{ing_num}, #{ing_ingredient}, #{ing_amount});
+  	</insert>
+  	
+  	
+    <insert id="insertBundle" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  	insert into bundle values(#{recipe_num}, #{bundle_num},#{ing_num}, #{ing_ingredient}, #{ing_amount});
+  	</insert>
+  	
+    <insert id="insertRecipeOrder" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  	insert into r_order(recipe_num,order_num,order_explain,order_path) values
+  	<foreach collection="orderVoList" item="item" separator=",">
+  	(#{item.recipe_num}, #{item.order_num},#{item.order_explain}, #{item.order_path})
+  	</foreach>
+  	;
+  	</insert>
+  	
+  	
+<!-- 원본 <insert id="insertRecipeOrder" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  	insert into r_order values(#{recipe_num}, #{order_num},#{order_explain}, #{order_path});
+  	</insert>-->   
+  	
   	
   	<!-- 레시피 수정 -->
   	<update id="updateRecipe" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">

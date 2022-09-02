@@ -10,7 +10,7 @@
 </head>
 <body>
 		
-	<form action="/member/update" method="post">
+	<form action="/member/update" method="post" enctype="multipart/form-data">
 
 		<div>
 			<label for="member_id">아이디</label>
