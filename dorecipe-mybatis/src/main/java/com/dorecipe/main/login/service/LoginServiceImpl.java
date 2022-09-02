@@ -23,5 +23,12 @@ public class LoginServiceImpl implements LoginService{
 		System.out.println("!!!!! service 멤버 비밀번호 " + memberVO.getMember_pwd());
 		return loginDAO.Login(memberVO);
 	}
+
+
+//	@Override
+//	public MemberVO findById(MemberVO memberVO) throws Exception {
+//		
+//		return loginDAO.findById(memberVO);
+//	}
 	
 }

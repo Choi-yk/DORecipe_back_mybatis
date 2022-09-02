@@ -21,9 +21,9 @@ import com.dorecipe.main.member.vo.MemberVO;
 
 import lombok.RequiredArgsConstructor;
 
-//@CrossOrigin(origins="http://localhost:3000")
-//@RestController
-@Controller
+@CrossOrigin(origins="http://localhost:3000")
+@RestController
+//@Controller
 @RequiredArgsConstructor
 //@RequestMapping("/login")
 public class LoginController {
@@ -48,14 +48,17 @@ public class LoginController {
 				session.setAttribute("member",null);
 				rttr.addFlashAttribute("msg",false);
 				System.out.println("memberVO 객체가 null..............");
+				
+				return "loginForm";
+				
 			}else {
 				session.setAttribute("member", memberVO);
 				System.out.println("memberVO 객체에 값 들어감!!!!!!!!!!!");
 				System.out.println("!!!!!!!member_id = "+ memberVO.getMember_id());
 				System.out.println("!!!!!!!member_pwd = " + memberVO.getMember_pwd());
+				
+				return "redirect:/";
 			}
-			
-			return "loginForm";
 
 	}
 	
@@ -68,4 +71,7 @@ public class LoginController {
 //		return "loginForm";
 //	}
 	
+//	public MemberVO findById(MemberVO memberVO) throws Exception {
+//		return loginService.findById(memberVO);
+//	}
 }
