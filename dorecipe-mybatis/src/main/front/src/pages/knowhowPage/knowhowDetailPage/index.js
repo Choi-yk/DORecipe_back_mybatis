@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './style.css'
+import MainLayout from "../../../layout/mainLayOut";
 
 const KnowhowDetailPage = () => {
     let {knowhowId} = useParams();
@@ -46,17 +47,19 @@ const KnowhowDetailPage = () => {
 
     return (
         <>
+        <MainLayout>
           {/* <div>노하우 상세</div> */}
           <li>
               <div className="knowWrap">
                 <h2>| Notice |</h2>
                 <div className="knowDetailTitle knowBorder">{state.know_title}</div>  
                 <div className="knowDetailDate">{state.know_creDate}</div>
-                <img className="knowDetailImage" src={state.know_path} alt={"knowhowImage"+knowhowId} />
+                <img className="knowDetailImage" src={state.know_path} alt={state.know_path} />
                 <div>{state.know_content}</div>
               </div>
           </li>
-          <Link className="mt-3 left btn btn-outline-secondary" to={"/knowhow/list"}>목록으로 돌아가기</Link>
+          <Link className="mt-3 left btn btn-outline-secondary" to={"/"}> 이전으로</Link>
+          </MainLayout>
         </>
     );
 }
