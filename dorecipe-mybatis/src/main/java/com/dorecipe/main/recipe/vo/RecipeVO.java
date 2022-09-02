@@ -10,7 +10,7 @@ import lombok.Setter;
 public class RecipeVO {
 
 	//레시피테이블
-	private int recipe_num;
+	private Integer recipe_num;
 	private String recipe_title;
 	private int recipe_savetype;
 	private String recipe_introduce;

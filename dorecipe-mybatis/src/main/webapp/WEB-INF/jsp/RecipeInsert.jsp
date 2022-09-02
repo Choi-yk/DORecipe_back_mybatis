@@ -79,6 +79,7 @@
       <div>
          <label for="recipe_tag">태그</label>
          <textarea name="recipe_tag"></textarea>
+<<<<<<< HEAD
       </div>     
 
       </form>
@@ -96,6 +97,68 @@
                   <button type="button" onclick="delOrder(this)">X</button>
                    레시피 순서 : <input type="text" name="orderVoList[0].order_num"/>
                      <textarea name="orderVoList[0].order_explain"></textarea>
+=======
+      </div>
+      
+      <!-- 재료묶음 -->
+      <div>
+         <h2>재료 묶음</h2>
+         <hr>
+         <div id="bunbun">
+           	<button type="button" onclick="delBundle(this)">X</button>
+           	<span>재료묶음<input name="r_bundle" placeHolder="스테이크 소스"></input></span>
+           	<span id="ingre">
+           		<span>재료<input name="ing_ingredient" placeHolder="캐찹"></span>
+           		<span>양<input name="ing_amount" placeHolder="1/2컵"></input></span>
+           	</span>
+         </div>
+         <button type="button" onclick="addBundle()">재료  묶음 추가</button>
+      </div>
+      
+      <!-- 조리순서 -->
+      <div>
+         <h2>조리 순서</h2>
+         <hr>
+         <div id="orderForm">
+            <button type="button" onclick="delOrder(this)">X</button>
+            <input type="hidden" name="recipe_num">
+            <table id="orderTable">
+               <tr>
+                  <td>
+                     <input type="hidden" name="recipe_num">
+                  	 <p name="order_num" value="1">1</p>
+                     <textarea name="order_explain[]"></textarea>
+                  </td>
+                  <td>
+                  <td>
+                     <img name="order_path" alt="이미지" src="#">
+                  </td>
+               </tr>
+            </table>
+            <button type="button" onclick="delOrder(this)">X</button>
+            <input type="hidden" name="recipe_num">
+            <table id="orderTable">
+               <tr>
+                  <td>
+                     <input type="hidden" name="recipe_num">
+                  	 <p name="order_num" value="1">2</p>
+                     <textarea name="order_explain[]"></textarea>
+                  </td>
+                  <td>
+                  <td>
+                     <img name="order_path" alt="이미지" src="#">
+                  </td>
+               </tr>
+            </table>
+            <button type="button" onclick="delOrder(this)">X</button>
+            <input type="hidden" name="recipe_num">
+            <table id="orderTable">
+               <tr>
+                  <td>
+                     <input type="hidden" name="recipe_num">
+                  	 <p name="order_num" value="1">3</p>
+                     <textarea name="order_explain[]"></textarea>
+>>>>>>> cea3776bb6c16a29a9ed2ab4cfd8b3a80dc8b1fb
                   </td>
                   <td>
                      <img name="orderVoList[0].order_path" alt="이미지" src="#">
@@ -125,7 +188,11 @@
             
             </table>
          </div>
+<<<<<<< HEAD
          <button type="button" class="btnCount" style="width: 100%;">요리 순서 추가</button>
+=======
+         <button type="button" onclick="addOrder()" style="width: 10%;">요리 순서 추가</button>
+>>>>>>> cea3776bb6c16a29a9ed2ab4cfd8b3a80dc8b1fb
       </div>
       
       </form>
@@ -133,6 +200,7 @@
   <input type="button" value="등록" onclick="submitForms()"/>
 </body>
 <script>
+<<<<<<< HEAD
 
 submitForms = function(){
     document.getElementById("form1").submit();
@@ -166,7 +234,61 @@ btnCount.addEventListener("click", function() {
    `;
       orderForm.appendChild(new_table);
    }
+=======
+function addOrder() { // 추가
+    const orderForm = document.getElementById("orderForm");
+    const new_table = document.createElement('table');
+
+    const num = document.getElementById("order_num");
+
+    let order_num = num.innerText;
+    order_num = parseInt(order_num) + 1;
+    num.innerText = order_num;
+
+    new_table.innerHTML =
+`<button type="button" onclick="delOrder(this)">X</button>
+            <input type="hidden" name="recipe_num">
+            <table id="orderTable">
+               <tr>
+                  <td>
+                     <input type="hidden" name="recipe_num">
+                  	 <p name="order_num" value="1">1</p>
+                     <textarea name="order_explain"></textarea>
+                  </td>
+                  <td>
+                  <td>
+                     <img name="order_path" alt="이미지" src="#">
+                  </td>
+               </tr>
+            </table>`;
+    orderForm.appendChild(new_table);
+    console.log(order_num);
+
+}
+>>>>>>> cea3776bb6c16a29a9ed2ab4cfd8b3a80dc8b1fb
    
+   //재료 묶음 추가
+   function addBundle(){
+	   const bunbun = document.getElementById("bunbun");
+	   const new_bundle = document.createElement('div');
+	   
+	   console.log(bunbun);
+	   
+	   new_bundle.innerHTML = 
+		   `
+           	<button type="button" onclick="delBundle(this)">X</button>
+           	<span>재료묶음<input name="r_bundle"></input></span>
+           	<span id="ingre">
+           		<span>재료<input name="ing_ingredient"></input></span>
+           		<span>양<input name="ing_amount"></input></span>
+           	</span>
+		   `;
+	   bunbun.appendChild(new_bundle);
+   }
+   //재료 묶음 추가 삭제
+   function delBundle(obj){
+	   document.getElementById("bunbun").removeChild(obj.parentNode);
+   }
    function delOrder(obj) { // 삭제
 	   alert("제거!")
       document.getElementById("orderTable").removeChild(obj.parentNode);

@@ -1,6 +1,8 @@
 package com.dorecipe.main.event.vo;
 
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,5 +17,7 @@ public class EventVO {
 	private String event_path;
 	private String event_creDate;
 	private String event_finDate;
+	
+//	private MultipartFile event_image;
 	
 }

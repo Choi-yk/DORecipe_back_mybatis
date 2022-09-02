@@ -60,7 +60,7 @@ const AdminPostMng = () => {
 
 function TabContent(props){
 
-// event---------------------------------------------------------------
+// event--------------------------------------
   const [event_title, onChangeEventTitle, setTitle] = useInput("");
   const [event_path, onChangeEventPath, setPath] = useInput("");
   const [event_content, onChangeEventContent, setContent] = useInput("");
@@ -78,7 +78,7 @@ const eventHandler = useCallback(
 
   const data = {
     event_title: `${event_title}`,
-    event_path: `${event_path}`,
+    event_path: `${event_path.replace(/c:\\fakepath\\/i,'')}`,
     event_content: `${event_content}`,
     event_creDate: `${event_creDate}`,
     event_finDate: `${event_finDate}`,
@@ -87,12 +87,15 @@ const eventHandler = useCallback(
   const blob = new Blob([JSON.stringify(data)],{
     type : "application/json",
   });
-  
+
+//=-------------------------------
+
   const formData = new FormData();
+
   formData.append("data",blob);
 
+  formData.append("event_image",files[0]); //파일 formData.append
   formData.append("event_title",data.event_title);
-  formData.append("event_image",files[0]);
   formData.append("event_path",data.event_path);
   formData.append("event_content",data.event_content);
   formData.append("event_creDate",data.event_creDate);
@@ -104,6 +107,7 @@ const eventHandler = useCallback(
      data.event_creDate === "" ||
      data.event_finDate === ""  ){
         alert('제목, 내용, 이벤트 기간을 입력해 주세요.');
+
       }else{
         alert("등록되었습니다.");
         
@@ -120,6 +124,8 @@ const eventHandler = useCallback(
       document.getElementById('eventData3').value = "";
       document.getElementById('eventData4').value = "";
       document.getElementById('eventData5').value = "";
+      setFiles('');
+      
     });
   }
   },
@@ -128,30 +134,39 @@ const eventHandler = useCallback(
   );
 
 
-  //파일 읽고 저장
+ 
+  //파일 files에 넣기
   const[files, setFiles] = useState('');
 
   const onLoadFile = (e)=>{
+  
+    //이미지명 담기
+    onChangeEventPath(e);
 
+    //파일담기
     const file = e.target.files;
     setFiles(file);
   };
 
+  // 미리보기
   useEffect(() => {
     preview();
     return() => preview();
 
   });
-  // 미리보기
   const preview = ()=>{
+
     if(!files) return false;
     const imgEl = document.querySelector('.img_box');
     const reader = new FileReader();
 
     reader.onload = () =>
       (imgEl.style.backgroundImage = `url(${reader.result})`);
-
+      if(!files[0]){
+        // console.log('')
+      }else{
       reader.readAsDataURL(files[0]);
+    }
   }
 
   // 끝-----------------------------------------------------------
@@ -280,6 +295,7 @@ const eventHandler = useCallback(
       <tbody>
         <tr>
             <td>내용</td>
+            <td>
             <textarea 
              id="noticeContent"
              name="event_content"
@@ -289,6 +305,7 @@ const eventHandler = useCallback(
              required
              onChange={onChangeNoticeContent}
            ></textarea>
+           </td>
         </tr>   
       </tbody>  
     </table>
@@ -338,7 +355,8 @@ const eventHandler = useCallback(
               name="event_path eventData"
               type="file"
               id="eventData2"
-              onChange={onChangeEventPath && onLoadFile}
+              accept="image/*"
+              onChange={onLoadFile}
             />
           </td>
       </tr>
@@ -348,6 +366,7 @@ const eventHandler = useCallback(
             <textarea 
               name="event_content"
               className="text eventData" 
+              placeholder=" 내용을 입력해주세요"
               rows="4" 
               cols="50"
               required
@@ -377,7 +396,6 @@ const eventHandler = useCallback(
     </table>
 
     <div className="mt-5 bottom imgPreview floatRight">
-        <h4 className="eventCenter">{event_path}</h4>
         <div className="img_box"/>
     </div>
 

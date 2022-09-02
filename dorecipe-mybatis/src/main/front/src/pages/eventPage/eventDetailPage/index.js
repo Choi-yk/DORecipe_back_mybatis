@@ -54,7 +54,7 @@ const EventDetailPage = () => {
         <img
           className="eventImg"
           src={state.event_path}
-          alt={state.event_path + "이거 못 찾았음"}
+          alt={state.event_path}
         />
         <p className="left width">{state.event_content}</p>
       </div>

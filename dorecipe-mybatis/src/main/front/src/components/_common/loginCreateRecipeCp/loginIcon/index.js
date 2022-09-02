@@ -39,7 +39,7 @@ const AccountIcon = ({ userState }) => {
             <Link className="linkItems" to="/join">
               회원가입
             </Link>
-            <Link className="linkItems" to="/">
+            <Link className="linkItems" to="/login">
               로그인
             </Link>
           </>

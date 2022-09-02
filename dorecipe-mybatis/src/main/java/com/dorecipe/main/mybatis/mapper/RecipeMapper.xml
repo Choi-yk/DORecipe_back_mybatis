@@ -44,7 +44,7 @@
   		now(), "admin")
   		
   	</insert>
-  	
+
   	<!--
   	<insert id="insertBundle" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
   	insert into b_ingredient values(#{recipe_num},#{bundle_num},#{ing_num}, #{ing_ingredient},#{ing_amount});
