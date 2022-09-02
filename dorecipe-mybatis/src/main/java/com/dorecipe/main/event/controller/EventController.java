@@ -25,13 +25,11 @@ import com.dorecipe.main.event.service.EventService;
 import com.dorecipe.main.event.vo.EventVO;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 
 @CrossOrigin(origins="http://localhost:3000")
 @RestController
 @RequestMapping("/event")
 @RequiredArgsConstructor
-@Log4j2
 public class EventController {
 
 	
@@ -39,7 +37,7 @@ public class EventController {
 	private EventService eventService;
 	
 	//aplication.properties 파일업로드 경로 가져오기
-	@Value("${part.upload.path}")
+	@Value("${part1.upload.path}")
 	private String uploadPath;
 	
 	
@@ -64,7 +62,6 @@ public class EventController {
 		
 		//파일 없으면 나머지 저장
 		if(uploadFiles == null) {
-			eventVO.setEvent_path(null);
 			eventService.updateEvent(eventVO);
 			return;
 		}
@@ -109,7 +106,7 @@ public class EventController {
 	        String uuid = UUID.randomUUID().toString();
 	        //저장할 파일 이름 중간에 "_"를 이용하여 구분
 	        String saveName = uploadPath + File.separator + folderPath +File.separator + uuid + "_" + fileName;
-	        System.out.println(saveName);
+	        System.out.println("전체경로" + saveName);
 	        Path savePath = Paths.get(saveName);
 	        //Paths.get() 메서드는 특정 경로의 파일 정보를 가져옵니다.(경로 정의하기)
 	        
@@ -117,7 +114,7 @@ public class EventController {
 			
 	        //db에 저장 할 이미지 경로
 	        String ymd = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-			String event_path = "/img/" + ymd + "/" + uuid + "_" + fileName;
+			String event_path = "/img/event/" + ymd + "/" + uuid + "_" + fileName;
 								// ex)/img/2022/09/01/uuid_fileName --db에 저장
 			System.out.println("저장한 경로"+ event_path);
 			eventVO.setEvent_path(event_path);
