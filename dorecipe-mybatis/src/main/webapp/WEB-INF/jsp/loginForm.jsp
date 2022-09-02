@@ -7,7 +7,8 @@
 <title>로그인 테스트</title>
 </head>
 <body>
-<form action="/login" method="post">
+<form action="/loginexe" method="post">
+
 	<input
 		name="member_id"
 		class="idInput"
@@ -22,14 +23,30 @@
 		type="password"
 		placeholder="비밀번호"
 	/>
-	<button type="submit" name="loginBtn">
+	<button type="submit" name="loginBtn" id="memberLogin">
 		로그인
 	</button>
 </form>
 </body>
 <script>
 function memberLogin() {
-	// window.location.href = "http://localhost:3000/"	
+	$(document).ready(function() {
+		$("#memberLogin").click(function() {
+			if($("#member_id").val() == "") {
+				alert("아이디 입력!!!");
+				return;
+			} else if($("#member_pwd").val() == "") {
+				alert("비밀번호 입력!!!");
+				return;
+			} else {
+				$("#loginForm").attr("action", "${root}/login").submit();
+			}
+		});
+		 
+		$('#mvRegisterBtn').focusin(function() {
+			$(location).attr("href", "${root}/");
+		});
+	});
 }
 </script>
 </html>
