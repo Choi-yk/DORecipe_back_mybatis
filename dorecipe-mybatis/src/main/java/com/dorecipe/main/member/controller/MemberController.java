@@ -1,11 +1,19 @@
 package com.dorecipe.main.member.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,11 +23,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import com.dorecipe.main.member.dao.MemberDAO;
 import com.dorecipe.main.member.service.MemberService;
 import com.dorecipe.main.member.vo.MemberVO;
+import com.dorecipe.main.storage.StorageService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,7 +45,14 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	private StorageService storageService;
 	
+//	@Autowired	//생성자 주입
+//	public MemberController(MemberService memberService, StorageService storageService) {
+//		this.memberService = memberService;
+//		this.storageService= storageService;
+//	}
+//	
 	// 관리자 페이지 - 회원목록 조회
 	@RequestMapping("/list")
 	public String list(Model model) throws Exception {
@@ -81,6 +100,60 @@ public class MemberController {
 		return "member_form";
 	}
 	
+	
+	
+	@PostMapping(value="/uploadFile")
+	public ResponseEntity<String> uploadFile(MultipartFile myFile ) throws IllegalStateException, IOException {
+		
+		if(!myFile.isEmpty()) {
+			System.out.printf("file org name = {}", myFile.getOriginalFilename());
+			System.out.printf("file content type = {}", myFile.getContentType());
+			myFile.transferTo(new File(myFile.getOriginalFilename()));
+		}
+
+		return new ResponseEntity<>("",HttpStatus.OK);
+
+	}
+	
+	@PostMapping(value="upload")
+	public ResponseEntity<String> upload(MultipartFile file) throws IllegalStateException, IOException {
+		storageService.store(file);
+		return new ResponseEntity<>("",HttpStatus.OK);
+	}
+	
+	
+    @GetMapping(value="download")
+    public ResponseEntity<Resource> serveFile(@RequestParam(value="filename") String filename) {
+
+        Resource file = storageService.loadAsResource(filename);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    }
+	
+    
+//    @GetMapping("fileList")
+//    public ResponseEntity<List<MemberService>> getListFiles() {
+//        List<MemberService> fileInfos = storageService.loadAll().map(path ->{
+//   
+//              String filename = path.getFileName().toString();
+//              data.setFilename(filename);
+//              data.setUrl(MvcUriComponentsBuilder.fromMethodName(InfoController.class,
+//                        "serveFile", filename).build().toString());
+//              try {
+//                data.setSize(Files.size(path));
+//            } catch (IOException e) {
+//                System.out.println(e.getMessage());
+//            }
+//              return data;
+//          })
+//          .collect(Collectors.toList());
+//
+//        return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
+//    }
+//    
+    
+    
+	//원본///////////////////////////////////////////
 	@PostMapping("/join")
 	public String Join(MemberVO memberVO /*Model model, HttpServletRequest request*/) throws Exception {
 		//MemberVO memberVO = (MemberVO) request.getParameterMap();
@@ -92,7 +165,7 @@ public class MemberController {
 		return "redirect:/member/list";
 		//return memberService.JoinMember(memberVO);
 	}
-	
+	//원본///////////////////////////////////////////
 	// 회원 삭제(탈퇴)
 	@GetMapping("/delete/{member_id}")
 	public String Delete(@PathVariable("member_id") String member_id) throws Exception {

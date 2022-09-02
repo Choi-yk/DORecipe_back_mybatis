@@ -1,5 +1,13 @@
 import styled from "styled-components";
 
+// export const Wrapper = styled.div`
+//   display: block;
+//   position: absolute;
+//   bottom: 0;
+//   left: 0;
+//   right: 0;
+// `;
+
 export const FooterWrapper = styled.footer`
   display: flex;
   width: 100%;

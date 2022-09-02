@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { FooterWrapper, FooterRight, FooterLeft } from "./style";
+import { Wrapper, FooterWrapper, FooterRight, FooterLeft } from "./style";
 import { MainLogo } from "../../../components/_common/mainLogo";
 const LayOutFooter = () => {
   return (
     <>
+      {/* <Wrapper> */}
       <FooterWrapper>
         <FooterRight>
           <MainLogo />
@@ -22,6 +23,7 @@ const LayOutFooter = () => {
           <div>Copyright © 잡솨봐 Inc. All Rights Reserved</div>
         </FooterLeft>
       </FooterWrapper>
+      {/* </Wrapper> */}
     </>
   );
 };

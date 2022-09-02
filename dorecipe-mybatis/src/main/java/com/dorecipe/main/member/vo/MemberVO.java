@@ -21,15 +21,15 @@ public class MemberVO {
 	private String member_imagePath;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date member_joinDate;
-	private int member_like;
 	private String member_role;
+	
 	
 	public MemberVO() { }
 
 	
 	
 	public MemberVO(String member_id, String member_pwd, String member_name, String member_email, String member_gender,
-			Date member_birth, String member_phone, String member_imagePath, Date member_joinDate, int member_like,
+			Date member_birth, String member_phone, String member_imagePath, Date member_joinDate,
 			String member_role) {
 		super();
 		this.member_id = member_id;
@@ -41,7 +41,6 @@ public class MemberVO {
 		this.member_phone = member_phone;
 		this.member_imagePath = member_imagePath;
 		this.member_joinDate = member_joinDate;
-		this.member_like = member_like;
 		this.member_role = member_role;
 	}
 	
@@ -50,6 +49,6 @@ public class MemberVO {
 	public String toString() {
 		return "Member [member_id=" + member_id + ", member_pwd=" + member_pwd +", member_name=" + member_name + ", member_email=" + member_email 
 				+ ", member_gender=" + member_gender + ", member_birth=" + member_birth + ", member_phone=" + member_phone + ", member_imagePath=" + member_imagePath 
-				+ ", member_joinDate=" + member_joinDate + ", member_like=" + member_like + ", member_role=" + member_role + "]";
+				+ ", member_joinDate=" + member_joinDate  + ", member_role=" + member_role + "]";
 	}
 }

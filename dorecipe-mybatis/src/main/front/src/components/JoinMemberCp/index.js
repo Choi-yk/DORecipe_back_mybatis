@@ -166,40 +166,44 @@ const SignUpTemplate = () => {
     ]
   );
   /**아이디 중복 체크 */
-  const onDuplicateCheck = useCallback(() => {
-    axios({
-      url: "/member/list",
-      method: "get",
-      data: { member_id: "" },
-      baseURL: "http://localhost:9000",
-    })
-      .then(function (response) {
-        const takenID = [];
-        response.data.map((e) => {
-          takenID.push(e.member_id);
-        });
+  const onDuplicateCheck = useCallback(
+    (e) => {
+      e.preventDefault();
+      axios({
+        url: "/member/list",
+        method: "get",
+        data: { member_id: "" },
+        baseURL: "http://localhost:9000",
+      })
+        .then(function (response) {
+          const takenID = [];
+          response.data.map((item) => {
+            takenID.push(item.member_id);
+          });
 
-        if (takenID.includes(member_id)) {
-          setDuplicateChk(false);
-          setMemId("");
-          alert("사용불가능한 아이디입니다.");
+          if (takenID.includes(member_id)) {
+            setDuplicateChk(false);
+            setMemId("");
+            alert("사용불가능한 아이디입니다.");
 
-          console.log(member_id);
-        } else {
-          if (idExp.current.test(member_id)) {
-            setDuplicateChk(true);
-            setMemId(member_id);
             console.log(member_id);
           } else {
-            setMemId("");
-            return alert("아이디 형식이 올바르지 않습니다");
+            if (idExp.current.test(member_id)) {
+              setDuplicateChk(true);
+              setMemId(member_id);
+              console.log(member_id);
+            } else {
+              setMemId("");
+              return alert("아이디 형식이 올바르지 않습니다");
+            }
           }
-        }
-      })
-      .then(function () {
-        navigate("/member");
-      });
-  }, [member_id]);
+        })
+        .then(function () {
+          navigate("/member");
+        });
+    },
+    [member_id]
+  );
 
   return (
     <>
