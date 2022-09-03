@@ -29,7 +29,6 @@ export const DefaultBtn = styled.button`
   & .fa-circle-plus {
     color: #463635;
   }
-
   &:hover {
     background-color: #463635;
     color: #fffdf5;

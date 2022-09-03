@@ -13,7 +13,6 @@
 		<result property="member_phone" column="member_phone"/>
 		<result property="member_imagePath" column="member_imagePath"/>
 		<result property="member_joinDate" column="member_joinDate"/>
-		<result property="member_like" column="member_like"/>
 		<result property="member_role" column="member_role"/>
 	</resultMap>
 -->
@@ -38,8 +37,8 @@
 	
 	<insert id="insertMember" parameterType="com.dorecipe.main.member.dao.MemberDAO">
 	 insert into member
-(member_id,member_pwd,member_name,member_email,member_gender,member_birth,member_phone,member_joinDate,member_like,member_role,member_imagePath)
- values(#{member_id}, #{member_pwd}, #{member_name}, #{member_email},#{member_gender}, #{member_birth},#{member_phone},now(),0,"member", default);
+(member_id,member_pwd,member_name,member_email,member_gender,member_birth,member_phone,member_joinDate,member_role,member_imagePath)
+ values(#{member_id}, #{member_pwd}, #{member_name}, #{member_email},#{member_gender}, #{member_birth},#{member_phone},now(),"member", default);
 	
 	</insert>
 	

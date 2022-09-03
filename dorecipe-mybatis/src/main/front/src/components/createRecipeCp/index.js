@@ -16,24 +16,30 @@ import { SubmitRecipeBtn, DefaultBtn } from "../_common/buttons";
 import RecipeOrderDrag from "./recipeStepForm";
 
 const CreateRecipeForm = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const { value } = e.target;
+    console.log({ value });
+    if (value === "submit") {
+      alert("등록하셨습니다.");
+    } else if (value === "saveAsDraft") {
+      alert("임시저장 하셨습니다.");
+    }
+  };
   return (
     <>
       <FlexWrap>
         <Swiper
-          // install Swiper modules
           modules={[Autoplay, Navigation, Pagination, A11y]}
-          //   autoplay={{
-          //     delay: 6500,
-          //     disableOnInteraction: false,
-          //   }}
           slidesPerView={1}
           loop={false}
           navigation
           spaceBetween={5}
           pagination={{ clickable: true }}
-          scrollbar={{ draggable: true }}
+          // scrollbar={{ draggable: false }}
           onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => console.log("slide change")}
+          onSlideChange={() => {}}
         >
           <form>
             <SwiperSlide className="slide">
@@ -54,8 +60,20 @@ const CreateRecipeForm = () => {
               <SectionTitle>요리 완성</SectionTitle>
               <CompleteRecipe />
               <BtnWrap>
-                <SubmitRecipeBtn type="button">레시피 등록하기</SubmitRecipeBtn>
-                <SubmitRecipeBtn type="button">임시 저장하기</SubmitRecipeBtn>
+                <SubmitRecipeBtn
+                  type="button"
+                  onClick={onSubmit}
+                  value="submit"
+                >
+                  레시피 등록하기
+                </SubmitRecipeBtn>
+                <SubmitRecipeBtn
+                  type="button"
+                  onClick={onSubmit}
+                  value="saveAsDraft"
+                >
+                  임시 저장하기
+                </SubmitRecipeBtn>
               </BtnWrap>
             </SwiperSlide>{" "}
           </form>
@@ -73,7 +91,7 @@ const FlexWrap = styled.div`
   justify-content: space-evenly;
   margin: -6em 0;
   /* padding: 3em; */
-  background-color: aliceblue;
+  /* background-color: aliceblue; */
 `;
 const SectionTitle = styled.div`
   background-color: #8d3232;

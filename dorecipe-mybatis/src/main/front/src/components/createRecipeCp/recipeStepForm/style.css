@@ -9,3 +9,12 @@
   user-select: none;
   background: lightgrey;
 }
+.list-container {
+  width: 100%;
+  height: 60em;
+  background-color: red;
+}
+.list-item {
+  width: 30em;
+  background-color: aliceblue;
+}

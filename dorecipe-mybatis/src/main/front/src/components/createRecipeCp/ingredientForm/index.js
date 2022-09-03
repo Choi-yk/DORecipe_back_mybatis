@@ -1,32 +1,63 @@
 import styled from "styled-components";
 import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLightbulb, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import { useInput } from "../../../hooks/useInput";
-import { useDispatch, useSelector } from "react-redux";
+import {
+  faLightbulb,
+  faCircleXmark,
+  faPlusCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { DefaultBtn } from "../../_common/buttons";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 const IngredientForm = () => {
-  const [ingredient_name, onChangeIngreName, setIngreName] = useInput("");
-  const [ingredient_amount, onChangeIngreAmount, setIngreAmount] = useInput("");
+  const [ingredients, setIngredients] = useState([
+    { ingredient_id: 0, ingredient_name: "", ingredient_amount: "" },
+    { ingredient_id: 1, ingredient_name: "", ingredient_amount: "" },
+    { ingredient_id: 2, ingredient_name: "", ingredient_amount: "" },
+  ]);
 
-  // const [counter, setCounter] = useState({});
-  const [state, setState] = useState(0);
+  const IngreAmountRef = useRef();
+  const inputFocus = useRef();
+  const [input, setInput] = useState("");
 
-  const onAddBundleHandler = () => {
-    setState(state + 1);
-    console.log(state);
-    console.log(ingredient_name);
-    console.log(ingredient_amount);
+  /**재료 추가 */
+  const onAddIngredientHandler = () => {
+    const ingreCopy = [...ingredients];
+    if (ingreCopy[ingreCopy.length - 1].ingredient_name !== "") {
+      ingreCopy.push({
+        ingredient_id: ingreCopy.ingredient_id + 1,
+        ingredient_name: "",
+        ingredient_amount: "",
+      });
+      setIngredients(ingreCopy);
+      console.log(ingreCopy);
+      // inputFocus.current.focus();
+    } else {
+      alert("재료를 입력해주세요.");
+    }
   };
 
-  const removeIngredient = useCallback((e) => {
-    const removeIngredients = Array.from(Array(state)).filter(
-      (item) => item.index !== e.index
-    );
-    setIngreName(removeIngredients);
-  });
+  /**재료 제거 */
+  const removeIngredient = (index) => {
+    const ingreCopy = [...ingredients];
+    if (ingreCopy.length > 1) {
+      const removeIngre = ingreCopy.splice(IngreAmountRef.current, 1)[0];
+      console.log(removeIngre);
+      IngreAmountRef.current = null;
+      console.log(ingreCopy[IngreAmountRef.current]);
+      setIngredients(ingreCopy);
+    } else {
+      alert("재료는 1개 이상 넣어주세요.");
+    }
+  };
+
+  const setIngredientInputs = (e, item, index) => {
+    let ingreCopy = [...ingredients];
+    console.log(e.target.value);
+    ingreCopy[index].ingredient_id = index;
+    ingreCopy[index].ingredient_name = e.target.value;
+    setIngredients(ingreCopy);
+  };
 
   return (
     <>
@@ -39,31 +70,10 @@ const IngredientForm = () => {
         <BundleWrap>
           <Scrollable>
             <div>
-              {/* <div className="recipeBundleWrap">
-                <div className="recipeFlexBundle">
-                  <div className="ingredientBundle">재료 1</div>
-                  <div className="bundleIngredientWrap">
-                    <div className="bundleFlexDown">
-                      <input
-                        className="bundleIngredient bundleInput"
-                        type="text"
-                        // value={state.recipe_name}
-                        placeholder="예) 소금"
-                      />
-                      <input
-                        className="bundleIngredientAmount bundleInput"
-                        type="text"
-                        placeholder="예) 1꼬집"
-                      />
-                      <FontAwesomeIcon icon={faCircleXmark} />
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-              {Array.from(Array(state)).map((c, index) => {
+              {ingredients.map((item, index) => {
                 return (
                   <>
-                    <div className="recipeBundleWrap">
+                    <div className="recipeBundleWrap" key={item}>
                       <div className="recipeFlexBundle">
                         <div className="ingredientBundle">재료 {index + 1}</div>
                         <div className="bundleIngredientWrap">
@@ -71,22 +81,59 @@ const IngredientForm = () => {
                             <input
                               className="bundleIngredient bundleInput"
                               type="text"
-                              onChange={onChangeIngreName}
-                              key={index}
-                              value={ingredient_name}
-                              placeholder="예) 소금"
+                              ref={inputFocus}
+                              onChange={(e) => {
+                                setInput(IngreAmountRef.current);
+                              }}
+                              // key={index}
+                              onBlur={(e) => {
+                                setIngredientInputs(e, item, index);
+
+                                // IngreAmountRef.current = item.ingredient_name;
+                                // console.log(IngreAmountRef.current);
+                              }}
+                              value={
+                                item.ingredient_name !== ""
+                                  ? item.ingredient_name
+                                  : item.ingredient_name[index]
+                              }
+                              placeholder={
+                                index % 4 == 0
+                                  ? "소금"
+                                  : index % 4 == 1
+                                  ? "밀가루"
+                                  : index % 4 == 2
+                                  ? "계란"
+                                  : index % 4 == 3
+                                  ? "후추"
+                                  : ""
+                              }
                             />
                             <input
-                              onChange={onChangeIngreAmount}
-                              key={index}
+                              // onChange={onChangeInput}
+                              // key={item.ingredient_id}
                               className="bundleIngredientAmount bundleInput"
                               type="text"
-                              placeholder="예) 1꼬집"
-                              value={ingredient_amount}
+                              ref={IngreAmountRef}
+                              placeholder={
+                                index % 4 == 0
+                                  ? "1꼬집"
+                                  : index % 4 == 1
+                                  ? "300g"
+                                  : index % 4 == 2
+                                  ? "6알"
+                                  : index % 4 == 3
+                                  ? "1/2t"
+                                  : ""
+                              }
+                              // value={item.ingredient_amount}
                             />
                             <FontAwesomeIcon
                               icon={faCircleXmark}
-                              onClick={removeIngredient}
+                              onClick={() => {
+                                IngreAmountRef.current = index;
+                                removeIngredient(index);
+                              }}
                             />
                           </div>
                         </div>
@@ -98,9 +145,8 @@ const IngredientForm = () => {
             </div>
           </Scrollable>
         </BundleWrap>
-        <DefaultBtn type="button" onClick={onAddBundleHandler}>
-          <FontAwesomeIcon icon={faCircleXmark} />
-          재료 묶음 추가
+        <DefaultBtn type="button" onClick={onAddIngredientHandler}>
+          <FontAwesomeIcon icon={faPlusCircle} /> 재료 추가
         </DefaultBtn>
       </BasicFormWrap>
     </>
@@ -114,7 +160,7 @@ const BasicFormWrap = styled.div`
   width: 90%;
   font-size: 14px;
   height: fit-content;
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
   padding: 2em;
 `;
 const BundleWrap = styled.div`
@@ -123,11 +169,9 @@ const BundleWrap = styled.div`
 const Scrollable = styled.section`
   width: 100%;
   margin: 1em auto;
-  /* padding: 2rem; */
 
   & > div {
     padding: 2rem;
-    /* width: 90%; */
     height: 27em;
     overflow-y: auto;
     margin: 0 auto;
@@ -137,10 +181,11 @@ const Scrollable = styled.section`
     }
     ::-webkit-scrollbar-thumb {
       height: 30%;
-      background-color: blue;
+      background-color: #463635;
     }
     ::-webkit-scrollbar-track {
-      background-color: pink;
+      background-color: #fffdf5;
+      border: 1px solid #463635;
     }
   }
 `;
