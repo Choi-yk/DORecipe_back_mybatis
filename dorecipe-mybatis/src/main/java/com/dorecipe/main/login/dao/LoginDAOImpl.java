@@ -22,4 +22,9 @@ public class LoginDAOImpl implements LoginDAO{
 		
 		return sqlSession.selectOne("mapper.login.memberLogin",memberVO);
 	}
+
+//	@Override
+//	public MemberVO findById(MemberVO memberVO) throws Exception {
+//		return sqlSession.selectOne("mapper.login.findById", memberVO);
+//	}
 }

@@ -9,4 +9,5 @@ public interface LoginDAO {
 
 	public MemberVO Login(MemberVO memberVO) throws Exception;
 	
+//	public MemberVO findById(MemberVO memberVO) throws Exception;
 }
