@@ -79,5 +79,10 @@ public class RecipeService {
 
 		
 	}
-	
+
+	public List<RecipeVO> searchRecipe(String recipe_title) {
+		List<RecipeVO> serachList = recipeDAO.searchRecipe(recipe_title);
+		return serachList;
+	}
+
 }

@@ -24,16 +24,15 @@ const KnowhowMain = () => {
           url: "/knowhow/list",
           method: "get",
           data: {
-            know_num: "test",
-            know_title: "test",
-            know_content: "test",
-            know_creDate: "2022/08/24",
-            know_path: "test_path"
+            know_num: "",
+            know_title: "",
+            know_content: "",
+            know_creDate: "",
+            know_path: ""
           },
           baseURL: "http://localhost:9000",
         }).then(function (response) {
           console.log(response.data);
-          // console.log(response.data[0]);
           setState(response.data);
         });
     }

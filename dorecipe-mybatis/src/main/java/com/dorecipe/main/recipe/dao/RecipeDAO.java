@@ -33,4 +33,7 @@ public interface RecipeDAO {
 	//레시피 순서 등록
 	int insertRecipeOrder(RecipeVO recipeVO);
 
+	//레시피 검색
+	List<RecipeVO> searchRecipe(String recipe_title);
+
 }

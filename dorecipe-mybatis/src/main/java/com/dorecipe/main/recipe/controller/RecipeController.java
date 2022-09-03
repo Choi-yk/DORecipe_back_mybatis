@@ -17,11 +17,11 @@ import com.dorecipe.main.recipe.vo.RecipeVO;
 
 import lombok.RequiredArgsConstructor;
 
-//@CrossOrigin(origins="http://localhost:3000")   //react연동 -> 주석 해제
+@CrossOrigin(origins="http://localhost:3000")   //react연동 -> 주석 해제
 @RequestMapping("/recipe")
 @RequiredArgsConstructor
-//@RestController	//react연동 -> 주석 해제
-@Controller
+@RestController	//react연동 -> 주석 해제
+//@Controller
 public class RecipeController {
 
 	@Autowired
@@ -129,6 +129,15 @@ public class RecipeController {
 		System.out.println("레시피 삭제 성공!! - controller ");
 		
 		return "redirect:/recipe/list";
+	}
+	
+	//레시피 검색
+	@GetMapping("/search/{recipe_title}")
+	public List<RecipeVO> searchRecipe(@PathVariable("recipe_title")String recipe_title) {
+		System.out.println("검색어 : " + recipe_title);
+		
+		System.out.println(recipeService.searchRecipe("제목"));
+		return recipeService.searchRecipe(recipe_title);
 	}
 	
 }

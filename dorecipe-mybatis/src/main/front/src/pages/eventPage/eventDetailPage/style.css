@@ -14,3 +14,9 @@ h2 {
 .centerRight{
   margin-right: 56%;
 }
+.disInline{
+  display: inline;
+}
+.disBlock{
+  display: block;
+}

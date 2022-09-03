@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 
 const EventList = ({ removePost, state }) => {
+
   const removePostOnclick = () => {
     removePost(state.event_num);
   };
@@ -10,7 +11,7 @@ const EventList = ({ removePost, state }) => {
     <>
       <li>
         <div className="noticeNo">{state.event_num}</div>
-        {/* <div className="eventTitle">{state.EventTitle}</div> */}
+        
         <Link className="noticeTitle" to={`/event/detail/${state.event_num}`}>
           {state.event_title}
         </Link>
