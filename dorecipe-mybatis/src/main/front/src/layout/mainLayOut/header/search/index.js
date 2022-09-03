@@ -16,12 +16,12 @@ const HeaderSearch = () => {
           onChange={onChangeSearch}
           placeholder="검색하고 싶은 레시피의 키워드를 입력해주세요."
         />
-        <Link to={`/recipe/search/${search}`}>
+        <a href={`http://localhost:3000/recipe/search/${search}`}>
           <button type="button" className="searchButton">
             <i className="fa-solid fa-magnifying-glass"></i>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </button>
-        </Link>
+        </a>
       </SearchWrap>
     </>
   );

@@ -6,8 +6,8 @@ return(
     <ul className="dpib">
         <li>
             <div>
-                <a href={state.recipe_rpath}>
-                    <img src="#" alt="x"/>
+                <a href={`http://localhost:3000/recipe/detail/${state.recipe_num}`}>
+                    <img src={state.recipe_rpath} alt="x"/>
                 </a>
             </div>
             <div>

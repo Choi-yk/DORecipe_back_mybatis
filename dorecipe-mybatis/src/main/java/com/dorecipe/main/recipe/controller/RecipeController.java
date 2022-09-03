@@ -135,8 +135,6 @@ public class RecipeController {
 	@GetMapping("/search/{recipe_title}")
 	public List<RecipeVO> searchRecipe(@PathVariable("recipe_title")String recipe_title) {
 		System.out.println("검색어 : " + recipe_title);
-		
-		System.out.println(recipeService.searchRecipe("제목"));
 		return recipeService.searchRecipe(recipe_title);
 	}
 	
