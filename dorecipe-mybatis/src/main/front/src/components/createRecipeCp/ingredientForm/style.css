@@ -11,10 +11,11 @@
 }
 .recipeBundleWrap {
   /* display: inline-flex; */
-  /* width: 90%; */
+  width: 85%;
+  background-color: #fffdf5;
   border: 1px solid #463635;
   padding: 1em;
-  margin: 1em 0;
+  margin: 1em auto;
   border-radius: 0.5em;
 }
 .ingredientBundle {

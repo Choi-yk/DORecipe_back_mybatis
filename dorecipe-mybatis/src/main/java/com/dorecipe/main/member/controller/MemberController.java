@@ -45,7 +45,7 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	private StorageService storageService;
+//	private StorageService storageService;
 	
 //	@Autowired	//생성자 주입
 //	public MemberController(MemberService memberService, StorageService storageService) {

@@ -91,7 +91,7 @@ const FlexWrap = styled.div`
   justify-content: space-evenly;
   margin: -6em 0;
   /* padding: 3em; */
-  background-color: aliceblue;
+  /* background-color: aliceblue; */
 `;
 const SectionTitle = styled.div`
   background-color: #8d3232;

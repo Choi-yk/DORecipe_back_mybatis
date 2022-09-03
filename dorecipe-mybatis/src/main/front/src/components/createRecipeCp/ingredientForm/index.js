@@ -146,7 +146,7 @@ const IngredientForm = () => {
           </Scrollable>
         </BundleWrap>
         <DefaultBtn type="button" onClick={onAddIngredientHandler}>
-          <FontAwesomeIcon icon={faPlusCircle} /> 재료 묶음 추가
+          <FontAwesomeIcon icon={faPlusCircle} /> 재료 추가
         </DefaultBtn>
       </BasicFormWrap>
     </>
@@ -160,7 +160,7 @@ const BasicFormWrap = styled.div`
   width: 90%;
   font-size: 14px;
   height: fit-content;
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
   padding: 2em;
 `;
 const BundleWrap = styled.div`
@@ -181,10 +181,11 @@ const Scrollable = styled.section`
     }
     ::-webkit-scrollbar-thumb {
       height: 30%;
-      background-color: blue;
+      background-color: #463635;
     }
     ::-webkit-scrollbar-track {
-      background-color: pink;
+      background-color: #fffdf5;
+      border: 1px solid #463635;
     }
   }
 `;

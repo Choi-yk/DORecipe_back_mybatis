@@ -256,7 +256,7 @@ const BasicFormWrap = styled.div`
   align-items: center;
   font-size: 6px;
   height: fit-content;
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
   padding: 2em;
   justify-content: center;
   gap: 12em;

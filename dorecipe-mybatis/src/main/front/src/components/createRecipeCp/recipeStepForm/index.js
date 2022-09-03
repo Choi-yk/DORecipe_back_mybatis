@@ -101,14 +101,18 @@ const RecipeOrderDrag = () => {
           <FontAwesomeIcon icon={faLightbulb} /> 요리의 맛이 좌우될 수 있는
           중요한 부분을 상세하게 적어주세요
         </Instruction>
+        <BtnWrap>
+          <button onClick={handleAddedSteps}>순서 추가하기</button>
+          <button onClick={handleRemovedSteps}>순서 제거하기</button>
+        </BtnWrap>
         <Scrollable>
           <div>
-            <DraggableWrap droppable="true">
-              <DroppableDiv>
+            <DraggableWrap>
+              <DroppableDiv droppable="true">
                 {stepState.map((item, index) => {
                   return (
                     <>
-                      <div>Step {index + 1}</div>
+                      <div className="stepName">Step {index + 1}</div>
                       <div
                         className="draggableItem"
                         key={index}
@@ -130,6 +134,9 @@ const RecipeOrderDrag = () => {
                         {/* <div>Step {index + 1}</div> */}
 
                         <textarea
+                          className="textArea"
+                          rows="2"
+                          cols="70"
                           key={item.stepId}
                           placeholder={
                             index % 4 == 0
@@ -165,8 +172,6 @@ const RecipeOrderDrag = () => {
             </DraggableWrap>
           </div>
         </Scrollable>
-        <button onClick={handleAddedSteps}>순서 추가하기</button>
-        <button onClick={handleRemovedSteps}>순서 제거하기</button>
       </TotalWrap>
     </>
   );
@@ -174,10 +179,10 @@ const RecipeOrderDrag = () => {
 export default RecipeOrderDrag;
 
 const TotalWrap = styled.div`
-  width: 90vw;
+  width: fit-content;
   margin: 0 auto;
-  background-color: orange;
   height: 30em;
+  padding: 2em;
 `;
 const Instruction = styled.div`
   display: inline-block;
@@ -191,11 +196,9 @@ const DraggableWrap = styled.div`
 const Scrollable = styled.section`
   width: 100%;
   margin: 1em auto;
-  /* padding: 2rem; */
 
   & > div {
     padding: 2rem;
-    /* width: 90%; */
     height: 27em;
     overflow-y: auto;
     margin: 0 auto;
@@ -205,23 +208,37 @@ const Scrollable = styled.section`
     }
     ::-webkit-scrollbar-thumb {
       height: 30%;
-      background-color: blue;
+      background-color: #463635;
     }
     ::-webkit-scrollbar-track {
-      background-color: pink;
+      background-color: #fffdf5;
+      border: 1px solid #463635;
     }
   }
 `;
 const DroppableDiv = styled.div`
-  width: 60em;
-  background-color: aliceblue;
+  width: 70em;
   height: 100%;
   & > .draggableItem {
-    cursor: grab;
+    /* cursor: grab; */
     margin: 1em auto;
-    border: 1px solid magenta;
+    width: 85%;
+    background-color: #fffdf5;
+    border: 1px solid #463635;
     padding: 1em;
-    width: 55em;
-    background-color: yellow;
+    margin: 1em auto;
+    border-radius: 0.5em;
   }
+
+  & .textArea {
+    border-radius: 0.5em;
+    margin-right: 1em;
+    padding: 0.4em;
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+`;
+const BtnWrap = styled.div`
+  display: inline-block;
 `;
