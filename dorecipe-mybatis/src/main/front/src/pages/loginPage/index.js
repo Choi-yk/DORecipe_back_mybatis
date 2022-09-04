@@ -4,15 +4,20 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import MainLayout from "../../layout/mainLayOut";
 import { MainLogo } from "../../components/_common/mainLogo";
+import KaKaoLoginPage from "../../components/LoginMemberCp";
+import KaKaoLogin from 'react-kakao-login';
+
 
 const LoginPage = () => {
    
+  
    const [state, setState] = useState([
       {
          member_id:"",
          memeber_pwd:""
       },
    ]);
+   
    
    const [member_id,setMemberId] = useState();
    const [member_pwd,setMemberPwd] = useState();
@@ -25,7 +30,7 @@ const LoginPage = () => {
    };
    
 
-  /* function Axios() {
+   function Axios() {
       axios({
          url: "/login",
          method: "get",
@@ -39,25 +44,28 @@ const LoginPage = () => {
    useEffect(() => {
       Axios();
    }, []);
-   */
    
-   const memberLogin = ( )=>{
+   
+   const memberLogin = ()=>{
       console.log("click login");
        console.log("ID : ", member_id);
        console.log("PW : ", member_pwd);
        
        axios
           .post("http://localhost:9000/login",{
-            member_id : member_id,
-            member_pwd : member_pwd,
+            memberId : member_id,
+            memberPwd : member_pwd,
       })
          .then((res)=>{
+            console.log("memberLogin callback====================");
             console.log(res);
+//            console.log("memberLogin callback====> " + res);
             console.log("res.data.member_id :: ", res.data.member_id);
-            console.log("res.data.msg :: ", res.data.msg);
+            console.log("res.data.member_pwd :: ", res.data.member_pwd);
+            
             if(res.data.member_id === undefined){
                // id 일치하지 않는 경우
-               console.log("아이디 불일치",res.data.msg);
+               console.log("아이디 불일치",res.data.member_id);
                alert("입력하신 id가 일치하지 않습니다.");
                document.location.href="/login";
             }else if(res.data.member_id === null){
@@ -68,15 +76,18 @@ const LoginPage = () => {
                // id, pw 모두 일치
                console.log("로그인 성공!");
                sessionStorage.setItem("member_id",member_id); // sessionStorage에 id를 member_id라는 key 값으로 저장
-               sessionStorage.setItem("name",res.data.name);
+               document.location.href="/";
             }
-            document.location.href="/";
+            
          })
-         .catch();
+         .catch((error)=>{
+			//console.log(error);
+			});
    };   
       
    // },
    // [member_id,member_pwd]);
+   
 
    return (
       <>
@@ -108,13 +119,16 @@ const LoginPage = () => {
                         placeholder="비밀번호"
                         onChange={handleMemberPwd}
                      />
-                     <button type="submit" name="loginBtn" onClick={memberLogin}>
+                     <button type="button" name="loginBtn" onClick={memberLogin}>
                         로그인
                      </button>
                   </form>
-               </div>
+               </div>                        
                <div className="linkWraps">
-                  <Link to={"/join"}>회원가입</Link>
+               	<div>
+               		<KaKaoLoginPage/>	{/*카카오 소셜 로그인*/}
+               	</div>
+                <Link to={"/join"}>회원가입</Link>
                </div>
             </div>
          </div>
