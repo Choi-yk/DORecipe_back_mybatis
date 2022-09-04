@@ -104,7 +104,8 @@
 	<!-- 레시피 검색 -->
 	<select id="searchRecipe" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="String">
 	  select * from recipe
-	  where recipe_title like '%'||#{recipe_title}||'%'
+	  where recipe_title
+	  like concat('%',#{recipe_title},'%')
 	  order by recipe_num desc
   	</select>
 	
