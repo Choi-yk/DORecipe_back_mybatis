@@ -106,6 +106,7 @@ public class EventController {
 	        String uuid = UUID.randomUUID().toString();
 	        //저장할 파일 이름 중간에 "_"를 이용하여 구분
 	        String saveName = uploadPath + File.separator + folderPath +File.separator + uuid + "_" + fileName;
+	        //os별 파일 구분자(File.separator)
 	        System.out.println("전체경로" + saveName);
 	        Path savePath = Paths.get(saveName);
 	        //Paths.get() 메서드는 특정 경로의 파일 정보를 가져옵니다.(경로 정의하기)

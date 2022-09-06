@@ -22,7 +22,7 @@ const SearchRecipePage = () => {
     
         const search = params.searchId;
 
-        axios.get('http://localhost:9000/recipe/search/' + search )
+        axios.get('http://localhost:9000/recipe/search/'+ search )
           .then((result)=>{
             setState(result.data)
           })
