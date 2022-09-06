@@ -6,7 +6,7 @@ import axios from "axios";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-
+import { BigBtn, SmallBtn } from "../_common/buttons";
 const SignUpTemplate = () => {
   /** input state설정해주기 */
   const [member_id, onChangeMemId, setMemId] = useInput(""); //아이디
@@ -248,7 +248,7 @@ const SignUpTemplate = () => {
             disabled={duplicateCheck} //한번만 가능하도록
           />
 
-          <button
+          <SmallBtn
             type="button"
             className="duplicateCheckId"
             onClick={onDuplicateCheck}
@@ -259,7 +259,7 @@ const SignUpTemplate = () => {
               : duplicateCheck === null
               ? "중복확인"
               : "확인완료"}
-          </button>
+          </SmallBtn>
           {/* {duplicateCheck === false ? <DuplicateIdHint /> : <></>} */}
           <div className="formLabels">
             비밀번호
@@ -410,14 +410,14 @@ const SignUpTemplate = () => {
               필수 <FontAwesomeIcon icon={faExclamationCircle} />
             </WarningMsg>
           )}
-          <button
-            className="submitJoinBtn"
+          <BigBtn
+            // className="submitJoinBtn"
             type="button"
             onClick={onJoinMemberHandler}
             disabled={error}
           >
             가입하기
-          </button>
+          </BigBtn>
         </form>
       </div>
     </>

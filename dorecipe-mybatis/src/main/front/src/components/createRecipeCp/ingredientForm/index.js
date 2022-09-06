@@ -6,58 +6,118 @@ import {
   faCircleXmark,
   faPlusCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { DefaultBtn } from "../../_common/buttons";
-
+import { DefaultBtn, SmallBtn } from "../../_common/buttons";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-const IngredientForm = () => {
+import axios from "axios";
+
+const IngredientForm = ({ recipeState }) => {
   const [ingredients, setIngredients] = useState([
-    { ingredient_id: 0, ingredient_name: "", ingredient_amount: "" },
-    { ingredient_id: 1, ingredient_name: "", ingredient_amount: "" },
-    { ingredient_id: 2, ingredient_name: "", ingredient_amount: "" },
+    {
+      recipe_num: recipeState,
+      ingredient_num: 1,
+      ingredient_name: "",
+      ingredient_amount: "",
+    },
   ]);
+
+  //페이지 마운트했을때 레시피 번호 가져오기 --> 기본 등록하고서 실행하도록
+  // useEffect(() => {
+  //   axios({
+  //     method: "POST",
+  //     url: "http://localhost:9000/recipe/getRecipeNum",
+  //     headers: { "Content-Type": "multipart/form-data" },
+  //     data: { member_id: "hirin012", recipe_num: 0 }, //멤버 아이디 전역으로..?
+  //   }).then((response) => {
+  //     console.log(response.data);
+  //     let newIngredients = {
+  //       recipe_num: response.data,
+  //       ingredient_num: ingredients.length,
+  //       ingredient_name: "",
+  //       ingredient_amount: "",
+  //     };
+  //     setIngredients([newIngredients]);
+  //     console.log(ingredients);
+  //   });
+  // }, []);
 
   const IngreAmountRef = useRef();
   const inputFocus = useRef();
-  const [input, setInput] = useState("");
 
   /**재료 추가 */
   const onAddIngredientHandler = () => {
-    const ingreCopy = [...ingredients];
-    if (ingreCopy[ingreCopy.length - 1].ingredient_name !== "") {
-      ingreCopy.push({
-        ingredient_id: ingreCopy.ingredient_id + 1,
+    if (
+      ingredients[ingredients.length - 1].ingredient_amount !== "" &&
+      ingredients[ingredients.length - 1].ingredient_amount !== ""
+    ) {
+      let newIngredients = {
+        recipe_num: ingredients[0].recipe_num,
+        ingredient_num: ingredients.length + 1,
         ingredient_name: "",
         ingredient_amount: "",
-      });
-      setIngredients(ingreCopy);
-      console.log(ingreCopy);
-      // inputFocus.current.focus();
+      };
+      setIngredients([...ingredients, newIngredients]);
+      console.log(ingredients);
     } else {
-      alert("재료를 입력해주세요.");
+      alert("재료를 입력란을 채우고 추가해주세요.");
     }
   };
 
   /**재료 제거 */
-  const removeIngredient = (index) => {
+  const removeIngredient = (index, e) => {
     const ingreCopy = [...ingredients];
     if (ingreCopy.length > 1) {
-      const removeIngre = ingreCopy.splice(IngreAmountRef.current, 1)[0];
-      console.log(removeIngre);
-      IngreAmountRef.current = null;
-      console.log(ingreCopy[IngreAmountRef.current]);
+      ingreCopy.splice(index, 1);
       setIngredients(ingreCopy);
+      // console.log(ingreCopy);
     } else {
       alert("재료는 1개 이상 넣어주세요.");
     }
   };
 
-  const setIngredientInputs = (e, item, index) => {
+  const handleFormChange = (index, e) => {
     let ingreCopy = [...ingredients];
-    console.log(e.target.value);
-    ingreCopy[index].ingredient_id = index;
-    ingreCopy[index].ingredient_name = e.target.value;
+    ingreCopy[index][e.target.name] = e.target.value;
     setIngredients(ingreCopy);
   };
+
+  const onTemporarySave = useCallback(
+    (e) => {
+      e.preventDefault();
+      console.log("ingredients", ingredients);
+      let ingreCopy = [...ingredients];
+
+      const data = ingredients;
+      const blob = new Blob([JSON.stringify(data)], {
+        type: "application.json",
+      });
+      console.log("data", data);
+      const formData = new FormData();
+      formData.append("data", blob);
+      //레시피 배열 수 만큼 append 시켜 주기
+      for (let i = 0; i < data.length; i++) {
+        formData.append(`orderVoList2[${i}].recipe_num`, recipeState);
+        formData.append(`orderVoList2[${i}].ing_num`, data[i].ingredient_num);
+        formData.append(
+          `orderVoList2[${i}].ing_ingredient`,
+          data[i].ingredient_name
+        );
+        formData.append(
+          `orderVoList2[${i}].ing_amount`,
+          data[i].ingredient_amount
+        );
+      }
+
+      axios({
+        method: "POST",
+        url: "http://localhost:9000/recipe/insertRecipeIngredients",
+        headers: { "Content-Type": "multipart/form-data" },
+        data: formData,
+      }).then((response) => {
+        console.log(response.data);
+      });
+    },
+    [ingredients]
+  );
 
   return (
     <>
@@ -65,7 +125,14 @@ const IngredientForm = () => {
         {" "}
         <div>
           <FontAwesomeIcon icon={faLightbulb} /> 재료 이름과 재료량 순으로
-          입력해주세요
+          입력해주세요{" "}
+          <SmallBtn
+            type="button"
+            className="addIngreBtn"
+            onClick={onAddIngredientHandler}
+          >
+            <FontAwesomeIcon icon={faPlusCircle} /> 재료 추가
+          </SmallBtn>
         </div>
         <BundleWrap>
           <Scrollable>
@@ -73,7 +140,7 @@ const IngredientForm = () => {
               {ingredients.map((item, index) => {
                 return (
                   <>
-                    <div className="recipeBundleWrap" key={item}>
+                    <div className="recipeBundleWrap" key={index}>
                       <div className="recipeFlexBundle">
                         <div className="ingredientBundle">재료 {index + 1}</div>
                         <div className="bundleIngredientWrap">
@@ -83,20 +150,23 @@ const IngredientForm = () => {
                               type="text"
                               ref={inputFocus}
                               onChange={(e) => {
-                                setInput(IngreAmountRef.current);
+                                // setInput(IngreAmountRef.current);
+                                handleFormChange(index, e);
                               }}
                               // key={index}
-                              onBlur={(e) => {
-                                setIngredientInputs(e, item, index);
+                              // onBlur={(e) => {
+                              //   setIngredientInputs(e, item, index);
 
-                                // IngreAmountRef.current = item.ingredient_name;
-                                // console.log(IngreAmountRef.current);
-                              }}
-                              value={
-                                item.ingredient_name !== ""
-                                  ? item.ingredient_name
-                                  : item.ingredient_name[index]
-                              }
+                              //   // IngreAmountRef.current = item.ingredient_name;
+                              //   // console.log(IngreAmountRef.current);
+                              // }}
+                              name="ingredient_name"
+                              value={index.ingredient_name}
+                              // value={
+                              //   item.ingredient_name !== ""
+                              //     ? item.ingredient_name
+                              //     : item.ingredient_name[index]
+                              // }
                               placeholder={
                                 index % 4 == 0
                                   ? "소금"
@@ -114,6 +184,7 @@ const IngredientForm = () => {
                               // key={item.ingredient_id}
                               className="bundleIngredientAmount bundleInput"
                               type="text"
+                              name="ingredient_amount"
                               ref={IngreAmountRef}
                               placeholder={
                                 index % 4 == 0
@@ -126,13 +197,17 @@ const IngredientForm = () => {
                                   ? "1/2t"
                                   : ""
                               }
+                              onChange={(e) => {
+                                // setInput(IngreAmountRef.current);
+                                handleFormChange(index, e);
+                              }}
+                              value={index.ingredient_amount}
                               // value={item.ingredient_amount}
                             />
                             <FontAwesomeIcon
                               icon={faCircleXmark}
-                              onClick={() => {
-                                IngreAmountRef.current = index;
-                                removeIngredient(index);
+                              onClick={(e) => {
+                                removeIngredient(index, e);
                               }}
                             />
                           </div>
@@ -144,10 +219,15 @@ const IngredientForm = () => {
               })}
             </div>
           </Scrollable>
+          <DefaultBtn
+            type="button"
+            className="addIngreBtn"
+            style={{ marginTop: "3em", width: "100%" }}
+            onClick={onTemporarySave}
+          >
+            임시저장
+          </DefaultBtn>
         </BundleWrap>
-        <DefaultBtn type="button" onClick={onAddIngredientHandler}>
-          <FontAwesomeIcon icon={faPlusCircle} /> 재료 추가
-        </DefaultBtn>
       </BasicFormWrap>
     </>
   );

@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faExclamationCircle,
   faImage,
-  faLaptopHouse,
 } from "@fortawesome/free-solid-svg-icons";
 import { DefaultBtn } from "../../_common/buttons";
 import "./style.css";
@@ -31,57 +30,93 @@ const BasicForm = () => {
   //썸네일 파일로
   const [thumbnailFile, setThumbnailFile] = useState("");
 
-  const [files, setFiles] = useState("");
-  const [RecipeImgfiles, setRecipeImgFiles] = useState("");
+  const [files, setFiles] = useState(recipe_rpath);
 
-  const onLoadImgFile = (e) => {
-    onChangeRecipeThumbnail(e);
-
-    const file = e.target.files;
-    setRecipeImgFiles(file);
+  const [dataUri, setDataUri] = useState("");
+  //썸네일 이미지 변경
+  const changeImg = () => {
+    setDataUri("");
+    return (
+      <>
+        {" "}
+        <input
+          type="file"
+          //   id="image"
+          name="recipe_thumbnail"
+          accept="image/*"
+          // value={dataUri}
+          onChange={(event) => onChangeValue(event.target.files[0] || null)}
+        />{" "}
+      </>
+    );
   };
-  // const [dataUri, setDataUri] = useState("");
+  //썸네일 blob으로
+  const fileToDataUri = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  const onChangeValue = (file) => {
+    if (!file) {
+      setDataUri("");
+      console.log("file", file);
+      return;
+    } else {
+      fileToDataUri(file).then((dataUri) => {
+        setDataUri(dataUri);
+        console.log("dataUri", dataUri);
+        // setRecipeThumbnail(file.name);
+        // console.log(recipe_rpath);
+      });
+    }
+  };
 
-  // const onUploadThumbNail = (e) => {
-  //   // onChangeRecipeThumbnail(e);
-  //   // console.log("event.target.files[0].name", e.target.files[0].name);
-  //   // const fileName = e.target.files[0].name;
-  //   // const fileNameOnly = fileName.replace(/c:\\fakepath\\/i, "");
-  //   // setRecipeThumbnail(files[0].path);
-  //   // setThumbnailFile(fileNameOnly);
+  const onUploadThumbNail = useCallback((event) => {
+    onChangeRecipeThumbnail(event);
+
+    // setRecipeThumbnail(event.target.files);
+
+    // console.log("recipe_rpath", recipe_rpath);
+    // console.log("event.target.files", event.target.files);
+    // console.log("event.target.files", event.target.files[0]);
+    console.log("event.target.files[0].name", event.target.files[0].name);
+    const fileName = event.target.files[0].name;
+    const fileNameOnly = fileName.replace(/c:\\fakepath\\/i, "");
+    setRecipeThumbnail(fileNameOnly);
+    setThumbnailFile(fileNameOnly);
+    console.log("recipe_rpath", recipe_rpath);
+    console.log("thumbnailFile", thumbnailFile);
+  }, []);
+  // const onUploadThumbNail = (event) => {
+  //   onChangeRecipeThumbnail(event);
+
+  //   // setRecipeThumbnail(event.target.files);
+
   //   // console.log("recipe_rpath", recipe_rpath);
-  //   // console.log("thumbnailFile", thumbnailFile);
-  //   console.log(e.target.files);
-  //   const imgFileReader = new FileReader();
-  //   const imgFile = imgFileReader.readAsDataURL(files);
-  //   setRecipeThumbnail(e.target.files);
-  //   console.log("imgFile", imgFile);
+  //   // console.log("event.target.files", event.target.files);
+  //   // console.log("event.target.files", event.target.files[0]);
+  //   console.log("event.target.files[0].name", event.target.files[0].name);
+  //   const fileName = event.target.files[0].name;
+  //   const fileNameOnly = fileName.replace(/c:\\fakepath\\/i, "");
+  //   setRecipeThumbnail(fileNameOnly);
+  //   setThumbnailFile(fileNameOnly);
+  //   console.log("recipe_rpath", recipe_rpath);
+  //   console.log("thumbnailFile", thumbnailFile);
   // };
-  // const onUploadThumbNail = useCallback(
-  //   (e) => {
-  //     // onUploadThumbNail
-  //     const imgFileReader = new FileReader();
-  //     const imgFile = imgFileReader.readAsDataURL(e.target.files);
-  //     setRecipeThumbnail(imgFile);
-  //     console.log("imgFile", imgFile);
-  //   },
-  //   // []
-  //   [recipe_rpath]
-  // );
 
   const onTemporarySave = useCallback(
     (e) => {
       e.preventDefault();
-      // console.log("files", files[0].path);/
+
       const data = {
         recipe_title: `${recipe_title}`,
         recipe_savetype: 1,
         recipe_introduce: `${recipe_introduce}`,
         recipe_url: `${recipe_url}`,
-        // recipe_rpath: `${thumbnailFile}`,
-        recipe_rpath: `${recipe_rpath}`,
-        // recipe_rpath: `${imgFile}`,
-        // recipe_rpath: `${files[0].path}`,
+        recipe_rpath: `${thumbnailFile}`,
         category_kind: `${category_kind}`,
         category_theme: `${category_theme}`,
         category_way: `${category_way}`,
@@ -93,21 +128,21 @@ const BasicForm = () => {
         member_id: "hirin012", //로그인한 멤버 정보 들어갈 자리
       };
 
-      // console.log("data", data);
+      console.log("data", data);
       const blob = new Blob([JSON.stringify(data)], {
-        type: "multipart/form-data",
+        type: "application/json",
       });
-      // console.log("blob", blob);
+      console.log("blob", blob);
 
       const formData = new FormData();
+      console.log(typeof formData);
       formData.append("data", blob);
       formData.append("recipe_title", data.recipe_title);
       formData.append("recipe_savetype", data.recipe_savetype);
       formData.append("recipe_introduce", data.recipe_introduce);
       formData.append("recipe_url", data.recipe_url);
-      // formData.append("recipe_image", data.thumbnailFile[0]);
+
       formData.append("recipe_rpath", data.recipe_rpath);
-      formData.append("recipe_image", data.recipe_rpath);
       // formData.append("recipe_rpath", data.thumbnailFile[0]);
       formData.append("category_kind", data.category_kind);
       formData.append("category_theme", data.category_theme);
@@ -118,27 +153,22 @@ const BasicForm = () => {
       formData.append("recipe_creDate", data.recipe_creDate);
       formData.append("member_id", data.member_id);
 
-      axios({
-        method: "POST",
-        url: "http://localhost:9000/recipe/save",
-        headers: {
-          "Content-Type": "multipart/form-data",
-          processData: false,
-          cache: false,
-        },
-        data: formData,
-      }).then((response) => {
-        for (let value of formData.values()) {
-          console.log(value);
-        }
-        console.log("성공?");
-      });
+      console.log("formData", formData);
+      // console.log("data.recipe_rpath", data.recipe_rpath);
+      // axios({
+      //   method: "POST",
+      //   url: "http://localhost:9000/recipe/save",
+      //   headers: { "Content-Type": "multipart/form-data" },
+      //   data: formData,
+      // }).then((response) => {
+      //   console.log(response.data);
+      // });
     },
     [
       recipe_title,
       recipe_introduce,
       recipe_url,
-      // recipe_rpath,
+      recipe_rpath,
       category_kind,
       category_theme,
       category_way,
@@ -146,7 +176,6 @@ const BasicForm = () => {
       information_person,
       information_time,
       information_level,
-      files,
     ]
   );
 
@@ -367,26 +396,48 @@ const BasicForm = () => {
           </div>
           <div className="recipeRightWrap">
             <label>레시피 썸네일</label>
-            {/* <div className="imageUploadWrap"></div> */}
+            <div className="imageUploadWrap">
+              {/* {dataUri !== "" ? (
+                <>
+                  <img
+                    src={dataUri}
+                    alt="레시피 썸네일 이미지"
+                    onClick={changeImg}
+                  />
+                  <HintMsg>
+                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
+                    클릭하시면 썸네일변경이 가능합니다.
+                  </HintMsg>
+                </>
+              ) : (
+                <div>
+                  {" "}
+                  <FontAwesomeIcon icon={faImage} />{" "}
+                  <HintMsg>
+                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
+                    선택해주세요
+                  </HintMsg>
+                  <input
+                    type="file"
+                    // id="thumbnail"
+                    name="recipe_thumbnail"
+                    accept="image/*"
+                    onChange={(event) => {
+                      onChangeValue(event.target.files[0] || "");
+                      onUploadThumbNail(event);
+                    }}
+                  />
+                </div>
+              )} */}
+            </div>
             <EditDropZone
               files={files}
               setFiles={setFiles}
-              // name="recipe_rpath"
-              // onChange={onUploadThumbNail}
-              onChange={onLoadImgFile}
-              // accept="image/*"
-              // onChange={onUploadThumbNail}
-              // onChange={onChangeRecipeThumbnail}
-            />
-            {/* <input
-              type="file"
-              id="thumbnail"
-              name="recipe_rpath"
-              accept="image/*"
               onChange={(e) => {
                 onUploadThumbNail(e);
+                console.log("files", files);
               }}
-            /> */}
+            />
           </div>
         </BasicFormWrap>{" "}
         <DefaultBtn type="button" onClick={onTemporarySave}>

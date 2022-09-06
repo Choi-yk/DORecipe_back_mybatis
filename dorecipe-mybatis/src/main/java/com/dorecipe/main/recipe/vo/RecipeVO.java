@@ -1,5 +1,6 @@
 package com.dorecipe.main.recipe.vo;
 
+import java.util.Date;
 import java.util.List;
 
 import lombok.Getter;
@@ -16,7 +17,6 @@ public class RecipeVO {
 	private String recipe_introduce;
 	private String recipe_url;
 	private String recipe_rpath;
-	private String recipe_tag;
 	private String category_kind;
 	private String category_theme;
 	private String category_way;
@@ -32,10 +32,7 @@ public class RecipeVO {
 	private String recipe_creDate;
 	private String member_id;
 	
-	//요리묶음 테이블
-	private int bundle_num;
-	private String bundle;
-	
+		
 	//요리재료 테이블
 	private int ing_num;
 	private String ing_ingredient;
@@ -47,6 +44,7 @@ public class RecipeVO {
 	private String order_path;
 	
 	private List<RecipeVO> orderVoList;
+	private List<RecipeVO> orderVoList2;
 	
 	//코멘트 테이블
 	private int comment_num;
@@ -55,4 +53,9 @@ public class RecipeVO {
 	private String comment_creDate;
 	
 	
+	// 데이터 출력
+	@Override
+	public String toString() {
+		return "recipe_rpath [recipe_rpath=" + recipe_rpath + "]";
+	}
 }

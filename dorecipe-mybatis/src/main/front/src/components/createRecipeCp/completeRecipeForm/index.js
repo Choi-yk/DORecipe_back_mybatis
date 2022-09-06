@@ -72,8 +72,8 @@ const CompleteRecipe = () => {
       {" "}
       <FlexWrap>
         <Instruction>
-          <FontAwesomeIcon icon={faLightbulb} /> 재료 이름과 재료량 순으로
-          입력해주세요
+          <FontAwesomeIcon icon={faLightbulb} /> 완성 요리 사진 : 완성된 사진을
+          등록하시면 레시피가 더욱 돋보입니다.
         </Instruction>
         <BasicFormWrap>
           <div className="recipeRightWrap">
@@ -232,7 +232,7 @@ const CompleteRecipe = () => {
               cols="50"
               name="recipeIntro"
               //   id="recipeIntro"
-              placeholder="레시피에 대한 소개를 해주세요."
+              placeholder="예: 양파를 고를때는 납작한 암양파를 고르시면 덜 맵고 단맛이 강해요."
             ></ContentTextarea>
           </div>
         </div>

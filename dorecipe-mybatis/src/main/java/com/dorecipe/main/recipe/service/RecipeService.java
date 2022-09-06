@@ -25,13 +25,7 @@ public class RecipeService {
 		RecipeVO recipeVO = recipeDAO.getDetail(recipe_num);
 		return recipeVO;
 	}
-	
-	//레시피 재료묶음
-	public List<RecipeVO> getBundle(Integer recipe_num) {
-		List<RecipeVO> recipeBundle = recipeDAO.getBundle(recipe_num);
-		return recipeBundle;
-	}
-	
+		
 	//레시피 조리순서
 	public List<RecipeVO> getOrder(Integer recipe_num) {
 		List<RecipeVO> recipeOrder = recipeDAO.getOrder(recipe_num);
@@ -43,16 +37,21 @@ public class RecipeService {
 		return comment;
 	}
 
-	//레시피 번호 가져오기
-//	public int getRecipeNum() {
-//		int recipe_num = recipeDAO.getRecipeNum();
-//		return recipe_num;
-//	}
+	//(해당 멤버의)레시피 번호 가져오기
+	public int getRecipeNum(String member_id) {
+		int recipe_num = recipeDAO.getRecipeNum(member_id);
+		return recipe_num;
+	}
 	
 
 	//레시피 등록
 	public int insertRecipe(RecipeVO recipeVO) {
 		return recipeDAO.insertRecipe(recipeVO);
+	}
+	
+	//레시피 임시저장 등록
+	public int recipeTemporarySave(RecipeVO recipeVO) {
+		return recipeDAO.recipeTemporarySave(recipeVO);
 	}
 	
 
@@ -71,16 +70,16 @@ public class RecipeService {
 		return recipeDAO.deleteRecipe(recipe_num);
 	}
 
-	//번들 추가
-	public int insertBundleIngredients(RecipeVO recipeVO) {
-		return recipeDAO.insertBundleIngredients(recipeVO);
-		
-	}
 
 	//레시피 순서 추가
 	public int insertRecipeOrder(RecipeVO recipeVO) {
 		return recipeDAO.insertRecipeOrder(recipeVO);
 
+		
+	}
+	//레시피 재료 등록
+	public int insertRecipeIngredients(RecipeVO recipeVO) {
+		return recipeDAO.insertRecipeIngredients(recipeVO);
 		
 	}
 	

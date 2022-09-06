@@ -14,13 +14,13 @@
       where recipe_num = #{recipe_num}		
   	</select>
   	
-  	<!-- 레시피재료 조회 -->
+  	<!-- 레시피재료 조회 
 	<select id="getBundle" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="int">
 	  select r.recipe_num,r.bundle,b.ing_ingredient,b.ing_amount from r_bundle r
 	  inner join b_ingredient b
       on r.recipe_num=b.recipe_num and r.bundle_num=b.bundle_num
       where r.recipe_num = #{recipe_num}
-  	</select>
+  	</select>-->
   	
   	<!-- 요리순서 조회 -->
 	<select id="getOrder" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="int">
@@ -35,15 +35,33 @@
 	  select * from comment where recipe_num=#{recipe_num} order by comment_num desc
   	</select>
   	
-  	<!-- 레시피 등록 test -->
+  	<!-- 레시피 등록 test 
   	<insert id="insertRecipe" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
   		insert into recipe
   		values(null, #{recipe_title}, 0, #{recipe_introduce}, #{recipe_url}, "이미지", #{recipe_tag},
   		#{category_kind}, #{category_theme}, #{category_way}, #{category_ing}, #{information_person}, #{information_time}, #{information_level},
   		"완성1", "완성2", "완성3", "완성4", "팁",
-  		now(), "admin")
+  		now(), #{member_id})
   		
+  	</insert>-->
+
+
+ 	<!-- 레시피 등록 test -->
+  	<insert id="recipeTemporarySave" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">		
+  		insert into recipe
+		(recipe_title,recipe_savetype,recipe_introduce,recipe_url,recipe_rpath,
+		category_kind,category_theme,category_way,category_ing,information_person,information_time,information_level,
+		recipe_creDate,member_id)
+ 		values(#{recipe_title},1,#{recipe_introduce},#{recipe_url},#{recipe_rpath},#{category_kind},
+ 		#{category_theme}, #{category_way},#{category_ing},#{information_person},#{information_time},#{information_level},
+ 		now(),#{member_id}); 
   	</insert>
+
+
+  	<!-- 레시피 등록 시 해당 멤버의 레시피 번호 가져오기 -->
+	<select id="getRecipeNum" resultType="int"  parameterType="String">
+	   select recipe_num from recipe where member_id=#{member_id} order by recipe_num desc limit 1;
+  	</select>
 
   	<!--
   	<insert id="insertBundle" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
@@ -53,16 +71,14 @@
   	 	<insert id="insertBundle" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
   	insert into b_ingredient values(#{bundle_num},#{ing_num}, #{ing_ingredient},#{ing_amount});
   	</insert>
-  	-->
+  	
     <insert id="insertBundleIngredients" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
   	insert into b_ingredient values(#{recipe_num}, #{bundle_num},#{ing_num}, #{ing_ingredient}, #{ing_amount});
   	</insert>
-  	
-  	
-    <insert id="insertBundle" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
-  	insert into bundle values(#{recipe_num}, #{bundle_num},#{ing_num}, #{ing_ingredient}, #{ing_amount});
-  	</insert>
-  	
+  	-->
+
+	
+  	<!--재료 순서 등록-->
     <insert id="insertRecipeOrder" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
   	insert into r_order(recipe_num,order_num,order_explain,order_path) values
   	<foreach collection="orderVoList" item="item" separator=",">
@@ -71,6 +87,23 @@
   	;
   	</insert>
   	
+ 
+    <insert id="insertRecipeIngredients" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  	insert into r_ingredient(recipe_num,ing_num,ing_ingredient,ing_amount) values
+  	<foreach collection="orderVoList" item="item" separator=",">
+  	(#{item.recipe_num}, #{item.ing_num},#{item.ing_ingredient}, #{item.ing_amount})
+  	</foreach>
+  	;
+  	</insert>
+  	
+  	<!--재료 등록	 
+  	   <insert id="insertRecipeIngredients" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  	insert into r_ingredient(recipe_num,ing_num,ing_ingredient,ing_amount) values
+  	
+  	(#{recipe_num}, #{ing_num},#{ing_ingredient}, #{ing_amount})
+  	
+  	;
+  	</insert>-->
   	
 <!-- 원본 <insert id="insertRecipeOrder" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
   	insert into r_order values(#{recipe_num}, #{order_num},#{order_explain}, #{order_path});
@@ -94,6 +127,28 @@
   			information_level = #{information_level}
 		where recipe_num = #{recipe_num}  			
   	</update>
+  	
+  	  	<!-- 레시피 임시저장 ==> 등록으로 바꾸기 
+  	<update id="updateRecipe" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  		update recipe set recipe_savetype = #{recipe_savetype} where recipe_num = #{recipe_num} ; 			
+  	</update>-->
+  	
+  	<!-- 레시피 재료 임시저장 -->
+  	<update id="updateRecipeIngredients" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  		update recipe set recipe_savetype = #{recipe_savetype} where recipe_num = #{recipe_num} ; 			
+  	</update>
+  	
+  	<!-- 레시피 순서 임시저장 수정
+  	<update id="updateRecipeInstructions" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  		update r_order 
+  		set 
+  		<foreach collection="orderVoList2" item="item" separator=",">
+  		item.order_explain=#{item.order_explain},
+  		item.order_path= #{item.order_path}
+  		</foreach>
+  		where recipe_num = #{recipe_num} and order_num=#{item.order_num}; 			
+  	</update>-->
+  	
   	
   	<!-- 레시피 삭제 -->
   	<delete id="deleteRecipe" parameterType="int">
