@@ -30,11 +30,6 @@ public class RecipeDAOImpl implements RecipeDAO{
 		return mapper.getDetail(recipe_num);
 	}
 	
-	//레시피 재료묶음 조회
-	@Override
-	public List<RecipeVO> getBundle(Integer recipe_num) {
-		return mapper.getBundle(recipe_num);
-	}
 	
 	//레시피 조리순서 조회
 	@Override
@@ -49,10 +44,10 @@ public class RecipeDAOImpl implements RecipeDAO{
 	}
 
 	// 번호 가져오기
-//	@Override
-//	public int getRecipeNum() {
-//		return mapper.getRecipeNum();
-//	}
+	@Override
+	public int getRecipeNum(String member_id) {
+		return mapper.getRecipeNum(member_id);
+	}
 
 	// 레시피 등록
 	@Override
@@ -60,11 +55,12 @@ public class RecipeDAOImpl implements RecipeDAO{
 		return mapper.insertRecipe(recipeVO);
 	}
 	
-
-//	@Override
-//	public int insertOrder(RecipeVO recipeVO) {
-//		return mapper.insertOrder(recipeVO);
-//	}
+	// 레시피 임시 저장 등록
+	@Override
+	public int recipeTemporarySave(RecipeVO recipeVO) {
+		return mapper.recipeTemporarySave(recipeVO);
+	}
+	
 	
 	// 레시피 수정
 	@Override
@@ -78,17 +74,19 @@ public class RecipeDAOImpl implements RecipeDAO{
 		return mapper.deleteRecipe(recipe_num);
 	}
 
-	//번들 등록
-	@Override
-	public int insertBundleIngredients(RecipeVO recipeVO) {
-		return mapper.insertBundleIngredients(recipeVO);
-	}
 
 	// 요리 순서 등록
 	@Override
 	public int insertRecipeOrder(RecipeVO recipeVO) {
 		return mapper.insertRecipeOrder(recipeVO);
 	}
+
+	//레시피 재료 등록
+	@Override
+	public int insertRecipeIngredients(RecipeVO recipeVO) {
+		return mapper.insertRecipeIngredients(recipeVO);
+	}
+
 //	
 //	public List<RecipeOrders> insertMultipleRecipeOrders(String[] orderArray){
 //		return mapper.insertRecipeOrder()
@@ -99,5 +97,5 @@ public class RecipeDAOImpl implements RecipeDAO{
 	public List<RecipeVO> searchRecipe(String recipe_title) {
 		return mapper.searchRecipe(recipe_title);
 	}
-	
+
 }

@@ -57,3 +57,7 @@
   height: 2em;
   margin: 1em auto;
 }
+.addIngreBtn {
+  display: block;
+  float: right;
+}

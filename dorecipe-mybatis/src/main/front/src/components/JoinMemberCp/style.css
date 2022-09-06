@@ -1,10 +1,10 @@
 .formWrap {
-  min-width: 90em;
-  max-width: 200em;
+  /* min-width: 50em; */
+  max-width: fit-content;
   /* 미디어 쿼리,,, */
-  margin-top: 2em;
+  margin-top: 2em auto;
   height: 100em;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
 }
 .duplicateCheckId {
@@ -18,12 +18,12 @@
 
 .form {
   height: fit-content;
-  width: 100vw;
+  min-width: 40em;
 }
 form > input {
   width: 14.5em;
   height: 2em;
-  margin: 0.2em;
+  /* margin: 0.2em; */
 }
 select {
   width: 15em;

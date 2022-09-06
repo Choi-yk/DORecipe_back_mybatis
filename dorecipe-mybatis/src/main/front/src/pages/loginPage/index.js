@@ -7,6 +7,7 @@ import { MainLogo } from "../../components/_common/mainLogo";
 import KaKaoLoginPage from "../../components/LoginMemberCp";
 // import KaKaoLogin from 'react-kakao-login';
 
+//commit
 
 const LoginPage = () => {
    
@@ -81,8 +82,8 @@ const LoginPage = () => {
             
          })
          .catch((error)=>{
-			//console.log(error);
-			});
+         //console.log(error);
+         });
    };   
       
    // },
@@ -125,9 +126,9 @@ const LoginPage = () => {
                   </form>
                </div>                        
                <div className="linkWraps">
-               	<div>
-               		<KaKaoLoginPage/>	{/*카카오 소셜 로그인*/}
-               	</div>
+                  <div>
+                     <KaKaoLoginPage/>   {/*카카오 소셜 로그인*/}
+                  </div>
                 <Link to={"/join"}>회원가입</Link>
                </div>
             </div>

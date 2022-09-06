@@ -1,33 +1,59 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
-import { useRef, useState } from "react";
+import {
+  faLightbulb,
+  faCirclePlus,
+  faCircleMinus,
+  faCircleQuestion,
+} from "@fortawesome/free-solid-svg-icons";
+import { useRef, useState, useCallback, useEffect } from "react";
+import { SmallBtn, DefaultBtn } from "../../_common/buttons";
+import "./style.css";
+import axios from "axios";
 
-const RecipeOrderDrag = () => {
+const RecipeOrderDrag = ({ recipeState }) => {
   const [stepState, setStep] = useState([
-    { stepId: 0, stepDescription: "", stepImg: "" },
-    { stepId: 1, stepDescription: "", stepImg: "" },
-    { stepId: 2, stepDescription: "", stepImg: "" },
-    { stepId: 3, stepDescription: "", stepImg: "" },
+    {
+      recipe_num: recipeState, //레시피 등록 번호,
+      stepId: 0,
+      stepDescription: "",
+      stepImg: "",
+    },
+    {
+      recipe_num: 0,
+      stepId: 1,
+      stepDescription: "",
+      stepImg: "",
+    },
+    {
+      recipe_num: 0,
+      stepId: 2,
+      stepDescription: "",
+      stepImg: "",
+    },
   ]);
-
-  const [newStep, setNewStep] = useState("");
+  //임시등록버튼 2번째로 클릭했을때는 update하도록
+  const [btnState, setBtnState] = useState(0);
 
   // save reference for dragItem and dragOverItem
   const dragItemRef = useRef();
   const dragOverItemRef = useRef();
+  const inputFocus = useRef();
 
-  const itemRef = useRef();
-  const inputFocus = useRef(null);
+  //input값 인지
+  const handleFormChange = (index, e) => {
+    let stepCopy = [...stepState];
+    stepCopy[index][e.target.name] = e.target.value;
+    setStep(stepCopy);
+  };
 
   // onDragStart :드래그 시작하면
   const dragStarted = (e, item) => {
     //다른 영역에 드롭했다면
-    e.dataTransfer.setData("stepId", item.stepId);
-    e.dataTransfer.setData("stepDescription", item.stepDescription);
-    // e.dataTransfer.setData("newStep", item.stepDescription);
-    e.dataTransfer.setData("stepImg", item.stepImg);
-    // setNewStep(item.stepDescription);
+    e.dataTransfer.setData("item.recipe_num", item.recipe_num);
+    e.dataTransfer.setData("item.stepId", item.stepId);
+    e.dataTransfer.setData("item.stepDescription", item.stepDescription);
+    e.dataTransfer.setData("item.stepImg", item.stepImg);
   };
 
   //onDragOver : 드래그 호버하면
@@ -35,46 +61,44 @@ const RecipeOrderDrag = () => {
     e.preventDefault();
   };
   //handle drag Sorting
-  const handleSort = () => {
+  const handleSort = (e, index) => {
     //duplicate items
-    let steps = [...stepState];
-    //remove and save the dragged item content
-    /** 드래그한 배열 {stepId: dragItemRef.current, stepDescription: "", stepImg: ""}*/
-    const draggedItemContent = steps.splice(dragItemRef.current, 1)[0];
-    //switch position
-    //이동시킬 위치에 0개 삭제하고 그 자리에 draggedItemContent을 이동시킴
-    steps.splice(dragOverItemRef.current, 0, draggedItemContent);
-    //reset position of ref
-    dragItemRef.current = null;
-    dragOverItemRef.current = null;
-    //update the actual array
-    setStep(steps);
-    console.log(steps);
-  };
-
-  //handle input change
-  const handleInputChange = (e) => {
-    setNewStep(e.target.value);
+    if (index !== 0) {
+      let steps = [...stepState];
+      //remove and save the dragged item content
+      /** 드래그한 배열 {stepId: dragItemRef.current, stepDescription: "", stepImg: ""}*/
+      const draggedItemContent = steps.splice(dragItemRef.current, 1)[0];
+      console.log("dragItemRef.current", dragItemRef.current);
+      //이동시킬 위치에 0개 삭제하고 그 자리에 draggedItemContent을 이동시킴
+      steps.splice(dragOverItemRef.current, 0, draggedItemContent);
+      dragItemRef.current = null;
+      dragOverItemRef.current = null;
+      //update the actual array
+      setStep(steps);
+      console.log("steps", steps);
+    } else {
+      alert("첫번쨰 순서는 옮기지마세요.");
+    }
   };
 
   //handle added Inputboxes
   const handleAddedSteps = () => {
     const steps = [...stepState];
-    //마지막 순서에 값을 입력했다면 새로운 순서 추가 가능
-    if (steps[steps.length - 1].stepDescription.length != 0) {
-      steps.push({
-        stepId: stepState.length + 1,
+    if (steps[steps.length - 1].stepDescription !== "") {
+      let newSteps = {
+        recipe_num: steps[0].recipe_num,
+        stepId: steps.length,
         stepDescription: "",
         stepImg: "",
-      });
-      // steps.push(newStep);
-      setStep(steps);
+      };
+      setStep([...stepState, newSteps]);
+      console.log("addedSteps", stepState);
     } else {
-      alert("레시피 순서 설명을 입력하고 순서를 추가해주세요.");
-      inputFocus.current.focus();
+      alert("순서에 대한 설명을 적어주세요.");
     }
   };
 
+  //순서 제거
   const handleRemovedSteps = () => {
     const steps = [...stepState];
     //순서는 3개 이상 등록하도록
@@ -86,13 +110,72 @@ const RecipeOrderDrag = () => {
     }
   };
 
-  //input 포커스 벗어났을때 값 정해주기
-  const setstepContent = (e, item, index) => {
-    let steps = [...stepState];
-    steps[index].stepDescription = e.target.value;
-    setStep(steps);
-    // console.log(steps[index].stepDescription); //input 값
-  };
+  //임시 저장 ==> 2번째에는 업데이트문 들어가도록하기
+  const onTemporarySave = useCallback(
+    (e) => {
+      e.preventDefault();
+      let steps = [...stepState];
+
+      if (steps[0].stepDescription) {
+        setBtnState(btnState + 1);
+        console.log("btnState", btnState);
+        const data = steps;
+        const blob = new Blob([JSON.stringify(data)], {
+          type: "application.json",
+        });
+        console.log("data", data);
+        const formData = new FormData();
+        formData.append("data", blob);
+        //레시피 배열 수 만큼 append 시켜 주기
+        for (let i = 0; i < data.length; i++) {
+          formData.append(`orderVoList[${i}].recipe_num`, recipeState);
+          formData.append(`orderVoList[${i}].order_num`, i);
+          formData.append(
+            `orderVoList[${i}].order_explain`,
+            data[i].stepDescription
+          );
+          formData.append(`orderVoList[${i}].order_path`, data[i].stepImg);
+        }
+
+        if (btnState <= 1) {
+          axios({
+            method: "POST",
+            url: "http://localhost:9000/recipe/insertRecipeOrder",
+            headers: { "Content-Type": "multipart/form-data" },
+            data: formData,
+          })
+            .then((response) => {
+              console.log(response.data);
+              alert("임시저장 하셨습니다.");
+              setBtnState(btnState + 1);
+            })
+            .catch((e) => {
+              console.log(e);
+              alert("임시저장 실패.");
+            });
+        } else if (btnState > 1) {
+          // axios({
+          //   method: "POST",
+          //   url: "http://localhost:9000/recipe/insertRecipeOrder",
+          //   headers: { "Content-Type": "multipart/form-data" },
+          //   data: formData,
+          // })
+          //   .then((response) => {
+          //     console.log(response.data);
+          //     alert("임시저장(업데이트) 하셨습니다.");
+          //     setBtnState(btnState + 1);
+          //   })
+          //   .catch((e) => {
+          //     console.log(e);
+          //     alert("임시저장 실패.");
+          //   });
+        }
+      } else {
+        alert("순서는 하나 이상 설명해주세요.");
+      }
+    },
+    [recipeState, stepState, btnState]
+  );
 
   return (
     <>
@@ -102,8 +185,23 @@ const RecipeOrderDrag = () => {
           중요한 부분을 상세하게 적어주세요
         </Instruction>
         <BtnWrap>
-          <button onClick={handleAddedSteps}>순서 추가하기</button>
-          <button onClick={handleRemovedSteps}>순서 제거하기</button>
+          <SmallBtn onClick={handleAddedSteps}>
+            {" "}
+            <FontAwesomeIcon icon={faCirclePlus} /> 순서 추가하기
+          </SmallBtn>
+          <SmallBtn onClick={handleRemovedSteps}>
+            {" "}
+            <FontAwesomeIcon icon={faCircleMinus} /> 순서 제거하기
+          </SmallBtn>
+          <SmallBtn
+            type="button"
+            className="addIngreBtn"
+            onClick={onTemporarySave}
+            // value="saveAsDraft"
+            btnState={btnState}
+          >
+            임시저장
+          </SmallBtn>
         </BtnWrap>
         <Scrollable>
           <div>
@@ -116,23 +214,19 @@ const RecipeOrderDrag = () => {
                       <div
                         className="draggableItem"
                         key={index}
-                        draggable
+                        draggable={index !== 0 && true}
                         onDragStart={(e) => {
                           dragStarted(e, item);
-                          // dragItemRef.current = item.stepId;
                           dragItemRef.current = index;
                         }}
                         onDragOver={(e) => {
                           draggingOver(e, index);
-                          // dragOverItemRef.current = item.stepId;
                           dragOverItemRef.current = index;
                         }}
                         onDrop={(e) => {
-                          handleSort();
+                          handleSort(e, index);
                         }}
                       >
-                        {/* <div>Step {index + 1}</div> */}
-
                         <textarea
                           className="textArea"
                           rows="2"
@@ -149,21 +243,21 @@ const RecipeOrderDrag = () => {
                               ? "완성된 음식을 맛스럽게 담아주세요"
                               : ""
                           }
-                          onChange={handleInputChange}
-                          // onFocus={handleInputChange}
-                          ref={inputFocus}
-                          onBlur={(e) => {
-                            setstepContent(e, item, index);
-                            itemRef.current = item.stepDescription;
+                          onChange={(e) => {
+                            handleFormChange(index, e);
                           }}
-                          value={
-                            item.stepDescription !== ""
-                              ? item.stepDescription
-                              : item.stepDescription[index]
-                          }
+                          name="stepDescription"
+                          ref={inputFocus}
+                          value={item.stepDescription}
                         ></textarea>
 
                         <input type="file"></input>
+                        {index !== 0 && (
+                          <div className="hoverable">
+                            <FontAwesomeIcon icon={faCircleQuestion} /> 입력란을
+                            잡고 순서를 움직여 보세요!
+                          </div>
+                        )}
                       </div>
                     </>
                   );
@@ -220,7 +314,6 @@ const DroppableDiv = styled.div`
   width: 70em;
   height: 100%;
   & > .draggableItem {
-    /* cursor: grab; */
     margin: 1em auto;
     width: 85%;
     background-color: #fffdf5;
@@ -240,5 +333,10 @@ const DroppableDiv = styled.div`
   }
 `;
 const BtnWrap = styled.div`
-  display: inline-block;
+  float: right;
+  margin-right: 1em;
+
+  & > button:nth-child(2) {
+    margin: 0 1em;
+  }
 `;

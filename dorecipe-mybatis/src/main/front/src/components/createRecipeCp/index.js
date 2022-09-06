@@ -14,6 +14,8 @@ import IngredientForm from "./ingredientForm";
 import CompleteRecipe from "./completeRecipeForm";
 import { SubmitRecipeBtn, DefaultBtn } from "../_common/buttons";
 import RecipeOrderDrag from "./recipeStepForm";
+import axios from "axios";
+import { useState } from "react";
 
 const CreateRecipeForm = () => {
   const onSubmit = (e) => {
@@ -27,38 +29,49 @@ const CreateRecipeForm = () => {
       alert("임시저장 하셨습니다.");
     }
   };
+  const [recipeState, setRecipeState] = useState();
   return (
     <>
       <FlexWrap>
         <Swiper
-          modules={[Autoplay, Navigation, Pagination, A11y]}
+          modules={[Navigation, Pagination, A11y]}
           slidesPerView={1}
           loop={false}
           navigation
-          spaceBetween={5}
-          pagination={{ clickable: true }}
+          spaceBetween={7}
+          pagination={{ clickable: false }}
           // scrollbar={{ draggable: false }}
           onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => {}}
+          onSlideChange={() => {
+            axios({
+              method: "POST",
+              url: "http://localhost:9000/recipe/getRecipeNum",
+              headers: { "Content-Type": "multipart/form-data" },
+              data: { member_id: "hirin012", recipe_num: 0 }, //멤버 아이디 전역으로..?
+            }).then((response) => {
+              console.log(response.data);
+              setRecipeState(response.data);
+            });
+          }}
         >
-          <form>
+          <form encType="multipart/form-data">
             <SwiperSlide className="slide">
               <SectionTitle>레시피 등록</SectionTitle>
               <BasicForm />
             </SwiperSlide>
             <SwiperSlide className="slide">
               <SectionTitle>재료 등록</SectionTitle>
-              <IngredientForm />
+              <IngredientForm recipeState={recipeState} />
             </SwiperSlide>
             <SwiperSlide className="slide">
               <SectionTitle>요리 순서</SectionTitle>
               <div>
-                <RecipeOrderDrag />
+                <RecipeOrderDrag recipeState={recipeState} />
               </div>
             </SwiperSlide>
             <SwiperSlide className="slide">
               <SectionTitle>요리 완성</SectionTitle>
-              <CompleteRecipe />
+              <CompleteRecipe recipeState={recipeState} />
               <BtnWrap>
                 <SubmitRecipeBtn
                   type="button"
@@ -90,8 +103,6 @@ const FlexWrap = styled.div`
   flex-wrap: wrap;
   justify-content: space-evenly;
   margin: -6em 0;
-  /* padding: 3em; */
-  /* background-color: aliceblue; */
 `;
 const SectionTitle = styled.div`
   background-color: #8d3232;
