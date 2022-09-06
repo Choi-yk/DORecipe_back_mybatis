@@ -77,10 +77,19 @@ public class RecipeService {
 
 		
 	}
+
 	//레시피 재료 등록
 	public int insertRecipeIngredients(RecipeVO recipeVO) {
 		return recipeDAO.insertRecipeIngredients(recipeVO);
 		
 	}
 	
+
+
+	public List<RecipeVO> searchRecipe(String recipe_title) {
+		List<RecipeVO> serachList = recipeDAO.searchRecipe(recipe_title);
+		return serachList;
+	}
+
+
 }

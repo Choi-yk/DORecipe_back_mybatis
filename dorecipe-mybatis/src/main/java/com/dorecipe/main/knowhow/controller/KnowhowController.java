@@ -11,19 +11,15 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.dorecipe.main.event.vo.EventVO;
 import com.dorecipe.main.knowhow.service.KnowhowService;
 import com.dorecipe.main.knowhow.vo.KnowhowVO;
 
@@ -38,6 +34,7 @@ public class KnowhowController {
 	@Autowired
 	private KnowhowService knowhowService;
 	
+	//aplication.properties 파일업로드 경로 가져오기
 	@Value("${part2.upload.path}")
 	private String uploadPath;
 	
@@ -72,6 +69,7 @@ public class KnowhowController {
 	public void update(KnowhowVO knowhowVO, @RequestParam(value = "know_image", required = false)MultipartFile[] uploadFiles) throws Exception {
 		System.out.println("수정됨 - Controller");
 		
+		//파일 없으면 나머지 저장
 		if(uploadFiles == null) {
 			knowhowService.insertKnowhow(knowhowVO);
 			return;
@@ -86,6 +84,8 @@ public class KnowhowController {
 	@PostMapping("/insert")
 	public void insert(KnowhowVO knowhowVO, @RequestParam(value = "know_image", required = false)MultipartFile[] uploadFiles) throws Exception {
 		System.out.println("노하우 등록 성공!!! - controller");
+		
+		//파일 없으면 나머지 저장
 		if(uploadFiles == null) {
 			knowhowService.insertKnowhow(knowhowVO);
 			return;
@@ -125,8 +125,10 @@ public class KnowhowController {
 			
 	        //db에 저장 할 이미지 경로
 	        String ymd = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+	        //ymd = 2022/09/02 - 현재 날짜
+	        
 			String know_path = "/img/knowhow/" + ymd + "/" + uuid + "_" + fileName;
-								// ex)/img/2022/09/01/uuid_fileName --db에 저장
+								// ex)/img/knowhow/2022/09/01/uuid_fileName --db에 저장
 			System.out.println("저장한 경로"+ know_path);
 			knowhowVO.setKnow_path(know_path);
 	        

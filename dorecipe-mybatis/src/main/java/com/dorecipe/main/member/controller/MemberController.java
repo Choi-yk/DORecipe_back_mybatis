@@ -31,7 +31,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import com.dorecipe.main.member.dao.MemberDAO;
 import com.dorecipe.main.member.service.MemberService;
 import com.dorecipe.main.member.vo.MemberVO;
-import com.dorecipe.main.storage.StorageService;
+//import com.dorecipe.main.storage.StorageService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -45,7 +45,7 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	private StorageService storageService;
+//	private StorageService storageService;
 	
 //	@Autowired	//생성자 주입
 //	public MemberController(MemberService memberService, StorageService storageService) {
@@ -117,18 +117,18 @@ public class MemberController {
 	
 	@PostMapping(value="upload")
 	public ResponseEntity<String> upload(MultipartFile file) throws IllegalStateException, IOException {
-		storageService.store(file);
+//		storageService.store(file);
 		return new ResponseEntity<>("",HttpStatus.OK);
 	}
 	
 	
-    @GetMapping(value="download")
-    public ResponseEntity<Resource> serveFile(@RequestParam(value="filename") String filename) {
+//    @GetMapping(value="download")
+//    public ResponseEntity<Resource> serveFile(@RequestParam(value="filename") String filename) {
 
-        Resource file = storageService.loadAsResource(filename);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-    }
+//        Resource file = storageService.loadAsResource(filename);
+//        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+//                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+//    }
 	
     
 //    @GetMapping("fileList")

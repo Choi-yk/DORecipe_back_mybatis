@@ -51,7 +51,7 @@ const KnowhowDetailPage = () => {
           {/* <div>노하우 상세</div> */}
           <li>
               <div className="knowWrap">
-                <h2>| Notice |</h2>
+                <h2>| Knowhow |</h2>
                 <div className="knowDetailTitle knowBorder">{state.know_title}</div>  
                 <div className="knowDetailDate">{state.know_creDate}</div>
                 <img className="knowDetailImage" src={state.know_path} alt={state.know_path} />

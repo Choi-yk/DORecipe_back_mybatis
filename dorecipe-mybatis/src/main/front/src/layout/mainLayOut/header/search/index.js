@@ -3,6 +3,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useInput } from "../../../../hooks/useInput";
 import styled from "styled-components";
 import { MainLogo } from "../../../../components/_common/mainLogo";
+import { Link } from "react-router-dom";
 const HeaderSearch = () => {
   const [search, onChangeSearch, setSearch] = useInput("");
   return (
@@ -15,10 +16,12 @@ const HeaderSearch = () => {
           onChange={onChangeSearch}
           placeholder="검색하고 싶은 레시피의 키워드를 입력해주세요."
         />
-        <button type="button" className="searchButton">
-          <i className="fa-solid fa-magnifying-glass"></i>
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
-        </button>
+        <a href={`http://localhost:3000/recipe/search/${search}`}>
+          <button type="button" className="searchButton">
+            <i className="fa-solid fa-magnifying-glass"></i>
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </button>
+        </a>
       </SearchWrap>
     </>
   );

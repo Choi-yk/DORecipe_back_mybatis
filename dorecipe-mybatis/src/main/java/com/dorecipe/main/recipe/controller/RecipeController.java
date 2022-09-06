@@ -28,11 +28,13 @@ import com.dorecipe.main.recipe.vo.RecipeVO;
 
 import lombok.RequiredArgsConstructor;
 
+
 @CrossOrigin(origins="http://localhost:3000") 
 @RequestMapping(value="/recipe")
 @RequiredArgsConstructor
 @RestController
 public class RecipeController{
+
 
 	@Autowired
 	private RecipeService recipeService;
@@ -164,6 +166,7 @@ public class RecipeController{
 		return "redirect:/recipe/list";
 	}
 	
+
 	
 
 	@Value("${part3.upload.path}")
@@ -249,4 +252,14 @@ public class RecipeController{
 	     return folderPath;
 	
 	}
+
+	//레시피 검색
+	@GetMapping("/search/{recipe_title}")
+	public List<RecipeVO> searchRecipe(@PathVariable("recipe_title")String recipe_title) {
+		System.out.println("검색어 : " + recipe_title);
+		
+		return recipeService.searchRecipe(recipe_title);
+	}
+	
+
 }

@@ -86,4 +86,16 @@ public class RecipeDAOImpl implements RecipeDAO{
 	public int insertRecipeIngredients(RecipeVO recipeVO) {
 		return mapper.insertRecipeIngredients(recipeVO);
 	}
+
+//	
+//	public List<RecipeOrders> insertMultipleRecipeOrders(String[] orderArray){
+//		return mapper.insertRecipeOrder()
+//	}
+	
+	//레시피 검색
+	@Override
+	public List<RecipeVO> searchRecipe(String recipe_title) {
+		return mapper.searchRecipe(recipe_title);
+	}
+
 }

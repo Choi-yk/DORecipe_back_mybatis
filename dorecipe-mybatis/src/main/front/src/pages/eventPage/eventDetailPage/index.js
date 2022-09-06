@@ -7,8 +7,8 @@ import MainLayout from "../../../layout/mainLayOut";
 
 
 const EventDetailPage = () => {
-  const params = useParams();
 
+  const params = useParams();
   
   let [state, setState] = useState([
     {

@@ -115,7 +115,7 @@ public class EventController {
 	        //db에 저장 할 이미지 경로
 	        String ymd = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 			String event_path = "/img/event/" + ymd + "/" + uuid + "_" + fileName;
-								// ex)/img/2022/09/01/uuid_fileName --db에 저장
+								// ex)/img/event/2022/09/01/uuid_fileName --db에 저장
 			System.out.println("저장한 경로"+ event_path);
 			eventVO.setEvent_path(event_path);
 	        
