@@ -21,15 +21,21 @@ const CreateRecipeForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const { value } = e.target;
-    console.log({ value });
-    if (value === "submit") {
-      alert("등록하셨습니다.");
-    } else if (value === "saveAsDraft") {
-      alert("임시저장 하셨습니다.");
-    }
+    // setBtnState(buttonState + 1);
+    // const { value } = e.target;
+
+    // if (buttonState > 0) {
+    //   console.log({ value });
+    //   if (value === "submit") {
+    //     alert("등록하셨습니다.");
+    //   } else if (value === "saveAsDraft") {
+    //     alert("임시저장 하셨습니다.");
+    //   }
+    // }
   };
   const [recipeState, setRecipeState] = useState();
+  // const [buttonState, setBtnState] = useState(0);
+
   return (
     <>
       <FlexWrap>
@@ -71,23 +77,33 @@ const CreateRecipeForm = () => {
             </SwiperSlide>
             <SwiperSlide className="slide">
               <SectionTitle>요리 완성</SectionTitle>
-              <CompleteRecipe recipeState={recipeState} />
-              <BtnWrap>
-                <SubmitRecipeBtn
-                  type="button"
-                  onClick={onSubmit}
-                  value="submit"
-                >
-                  레시피 등록하기
-                </SubmitRecipeBtn>
-                <SubmitRecipeBtn
-                  type="button"
-                  onClick={onSubmit}
-                  value="saveAsDraft"
-                >
-                  임시 저장하기
-                </SubmitRecipeBtn>
-              </BtnWrap>
+              <CompleteRecipe
+                recipeState={recipeState}
+                // buttonState={buttonState}
+              />
+              {/* {buttonState > 0 ? (
+                <>
+                  <BtnWrap>
+                    <SubmitRecipeBtn
+                      type="button"
+                      onClick={onSubmit}
+                      value="submit"
+                    >
+                      레시피 등록하기
+                    </SubmitRecipeBtn>
+                    <SubmitRecipeBtn
+                      type="button"
+                      onClick={onSubmit}
+                      value="saveAsDraft"
+                      buttonState={buttonState}
+                    >
+                      임시 저장하기
+                    </SubmitRecipeBtn>
+                  </BtnWrap>
+                </>
+              ) : (
+                <></>
+              )} */}
             </SwiperSlide>{" "}
           </form>
         </Swiper>

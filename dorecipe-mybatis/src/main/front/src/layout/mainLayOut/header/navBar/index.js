@@ -12,7 +12,7 @@ const NavBar = () => {
             </Link>
           </li>
           <li>
-            <Link className="navLinks" to={""}>
+            <Link className="navLinks" to={"recipe/search/detail"}>
               레시피 상세 검색
             </Link>
           </li>

@@ -26,62 +26,25 @@ const BasicForm = () => {
     useInput("");
   const [information_time, onChangeTime, setTime] = useInput("");
   const [information_level, onChangeLevel, setLevel] = useInput("");
-  // const [recipe_creDate, onChangeCreDate, setCreDate] = useInput("");
   const [member_id, onChangeMemberId, setMemberId] = useInput("");
-  //썸네일 파일로
-  const [thumbnailFile, setThumbnailFile] = useState("");
 
   const [files, setFiles] = useState("");
-  const [RecipeImgfiles, setRecipeImgFiles] = useState("");
+  const [recipe_thumbnail, setRecipeImgFiles] = useState("");
+  const [thumbnailDropState, setThumbnailDropState] = useState("thumbnailDrop");
 
   const onLoadImgFile = (e) => {
     onChangeRecipeThumbnail(e);
-
-    const file = e.target.files;
-    setRecipeImgFiles(file);
   };
-  // const [dataUri, setDataUri] = useState("");
-
-  // const onUploadThumbNail = (e) => {
-  //   // onChangeRecipeThumbnail(e);
-  //   // console.log("event.target.files[0].name", e.target.files[0].name);
-  //   // const fileName = e.target.files[0].name;
-  //   // const fileNameOnly = fileName.replace(/c:\\fakepath\\/i, "");
-  //   // setRecipeThumbnail(files[0].path);
-  //   // setThumbnailFile(fileNameOnly);
-  //   // console.log("recipe_rpath", recipe_rpath);
-  //   // console.log("thumbnailFile", thumbnailFile);
-  //   console.log(e.target.files);
-  //   const imgFileReader = new FileReader();
-  //   const imgFile = imgFileReader.readAsDataURL(files);
-  //   setRecipeThumbnail(e.target.files);
-  //   console.log("imgFile", imgFile);
-  // };
-  // const onUploadThumbNail = useCallback(
-  //   (e) => {
-  //     // onUploadThumbNail
-  //     const imgFileReader = new FileReader();
-  //     const imgFile = imgFileReader.readAsDataURL(e.target.files);
-  //     setRecipeThumbnail(imgFile);
-  //     console.log("imgFile", imgFile);
-  //   },
-  //   // []
-  //   [recipe_rpath]
-  // );
 
   const onTemporarySave = useCallback(
     (e) => {
       e.preventDefault();
-      // console.log("files", files[0].path);/
       const data = {
         recipe_title: `${recipe_title}`,
         recipe_savetype: 1,
         recipe_introduce: `${recipe_introduce}`,
         recipe_url: `${recipe_url}`,
-        // recipe_rpath: `${thumbnailFile}`,
         recipe_rpath: `${recipe_rpath}`,
-        // recipe_rpath: `${imgFile}`,
-        // recipe_rpath: `${files[0].path}`,
         category_kind: `${category_kind}`,
         category_theme: `${category_theme}`,
         category_way: `${category_way}`,
@@ -93,11 +56,10 @@ const BasicForm = () => {
         member_id: "hirin012", //로그인한 멤버 정보 들어갈 자리
       };
 
-      // console.log("data", data);
+      console.log("data", data);
       const blob = new Blob([JSON.stringify(data)], {
         type: "multipart/form-data",
       });
-      // console.log("blob", blob);
 
       const formData = new FormData();
       formData.append("data", blob);
@@ -105,10 +67,8 @@ const BasicForm = () => {
       formData.append("recipe_savetype", data.recipe_savetype);
       formData.append("recipe_introduce", data.recipe_introduce);
       formData.append("recipe_url", data.recipe_url);
-      // formData.append("recipe_image", data.thumbnailFile[0]);
       formData.append("recipe_rpath", data.recipe_rpath);
-      formData.append("recipe_image", data.recipe_rpath);
-      // formData.append("recipe_rpath", data.thumbnailFile[0]);
+      formData.append("recipe_thumbnail", recipe_thumbnail);
       formData.append("category_kind", data.category_kind);
       formData.append("category_theme", data.category_theme);
       formData.append("category_way", data.category_way);
@@ -123,8 +83,6 @@ const BasicForm = () => {
         url: "http://localhost:9000/recipe/save",
         headers: {
           "Content-Type": "multipart/form-data",
-          processData: false,
-          cache: false,
         },
         data: formData,
       }).then((response) => {
@@ -138,7 +96,7 @@ const BasicForm = () => {
       recipe_title,
       recipe_introduce,
       recipe_url,
-      // recipe_rpath,
+      recipe_rpath,
       category_kind,
       category_theme,
       category_way,
@@ -186,7 +144,6 @@ const BasicForm = () => {
                 value={recipe_introduce}
                 onChange={onChangeRecipeIntro}
                 name="recipeIntro"
-                //   id="recipeIntro"
                 placeholder="레시피에 대한 소개를 해주세요."
               ></ContentTextarea>
             </div>
@@ -198,7 +155,6 @@ const BasicForm = () => {
                 value={recipe_url}
                 onChange={onChangeRecipeUrl}
                 name="recipeVid"
-                //   id="recipeVid"
                 placeholder="레시피에 등록할 동영상이 있으면 URL 주소를 입력해주세요. (예: http://you_tube/myvideo). 대표이미지를 설정하지 않으면 영상의 썸네일이 대표이미지로 설정됩니다."
               ></ContentTextarea>
             </div>
@@ -231,7 +187,6 @@ const BasicForm = () => {
                 <option value="차•음료•술">차•음료•술</option>
                 <option value="기타">기타</option>
               </select>
-              {/* <label for="category_theme">상황•테마별</label> */}
               <label>상황•테마별</label>
               <select
                 name="category_theme"
@@ -256,7 +211,6 @@ const BasicForm = () => {
                 <option value="기타">기타</option>
                 <option value="연예인•유명인">연예인•유명인</option>
               </select>
-              {/* <label for="category_theme">재료별</label> */}
               <label>재료별</label>
               <select
                 name="category_ingredient"
@@ -284,7 +238,6 @@ const BasicForm = () => {
                 <option value="기타">기타</option>
               </select>
               <label>방법별</label>
-              {/* <label for="category_theme">방법별</label> */}
               <select
                 name="category_way"
                 value={category_way}
@@ -312,7 +265,6 @@ const BasicForm = () => {
               <div className="recipeSubTitle">
                 <Labels>요리 정보</Labels>
               </div>
-              {/* <label for="info_servings">인원</label> */}
               <label>인원</label>
               <select
                 name="info_servings"
@@ -329,7 +281,6 @@ const BasicForm = () => {
                 <option value="5인분 이상">5인분 이상</option>
               </select>
               <label>시간</label>
-              {/* <label for="info_time">시간</label> */}
               <select
                 name="info_time"
                 value={information_time}
@@ -347,7 +298,6 @@ const BasicForm = () => {
                 <option value="2시간 이내">2시간 이내</option>
                 <option value="2시간 이상">2시간 이상</option>
               </select>
-              {/* <label for="info_level">난이도</label> */}
               <label>난이도</label>
               <select
                 name="info_level"
@@ -367,26 +317,14 @@ const BasicForm = () => {
           </div>
           <div className="recipeRightWrap">
             <label>레시피 썸네일</label>
-            {/* <div className="imageUploadWrap"></div> */}
             <EditDropZone
               files={files}
               setFiles={setFiles}
-              // name="recipe_rpath"
-              // onChange={onUploadThumbNail}
               onChange={onLoadImgFile}
-              // accept="image/*"
-              // onChange={onUploadThumbNail}
-              // onChange={onChangeRecipeThumbnail}
+              setRecipeThumbnail={setRecipeThumbnail}
+              setRecipeImgFiles={setRecipeImgFiles}
+              thumbnailDropState={thumbnailDropState}
             />
-            {/* <input
-              type="file"
-              id="thumbnail"
-              name="recipe_rpath"
-              accept="image/*"
-              onChange={(e) => {
-                onUploadThumbNail(e);
-              }}
-            /> */}
           </div>
         </BasicFormWrap>{" "}
         <DefaultBtn type="button" onClick={onTemporarySave}>
@@ -406,7 +344,7 @@ const BasicFormWrap = styled.div`
   font-size: 14px;
   height: fit-content;
   padding: 2em;
-  gap: 12em;
+  gap: 6em;
 `;
 const ContentInput = styled.input`
   width: 44em;

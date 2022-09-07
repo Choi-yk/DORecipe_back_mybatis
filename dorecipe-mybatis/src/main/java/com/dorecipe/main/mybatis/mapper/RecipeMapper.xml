@@ -138,6 +138,20 @@
   		update recipe set recipe_savetype = #{recipe_savetype} where recipe_num = #{recipe_num} ; 			
   	</update>
   	
+  	<!-- 레시피 완성 임시저장 -->
+  	<update id="insertRecipeComplete" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  		update recipe 
+  		set
+  		recipe_savetype = 1,  		
+  		recipe_imgs_completed = #{recipe_imgs_completed},
+  		completion_path1 = #{completion_path1},
+  		completion_path2 = #{completion_path2},
+  		completion_path3 = #{completion_path3},
+  		completion_path4 = #{completion_path4},
+  		completion_tip = #{completion_tip},
+  		where recipe_num = #{recipe_num}; 			
+  	</update>
+
   	<!-- 레시피 순서 임시저장 수정
   	<update id="updateRecipeInstructions" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
   		update r_order 

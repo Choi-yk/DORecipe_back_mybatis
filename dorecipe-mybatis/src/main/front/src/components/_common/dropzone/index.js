@@ -1,26 +1,90 @@
 import { useCallback } from "react";
-import Dropzone from "react-dropzone";
+import Dropzone, { useDropzone } from "react-dropzone";
 import styled from "styled-components";
-// import { FlexibleBox } from "@style/common";
 import {
   EditImgPreview,
   EditImgPreviewForm,
-  EditImgPreviewIneer,
+  EditImgPreviewInner,
 } from "./style";
 
-export const DropZone = ({ files, setFiles, onLoadImgFile }) => {
+export const DropZone = ({
+  stepDropState,
+  thumbnailDropState,
+  completionDropState,
+
+  files,
+  setFiles,
+  onLoadImgFile,
+  setRecipeThumbnail,
+
+  setRecipeImgFiles,
+  recipe_imgs_steps,
+  setRecipe_imgs_steps,
+
+  completion_path1,
+  completion_path2,
+  completion_path3,
+  completion_path4,
+
+  setFiles1,
+  setFiles2,
+  setFiles3,
+  setFiles4,
+}) => {
+  useDropzone({
+    multiple: true,
+  });
+
   // drop handler
-  const onDropHandler = useCallback((files) => {
-    setFiles(
-      files.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        })
-      )
-    );
-    // console.log("dropzonefiles", files);
-    // console.log("dropzonefiles", files[0].path); //파일이름
-  }, []);
+  const onDropHandler = useCallback(
+    (files) => {
+      const reader = new FileReader();
+      files.forEach((file) => {
+        reader.onabort = () => console.log("파일 읽기 취소");
+        reader.onerror = () => console.log("파일 읽기 실패");
+        reader.readAsDataURL(file);
+        console.log("readAsDataURL", file);
+        console.log("readAsDataURL", file.name);
+
+        if (thumbnailDropState === "thumbnailDrop") {
+          setRecipeThumbnail(file.name);
+        }
+
+        if (stepDropState === "stepDrop") {
+          const copy_recipe_imgs_steps = [...recipe_imgs_steps];
+          copy_recipe_imgs_steps.concat(file.name);
+          console.log("recipe_imgs_steps", recipe_imgs_steps);
+        }
+      });
+      console.log("files~~~", files);
+
+      if (stepDropState === "stepDrop") {
+        // setRecipe_imgs_steps(files[1]);
+
+        console.log("files[0]", files[0]);
+
+        setFiles(
+          files.map((file) =>
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+            })
+          )
+        );
+      }
+
+      if (thumbnailDropState === "thumbnailDrop") {
+        setRecipeImgFiles(files[0]);
+        setFiles(
+          files.map((file) =>
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+            })
+          )
+        );
+      }
+    },
+    [files]
+  );
 
   // preview delete
   const onPreviewDelete = useCallback(
@@ -31,13 +95,6 @@ export const DropZone = ({ files, setFiles, onLoadImgFile }) => {
     [files]
   );
 
-  //   const handleUpload = (e) => {
-  //     e.preventDefault();
-  //     const file = e.target.files[0];
-  //     setFiles([...files, { uploadedFile: file }]);
-  //     console.log("file", file);
-  //   };
-
   return (
     <Dropzone onDrop={onDropHandler}>
       {({ getRootProps, getInputProps }) => (
@@ -46,7 +103,7 @@ export const DropZone = ({ files, setFiles, onLoadImgFile }) => {
             <EditImgPreviewForm>
               {files.map((v, index) =>
                 files.length < 5 ? (
-                  <EditImgPreviewIneer key={index}>
+                  <EditImgPreviewInner key={index}>
                     <div
                       className="fileBox"
                       onClick={() => onPreviewDelete(v.preview)}
@@ -54,10 +111,10 @@ export const DropZone = ({ files, setFiles, onLoadImgFile }) => {
                       <img src={v.preview} />
                       <p>파일 삭제</p>
                     </div>
-                  </EditImgPreviewIneer>
+                  </EditImgPreviewInner>
                 ) : (
                   <>
-                    <EditImgPreviewIneer key={index}>
+                    <EditImgPreviewInner key={index}>
                       {v === files[files.length - 2] ? (
                         <FlexibleBox
                           fontColor="#00c7ae"
@@ -76,7 +133,7 @@ export const DropZone = ({ files, setFiles, onLoadImgFile }) => {
                           </div>
                         )
                       )}
-                    </EditImgPreviewIneer>
+                    </EditImgPreviewInner>
                   </>
                 )
               )}
@@ -90,7 +147,7 @@ export const DropZone = ({ files, setFiles, onLoadImgFile }) => {
                 accept="image/*"
                 onChange={onLoadImgFile}
               />{" "}
-              +<p>파일을 등록해주세요</p>
+              + <p>파일을 등록해주세요</p>
             </div>
           )}
         </EditImgPreview>

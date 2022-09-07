@@ -174,7 +174,7 @@ function TabContent(props) {
     KnowFormData.append("know_title", KnowData.know_title);
     KnowFormData.append("know_content", KnowData.know_content);
     KnowFormData.append("know_path", KnowData.know_path);
-
+    console.log("data", KnowFormData);
     if (KnowData.know_title === "" || KnowData.know_content === "")
       alert("제목과 내용을 입력해 주세요.");
     else {
@@ -184,7 +184,9 @@ function TabContent(props) {
         headers: { "Content-Type": "multipart/form-data" },
         data: KnowFormData,
       }).then((response) => {
-        console.log(response.data);
+        for (let value of KnowFormData.values()) {
+          console.log(value);
+        }
         alert("노하우가 등록되었습니다.");
         //노하우 리스트로 이동
         window.location.href = "http://localhost:3000/knowhow/list";
