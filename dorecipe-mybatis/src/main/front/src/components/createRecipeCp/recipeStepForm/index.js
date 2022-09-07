@@ -10,8 +10,14 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import { SmallBtn, DefaultBtn } from "../../_common/buttons";
 import "./style.css";
 import axios from "axios";
+import EditDropZone from "../../_common/dropzone";
 
 const RecipeOrderDrag = ({ recipeState }) => {
+  const [files, setFiles] = useState([]);
+  const [files2, setFiles2] = useState([]);
+  const [recipe_imgs_steps, setRecipe_imgs_steps] = useState([]);
+  const [stepDropState, setSetDropState] = useState("stepDrop");
+
   const [stepState, setStep] = useState([
     {
       recipe_num: recipeState, //레시피 등록 번호,
@@ -45,6 +51,7 @@ const RecipeOrderDrag = ({ recipeState }) => {
     let stepCopy = [...stepState];
     stepCopy[index][e.target.name] = e.target.value;
     setStep(stepCopy);
+    setRecipe_imgs_steps(stepCopy);
   };
 
   // onDragStart :드래그 시작하면
@@ -110,6 +117,21 @@ const RecipeOrderDrag = ({ recipeState }) => {
     }
   };
 
+  const onLoadImgFile = useCallback(
+    (index, e) => {
+      // onChangeRecipeThumbnail(e);
+      let stepCopy = [...stepState];
+      for (let i = 0; i < stepCopy.length; i++) {
+        stepCopy[i].stepImg = e.target.file;
+        console.log("stepCopy[i]", stepCopy[i]);
+      }
+      setStep(stepCopy);
+      console.log("stepState", stepState);
+      // setRecipe_imgs_steps(stepCopy);
+    },
+    [stepState, files]
+  );
+
   //임시 저장 ==> 2번째에는 업데이트문 들어가도록하기
   const onTemporarySave = useCallback(
     (e) => {
@@ -134,26 +156,33 @@ const RecipeOrderDrag = ({ recipeState }) => {
             `orderVoList[${i}].order_explain`,
             data[i].stepDescription
           );
+          formData.append(
+            `orderVoList[${i}].recipe_imgs_steps`,
+            recipe_imgs_steps[i]
+          );
           formData.append(`orderVoList[${i}].order_path`, data[i].stepImg);
         }
-
+        for (let value of formData.values()) {
+          console.log(value);
+        }
         if (btnState <= 1) {
-          axios({
-            method: "POST",
-            url: "http://localhost:9000/recipe/insertRecipeOrder",
-            headers: { "Content-Type": "multipart/form-data" },
-            data: formData,
-          })
-            .then((response) => {
-              console.log(response.data);
-              alert("임시저장 하셨습니다.");
-              setBtnState(btnState + 1);
-            })
-            .catch((e) => {
-              console.log(e);
-              alert("임시저장 실패.");
-            });
+          // axios({
+          //   method: "POST",
+          //   url: "http://localhost:9000/recipe/insertRecipeOrder",
+          //   headers: { "Content-Type": "multipart/form-data" },
+          //   data: formData,
+          // })
+          //   .then((response) => {
+          //     console.log(response.data);
+          //     alert("임시저장 하셨습니다.");
+          //     setBtnState(btnState + 1);
+          //   })
+          //   .catch((e) => {
+          //     console.log(e);
+          //     alert("임시저장 실패.");
+          //   });
         } else if (btnState > 1) {
+          //업데이트문
           // axios({
           //   method: "POST",
           //   url: "http://localhost:9000/recipe/insertRecipeOrder",
@@ -250,8 +279,18 @@ const RecipeOrderDrag = ({ recipeState }) => {
                           ref={inputFocus}
                           value={item.stepDescription}
                         ></textarea>
-
-                        <input type="file"></input>
+                        <EditDropZone
+                          files={files}
+                          name="stepImgs"
+                          setFiles={setFiles}
+                          onChange={(e) => {
+                            onLoadImgFile(index, e);
+                          }}
+                          setRecipe_imgs_steps={setRecipe_imgs_steps}
+                          stepDropState={stepDropState}
+                          recipe_imgs_steps={recipe_imgs_steps}
+                          index={index}
+                        />
                         {index !== 0 && (
                           <div className="hoverable">
                             <FontAwesomeIcon icon={faCircleQuestion} /> 입력란을

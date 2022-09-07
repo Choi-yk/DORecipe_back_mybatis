@@ -33,9 +33,9 @@ export const EditImgPreviewForm = styled.div`
   position: relative;
 `;
 
-export const EditImgPreviewIneer = styled.div`
-  width: 24%;
-  height: 100%;
+export const EditImgPreviewInner = styled.div`
+  max-width: 15em;
+  max-height: 15em;
   z-index: 9999;
   margin: 0.2rem;
 
@@ -49,13 +49,14 @@ export const EditImgPreviewIneer = styled.div`
     height: 100%;
 
     & > img {
-      max-width: 100%;
-      max-height: 100%;
+      max-width: 12em;
+      max-height: 12em;
+      padding: 1em;
     }
 
     & > p {
       font-size: 1rem;
-      color: #222;
+      color: #8d3232;
       text-align: center;
       width: 100%;
       position: absolute;

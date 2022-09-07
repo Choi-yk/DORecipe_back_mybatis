@@ -7,66 +7,95 @@ import {
 
 import "./style.css";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import DropZone from "../../_common/dropzone";
-
-const CompleteRecipe = () => {
+import { useState, useEffect, useCallback } from "react";
+import EditDropZone from "../../_common/dropzone";
+import { useInput } from "../../../hooks/useInput";
+import axios from "axios";
+import { SubmitRecipeBtn } from "../../_common/buttons";
+const CompleteRecipe = ({ recipeState }) => {
+  //btn state : 버튼 1번 이상 클릭 시 전체 임시저장/등록, 한번만 클릭시 해당 페이지 저장
+  const [buttonState, setBtnState] = useState(0);
   // file state
-  const [files, setFiles] = useState();
-  // post.Images.map((v) => ({
-  //   preview: v,
-  // }))
+  const [recipe_imgs_completed, setRecipe_imgs_completed] = useState("");
+  const [completion_path1, setFiles1] = useState("");
+  const [completion_path2, setFiles2] = useState("");
+  const [completion_path3, setFiles3] = useState("");
+  const [completion_path4, setFiles4] = useState("");
 
-  // setEdlit Files reset state
+  const [completionDropState, setCompletionDropState] = useState("");
 
-  useEffect(() => {
-    // setFiles(
-    //   post.Images.map((v) => ({
-    //     preview: v,
-    //   }))
-    // );
-    //   }, [edit]);
-  }, []);
+  const [path1, onChangePath1, setPath1] = useInput("");
+  const [path2, onChangePath2, setPath2] = useInput("");
+  const [path3, onChangePath3, setPath3] = useInput("");
+  const [path4, onChangePath4, setPath4] = useInput("");
 
-  const [dataUri, setDataUri] = useState("");
-  //썸네일 이미지 변경
-  const changeImg = () => {
-    setDataUri("");
-    return (
-      <>
-        {" "}
-        <input
-          type="file"
-          //   id="image"
-          name="recipe_thumbnail"
-          //   accept="image/*"
-          //   value={dataUri}/
-          onChange={(event) => onChangeValue(event.target.files[0] || null)}
-        />{" "}
-      </>
-    );
+  const [completion_tip, onChangeTip, setCompletion_tip] = useInput("");
+
+  const onLoadImgFile = (e) => {
+    onChangePath1(e);
+    onChangePath2(e);
+    onChangePath3(e);
+    onChangePath4(e);
   };
-  //썸네일 blob으로
-  const fileToDataUri = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        resolve(event.target.result);
-      };
-      reader.readAsDataURL(file);
+
+  const onSubmit = useCallback((e) => {
+    const { value } = e.target;
+    e.preventDefault();
+    const data = {
+      recipe_savetype: 1,
+      completion_path1: `${completion_path1}`,
+      completion_path2: `${completion_path2}`,
+      completion_path3: `${completion_path3}`,
+      completion_path4: `${completion_path4}`,
+      completion_tip: `${completion_tip}`,
+      recipe_num: `${recipeState}`,
+      member_id: "hirin012", //로그인한 멤버 정보 들어갈 자리
+    };
+
+    console.log("data", data);
+    const blob = new Blob([JSON.stringify(data)], {
+      type: "multipart/form-data",
     });
-  const onChangeValue = (file) => {
-    if (!file) {
-      setDataUri("");
-      console.log(file);
-      return;
-    } else {
-      fileToDataUri(file).then((dataUri) => {
-        setDataUri(dataUri);
-        console.log(file);
-      });
+
+    const formData = new FormData();
+    formData.append("data", blob);
+    formData.append("member_id", data.member_id);
+    formData.append("recipe_imgs_completed", recipe_imgs_completed); /////파일 업로드
+    formData.append("completion_path1", data.completion_path1);
+    formData.append("completion_path2", data.completion_path2);
+    formData.append("completion_path3", data.completion_path3);
+    formData.append("completion_path4", data.completion_path4);
+    formData.append("completion_tip", data.completion_tip);
+    formData.append("recipe_num", recipeState);
+
+    axios({
+      method: "POST",
+      url: "http://localhost:9000/recipe/insertRecipeComplete",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      data: formData,
+    }).then((response) => {
+      console.log(response);
+      for (let value of formData.values()) {
+        console.log(value);
+      }
+      console.log("성공?");
+    });
+
+    console.log({ value });
+    if (value === "submit") {
+      if (buttonState === 0) {
+      }
+
+      alert(" 등록하셨습니다.");
+      setBtnState(buttonState + 1);
+    } else if (value === "saveAsDraft") {
+      alert(" 임시저장 하셨습니다.");
+      setBtnState(buttonState + 1);
     }
-  };
+  });
+
   return (
     <>
       {" "}
@@ -76,149 +105,43 @@ const CompleteRecipe = () => {
           등록하시면 레시피가 더욱 돋보입니다.
         </Instruction>
         <BasicFormWrap>
-          <div className="recipeRightWrap">
-            <div className="imageUploadWrap">
-              {dataUri !== "" ? (
-                <>
-                  <img
-                    src={dataUri}
-                    alt="레시피 썸네일 이미지"
-                    onClick={changeImg}
-                  />
-                  <HintMsg>
-                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
-                    클릭하시면 썸네일변경이 가능합니다.
-                  </HintMsg>
-                </>
-              ) : (
-                <div>
-                  {" "}
-                  <FontAwesomeIcon icon={faImage} />{" "}
-                  <HintMsg>
-                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
-                    선택해주세요
-                  </HintMsg>
-                  <input
-                    type="file"
-                    //   id="image"
-                    name="recipe_thumbnail"
-                    //   accept="image/*"
-                    //   value={dataUri}/
-                    onChange={(event) =>
-                      onChangeValue(event.target.files[0] || null)
-                    }
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="recipeRightWrap">
-            <div className="imageUploadWrap">
-              {dataUri !== "" ? (
-                <>
-                  <img
-                    src={dataUri}
-                    alt="레시피 썸네일 이미지"
-                    onClick={changeImg}
-                  />
-                  <HintMsg>
-                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
-                    클릭하시면 썸네일변경이 가능합니다.
-                  </HintMsg>
-                </>
-              ) : (
-                <div>
-                  {" "}
-                  <FontAwesomeIcon icon={faImage} />{" "}
-                  <HintMsg>
-                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
-                    선택해주세요
-                  </HintMsg>
-                  <input
-                    type="file"
-                    //   id="image"
-                    name="recipe_thumbnail"
-                    //   accept="image/*"
-                    //   value={dataUri}/
-                    onChange={(event) =>
-                      onChangeValue(event.target.files[0] || null)
-                    }
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="recipeRightWrap">
-            <div className="imageUploadWrap">
-              {dataUri !== "" ? (
-                <>
-                  <img
-                    src={dataUri}
-                    alt="레시피 썸네일 이미지"
-                    onClick={changeImg}
-                  />
-                  <HintMsg>
-                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
-                    클릭하시면 썸네일변경이 가능합니다.
-                  </HintMsg>
-                </>
-              ) : (
-                <div>
-                  {" "}
-                  <FontAwesomeIcon icon={faImage} />{" "}
-                  <HintMsg>
-                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
-                    선택해주세요
-                  </HintMsg>
-                  <input
-                    type="file"
-                    //   id="image"
-                    name="recipe_thumbnail"
-                    //   accept="image/*"
-                    //   value={dataUri}/
-                    onChange={(event) =>
-                      onChangeValue(event.target.files[0] || null)
-                    }
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="recipeRightWrap">
-            <div className="imageUploadWrap">
-              {dataUri !== "" ? (
-                <>
-                  <img
-                    src={dataUri}
-                    alt="레시피 썸네일 이미지"
-                    onClick={changeImg}
-                  />
-                  <HintMsg>
-                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
-                    클릭하시면 썸네일변경이 가능합니다.
-                  </HintMsg>
-                </>
-              ) : (
-                <div>
-                  {" "}
-                  <FontAwesomeIcon icon={faImage} />{" "}
-                  <HintMsg>
-                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
-                    선택해주세요
-                  </HintMsg>
-                  <input
-                    type="file"
-                    //   id="image"
-                    name="recipe_thumbnail"
-                    //   accept="image/*"
-                    //   value={dataUri}/
-                    onChange={(event) =>
-                      onChangeValue(event.target.files[0] || null)
-                    }
-                  />
-                </div>
-              )}
-            </div>
+          <div>
+            {/* <EditDropZone
+              completion_path1={completion_path1}
+              setFiles1={setFiles1}
+              onChange={onLoadImgFile}
+              // onChange={onLoadImgFile}
+              // setRecipeThumbnail={setRecipeThumbnail}
+              // setRecipeImgFiles={setRecipeImgFiles}
+              // thumbnailDropState={thumbnailDropState}
+            />
+            <EditDropZone
+              completion_path2={completion_path2}
+              setFiles2={setFiles2}
+              onChange={onLoadImgFile}
+
+              // setRecipeThumbnail={setRecipeThumbnail}
+              // setRecipeImgFiles={setRecipeImgFiles}
+              // thumbnailDropState={thumbnailDropState}
+            />
+            <EditDropZone
+              completion_path3={completion_path3}
+              setFiles3={setFiles3}
+              onChange={onLoadImgFile}
+
+              // setRecipeThumbnail={setRecipeThumbnail}
+              // setRecipeImgFiles={setRecipeImgFiles}
+              // thumbnailDropState={thumbnailDropState}
+            />
+            <EditDropZone
+              completion_path4={completion_path4}
+              setFiles4={setFiles4}
+              onChange={onLoadImgFile}
+
+              // setRecipeThumbnail={setRecipeThumbnail}
+              // setRecipeImgFiles={setRecipeImgFiles}
+              // thumbnailDropState={thumbnailDropState}
+            /> */}
           </div>
         </BasicFormWrap>
         <div>
@@ -230,13 +153,45 @@ const CompleteRecipe = () => {
             <ContentTextarea
               rows="2"
               cols="50"
-              name="recipeIntro"
-              //   id="recipeIntro"
+              value={completion_tip}
+              onChange={onChangeTip}
               placeholder="예: 양파를 고를때는 납작한 암양파를 고르시면 덜 맵고 단맛이 강해요."
             ></ContentTextarea>
           </div>
         </div>
       </FlexWrap>
+      {buttonState === 0 ? (
+        <>
+          {" "}
+          <BtnWrap>
+            <SubmitRecipeBtn type="button" onClick={onSubmit} value="submit">
+              레시피 등록하기
+            </SubmitRecipeBtn>
+            <SubmitRecipeBtn
+              type="button"
+              onClick={onSubmit}
+              value="saveAsDraft"
+            >
+              임시 저장하기
+            </SubmitRecipeBtn>
+          </BtnWrap>
+        </>
+      ) : (
+        <>
+          <BtnWrap>
+            <SubmitRecipeBtn type="button" onClick={onSubmit} value="submit">
+              레시피 등록(다시)하기
+            </SubmitRecipeBtn>
+            <SubmitRecipeBtn
+              type="button"
+              onClick={onSubmit}
+              value="saveAsDraft"
+            >
+              임시(다시) 저장하기
+            </SubmitRecipeBtn>
+          </BtnWrap>
+        </>
+      )}
     </>
   );
 };
@@ -284,4 +239,7 @@ const Instruction = styled.div`
   display: inline-block;
   /* width: 1; */
   height: 2em;
+`;
+const BtnWrap = styled.div`
+  display: flex;
 `;

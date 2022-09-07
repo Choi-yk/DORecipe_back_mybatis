@@ -69,158 +69,185 @@ const CompleteRecipe = () => {
   };
   return (
     <>
-      <BasicFormWrap>
-        <div className="recipeRightWrap">
-          <div className="imageUploadWrap">
-            {dataUri !== "" ? (
-              <>
-                <img
-                  src={dataUri}
-                  alt="레시피 썸네일 이미지"
-                  onClick={changeImg}
-                />
-                <HintMsg>
-                  <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
-                  클릭하시면 썸네일변경이 가능합니다.
-                </HintMsg>
-              </>
-            ) : (
-              <div>
-                {" "}
-                <FontAwesomeIcon icon={faImage} />{" "}
-                <HintMsg>
-                  <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
-                  선택해주세요
-                </HintMsg>
-                <input
-                  type="file"
-                  //   id="image"
-                  name="recipe_thumbnail"
-                  //   accept="image/*"
-                  //   value={dataUri}/
-                  onChange={(event) =>
-                    onChangeValue(event.target.files[0] || null)
-                  }
-                />
-              </div>
-            )}
+      {" "}
+      <FlexWrap>
+        <Instruction>
+          <FontAwesomeIcon icon={faLightbulb} /> 완성 요리 사진 : 완성된 사진을
+          등록하시면 레시피가 더욱 돋보입니다.
+        </Instruction>
+        <BasicFormWrap>
+          <div className="recipeRightWrap">
+            <div className="imageUploadWrap">
+              {dataUri !== "" ? (
+                <>
+                  <img
+                    src={dataUri}
+                    alt="레시피 썸네일 이미지"
+                    onClick={changeImg}
+                  />
+                  <HintMsg>
+                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
+                    클릭하시면 썸네일변경이 가능합니다.
+                  </HintMsg>
+                </>
+              ) : (
+                <div>
+                  {" "}
+                  <FontAwesomeIcon icon={faImage} />{" "}
+                  <HintMsg>
+                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
+                    선택해주세요
+                  </HintMsg>
+                  <input
+                    type="file"
+                    //   id="image"
+                    name="recipe_thumbnail"
+                    //   accept="image/*"
+                    //   value={dataUri}/
+                    onChange={(event) =>
+                      onChangeValue(event.target.files[0] || null)
+                    }
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="recipeRightWrap">
+            <div className="imageUploadWrap">
+              {dataUri !== "" ? (
+                <>
+                  <img
+                    src={dataUri}
+                    alt="레시피 썸네일 이미지"
+                    onClick={changeImg}
+                  />
+                  <HintMsg>
+                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
+                    클릭하시면 썸네일변경이 가능합니다.
+                  </HintMsg>
+                </>
+              ) : (
+                <div>
+                  {" "}
+                  <FontAwesomeIcon icon={faImage} />{" "}
+                  <HintMsg>
+                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
+                    선택해주세요
+                  </HintMsg>
+                  <input
+                    type="file"
+                    //   id="image"
+                    name="recipe_thumbnail"
+                    //   accept="image/*"
+                    //   value={dataUri}/
+                    onChange={(event) =>
+                      onChangeValue(event.target.files[0] || null)
+                    }
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="recipeRightWrap">
+            <div className="imageUploadWrap">
+              {dataUri !== "" ? (
+                <>
+                  <img
+                    src={dataUri}
+                    alt="레시피 썸네일 이미지"
+                    onClick={changeImg}
+                  />
+                  <HintMsg>
+                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
+                    클릭하시면 썸네일변경이 가능합니다.
+                  </HintMsg>
+                </>
+              ) : (
+                <div>
+                  {" "}
+                  <FontAwesomeIcon icon={faImage} />{" "}
+                  <HintMsg>
+                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
+                    선택해주세요
+                  </HintMsg>
+                  <input
+                    type="file"
+                    //   id="image"
+                    name="recipe_thumbnail"
+                    //   accept="image/*"
+                    //   value={dataUri}/
+                    onChange={(event) =>
+                      onChangeValue(event.target.files[0] || null)
+                    }
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="recipeRightWrap">
+            <div className="imageUploadWrap">
+              {dataUri !== "" ? (
+                <>
+                  <img
+                    src={dataUri}
+                    alt="레시피 썸네일 이미지"
+                    onClick={changeImg}
+                  />
+                  <HintMsg>
+                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
+                    클릭하시면 썸네일변경이 가능합니다.
+                  </HintMsg>
+                </>
+              ) : (
+                <div>
+                  {" "}
+                  <FontAwesomeIcon icon={faImage} />{" "}
+                  <HintMsg>
+                    <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
+                    선택해주세요
+                  </HintMsg>
+                  <input
+                    type="file"
+                    //   id="image"
+                    name="recipe_thumbnail"
+                    //   accept="image/*"
+                    //   value={dataUri}/
+                    onChange={(event) =>
+                      onChangeValue(event.target.files[0] || null)
+                    }
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </BasicFormWrap>
+        <div>
+          <Instruction>
+            <FontAwesomeIcon icon={faLightbulb} /> 요리팁: 레시피를 더욱 맛있게
+            하기 위해서 담은 노하우를 공유해주세요.
+          </Instruction>
+          <div>
+            <ContentTextarea
+              rows="2"
+              cols="50"
+              name="recipeIntro"
+              //   id="recipeIntro"
+              placeholder="예: 양파를 고를때는 납작한 암양파를 고르시면 덜 맵고 단맛이 강해요."
+            ></ContentTextarea>
           </div>
         </div>
-        <div className="recipeRightWrap">
-          <div className="imageUploadWrap">
-            {dataUri !== "" ? (
-              <>
-                <img
-                  src={dataUri}
-                  alt="레시피 썸네일 이미지"
-                  onClick={changeImg}
-                />
-                <HintMsg>
-                  <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
-                  클릭하시면 썸네일변경이 가능합니다.
-                </HintMsg>
-              </>
-            ) : (
-              <div>
-                {" "}
-                <FontAwesomeIcon icon={faImage} />{" "}
-                <HintMsg>
-                  <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
-                  선택해주세요
-                </HintMsg>
-                <input
-                  type="file"
-                  //   id="image"
-                  name="recipe_thumbnail"
-                  //   accept="image/*"
-                  //   value={dataUri}/
-                  onChange={(event) =>
-                    onChangeValue(event.target.files[0] || null)
-                  }
-                />
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="recipeRightWrap">
-          <div className="imageUploadWrap">
-            {dataUri !== "" ? (
-              <>
-                <img
-                  src={dataUri}
-                  alt="레시피 썸네일 이미지"
-                  onClick={changeImg}
-                />
-                <HintMsg>
-                  <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
-                  클릭하시면 썸네일변경이 가능합니다.
-                </HintMsg>
-              </>
-            ) : (
-              <div>
-                {" "}
-                <FontAwesomeIcon icon={faImage} />{" "}
-                <HintMsg>
-                  <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
-                  선택해주세요
-                </HintMsg>
-                <input
-                  type="file"
-                  //   id="image"
-                  name="recipe_thumbnail"
-                  //   accept="image/*"
-                  //   value={dataUri}/
-                  onChange={(event) =>
-                    onChangeValue(event.target.files[0] || null)
-                  }
-                />
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="recipeRightWrap">
-          <div className="imageUploadWrap">
-            {dataUri !== "" ? (
-              <>
-                <img
-                  src={dataUri}
-                  alt="레시피 썸네일 이미지"
-                  onClick={changeImg}
-                />
-                <HintMsg>
-                  <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
-                  클릭하시면 썸네일변경이 가능합니다.
-                </HintMsg>
-              </>
-            ) : (
-              <div>
-                {" "}
-                <FontAwesomeIcon icon={faImage} />{" "}
-                <HintMsg>
-                  <FontAwesomeIcon icon={faExclamationCircle} /> 이미지를
-                  선택해주세요
-                </HintMsg>
-                <input
-                  type="file"
-                  //   id="image"
-                  name="recipe_thumbnail"
-                  //   accept="image/*"
-                  //   value={dataUri}/
-                  onChange={(event) =>
-                    onChangeValue(event.target.files[0] || null)
-                  }
-                />
-              </div>
-            )}
-          </div>
-        </div>
-
-        <DropZone files={files} setFiles={setFiles} />
-      </BasicFormWrap>
+      </FlexWrap>
     </>
   );
 };
 export default CompleteRecipe;
+
+const FlexWrap = styled.div`
+  display: flex;
+  width: 90vw;
+  margin: 0 auto;
+  flex-direction: column;
+`;
 const BasicFormWrap = styled.div`
   display: inline-flex;
   color: #463635;
@@ -229,7 +256,7 @@ const BasicFormWrap = styled.div`
   align-items: center;
   font-size: 6px;
   height: fit-content;
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
   padding: 2em;
   justify-content: center;
   gap: 12em;
@@ -240,4 +267,21 @@ const HintMsg = styled.div`
   display: block;
   text-align: center;
   margin-top: 1em;
+`;
+const ContentTextarea = styled.textarea`
+  resize: none;
+  width: 44em;
+  height: 4em;
+  margin-bottom: 1em;
+  padding: 10px;
+  border-radius: 0.5em;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const Instruction = styled.div`
+  display: inline-block;
+  /* width: 1; */
+  height: 2em;
 `;
