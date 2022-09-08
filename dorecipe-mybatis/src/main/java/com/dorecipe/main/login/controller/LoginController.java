@@ -43,6 +43,49 @@ public class LoginController {
 //		return "loginForm";
 //	}
 	
+	//jwt test///////////////////////////////
+	
+//	@PostMapping("/test")
+//	public String test() {
+//	    return "success";
+//	}
+//	
+//	@PostMapping("/login")
+////	public TokenInfo login(@RequestBody MemberLoginRequest memberLoginRequest) throws Exception{	
+//	public TokenInfo login(@RequestBody HashMap<String,String> requestJsonHashMap) throws Exception{	
+//				
+//		System.out.println("%%%%%member_id = "+requestJsonHashMap.get("memberId"));
+//		System.out.println("%%%%%member_Pwd = "+requestJsonHashMap.get("memberPwd"));
+//		
+//		MemberVO memberVO = new MemberVO();
+//		
+//		memberVO.setMember_id(requestJsonHashMap.get("memberId"));
+//		memberVO.setMember_pwd(requestJsonHashMap.get("memberPwd"));
+//
+////		String memberId = memberLoginRequest.getMember_id();
+////		String memberPwd = memberLoginRequest.getMember_pwd();
+//		
+//		TokenInfo tokenInfo = memberService.login(memberVO.getMember_id(),memberVO.getMember_pwd());
+//		System.out.println("TokenInfo tokenInfo => " + tokenInfo);
+////		System.out.println("memberId=>"+ memberId);
+////		System.out.println("memberPwd=>"+memberPwd);
+//		
+//		if(tokenInfo == null) {
+//			System.out.println("memberVO 객체가 null..............");
+//		}else {	//로그인 성공햇을 때
+//			System.out.println("memberVO 객체에 값 들어감!!!!!!!!!!!");
+////			System.out.println("!!!!!!!member_id = "+ memberVO.getMember_id());
+////			System.out.println("!!!!!!!member_pwd = " + memberVO.getMember_pwd());
+//
+//		}
+////		return memberVO;
+//		return tokenInfo;
+//	}
+	
+	//jwt test END///////////////////////////////
+	
+	
+	//////////////jwt test 이전 mapping ///////////////////////////
 	@PostMapping("/login")
 	//public String login(MemberVO memberVO, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
 //	public String login(@RequestBody HashMap<String,String> requestJsonHashMap,HttpServletResponse res) throws Exception{	
