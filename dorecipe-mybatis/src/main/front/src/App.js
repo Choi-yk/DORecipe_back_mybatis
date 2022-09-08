@@ -15,6 +15,7 @@ import EventPage from "./pages/eventPage/eventListPage";
 import EventDetailPage from "./pages/eventPage/eventDetailPage";
 import EventModify from "./pages/eventPage/eventMod";
 
+import MyPage from "./pages/myPage";
 import AdminPostMng from "./pages/adminPage";
 import JoinMemberPage from "./pages/joinMemberPage";
 import MemberListPage from "./pages/memberListPage";
@@ -49,6 +50,7 @@ function App() {
 
       <Route path={"/admin"} element={<AdminPostMng />} />
 
+      <Route path={"/me"} element={<MyPage />} />
       <Route path={"/join"} element={<JoinMemberPage />} />
       <Route path={"/member"} element={<MemberListPage />} />
       <Route path={"/login"} element={<LoginPage />} />

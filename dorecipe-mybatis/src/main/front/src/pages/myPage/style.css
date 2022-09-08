@@ -1,0 +1,78 @@
+h2 {
+    text-align: center;
+    margin: 1em 0;
+}
+
+li {
+    list-style: none;
+}
+
+.myPage-box1 {
+    width: 600px;
+    margin: auto auto;
+    padding: 40px 40px;
+    background-color: lightblue;
+    align-items: center;
+}
+
+.myPage-box2 {
+    width: 600px;
+    margin: auto auto;
+    padding: 40px 40px;
+    background-color: pink;
+    align-items: center;
+}
+
+.myPage-box3 {
+    width: 600px;
+    margin: auto auto;
+    padding: 40px 40px;
+    background-color: lightgreen;
+    align-items: center;
+}
+
+.myPage-box4 {
+    width: 600px;
+    margin: auto auto;
+    padding: 40px 40px;
+    background-color: lightgrey;
+    align-items: center;
+}
+
+.Wrap {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.Border {
+    width: 70%;
+    border-bottom: 1px solid #ad939156; 
+    padding: 0.5em 0;
+}
+
+.Title {
+    padding: 2em 0.5em;
+    text-align: center;
+    font-weight: bolder;
+    font-size: x-large;
+}
+
+.profileImage {
+    width: 100px;
+    height: 100px;
+    margin: 20px 20px;
+}
+
+.likeRecipeTotal {
+    font-size: small;
+}
+
+.knowDetailDate {
+    color: gray;
+    font-size: 12px;
+    margin: 0.5em 0 2em 0;
+}
+
+.knowDetailImage {
+    margin: 0.5em 0 2em 0;
+}
