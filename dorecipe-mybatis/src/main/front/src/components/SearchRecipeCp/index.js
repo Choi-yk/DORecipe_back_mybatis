@@ -8,7 +8,7 @@ const SearchRecipe = ({state}) =>{
         axios.get("http://openapi.foodsafetykorea.go.kr/api/963fb203c47b47a78104/COOKRCP01/json/1/2")
             .then((result)=>{
                 console.log(result.data)
-            })
+        })
     }
 
     useEffect(()=>{

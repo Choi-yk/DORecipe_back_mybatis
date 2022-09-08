@@ -26,7 +26,7 @@ dependencies {
    testImplementation 'org.springframework.boot:spring-boot-starter-test'   //서버 자동 재실행 설정
    
    implementation 'org.springframework.boot:spring-boot-starter-validation'   //validation 유효성검사
-//   implementation 'org.springframework.boot:spring-boot-starter-security'   //security 설정/
+   implementation 'org.springframework.boot:spring-boot-starter-security'   //security 설정/
 
    	runtimeOnly 'mysql:mysql-connector-java'   //mysql 설정
    

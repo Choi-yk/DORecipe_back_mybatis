@@ -23,7 +23,7 @@ import MainPage from "./pages/mainPage";
 import CreateRecipePage from "./pages/createRecipePage";
 
 import LoginPage from "./pages/loginPage";
-import SearchRecipePage from "./pages/searchRecipePage";
+import SearchRecipePage from "./pages/SearchRecipePage";
 import RecipeDetailsPage from "./pages/recipeDetailsPage";
 
 function App() {
@@ -34,16 +34,10 @@ function App() {
       <Route path={"/notice/list"} element={<NoticePage />} />
       <Route path={"/notice/detail/:noticeId"} element={<NoticeDetailPage />} />
       <Route path={"/notice/update/:noticeId"} element={<NoticeUpdatePage />} />
-      <Route path={"/event/list"} element={<EventPage />} />
       <Route path={"/knowhow/list"} element={<KnowhowPage />} />
-      <Route path={"/event/detail/:detailId"} element={<EventDetailPage />} />
-      <Route
-        path={"/knowhow/detail/:knowhowId"}
-        element={<KnowhowDetailPage />}
-      />
+      <Route path={"/event/list"} element={<EventPage />} />
       <Route path={"/event/detail/:detailId"} element={<EventDetailPage />} />
       <Route path={"/event/update/:detailId"} element={<EventModify />} />
-      <Route path={"/knowhow/list"} element={<KnowhowPage />} />
       <Route
         path={"/knowhow/detail/:knowhowId"}
         element={<KnowhowDetailPage />}
