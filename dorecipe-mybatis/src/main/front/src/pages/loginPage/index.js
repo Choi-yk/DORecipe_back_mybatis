@@ -127,7 +127,7 @@ const LoginPage = () => {
                </div>                        
                <div className="linkWraps">
                   <div>
-                     <KaKaoLoginPage/>   {/*카카오 소셜 로그인*/}
+                   {/* <KaKaoLoginPage/>    카카오 소셜 로그인*/}
                   </div>
                 <Link to={"/join"}>회원가입</Link>
                </div>
