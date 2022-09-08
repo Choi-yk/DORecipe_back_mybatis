@@ -24,6 +24,7 @@ public interface MemberDAO {
 	// 회원 삭제(탈퇴)
 	public int deleteMember(String id) throws Exception;
 
-
+	public Optional<MemberVO> findByMemberId(String username);
+	
 	
 }
