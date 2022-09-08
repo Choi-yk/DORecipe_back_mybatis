@@ -40,28 +40,28 @@ const MyPage = () => {
     // ]);
 
     // 멤버 정보 가져오기
-    function memberAxios() {
-        axios({
-            url: "/member/list",
-            method: "get",
-            data: {
-                member_id: "",
-                member_pwd: "",
-                member_name: "",
-                member_email: "",
-                member_gender: "",
-                member_birth: "",
-                member_phone: "",
-                member_imagePath: "",
-                member_joinDate: "",
-                member_role: ""
-            },
-            baseURL: "http://localhost:9000"
-        }).then(function(response) {
-			console.log(response.data);
-			setMemberState(response.data);
-		});
-    }
+    // function memberAxios() {
+    //     axios({
+    //         url: "/member/list",
+    //         method: "get",
+    //         data: {
+    //             member_id: "",
+    //             member_pwd: "",
+    //             member_name: "",
+    //             member_email: "",
+    //             member_gender: "",
+    //             member_birth: "",
+    //             member_phone: "",
+    //             member_imagePath: "",
+    //             member_joinDate: "",
+    //             member_role: ""
+    //         },
+    //         baseURL: "http://localhost:9000"
+    //     }).then(function(response) {
+	// 		console.log(response.data);
+	// 		setMemberState(response.data);
+	// 	});
+    // }
 
     // 레시피 정보 가져오기
     // function recipeAxios() {
@@ -78,10 +78,10 @@ const MyPage = () => {
 	// 	});
     // }
 
-    useEffect(() => {
-        memberAxios();
-        // recipeAxios();
-    })
+    // useEffect(() => {
+    //     memberAxios();
+    //     // recipeAxios();
+    // })
 
     return(
         <>
