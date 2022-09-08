@@ -62,15 +62,17 @@ const List = () => {
 
   return (
     <>
+    <div className="postMngWrap width left3">
       <ListWrapper>
-        <ListTitle> | Member | </ListTitle>
-        <div>
+        <h3 className="">회원 관리</h3>
+        <hr className="" />
+        <div className="">
           <ul>
             <TableHead>
               <div className="noticeNo">이름</div>
               <div className="noticeTitle">아이디</div>
               <div className="noticeDate">이메일</div>
-              <div className="updateOrDelete">수정 및 삭제</div>
+              <div className="updateOrDelete"></div>
               {/* 수정은 로그인한 회원이 하도록 기능 옮기기 */}
             </TableHead>
             <Scrollable>
@@ -89,6 +91,7 @@ const List = () => {
           </ul>
         </div>
       </ListWrapper>
+      </div>
     </>
   );
 };

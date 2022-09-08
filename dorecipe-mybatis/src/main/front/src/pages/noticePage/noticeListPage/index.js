@@ -52,7 +52,7 @@ const NoticePage = () => {
     <MainLayout>
       <div className="noticeWrap">
         <h2>| Notice |</h2>
-        <Link className="updateList" to={"/notice/create"}>
+        <Link className="updateList" to={"/admin"}>
           등록
         </Link>
         <div className="noticeTableWrap">

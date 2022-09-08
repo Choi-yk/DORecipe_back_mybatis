@@ -31,31 +31,33 @@ function App() {
     <Routes>
       {/* <Route path={"/notice/list"} element={<NoticePage />} /> */}
       {/* <Route path={"/"} element={<NoticePage />} /> */}
+
+      {/* 별도록 jwt설정해줘서 관리자로 로그인 시에만 접근하도록 하기 */}
+      {/* <Route path="*" element={<div>없는 페이지임</div>} /> */}
+
       <Route path={"/notice/list"} element={<NoticePage />} />
       <Route path={"/notice/detail/:noticeId"} element={<NoticeDetailPage />} />
       <Route path={"/notice/update/:noticeId"} element={<NoticeUpdatePage />} />
+
       <Route path={"/knowhow/list"} element={<KnowhowPage />} />
+      <Route path={"/knowhow/detail/:knowhowId"} element={<KnowhowDetailPage />} />
+      <Route path={"/knowhow/update/:knowhowId"} element={<KnowhowUpdatePage />} />
+
       <Route path={"/event/list"} element={<EventPage />} />
       <Route path={"/event/detail/:detailId"} element={<EventDetailPage />} />
       <Route path={"/event/update/:detailId"} element={<EventModify />} />
-      <Route
-        path={"/knowhow/detail/:knowhowId"}
-        element={<KnowhowDetailPage />}
-      />
-      <Route
-        path={"/knowhow/update/:knowhowId"}
-        element={<KnowhowUpdatePage />}
-      />
-      <Route path={"/notice/create"} element={<AdminPostMng />} />
+
+      <Route path={"/admin"} element={<AdminPostMng />} />
+
       <Route path={"/join"} element={<JoinMemberPage />} />
       <Route path={"/member"} element={<MemberListPage />} />
       <Route path={"/login"} element={<LoginPage />} />
+
       <Route path={"/"} element={<MainPage />} />
-      {/* 별도록 jwt설정해줘서 관리자로 로그인 시에만 접근하도록 하기 */}
-      {/* <Route path="*" element={<div>없는 페이지임</div>} /> */}
+      <Route path={"/recipe/search/:searchId"} element={<SearchRecipePage />} />
+      
       <Route path={"/recipe/create"} element={<CreateRecipePage />} />
       <Route path={"/recipe/search/detail"} element={<RecipeDetailsPage />} />
-      <Route path={"/recipe/search/:searchId"} element={<SearchRecipePage />} />
     </Routes>
   );
 
