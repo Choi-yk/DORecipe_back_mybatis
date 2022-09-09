@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 import styled from "styled-components";
@@ -15,7 +15,7 @@ const MyPage = () => {
     // 멤버
     const [memberState, setMemberState] = useState([
         {
-            member_id: "",
+            member_id: memberId,
             member_pwd: "",
             member_name: "",
             member_email: "",
@@ -28,11 +28,26 @@ const MyPage = () => {
         }
     ]);
 
-    // 레시피
+    // 작성한 레시피
+    // const [C_recipeState, setCRecipeState] = useState([
+    //     {
+    //         member_id: memberId,
+    //         c_recipe: 0,
+    //         recipe_title: "",
+    //         recipe_rpath: "",
+    //         recipe_savetype: 0,
+    //         information_level: "",
+    //         information_time: ""
+    //     }
+    // ]);
+
+    // 작성중 레시피
     // const [recipeState, setRecipeState] = useState([
     //     {
-    //         recipe_num: 0,
+    //         member_id: memberId,
+    //         r_recipe: 0,
     //         recipe_title: "",
+    //         recipe_rpath: "",
     //         recipe_savetype: 0,
     //         information_level: "",
     //         information_time: ""
@@ -40,51 +55,85 @@ const MyPage = () => {
     // ]);
 
     // 멤버 정보 가져오기
-    // function memberAxios() {
+    function memberAxios() {
+        axios({
+            url: "/member/info/"+memberId,
+            method: "get",
+            data: {
+                member_id: "",
+                member_pwd: "",
+                member_name: "",
+                member_email: "",
+                member_gender: "",
+                member_birth: "",
+                member_phone: "",
+                member_imagePath: "",
+                member_joinDate: "",
+                member_role: ""
+            },
+            baseURL: "http://localhost:9000"
+        }).then(function(response) {
+			console.log(response.data);
+            console.log(response.data.member_id);
+			setMemberState(response.data);
+		});
+    }
+
+    // 작성한 레시피 정보 가져오기
+    // 스프링부트 레시피 컨트롤러 /getRecipeNum 사용하기 ??? ㄴㄴ
+    // member_id가 ~인 레시피의 컬럼들을 다 가져와야지!
+    // function C_recipeAxios() {
     //     axios({
-    //         url: "/member/list",
+    //         url: "recipe/complete/"+memberId,
     //         method: "get",
     //         data: {
-    //             member_id: "",
-    //             member_pwd: "",
-    //             member_name: "",
-    //             member_email: "",
-    //             member_gender: "",
-    //             member_birth: "",
-    //             member_phone: "",
-    //             member_imagePath: "",
-    //             member_joinDate: "",
-    //             member_role: ""
+    //             recipe_title: "",
+    //             recipe_rpath: "",
+    //             information_time: "",
+    //             information_level: ""
     //         },
     //         baseURL: "http://localhost:9000"
     //     }).then(function(response) {
 	// 		console.log(response.data);
-	// 		setMemberState(response.data);
+    //         console.log("작성한 제목" + response.data.recipe_title);
+    //         console.log("작성한 이미지 url" + response.data.recipe_rpath);
+    //         console.log("작성한 난이도" + response.data.information_level);
+    //         console.log("작성한 시간" + response.data.information_time);
+	// 		setCRecipeState(response.data);
 	// 	});
     // }
 
-    // 레시피 정보 가져오기
+    // 작성중 레시피 정보 가져오기
     // function recipeAxios() {
     //     axios({
-    //         url: "/recipe/list",
+    //         url: "recipe/recording/"+memberId,
     //         method: "get",
     //         data: {
-
+    //             recipe_title: "",
+    //             recipe_rpath: "",
+    //             information_time: "",
+    //             information_level: ""
     //         },
     //         baseURL: "http://localhost:9000"
     //     }).then(function(response) {
 	// 		console.log(response.data);
+    //         console.log("작성중 제목" + response.data.recipe_title);
+    //         console.log("작성중 이미지 url" + response.data.recipe_rpath);
+    //         console.log("작성중 난이도" + response.data.information_level);
+    //         console.log("작성중 시간" + response.data.information_time);
 	// 		setRecipeState(response.data);
 	// 	});
     // }
 
-    // useEffect(() => {
-    //     memberAxios();
-    //     // recipeAxios();
-    // })
+    useEffect(() => {
+        memberAxios();
+        // C_recipeAxios();
+        // recipeAxios();
+    },[]);
 
     return(
         <>
+        {/* form??!!?? */}
             <MainLayout>
                 <div>
                     {/* 회원 정보 */}
@@ -152,7 +201,9 @@ const MyPage = () => {
                                 </td>
                             </tr>
                             <tr>
-                                <button>취소</button>
+                                <Link to="/">
+                                    <button>취소</button>
+                                </Link>
                                 <button>수정</button>
                                 <button>탈퇴하기</button>
                             </tr>
@@ -204,11 +255,24 @@ const MyPage = () => {
                             <tr>
                                 <th className="Title">
                                     작성한 레시피
+                                    {/* <span className="likeRecipeTotal">총 {C_recipeState.c_recipe}개</span> */}
                                 </th>
                             </tr>
                             <tr>
-                                <th></th>
-                                <td></td>
+                                {/* {
+                                C_recipeState.map((e) => {
+                                    return(
+                                        <div key={e}>
+                                             <img
+                                                src={e.recipe_rpath}
+                                                alt="CompleteRecipeimg"
+                                            ></img>
+                                            <p>{e.recipe_title}</p>
+                                            <p>{e.information_level}&nbsp;{e.information_time}</p>
+                                        </div>
+                                    );
+                                })
+                            } */}
                             </tr>
                             </tbody>
                         </table> 
@@ -223,6 +287,7 @@ const MyPage = () => {
                         <tbody>
                             <tr className="Title">
                                 작성중인 레시피
+                                {/* <span className="likeRecipeTotal">총 {C_recipeState.r_recipe}개</span> */}
                             </tr>
                             <tr>
                                 <th></th>

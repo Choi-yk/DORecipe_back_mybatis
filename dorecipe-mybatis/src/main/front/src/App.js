@@ -50,8 +50,9 @@ function App() {
 
       <Route path={"/admin"} element={<AdminPostMng />} />
 
-      <Route path={"/me"} element={<MyPage />} />
       <Route path={"/join"} element={<JoinMemberPage />} />
+      {/* <Route path={"/member/info"} element={<MyPage />} /> */}
+      <Route path={"/member/info/:memberId"} element={<MyPage />} />
       <Route path={"/member"} element={<MemberListPage />} />
       <Route path={"/login"} element={<LoginPage />} />
 

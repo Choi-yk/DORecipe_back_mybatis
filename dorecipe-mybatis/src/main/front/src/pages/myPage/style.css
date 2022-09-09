@@ -9,7 +9,7 @@ li {
 
 .myPage-box1 {
     width: 600px;
-    margin: auto auto;
+    margin: 10px auto;
     padding: 40px 40px;
     background-color: lightblue;
     align-items: center;
@@ -17,7 +17,7 @@ li {
 
 .myPage-box2 {
     width: 600px;
-    margin: auto auto;
+    margin: 10px auto;
     padding: 40px 40px;
     background-color: pink;
     align-items: center;
@@ -25,7 +25,7 @@ li {
 
 .myPage-box3 {
     width: 600px;
-    margin: auto auto;
+    margin: 10px auto;
     padding: 40px 40px;
     background-color: lightgreen;
     align-items: center;
@@ -33,7 +33,7 @@ li {
 
 .myPage-box4 {
     width: 600px;
-    margin: auto auto;
+    margin: 10px auto;
     padding: 40px 40px;
     background-color: lightgrey;
     align-items: center;
@@ -67,7 +67,7 @@ li {
     font-size: small;
 }
 
-.knowDetailDate {
+/* .knowDetailDate {
     color: gray;
     font-size: 12px;
     margin: 0.5em 0 2em 0;
@@ -75,4 +75,4 @@ li {
 
 .knowDetailImage {
     margin: 0.5em 0 2em 0;
-}
+} */
