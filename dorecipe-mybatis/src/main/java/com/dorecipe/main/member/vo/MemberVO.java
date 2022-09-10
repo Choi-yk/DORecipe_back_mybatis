@@ -1,15 +1,30 @@
 package com.dorecipe.main.member.vo;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import org.apache.ibatis.mapping.FetchType;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class MemberVO {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class MemberVO implements UserDetails{
+	
 	private String member_id;
 	private String member_pwd;
 	private String member_name;
@@ -24,25 +39,9 @@ public class MemberVO {
 	private String member_role;
 	
 	
-	public MemberVO() { }
 
-	
-	
-	public MemberVO(String member_id, String member_pwd, String member_name, String member_email, String member_gender,
-			Date member_birth, String member_phone, String member_imagePath, Date member_joinDate,
-			String member_role) {
-		super();
-		this.member_id = member_id;
-		this.member_pwd = member_pwd;
-		this.member_name = member_name;
-		this.member_email = member_email;
-		this.member_gender = member_gender;
-		this.member_birth = member_birth;
-		this.member_phone = member_phone;
-		this.member_imagePath = member_imagePath;
-		this.member_joinDate = member_joinDate;
-		this.member_role = member_role;
-	}
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
 	
 	// 데이터 출력
 	@Override
@@ -50,5 +49,46 @@ public class MemberVO {
 		return "Member [member_id=" + member_id + ", member_pwd=" + member_pwd +", member_name=" + member_name + ", member_email=" + member_email 
 				+ ", member_gender=" + member_gender + ", member_birth=" + member_birth + ", member_phone=" + member_phone + ", member_imagePath=" + member_imagePath 
 				+ ", member_joinDate=" + member_joinDate  + ", member_role=" + member_role + "]";
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());	}
+
+	@Override
+	public String getPassword() {
+		return member_pwd;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return member_id;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }

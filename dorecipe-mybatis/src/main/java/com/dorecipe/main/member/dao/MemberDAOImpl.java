@@ -26,13 +26,13 @@ public class MemberDAOImpl implements MemberDAO {
 		
 		return membersList;
 	}
-/*	
+
 	@Override
 	public Optional<MemberVO> findById(String member_id) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("mapper.member.findById", member_id);
 	}
-*/	
+
 	
 	//jwt test
 	@Override

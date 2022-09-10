@@ -10,7 +10,7 @@ public interface MemberDAO {
 	public List<MemberVO> selectAllMemberList() throws Exception;
 	
 	// 회원 아이디 조회
-	//public Optional<MemberVO> findById(String member_id) throws Exception;
+	public Optional<MemberVO> findById(String member_id) throws Exception;
 	
 	// 회원 정보 상세
 	public MemberVO selectAllMemberDetail(String id) throws Exception;

@@ -24,7 +24,7 @@ import MainPage from "./pages/mainPage";
 import CreateRecipePage from "./pages/createRecipePage";
 
 import LoginPage from "./pages/loginPage";
-import SearchRecipePage from "./pages/searchRecipePage";
+import SearchRecipePage from "./pages/SearchRecipePage";
 import RecipeDetailsPage from "./pages/recipeDetailsPage";
 
 function App() {
