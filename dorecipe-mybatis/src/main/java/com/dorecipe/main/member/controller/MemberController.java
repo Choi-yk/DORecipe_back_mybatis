@@ -151,30 +151,8 @@ public class MemberController {
 //        return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
 //    }
 //    
+	
 
-	// 사실 세션에서 아이디를 가져와야하는..?
-//	@GetMapping("/info/{member_id}")
-//	public MemberVO memberDetail(@PathVariable String member_id) throws Exception {
-//		System.out.println("@@@ 멤버 컨트롤러 member_id : " + member_id);
-//		
-//		MemberVO memberVO = memberService.listMemberDetails(member_id);
-//		
-//		return memberVO;
-//		
-//	}
-	
-//	@GetMapping("/info/{member_id}")
-//	public MemberVO memberDetail(@PathVariable String member_id) throws Exception {
-//		System.out.println("@@@ 멤버 컨트롤러 member_id : " + member_id);
-//		
-//		MemberVO memberVO = memberService.listMemberDetails(member_id);
-//		
-//		return memberVO;
-//		
-//	}
-	
-    
-    
 	//원본///////////////////////////////////////////
 	@PostMapping("/join")
 	public String Join(MemberVO memberVO /*Model model, HttpServletRequest request*/) throws Exception {
