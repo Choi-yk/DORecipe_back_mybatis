@@ -99,4 +99,14 @@ public class RecipeDAOImpl implements RecipeDAO{
 		return mapper.searchRecipe(recipe_title);
 	}
 
+	@Override
+	public List<RecipeVO> recordCompleteRecipe(String member_id) {
+		return mapper.recordCompleteRecipe(member_id);
+	}
+
+	@Override
+	public List<RecipeVO> recordRecipe(String member_id) {
+		return mapper.recordRecipe(member_id);
+	}
+
 }

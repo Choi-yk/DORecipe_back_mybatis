@@ -42,8 +42,11 @@ public interface RecipeDAO {
 	
 	//레시피 검색
 	List<RecipeVO> searchRecipe(String recipe_title);
-
-
-
+	
+	// 작성한 레시피 조회
+	List<RecipeVO> recordCompleteRecipe(String member_id);
+	   
+	// 작성중인 레시피 조회
+	List<RecipeVO> recordRecipe(String member_id);
 
 }

@@ -26,12 +26,18 @@
 	</select>
 
 	<update id="updateMember" parameterType="com.dorecipe.main.member.dao.MemberDAO" >
-		update member
+	<!-- update member
 		set member_pwd=#{member_pwd},
 		 member_email=#{member_email},
 		member_gender=#{member_gender},
 		 member_phone=#{member_phone},
 		member_imagePath=#{member_imagePath}
+		where member_id = #{member_id} -->	
+		update member
+		set 
+		 member_email=#{member_email},
+		 member_phone=#{member_phone},
+		 member_imagePath=#{member_imagePath}
 		where member_id = #{member_id}
 	</update>
 	

@@ -8,7 +8,7 @@ li {
 }
 
 .myPage-box1 {
-    width: 600px;
+    width: 800px;
     margin: 10px auto;
     padding: 40px 40px;
     background-color: lightblue;
@@ -16,7 +16,7 @@ li {
 }
 
 .myPage-box2 {
-    width: 600px;
+    width: 800px;
     margin: 10px auto;
     padding: 40px 40px;
     background-color: pink;
@@ -24,7 +24,7 @@ li {
 }
 
 .myPage-box3 {
-    width: 600px;
+    width: 800px;
     margin: 10px auto;
     padding: 40px 40px;
     background-color: lightgreen;
@@ -32,7 +32,7 @@ li {
 }
 
 .myPage-box4 {
-    width: 600px;
+    width: 800px;
     margin: 10px auto;
     padding: 40px 40px;
     background-color: lightgrey;
@@ -42,25 +42,50 @@ li {
 .Wrap {
     width: 80%;
     margin: 0 auto;
+    display: flex;
 }
 
-.Border {
-    width: 70%;
+/* .Border {
+    width: 100%;
     border-bottom: 1px solid #ad939156; 
     padding: 0.5em 0;
 }
 
-.Title {
+.title {
     padding: 2em 0.5em;
     text-align: center;
     font-weight: bolder;
-    font-size: x-large;
+    font-size: 30px;
+} */
+
+.memberInfo {
+    border: 1px solid black;
+    align-items: center;
+}
+
+.columnName {
+    display: block;
+    /* text-align-last: left; */
+    padding: 15px 15px;
+    font-weight: bold;
+    
 }
 
 .profileImage {
-    width: 100px;
-    height: 100px;
+    width: 160px;
+    height: 160px;
     margin: 20px 20px;
+}
+
+.img_box{
+    background-size: contain;
+    overflow: hidden;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    background-repeat: no-repeat;
+    width: 500px;
+    height: 300px;
 }
 
 .likeRecipeTotal {
