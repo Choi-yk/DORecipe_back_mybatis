@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './style.css';
 import { useInput } from '../../../hooks/useInput';
+import MainLayout from '../../../layout/mainLayOut';
 
 const NoticeUpdatePage = () => {
 
@@ -81,12 +82,12 @@ const NoticeUpdatePage = () => {
 
 	return (
 		<>
-		<div>
+		<MainLayout>
+		<div className='bottom'>
 			<div className="noticeWrap">
 				<h2>| Notice |</h2>
 				<div className="noticeBorder" />
 			</div>
-			<form>
 				<table className="left">					
 					<thead>
 			          <tr>
@@ -134,8 +135,8 @@ const NoticeUpdatePage = () => {
 				</table>
 				<button type="button" className="left2 btn btn-outline-secondary"
 					onClick={updateEvent}>수정</button>
-			</form>
 		</div>
+		</MainLayout>
 		</>
 	)
 };

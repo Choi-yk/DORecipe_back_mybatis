@@ -38,9 +38,11 @@ public class LoginController {
 	LoginService loginService;
 	
 	@PostMapping("/login")
-	public TokenInfo login(@RequestBody MemberLoginRequestDto memberLoginRequestDto) throws Exception{	
+	public TokenInfo login(MemberLoginRequestDto memberLoginRequestDto) throws Exception{	
 		String member_id =  memberLoginRequestDto.getMember_id();		
-		String member_pwd =  memberLoginRequestDto.getMemeber_pwd();	
+		String member_pwd =  memberLoginRequestDto.getMember_pwd();	
+		System.out.println("member_id : " + member_id);
+		System.out.println("member_pwd : " + member_pwd);
 		
 		TokenInfo tokenInfo = loginService.login(member_id, member_pwd);
 		return tokenInfo;

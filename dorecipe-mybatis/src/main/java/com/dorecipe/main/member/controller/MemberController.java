@@ -2,12 +2,8 @@ package com.dorecipe.main.member.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -151,18 +147,6 @@ public class MemberController {
 //        return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
 //    }
 //    
-
-	// 사실 세션에서 아이디를 가져와야하는..?
-	@GetMapping("/info/{member_id}")
-	public MemberVO memberDetail(@PathVariable String member_id) throws Exception {
-		System.out.println("@@@ 멤버 컨트롤러 member_id : " + member_id);
-		
-		MemberVO memberVO = memberService.listMemberDetails(member_id);
-		
-		return memberVO;
-		
-	}
-	
     
     
 	//원본///////////////////////////////////////////

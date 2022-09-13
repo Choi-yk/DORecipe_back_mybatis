@@ -24,6 +24,10 @@
 	<select id="selectAllMemberDetail" resultType="com.dorecipe.main.member.vo.MemberVO" parameterType="String">
 		select * from member where member_id=#{member_id}
 	</select>
+	
+	<select id="findById" resultType="com.dorecipe.main.member.vo.MemberVO" parameterType="String">
+		select * from member where member_id=#{member_id}
+	</select>
 
 	<update id="updateMember" parameterType="com.dorecipe.main.member.dao.MemberDAO" >
 		update member

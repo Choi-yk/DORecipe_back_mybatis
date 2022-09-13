@@ -29,18 +29,11 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public Optional<MemberVO> findById(String member_id) throws Exception {
-		// TODO Auto-generated method stub
+		System.out.println("다오임플 : " + member_id);
 		return sqlSession.selectOne("mapper.member.findById", member_id);
 	}
 
 	
-	//jwt test
-	@Override
-	public Optional<MemberVO> findByMemberId(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	// 회원 등록(가입)
 	@Override
 	public int insertMember(MemberVO memberVO) throws Exception {

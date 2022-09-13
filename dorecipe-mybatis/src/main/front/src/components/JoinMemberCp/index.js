@@ -127,7 +127,6 @@ const SignUpTemplate = () => {
         member_phone: `${member_phone}`,
         member_imagePath: "",
         member_joinDate: "",
-        member_like: 0,
         member_role: "member",
       };
       console.log(data.member_id);
@@ -145,7 +144,6 @@ const SignUpTemplate = () => {
       formData.append("member_gender", data.member_gender);
       formData.append("member_birth", data.member_birth);
       formData.append("member_phone", data.member_phone);
-
       axios({
         method: "POST",
         url: "http://localhost:9000/member/join",
@@ -153,6 +151,7 @@ const SignUpTemplate = () => {
         data: formData,
       }).then((response) => {
         console.log(response.data);
+        navigate("/login")
       });
     },
     [
@@ -199,7 +198,7 @@ const SignUpTemplate = () => {
           }
         })
         .then(function () {
-          navigate("/member");
+          navigate("/join");
         });
     },
     [member_id]

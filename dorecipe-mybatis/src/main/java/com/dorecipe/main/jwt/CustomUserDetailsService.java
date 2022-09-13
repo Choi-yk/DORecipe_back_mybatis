@@ -23,9 +23,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 	
 	@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return memberDAO.findByMemberId(username)
-                .map(this::createUserDetails)
-                .orElseThrow(() -> new UsernameNotFoundException("해당하는 유저를 찾을 수 없습니다."));
+		System.out.println("loadUserByUsername");
+		System.out.println("username : " + username);
+        try {
+			return memberDAO.findById(username)
+			        .map(this::createUserDetails)
+			        .orElseThrow(() -> new UsernameNotFoundException("해당하는 유저를 찾을 수 없습니다."));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
     }
  
     // 해당하는 User 의 데이터가 존재한다면 UserDetails 객체로 만들어서 리턴
@@ -42,7 +49,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 	
 	
 //	@Override
-//	@Transactional
 //	public UserDetails loadUserByUsername(String member_id) throws UsernameNotFoundException {
 //		MemberVO memberVO = memberDAO.findByUsername(member_id)
 //				.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));

@@ -5,6 +5,7 @@ import axios from "axios";
 import MainLayout from "../../layout/mainLayOut";
 import { MainLogo } from "../../components/_common/mainLogo";
 import KaKaoLoginPage from "../../components/LoginMemberCp";
+import { useInput } from "../../hooks/useInput";
 // import KaKaoLogin from 'react-kakao-login';
 
 //commit
@@ -46,17 +47,27 @@ const LoginPage = () => {
       Axios();
    }, []);
    
-   
    const memberLogin = ()=>{
+
+      const data = {
+         member_id:`${member_id}`,
+         member_pwd:`${member_pwd}`
+      }
+      console.log("mempw : : : " + member_pwd);
+
+      const formData = new FormData();
+      formData.append("member_id", data.member_id);
+      formData.append("member_pwd", data.member_pwd);
+
       console.log("click login");
        console.log("ID : ", member_id);
        console.log("PW : ", member_pwd);
        
-       axios
-          .post("http://localhost:9000/login",{
-            memberId : member_id,
-            memberPwd : member_pwd,
-      })
+       axios({
+         method: "POST",
+         url : "http://localhost:9000/login",
+         data: formData
+       })
          .then((res)=>{
             console.log("memberLogin callback====================");
             console.log(res);
@@ -113,7 +124,7 @@ const LoginPage = () => {
                      />
                      <input
                         value={member_pwd || ''}
-                        name="memeber_pwd"
+                        name="member_pwd"
                         className="pwdInput"
                         required
                         type="password"
