@@ -149,14 +149,34 @@
 	<!-- 레시피 검색 -->
 	<select id="searchRecipe" resultType="com.dorecipe.main.recipe.vo.RecipeVO"  parameterType="String">
 	  select * from recipe
-	  where recipe_title
-	  like concat('%',#{recipe_title},'%')
+	  where 
+	  recipe_savetype = 0
+	  and
+	  recipe_title like concat('%',#{recipe_title},'%')
 	  order by recipe_num desc
   	</select>
   	
+
+  	<!-- 마이페이지 작성한 레시피 목록 savetype 0 -->
+     <select id="recordCompleteRecipe" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="String">
+     <!--select count(*) as c_total, m.member_id, r.recipe_title, r.recipe_rpath, r.information_level, r.information_time
+      from recipe r inner join member m
+      on m.member_id = #{member_id} and m.member_id = r.member_id and r.recipe_savetype = 0;    
+       select recipe_title, recipe_rpath, information_level, information_time
+      from recipe where recipe_savetype = 0-->
+      select * from recipe where recipe_savetype=0 and member_id=#{member_id} order by recipe_num desc
+     </select>
+     
+     <!-- 마이페이지 작성중인 레시피 목록 savetype 1 -->
+     <select id="recordRecipe" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="String">
+      <!--  select count(*) as r_total, m.member_id, r.recipe_title, r.recipe_rpath, r.information_level, r.information_time
+      from recipe r inner join member m
+      on m.member_id = #{member_id} and r.recipe_savetype = 1 -->
+      select * from recipe where recipe_savetype=1 and member_id=#{member_id} order by recipe_num desc
+     </select>
+
 	<!-- 레시피 상세 검색 -->
 	<select id="detailSearchRecipe" resultType="com.dorecipe.main.recipe.vo.RecipeVO"  parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
-	
 	  select * from recipe
 	  where 
 	  category_kind = #{param1} and

@@ -17,9 +17,9 @@ const MemberList = ({ removePost, state, isLoading, hasItems, countState }) => {
           </Link>
           <div className="noticeDate">{state.member_email}</div>
           <div className="updateOrDelete">
-            <Link className="updateList" to={`/admin/${state.member_id}`}>
+            {/* <Link className="updateList" to={`/admin/${state.member_id}`}>
               수정
-            </Link>
+            </Link> */}
             <span className="deleteList" onClick={removePostOnclick}>
               삭제
             </span>

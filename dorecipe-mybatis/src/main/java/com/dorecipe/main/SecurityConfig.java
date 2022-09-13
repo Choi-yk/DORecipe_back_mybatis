@@ -5,9 +5,6 @@
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
-//import com.dorecipe.main.login.service.LoginService;
-//import lombok.RequiredArgsConstructor;
-//
 //import org.springframework.security.authentication.AuthenticationManager;
 //import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 //import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -18,12 +15,18 @@
 //import org.springframework.security.web.SecurityFilterChain;
 //import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 //import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+//import org.springframework.web.servlet.config.annotation.CorsRegistry;
+//import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+//
+//import com.dorecipe.main.login.service.LoginService;
+//
+//import lombok.RequiredArgsConstructor;
 //
 //@EnableGlobalMethodSecurity(prePostEnabled=true)
 //@RequiredArgsConstructor
 //@Configuration 	//환경설정이라는 어노테이션
 //@EnableWebSecurity	//웹에 security를 허용한다는 어노테이션(모든 요청 url이 이 클래스의 제어를 받도록 함)
-//public class SecurityConfig {
+//public class SecurityConfig implements WebMvcConfigurer {
 //	//일단 gradle로 전체를 다 보호하고
 //	//여기서 보호를 풀어줄 부분을 지정하는 방식
 //	
@@ -49,7 +52,7 @@
 //  				.logout()
 //  				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 //  				.logoutSuccessUrl("/")
-//  				.invalidateHttpSession(true);	//HTTP 세션을 초기화하는 작업, session을 초기화(삭제) 안그러면 계속 로그인 상태
+//  				.invalidateHttpSession(true)	//HTTP 세션을 초기화하는 작업, session을 초기화(삭제) 안그러면 계속 로그인 상태
 //              ;
 //        return http.build();      //build() - 설정 고리 완성하기
 //    }
@@ -62,6 +65,11 @@
 //	@Bean
 //	public PasswordEncoder passwordEncoder() {
 //	    return new BCryptPasswordEncoder();
+//	}
+//	
+//	@Override
+//	public void addCorsMappings(CorsRegistry registry) {
+//		registry.addMapping("/**").allowedOrigins("http://localhost:3000/");
 //	}
 //	
 //	

@@ -1,7 +1,5 @@
 package com.dorecipe.main.knowhow.vo;
 
-import java.util.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,12 +10,12 @@ public class KnowhowVO {
 	private String member_id;
 	private String know_title;
 	private String know_content;
-	private Date know_creDate;
+	private String know_creDate;
 	private String know_path;
 	
 	public KnowhowVO() { }
 
-	public KnowhowVO(int know_num, String member_id, String know_title, String know_content, Date know_creDate,
+	public KnowhowVO(int know_num, String member_id, String know_title, String know_content, String know_creDate,
 			String know_path) {
 		super();
 		this.know_num = know_num;

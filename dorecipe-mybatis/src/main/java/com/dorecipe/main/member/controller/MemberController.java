@@ -152,6 +152,7 @@ public class MemberController {
 //        return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
 //    }
 //    
+
     
 	
 	//중복 아이디 체크
@@ -162,7 +163,6 @@ public class MemberController {
 	}
 	
 
-    
 	//원본///////////////////////////////////////////
 	@PostMapping("/join/new")
 	public String Join(MemberVO memberVO /*Model model, HttpServletRequest request*/) throws Exception {

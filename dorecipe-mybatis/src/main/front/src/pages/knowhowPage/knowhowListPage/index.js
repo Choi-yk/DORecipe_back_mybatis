@@ -49,12 +49,10 @@ const KnowhowPage = () => {
 
     return(
         <>
-            <div className="knowWrap">
-                <h2>| Knowhow |</h2>
-                <Link className="updateList" to={"/notice/create"}>
-                    등록
-                </Link>
-                <div className="knowTableWrap">
+            <div className="postMngWrap">
+                <h3 className="left">노하우 게시물 관리</h3>
+                <hr className="left width" />
+                <div className="knowTableWrap width left">
                     <ul>
                         <div className="tableHead">
                             <div className="knowNo">No.</div>

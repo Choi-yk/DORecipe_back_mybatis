@@ -33,6 +33,13 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectOne("mapper.member.findById", member_id);
 	}
 */	
+	
+	//jwt test
+	@Override
+	public Optional<MemberVO> findByMemberId(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	// 회원 등록(가입)
 	@Override

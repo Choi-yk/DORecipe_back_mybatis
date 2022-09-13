@@ -139,7 +139,18 @@ public class RecipeService {
 		return recipeDAO.getLikedMember(param1,param2);
 	}
 
-
+	
+	// 작성한 레시피 조회
+	public List<RecipeVO> recordCompleteRecipe(String member_id) {
+	     List<RecipeVO> recordCompleteList = recipeDAO.recordCompleteRecipe(member_id);
+	     return recordCompleteList;
+	}
+	   
+	// 작성중인 레시피 조회
+	public List<RecipeVO> recordRecipe(String member_id) {
+	     List<RecipeVO> recordList = recipeDAO.recordRecipe(member_id);
+	     return recordList;
+	}
 
 
 }

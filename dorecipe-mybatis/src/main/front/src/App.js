@@ -15,6 +15,7 @@ import EventPage from "./pages/eventPage/eventListPage";
 import EventDetailPage from "./pages/eventPage/eventDetailPage";
 import EventModify from "./pages/eventPage/eventMod";
 
+import MyPage from "./pages/myPage";
 import AdminPostMng from "./pages/adminPage";
 import JoinMemberPage from "./pages/joinMemberPage";
 import MemberListPage from "./pages/memberListPage";
@@ -24,6 +25,7 @@ import CreateRecipePage from "./pages/createRecipePage";
 
 import LoginPage from "./pages/loginPage";
 import SearchRecipePage from "./pages/searchRecipePage";
+
 import DetailSearchPage from "./pages/detailSearchPage";
 import DetailRecipePage from "./pages/recipeDetailsPage";
 
@@ -34,18 +36,14 @@ function App() {
     <Routes>
       {/* <Route path={"/notice/list"} element={<NoticePage />} /> */}
       {/* <Route path={"/"} element={<NoticePage />} /> */}
+
+      {/* 별도록 jwt설정해줘서 관리자로 로그인 시에만 접근하도록 하기 */}
+      {/* <Route path="*" element={<div>없는 페이지임</div>} /> */}
+
       <Route path={"/notice/list"} element={<NoticePage />} />
       <Route path={"/notice/detail/:noticeId"} element={<NoticeDetailPage />} />
       <Route path={"/notice/update/:noticeId"} element={<NoticeUpdatePage />} />
-      <Route path={"/event/list"} element={<EventPage />} />
-      <Route path={"/knowhow/list"} element={<KnowhowPage />} />
-      <Route path={"/event/detail/:detailId"} element={<EventDetailPage />} />
-      <Route
-        path={"/knowhow/detail/:knowhowId"}
-        element={<KnowhowDetailPage />}
-      />
-      <Route path={"/event/detail/:detailId"} element={<EventDetailPage />} />
-      <Route path={"/event/update/:detailId"} element={<EventModify />} />
+
       <Route path={"/knowhow/list"} element={<KnowhowPage />} />
       <Route
         path={"/knowhow/detail/:knowhowId"}
@@ -55,11 +53,21 @@ function App() {
         path={"/knowhow/update/:knowhowId"}
         element={<KnowhowUpdatePage />}
       />
-      <Route path={"/notice/create"} element={<AdminPostMng />} />
+
+      <Route path={"/event/list"} element={<EventPage />} />
+      <Route path={"/event/detail/:detailId"} element={<EventDetailPage />} />
+      <Route path={"/event/update/:detailId"} element={<EventModify />} />
+
+      <Route path={"/admin"} element={<AdminPostMng />} />
+
       <Route path={"/join"} element={<JoinMemberPage />} />
+      {/* <Route path={"/member/info"} element={<MyPage />} /> */}
+      <Route path={"/member/info/:memberId"} element={<MyPage />} />
       <Route path={"/member"} element={<MemberListPage />} />
       <Route path={"/login"} element={<LoginPage />} />
+
       <Route path={"/"} element={<MainPage />} />
+
       {/* 별도록 jwt설정해줘서 관리자로 로그인 시에만 접근하도록 하기 */}
       {/* <Route path="*" element={<div>없는 페이지임</div>} /> */}
       <Route path={"/recipe/create"} element={<CreateRecipePage />} />
@@ -72,6 +80,14 @@ function App() {
         path={"/recipe/search/:searchId"}
         component={Recipe}
         element={<SearchRecipePage />}
+      />
+
+      <Route path={"/recipe/search/:searchId"} element={<SearchRecipePage />} />
+
+      <Route path={"/recipe/create"} element={<CreateRecipePage />} />
+      <Route
+        path={"/recipes/search/details/:recipeId"}
+        element={<DetailRecipePage />}
       />
     </Routes>
   );

@@ -19,18 +19,18 @@ const SearchRecipePage = () => {
 
   function testAxios() {
     const search = params.searchId;
-
-    axios
-      .get("http://localhost:9000/recipe/search/" + search)
-      .then((result) => {
-        setState(result.data);
-      });
-  }
-
-  useEffect(() => {
-    testAxios();
-  }, []);
-
+      axios.get('http://localhost:9000/recipe/search/'+ search )
+        .then((result)=>{
+          setState(result.data)
+        })
+  
+    }
+    
+      useEffect(() => {
+        testAxios();
+      }, []);
+    
+    
   return (
     <>
       <MainLayout>
