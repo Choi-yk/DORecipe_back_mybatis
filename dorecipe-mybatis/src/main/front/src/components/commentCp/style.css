@@ -1,0 +1,91 @@
+.comh3{
+    margin: 1em 0;
+}
+
+.memberName{
+	font-size:18px;	
+}
+
+.comDate{
+	font-size:12px;
+	margin-left:5%;
+}
+
+.deleteCmt{
+	float:right;
+	border:0;
+	/*background-color:yellow;*/
+	font-size:13px;	
+}
+
+.commentImg{
+	/*background-color:yellow;*/
+	margin:15px;
+	display:none;
+}
+
+.insertCmt{
+	background-color:#463635;
+	margin:10px;
+	color:white;
+	border-radius: 0.5em;
+}
+
+.cmtContent{
+	resize:none;
+	border-radius: 0.5em;
+}
+
+.comImg{
+	width: 100px;
+  	height: 100px;
+  	object-fit: contain;
+}
+.comImg:hover{
+	transform:scale(2.3);
+}
+
+.cmtImg{
+	width: 130px;
+	float:left;
+}
+.comImg:onError{
+	visibility:hidden;
+}
+
+.idDateCon{
+	/*background-color:skyblue;*/
+	width:300px;
+}
+
+.comCont{
+	/*background-color:gray;*/
+	width:580px;
+	margin-top:10px;
+	margin-left:5px;
+	float:left;
+}
+
+.commentform{
+	align-items: center;
+}
+
+.commentDiv{
+	width: 840px;
+    margin: 10px auto;
+    padding: 40px 40px;
+    align-items: center;
+}
+
+.cmtBtn{
+	border-radius: 0.5em;
+	/*background:url("../../../public/img/add-photo.png");*/
+}
+
+.cmtDiv{
+	/*background-color:pink;*/
+}
+
+.divLine{
+	width:730px;
+}
