@@ -80,19 +80,18 @@ const SignUpTemplate = () => {
   const onJoinMemberHandler = useCallback(
     (e) => {
       e.preventDefault();
+      console.log("제출 버튼 누름");
+      console.log("member_id", member_id);
 
-      if (duplicateCheck == null) {
+      if (duplicateCheck == null || duplicateCheck === false) {
         setDuplicateChk(null);
         return alert("아이디 중복 확인을 해주세요.");
-      } else if (duplicateCheck == false) {
-        setDuplicateChk(false);
+      } else if (duplicateCheck === true) {
+        console.log("member_id duplicate true", member_id);
         setMemId(member_id);
-        return alert("아이디 중복 확인을 해주세요.");
-      } else if (duplicateCheck == true) {
-        setDuplicateChk(true);
-        return setMemId(member_id);
       }
 
+      console.log("제출 버튼 누름~~~~~", member_pwd);
       if (!pwdExp.current.test(member_pwd)) {
         if (
           !alert(
@@ -103,18 +102,24 @@ const SignUpTemplate = () => {
           setConfirm("");
           return;
         }
+      } else {
+        setPwd(member_pwd);
       }
       if (!phoneReg.current.test(member_phone)) {
         if (!alert("전화번호 형식이 올바르지 않습니다")) {
           setPhone("");
           return;
         }
+      } else {
+        setPhone(member_phone);
       }
       if (!emailReg.current.test(member_email)) {
         if (!alert("이메일형식이 올바르지 않습니다.")) {
           setEmail("");
           return;
         }
+      } else {
+        setEmail(member_email);
       }
 
       const data = {
@@ -127,35 +132,38 @@ const SignUpTemplate = () => {
         member_phone: `${member_phone}`,
         member_imagePath: "",
         member_joinDate: "",
+        member_like: 0,
         member_role: "member",
       };
-      console.log(data.member_id);
+      // console.log(data.member_id);
       // formData blob json형태로 보내기
       const blob = new Blob([JSON.stringify(data)], {
         type: "application/json",
       });
 
-      const formData = new FormData();
-      formData.append("data", blob);
-      formData.append("member_id", data.member_id);
-      formData.append("member_pwd", data.member_pwd);
-      formData.append("member_name", data.member_name);
-      formData.append("member_email", data.member_email);
-      formData.append("member_gender", data.member_gender);
-      formData.append("member_birth", data.member_birth);
-      formData.append("member_phone", data.member_phone);
+      const submitData = new FormData();
+      submitData.append("data", blob);
+      submitData.append("member_id", data.member_id);
+      submitData.append("member_pwd", data.member_pwd);
+      submitData.append("member_name", data.member_name);
+      submitData.append("member_email", data.member_email);
+      submitData.append("member_gender", data.member_gender);
+      submitData.append("member_birth", data.member_birth);
+      submitData.append("member_phone", data.member_phone);
+
       axios({
         method: "POST",
-        url: "http://localhost:9000/member/join",
-        headers: { "Content-Type": "multipart/form-data" },
-        data: formData,
+        url: "http://localhost:9000/member/join/new",
+        // headers: { "Content-Type": "multipart/form-data" },
+        data: submitData,
       }).then((response) => {
         console.log(response.data);
-        navigate("/login")
       });
     },
     [
+      member_name,
       member_id,
+      duplicateCheck,
       member_pwd,
       confirm_pwd,
       member_phone,
@@ -168,42 +176,54 @@ const SignUpTemplate = () => {
   const onDuplicateCheck = useCallback(
     (e) => {
       e.preventDefault();
+      const data = {
+        member_id: `${member_id}`,
+      };
+      const blob = new Blob([JSON.stringify(data)], {
+        type: "application/json",
+      });
+      const formData = new FormData();
+      formData.append("data", blob);
+      formData.append("member_id", member_id);
+      console.log("member_id", member_id);
       axios({
-        url: "/member/list",
-        method: "get",
-        data: { member_id: "" },
+        method: "POST",
+        url: "/member/join/checkDuplicateId",
+        headers: { "Content-Type": "multipart/form-data" },
+        data: formData,
         baseURL: "http://localhost:9000",
       })
         .then(function (response) {
-          const takenID = [];
-          response.data.map((item) => {
-            takenID.push(item.member_id);
-          });
+          console.log(response);
+          console.log("data", response.data);
 
-          if (takenID.includes(member_id)) {
+          if (response.data !== "") {
             setDuplicateChk(false);
             setMemId("");
             alert("사용불가능한 아이디입니다.");
-
-            console.log(member_id);
+            // console.log(member_id);
           } else {
-            if (idExp.current.test(member_id)) {
-              setDuplicateChk(true);
-              setMemId(member_id);
-              console.log(member_id);
-            } else {
-              setMemId("");
-              return alert("아이디 형식이 올바르지 않습니다");
-            }
+            // if (idExp.current.test(member_id)) {
+            setDuplicateChk(true);
+            setMemId(member_id);
+            console.log(member_id);
+            // } else {
+            // setMemId("");
+            // return alert("아이디 형식이 올바르지 않습니다");
+            // }
           }
+          // if (takenID.includes(member_id)) {
+
+          // } else {
+          // }
         })
         .then(function () {
-          navigate("/join");
+          // navigate("/member");
         });
     },
     [member_id]
   );
-
+  console.log(member_id);
   return (
     <>
       <div className="formWrap">
@@ -244,14 +264,12 @@ const SignUpTemplate = () => {
             placeholder="내용을 입력해주세요"
             value={member_id}
             onChange={onChangeMemId}
-            disabled={duplicateCheck} //한번만 가능하도록
           />
 
           <SmallBtn
             type="button"
             className="duplicateCheckId"
             onClick={onDuplicateCheck}
-            disabled={duplicateCheck} //한번만 가능하도록
           >
             {duplicateCheck === false
               ? "중복확인"

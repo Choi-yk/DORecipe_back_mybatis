@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.dorecipe.main.jwt.TokenInfo;
 import com.dorecipe.main.login.dto.MemberLoginRequestDto;
 import com.dorecipe.main.login.service.LoginService;
 import com.dorecipe.main.member.service.MemberService;
@@ -36,17 +35,6 @@ public class LoginController {
 	
 	@Autowired
 	LoginService loginService;
-	
-	@PostMapping("/login")
-	public TokenInfo login(MemberLoginRequestDto memberLoginRequestDto) throws Exception{	
-		String member_id =  memberLoginRequestDto.getMember_id();		
-		String member_pwd =  memberLoginRequestDto.getMember_pwd();	
-		System.out.println("member_id : " + member_id);
-		System.out.println("member_pwd : " + member_pwd);
-		
-		TokenInfo tokenInfo = loginService.login(member_id, member_pwd);
-		return tokenInfo;
-	}
 	
 	
 	

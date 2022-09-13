@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
 
-   private final JwtTokenProvider jwtTokenProvider;
    
    @Bean
    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -31,11 +30,10 @@ public class WebSecurityConfig {
         	.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)	//JWT를 사용하기 때문에 세션을 사용하지 않는다는 설정
         	.and()
         	.authorizeRequests().antMatchers("/login","/knowhow/**","/notice/**","/event/**","/recipe/**","/member/**","/join").permitAll()// dont authenticate this particular request
-        	.antMatchers("/admin").hasRole("ADMIN")
-        	.antMatchers("/notice/insert").hasRole("USER")	//USER 권한이 있어야 요청할 수 있다는 설정
+        	.antMatchers("/admin").hasRole("admin")
+//        	.antMatchers("/notice/insert").hasRole("member")	//USER 권한이 있어야 요청할 수 있다는 설정
         	.anyRequest().permitAll();	//그 외 요청 permitall() 모두 허용
 
-        http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         //JWT 인증을 위하여 직접 구현한 필터를 UsernamePasswordAuthenticationFilter 전에 실행하겠다는 설정
         
         return http.build();

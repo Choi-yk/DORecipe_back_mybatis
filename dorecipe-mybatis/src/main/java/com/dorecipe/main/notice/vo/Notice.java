@@ -11,13 +11,13 @@ public class Notice {
 	private String member_id;
 	private String notice_title;
 	private String notice_content;
-	private Date notice_creDate;	//Date는 util을 import하기! sql date아님!
+	private String notice_creDate;	//Date는 util을 import하기! sql date아님!
 	
 	public Notice() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Notice(int notice_num, String member_id, String notice_title, String notice_content, Date notice_creDate) {
+	public Notice(int notice_num, String member_id, String notice_title, String notice_content, String notice_creDate) {
 		super();
 		this.notice_num = notice_num;
 		this.member_id = member_id;
@@ -51,10 +51,10 @@ public class Notice {
 	public void setNotice_content(String notice_content) {
 		this.notice_content = notice_content;
 	}
-	public Date getNotice_creDate() {
+	public String getNotice_creDate() {
 		return notice_creDate;
 	}
-	public void setNotice_creDate(Date notice_creDate) {
+	public void setNotice_creDate(String notice_creDate) {
 		this.notice_creDate = notice_creDate;
 	}
 

@@ -49,7 +49,7 @@ const KnowhowPage = () => {
 
     return(
         <>
-            <div className="postMngWrap">
+            <div className="postMngWrap bottom">
                 <h3 className="left">노하우 게시물 관리</h3>
                 <hr className="left width" />
                 <div className="knowTableWrap width left">

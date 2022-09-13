@@ -18,6 +18,11 @@ const EventList = ({ removePost, state }) => {
 
         <div className="noticeDate">
           {state.event_creDate}~{state.event_finDate}
+          {
+            state.event_finDate <= "2022-09-23"
+            ? <span className="finDate"> [종료]</span>
+            : null
+          }
         </div>
         <div className="updateOrDelete">
           <Link className="updateList" to={`/event/update/${state.event_num}`}>
