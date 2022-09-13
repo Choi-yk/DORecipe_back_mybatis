@@ -9,6 +9,7 @@ import "./style.css";
 import styled from "styled-components";
 import { useState, useEffect, useCallback } from "react";
 import EditDropZone from "../../_common/dropzone";
+import Dropzone from "react-dropzone";
 import { useInput } from "../../../hooks/useInput";
 import axios from "axios";
 import { SubmitRecipeBtn } from "../../_common/buttons";
@@ -16,13 +17,9 @@ const CompleteRecipe = ({ recipeState }) => {
   //btn state : 버튼 1번 이상 클릭 시 전체 임시저장/등록, 한번만 클릭시 해당 페이지 저장
   const [buttonState, setBtnState] = useState(0);
   // file state
-  const [recipe_imgs_completed, setRecipe_imgs_completed] = useState("");
-  const [completion_path1, setFiles1] = useState("");
-  const [completion_path2, setFiles2] = useState("");
-  const [completion_path3, setFiles3] = useState("");
-  const [completion_path4, setFiles4] = useState("");
-
-  const [completionDropState, setCompletionDropState] = useState("");
+  const [completionDropState, setCompletionDropState] = useState(
+    "completionDropState"
+  );
 
   const [path1, onChangePath1, setPath1] = useInput("");
   const [path2, onChangePath2, setPath2] = useInput("");
@@ -31,6 +28,8 @@ const CompleteRecipe = ({ recipeState }) => {
 
   const [completion_tip, onChangeTip, setCompletion_tip] = useInput("");
 
+  const [files, setFiles] = useState("");
+  const [recipe_thumbnail, setRecipeImgFiles] = useState([]);
   const onLoadImgFile = (e) => {
     onChangePath1(e);
     onChangePath2(e);
@@ -43,10 +42,10 @@ const CompleteRecipe = ({ recipeState }) => {
     e.preventDefault();
     const data = {
       recipe_savetype: 1,
-      completion_path1: `${completion_path1}`,
-      completion_path2: `${completion_path2}`,
-      completion_path3: `${completion_path3}`,
-      completion_path4: `${completion_path4}`,
+      completion_path1: `${path1}`,
+      completion_path2: `${path2}`,
+      completion_path3: `${path3}`,
+      completion_path4: `${path4}`,
       completion_tip: `${completion_tip}`,
       recipe_num: `${recipeState}`,
       member_id: "hirin012", //로그인한 멤버 정보 들어갈 자리
@@ -60,11 +59,31 @@ const CompleteRecipe = ({ recipeState }) => {
     const formData = new FormData();
     formData.append("data", blob);
     formData.append("member_id", data.member_id);
-    formData.append("recipe_imgs_completed", recipe_imgs_completed); /////파일 업로드
-    formData.append("completion_path1", data.completion_path1);
-    formData.append("completion_path2", data.completion_path2);
-    formData.append("completion_path3", data.completion_path3);
-    formData.append("completion_path4", data.completion_path4);
+    // console.log(recipe_thumbnail[0].value + "!!!!!!!!!!!!!!!!!");
+    recipe_thumbnail[0] !== undefined
+      ? formData.append("recipe_imgs_completed", recipe_thumbnail[0])
+      : formData.append("recipe_imgs_completed", null); /////파일 업로드
+    recipe_thumbnail[1] !== undefined
+      ? formData.append("recipe_imgs_completed", recipe_thumbnail[1])
+      : formData.append("recipe_imgs_completed", null); /////파일 업로드
+    recipe_thumbnail[2] !== undefined
+      ? formData.append("recipe_imgs_completed", recipe_thumbnail[2])
+      : formData.append("recipe_imgs_completed", null); /////파일 업로드
+    recipe_thumbnail[3] !== undefined
+      ? formData.append("recipe_imgs_completed", recipe_thumbnail[3])
+      : formData.append("recipe_imgs_completed", null); /////파일 업로드
+    recipe_thumbnail[0] !== undefined
+      ? formData.append("completion_path1", data.completion_path1)
+      : formData.append("completion_path1", null);
+    recipe_thumbnail[1] !== undefined
+      ? formData.append("completion_path2", data.completion_path2)
+      : formData.append("completion_path2", null);
+    recipe_thumbnail[2] !== undefined
+      ? formData.append("completion_path3", data.completion_path3)
+      : formData.append("completion_path3", null);
+    recipe_thumbnail[3] !== undefined
+      ? formData.append("completion_path4", data.completion_path4)
+      : formData.append("completion_path4", null);
     formData.append("completion_tip", data.completion_tip);
     formData.append("recipe_num", recipeState);
 
@@ -100,63 +119,40 @@ const CompleteRecipe = ({ recipeState }) => {
     <>
       {" "}
       <FlexWrap>
-        <Instruction>
-          <FontAwesomeIcon icon={faLightbulb} /> 완성 요리 사진 : 완성된 사진을
-          등록하시면 레시피가 더욱 돋보입니다.
-        </Instruction>
-        <BasicFormWrap>
-          <div>
-            {/* <EditDropZone
-              completion_path1={completion_path1}
-              setFiles1={setFiles1}
-              onChange={onLoadImgFile}
-              // onChange={onLoadImgFile}
-              // setRecipeThumbnail={setRecipeThumbnail}
-              // setRecipeImgFiles={setRecipeImgFiles}
-              // thumbnailDropState={thumbnailDropState}
-            />
-            <EditDropZone
-              completion_path2={completion_path2}
-              setFiles2={setFiles2}
-              onChange={onLoadImgFile}
-
-              // setRecipeThumbnail={setRecipeThumbnail}
-              // setRecipeImgFiles={setRecipeImgFiles}
-              // thumbnailDropState={thumbnailDropState}
-            />
-            <EditDropZone
-              completion_path3={completion_path3}
-              setFiles3={setFiles3}
-              onChange={onLoadImgFile}
-
-              // setRecipeThumbnail={setRecipeThumbnail}
-              // setRecipeImgFiles={setRecipeImgFiles}
-              // thumbnailDropState={thumbnailDropState}
-            />
-            <EditDropZone
-              completion_path4={completion_path4}
-              setFiles4={setFiles4}
-              onChange={onLoadImgFile}
-
-              // setRecipeThumbnail={setRecipeThumbnail}
-              // setRecipeImgFiles={setRecipeImgFiles}
-              // thumbnailDropState={thumbnailDropState}
-            /> */}
-          </div>
-        </BasicFormWrap>
         <div>
           <Instruction>
-            <FontAwesomeIcon icon={faLightbulb} /> 요리팁: 레시피를 더욱 맛있게
-            하기 위해서 담은 노하우를 공유해주세요.
+            <FontAwesomeIcon icon={faLightbulb} /> 완성 요리 사진 : 완성된
+            사진을 등록하시면 레시피가 더욱 돋보입니다.
           </Instruction>
+          <BasicFormWrap>
+            <div>
+              <EditDropZone
+                files={files}
+                setFiles={setFiles}
+                setPath1={setPath1}
+                setPath2={setPath2}
+                setPath3={setPath3}
+                setPath4={setPath4}
+                onChange={onLoadImgFile}
+                setRecipeImgFiles={setRecipeImgFiles}
+                completionDropState={completionDropState}
+              />
+            </div>
+          </BasicFormWrap>
           <div>
-            <ContentTextarea
-              rows="2"
-              cols="50"
-              value={completion_tip}
-              onChange={onChangeTip}
-              placeholder="예: 양파를 고를때는 납작한 암양파를 고르시면 덜 맵고 단맛이 강해요."
-            ></ContentTextarea>
+            <Instruction>
+              <FontAwesomeIcon icon={faLightbulb} /> 요리팁: 레시피를 더욱
+              맛있게 하기 위해서 담은 노하우를 공유해주세요.
+            </Instruction>
+            <div>
+              <ContentTextarea
+                rows="2"
+                cols="50"
+                value={completion_tip}
+                onChange={onChangeTip}
+                placeholder="예: 양파를 고를때는 납작한 암양파를 고르시면 덜 맵고 단맛이 강해요."
+              ></ContentTextarea>
+            </div>
           </div>
         </div>
       </FlexWrap>
@@ -201,7 +197,26 @@ const FlexWrap = styled.div`
   display: flex;
   width: 90vw;
   margin: 0 auto;
+  height: 70vh;
   flex-direction: column;
+  & > div {
+    padding: 2rem;
+    height: 27em;
+    overflow-y: auto;
+    margin: 0 auto;
+
+    ::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+    ::-webkit-scrollbar-thumb {
+      height: 30%;
+      background-color: #463635;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: #fffdf5;
+      border: 1px solid #463635;
+    }
+  }
 `;
 const BasicFormWrap = styled.div`
   display: inline-flex;
@@ -215,13 +230,7 @@ const BasicFormWrap = styled.div`
   padding: 2em;
   justify-content: center;
   gap: 12em;
-`;
-const HintMsg = styled.div`
-  font-size: 12px;
-  color: #8d3232;
-  display: block;
-  text-align: center;
-  margin-top: 1em;
+  height: 70em;
 `;
 const ContentTextarea = styled.textarea`
   resize: none;
@@ -234,7 +243,6 @@ const ContentTextarea = styled.textarea`
     display: none;
   }
 `;
-
 const Instruction = styled.div`
   display: inline-block;
   /* width: 1; */

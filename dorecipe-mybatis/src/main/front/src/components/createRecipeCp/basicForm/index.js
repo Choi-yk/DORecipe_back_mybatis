@@ -74,6 +74,7 @@ const BasicForm = () => {
       formData.append("category_way", data.category_way);
       formData.append("category_ing", data.category_ing);
       formData.append("information_person", data.information_person);
+      formData.append("information_level", data.information_level);
       formData.append("information_time", data.information_time);
       formData.append("recipe_creDate", data.recipe_creDate);
       formData.append("member_id", data.member_id);
@@ -171,20 +172,20 @@ const BasicForm = () => {
                 <option value="전체">전체</option>
                 <option value="밑반찬">밑반찬</option>
                 <option value="메인반찬">메인반찬</option>
-                <option value="국•탕">국•탕</option>
+                <option value="국/탕">국•탕</option>
                 <option value="찌개">찌개</option>
                 <option value="디저트">디저트</option>
                 <option value="면/만두">면•만두</option>
-                <option value="밥•죽•떡">밥•죽•떡</option>
+                <option value="밥/죽/떡">밥•죽•떡</option>
                 <option value="퓨전">퓨전</option>
                 <option value="김치/젓갈">김치/젓갈</option>
-                <option value="양념•소스•잼">양념•소스•잼</option>
+                <option value="양념/소스/잼">양념•소스•잼</option>
                 <option value="양식">양식</option>
                 <option value="샐러드">샐러드</option>
                 <option value="스프">스프</option>
                 <option value="빵">빵</option>
                 <option value="과자">과자</option>
-                <option value="차•음료•술">차•음료•술</option>
+                <option value="차/음료/술">차•음료•술</option>
                 <option value="기타">기타</option>
               </select>
               <label>상황•테마별</label>
@@ -196,6 +197,7 @@ const BasicForm = () => {
                 <option value="default" default>
                   상황•테마별
                 </option>
+                <option value="전체">전체</option>
                 <option value="일상">일상</option>
                 <option value="초스피드">초스피드</option>
                 <option value="손님접대">손님접대</option>
@@ -209,7 +211,7 @@ const BasicForm = () => {
                 <option value="명절">명절</option>
                 <option value="이유식">이유식</option>
                 <option value="기타">기타</option>
-                <option value="연예인•유명인">연예인•유명인</option>
+                <option value="연예인/유명인">연예인•유명인</option>
               </select>
               <label>재료별</label>
               <select
@@ -220,6 +222,7 @@ const BasicForm = () => {
                 <option value="default" default>
                   재료별
                 </option>
+                <option value="전체">전체</option>
                 <option value="소고기">소고기</option>
                 <option value="돼지고기">돼지고기</option>
                 <option value="닭고기">닭고기</option>
@@ -234,7 +237,7 @@ const BasicForm = () => {
                 <option value="건어물류">건어물류</option>
                 <option value="기타">버섯류</option>
                 <option value="과일류">과일류</option>
-                <option value="콩•견과물">콩•견과물</option>
+                <option value="콩/견과물">콩•견과물</option>
                 <option value="기타">기타</option>
               </select>
               <label>방법별</label>
@@ -246,6 +249,7 @@ const BasicForm = () => {
                 <option value="default" default>
                   방법별
                 </option>
+                <option value="전체">전체</option>
                 <option value="볶음">볶음</option>
                 <option value="끓이기">끓이기</option>
                 <option value="부침">부침</option>
