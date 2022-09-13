@@ -1,26 +1,27 @@
-import { useCallback, useEffect, useState,useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./style.css";
 import "../../style/bootstrap.min.css";
 import axios from "axios";
 import { useInput } from "../../hooks/useInput";
-import { useParams } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import styled from "styled-components";
 
 //레시피 상세 페이지 아래에 위치할 코멘트 등록
 //코멘트 등록, 삭제
 //들어갈 자료 - 멤버아이디,등록시간,코멘트,사진
 const CommentCp = () => {
-		
+	
+	const [comment_num,onChangeNum,setNum] = useInput("");	
 	const [comment_content, onChangeContent, setContent] = useInput("");
 	const [comment_path, onChangeCommentPath, setPath] = useInput("");	
 	
+	const [emptyError, setEmptyError] = useState(null);
   	const [error, setError] = useState(null);
 	
 	let { recipeId } = useParams();
 	let { commentNum } = useParams();
 	var Index = 0;
 	
-	//코멘트 등록
 	const insertComment = useCallback((e) => {
 		e.preventDefault();
 		
@@ -28,7 +29,7 @@ const CommentCp = () => {
 			recipe_num : recipeId,
          	comment_num : Index,
 			comment_content: `${comment_content}`,	//코멘트내용
-			comment_path: `${comment_path.replace(/c:\\fakepath\\/i)}`,	//이미지 경로
+			comment_path: `${comment_path.replace(/c:\\fakepath\\/i, "")}`,	//이미지 경로
 		}
 		console.log("commentData", commentData);
 		
@@ -59,7 +60,7 @@ const CommentCp = () => {
 				console.log(response.data);
 				//setCommentState(response.data.comment_num);
 				alert("코멘트가 등록되었습니다.");
-				window.location.replace("/recipe/detail/"+recipeId);
+				window.location.replace("/recipes/search/details/"+recipeId);
 			});
 		}
 	},[comment_content,comment_path]);
@@ -70,34 +71,12 @@ const CommentCp = () => {
 	    //이미지명 담기
 	    onChangeCommentPath(e);
 	    //파일담기
-	    const file = e.target.CommentFiles;
+	    const file = e.target.files;
 	    setFiles(file);
 	};
-	/*
-	useEffect(() => {
-		preview();
-    	return() => preview();
-  	});
 	
-	// 미리보기
-	const preview = ()=>{
-	  if(!CommentFiles) return false;
-	  const imgEl = document.querySelector('.comCont');
-	  const reader = new FileReader();
-	  reader.onload = () =>
-	    (imgEl.style.backgroundImage = `url(${reader.result})`);
-	    reader.readAsDataURL(CommentFiles[0]);
-	}
-	*/
-	//코멘트 삭제
-	const deleteComment = useCallback((e) => {
-		e.preventDefault();
+// 코멘트 리스트 ///////////////////
 		
-		
-	});
-	
-	
-	// 코멘트 리스트 ///////////////////
 	const [commentState, setCommentState] = useState([
 		{
 			recipe_num: recipeId,
@@ -130,28 +109,29 @@ const CommentCp = () => {
 	useEffect(() => {
 		commentAxios();
 	}, []);
-	// 코멘트 리스트 끝 ///////////////
+	
+	 const handleImgError = (e) => {
+        e.target.scr = "/img/default_img.jpg";
+   }  
+
+// 코멘트 리스트 끝 ///////////////
 	
 	//파일 선택 커스텀
-	const imageInput = useRef();// useRef를 이용해 input태그에 접근
-	const onClickImageUpload = () => {	
-		imageInput.current.click();
-  	};
-	
-	
-	const handleImgError = (e) => {
-  		e.target.scr = "/img/default_img.jpg";
-	}	
+   const imageInput = useRef();// useRef를 이용해 input태그에 접근
+   const onClickImageUpload = () => {   
+      imageInput.current.click();
+     };
+
 	
 	return (
 		<>
-		<div className="commentDiv">
-			<h5 className="comh3"> | Comment</h5>
-			<div className="cmtForm">
+			<div className="commentDiv">
+			<h5 className="comh3">| Comment</h5>
+            <div className="cmtForm">  
               <textarea
               	className="cmtContent"
                 rows="3"
-                cols="70"
+                cols="50"
                 onChange={onChangeContent}
                 name="comment_content"
                 id="commentContent"
@@ -166,33 +146,36 @@ const CommentCp = () => {
                   onChange={onLoadCommentFile}
                 />
               <button className="cmtBtn" onClick={onClickImageUpload}>코멘트 사진 등록</button>
-	          <button type="button"
-			      className="insertCmt"
-		          onClick={insertComment}
-		          disabled={error}>등록</button>
-		    </div>
-		 </div>
+            <button type="button"
+		        className="insertCmt"
+		        onClick={insertComment}
+		        disabled={error}
+		      >등록</button>
+		   	</div>
+		   	</div>
 		   	
-		 <div className="commentDiv">
-		      {commentState.map((cmt,index)=>{
-		         return (
-		          <>		          
-		            <div className="cmtDiv">
-		               <div key={index}>
-		               	<div className="idDateCon">
-		                  <span name="member_id" className="memberName">{cmt.member_id}</span>
-		                  <span name="comment_creDate" className="comDate">{cmt.comment_creDate}</span>
-		                </div>
-		                {/*<button type="button" className="deleteCmt" onClick={deleteComment}>삭제</button>*/}
-		                <span><div name="comment_content" className="comCont">{cmt.comment_content}</div></span>
-		                <img name="comment_path" className="comImg" src={cmt.comment_path} alt={cmt.comment_path} onError={handleImgError}></img>
-		               	<div className="divLine"><hr/></div>
-		               </div>
-		            </div>
-		            </>
-		         )
-      			})}
+		   	<div className="commentDiv">
+		       {commentState.map((cmt,index)=>{
+               return (
+                <>                
+                  <div className="cmtDiv">
+                     <div key={index}>
+                        <div className="idDateCon">
+                        <span name="member_id" className="memberName">{cmt.member_id}</span>
+                        <span name="comment_creDate" className="comDate">{cmt.comment_creDate}</span>
+                      </div>
+                      {/*<button type="button" className="deleteCmt" onClick={deleteComment}>삭제</button>*/}
+                      <span><div name="comment_content" className="comCont">{cmt.comment_content}</div></span>
+                      <img className="comImg" src={cmt.comment_path} alt={cmt.comment_path} onError={handleImgError}></img>
+                        <div className="divLine"><hr/></div>
+                     </div>
+                  </div>
+                  </>
+               )
+               })}
+
       		</div>
+   
    		</>
    		
    	);
