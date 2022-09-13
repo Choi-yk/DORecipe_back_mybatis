@@ -1,4 +1,11 @@
+import CommentCp from "../../components/commentCp";
+
 const RecipeDetails = () => {
-  return <>:)</>;
+  return <>
+  
+  :)
+  
+  <CommentCp/>
+  </>;
 };
 export default RecipeDetails;
