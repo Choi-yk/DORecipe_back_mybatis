@@ -19,7 +19,7 @@
 }
 
 .commentImg{
-	/*background-color:yellow;*/
+	background-color:yellow;
 	margin:15px;
 	display:none;
 }
@@ -54,12 +54,12 @@
 }
 
 .idDateCon{
-	/*background-color:skyblue;*/
+	background-color:skyblue;
 	width:300px;
 }
 
 .comCont{
-	/*background-color:gray;*/
+	background-color:gray;
 	width:580px;
 	margin-top:10px;
 	margin-left:5px;
@@ -83,7 +83,7 @@
 }
 
 .cmtDiv{
-	/*background-color:pink;*/
+	background-color:pink;
 }
 
 .divLine{

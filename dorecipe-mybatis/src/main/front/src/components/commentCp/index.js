@@ -29,7 +29,7 @@ const CommentCp = () => {
 			recipe_num : recipeId,
          	comment_num : Index,
 			comment_content: `${comment_content}`,	//코멘트내용
-			comment_path: `${comment_path.replace(/c:\\fakepath\\/i, "")}`,	//이미지 경로
+			comment_path: `${comment_path.replace(/c:\\fakepath\\/i,"")}`,	//이미지 경로
 		}
 		console.log("commentData", commentData);
 		
@@ -88,32 +88,27 @@ const CommentCp = () => {
 		}
 	])
 	
-	function commentAxios() {
-		axios({
-			url: "http://localhost:9000/comment/list/" + recipeId,
-			method: "get",
-			data: {
-				recipe_num: "",
-				comment_num: "",
-				comment_content: "",
-				comment_path: "",
-				member_id: "",
-				comment_creDate: ""
-			},
-		}).then(function(response) {
-			console.log(response.data);	//db데이터 찍찍
-			setCommentState(response.data);
-		});
-	}
+	 function commentAxios() {
+      axios({
+         url: "http://localhost:9000/comment/list/" + recipeId,
+         method: "get",
+         data: {
+            recipe_num: "",
+            comment_num: "",
+            comment_content: "",
+            comment_path: "",
+            member_id: "",
+            comment_creDate: ""
+         },
+      }).then(function(response) {
+         console.log(response.data);   //db데이터 찍찍
+         setCommentState(response.data);
+      });
+   }
 
-	useEffect(() => {
-		commentAxios();
-	}, []);
-	
-	 const handleImgError = (e) => {
-        e.target.scr = "/img/default_img.jpg";
-   }  
-
+   useEffect(() => {
+      commentAxios();
+   }, []);
 // 코멘트 리스트 끝 ///////////////
 	
 	//파일 선택 커스텀
@@ -122,6 +117,9 @@ const CommentCp = () => {
       imageInput.current.click();
      };
 
+	const handleImgError = (e) => {
+        e.target.scr = "/img/default_img.jpg";
+   }  
 	
 	return (
 		<>
@@ -131,7 +129,7 @@ const CommentCp = () => {
               <textarea
               	className="cmtContent"
                 rows="3"
-                cols="50"
+                cols="70"
                 onChange={onChangeContent}
                 name="comment_content"
                 id="commentContent"
