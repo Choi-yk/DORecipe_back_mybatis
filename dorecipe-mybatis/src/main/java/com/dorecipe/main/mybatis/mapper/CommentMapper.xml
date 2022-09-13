@@ -34,7 +34,7 @@
 			);
 	</insert>
  -->
-  	<delete id="deleteComment" parameterType="int">
+  	<delete id="deleteComment" parameterType="map">
 		delete from comment where recipe_num = #{recipe_num} and comment_num = #{comment_num}
 	</delete>
   	

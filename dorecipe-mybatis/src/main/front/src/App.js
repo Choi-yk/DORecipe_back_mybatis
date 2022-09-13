@@ -25,7 +25,7 @@ import CreateRecipePage from "./pages/createRecipePage";
 
 import LoginPage from "./pages/loginPage";
 import SearchRecipePage from "./pages/searchRecipePage";
-import RecipeDetailsPage from "./pages/recipeDetailsPage";
+import DetailRecipePage from "./pages/recipeDetailsPage";
 
 function App() {
   return (
@@ -60,7 +60,8 @@ function App() {
       <Route path={"/recipe/search/:searchId"} element={<SearchRecipePage />} />
       
       <Route path={"/recipe/create"} element={<CreateRecipePage />} />
-      <Route path={"/recipe/search/detail"} element={<RecipeDetailsPage />} />
+      <Route path={"/recipes/search/details/:recipeId"} element={<DetailRecipePage />} />
+            
     </Routes>
   );
 

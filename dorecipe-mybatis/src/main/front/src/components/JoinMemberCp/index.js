@@ -199,7 +199,7 @@ const SignUpTemplate = () => {
           }
         })
         .then(function () {
-          navigate("/member");
+          navigate("/join");
         });
     },
     [member_id]
