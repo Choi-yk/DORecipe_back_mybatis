@@ -55,11 +55,6 @@ public class RecipeService {
 	}
 	
 
-//	public int insertOrder(RecipeVO recipeVO) {
-//		return recipeDAO.insertOrder(recipeVO);
-//	}
-
-	
 	//레시피 수정
 	public int updateRecipe(RecipeVO recipeVO) {
 		return recipeDAO.updateRecipe(recipeVO);
@@ -93,6 +88,55 @@ public class RecipeService {
 	public List<RecipeVO> searchRecipe(String recipe_title) {
 		List<RecipeVO> serachList = recipeDAO.searchRecipe(recipe_title);
 		return serachList;
+	}
+
+	//레시피 상세 검색페이지
+	public List<RecipeVO> detailSearchRecipe(String category_kind,String category_theme,String category_way,String category_ing, int recipe_savetype) {
+		List<RecipeVO> searchResult = recipeDAO.detailSearchRecipe(category_kind,category_theme,category_way,category_ing,recipe_savetype);
+		return searchResult;
+	}
+
+	//상세 검색에 해당 되는 레시피 상세 페이지
+	public List<RecipeVO> showDetailSearchRecipe(Integer recipe_num) {
+		List<RecipeVO> searchResultDetails = recipeDAO.showDetailSearchRecipe(recipe_num);
+		return searchResultDetails;
+	}
+
+	//레시피 순서 크롤링한 거 넣기
+	public int insertRecipeOrderCheerio(RecipeVO recipeVO) {
+		return recipeDAO.insertRecipeOrderCheerio(recipeVO);
+		
+	}
+
+	//레시피 재료 크롤링한 거 넣기
+	public int insertRecipeIngredientsCheerio(RecipeVO recipeVO) {
+		return recipeDAO.insertRecipeIngredientsCheerio(recipeVO);
+		
+	}
+
+	//레시피 재료 리스트 (상세 페이지)
+	public List<RecipeVO> getIngredientList(Integer recipe_num) {
+		return recipeDAO.getIngredientList(recipe_num);
+	}
+
+	//좋아요 수 가져오기
+	public Integer getRecipeLikes(Integer recipe_num) {
+		return recipeDAO.getRecipeLikes(recipe_num);
+	}
+
+	//좋아요 취소하기
+	public Integer removeLikes(String param1, Integer param2) {
+		return recipeDAO.removeLikes(param1,param2);
+	}
+
+	//좋아요 추가하기
+	public Integer insertLikes(String param1, Integer param2, Integer param3) {
+		return recipeDAO.insertLikes(param1,param2,param3);
+	}
+
+	//좋아요한 멤버
+	public String getLikedMember(String param1, Integer param2) {
+		return recipeDAO.getLikedMember(param1,param2);
 	}
 
 

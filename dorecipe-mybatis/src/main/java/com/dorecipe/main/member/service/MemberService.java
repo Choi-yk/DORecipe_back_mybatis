@@ -20,4 +20,7 @@ public interface MemberService {
 
 	// 회원 상세 조회
 	public MemberVO listMemberDetails(String member_id) throws Exception;
+
+	//회원 아이디 중복 조회
+	public MemberVO CheckDuplicateId(String member_id) throws Exception;
 }

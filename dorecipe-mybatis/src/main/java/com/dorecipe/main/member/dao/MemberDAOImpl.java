@@ -79,5 +79,11 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.update("mapper.member.updateMember", memberVO);
 	}
 
+	@Override
+	public MemberVO checkDuplicateId(String member_id) throws Exception {
+		System.out.println("member_id "+member_id);
+		return sqlSession.selectOne("mapper.member.checkDuplicateId",member_id);
+	}
+
 
 }

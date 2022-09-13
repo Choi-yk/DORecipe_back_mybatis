@@ -43,6 +43,32 @@ public interface RecipeDAO {
 	//레시피 검색
 	List<RecipeVO> searchRecipe(String recipe_title);
 
+	//레시피 상세 검색
+	List<RecipeVO> detailSearchRecipe(String category_kind, String category_theme, String category_way,
+			String category_ing, int recipe_savetype);
+
+	//레시피 상세 검색 상세 레시피 보기
+	List<RecipeVO> showDetailSearchRecipe(Integer recipe_num);
+
+	//크롤링_재료 순서
+	int insertRecipeOrderCheerio(RecipeVO recipeVO);
+	
+	//크롤링_재료 
+	int insertRecipeIngredientsCheerio(RecipeVO recipeVO);
+
+	//상세 재료 가져오기
+	List<RecipeVO> getIngredientList(Integer recipe_num);
+
+	//레시피 좋아요 가져오기
+	Integer getRecipeLikes(Integer recipe_num);
+
+	//좋아요 삭제
+	Integer removeLikes(String param1, Integer param2);
+	//좋아요 추가
+	Integer insertLikes(String param1, Integer param2,Integer param3);
+	//좋아요한 멤버
+	String getLikedMember(String param1, Integer param2);
+
 
 
 

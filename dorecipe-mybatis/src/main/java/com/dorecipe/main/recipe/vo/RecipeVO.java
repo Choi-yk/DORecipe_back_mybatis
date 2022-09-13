@@ -52,6 +52,9 @@ public class RecipeVO {
 	private String comment_path;
 	private String comment_creDate;
 	
+	//레시피 좋아요 테이블
+	private int likes;
+	
 	
 	// 데이터 출력
 	@Override

@@ -20,11 +20,16 @@
 		select * from member
 	</select>
 	
+	
+	<select id="checkDuplicateId" resultType="com.dorecipe.main.member.vo.MemberVO" parameterType="String">
+		select member_id from member where member_id=#{member_id}
+	</select>
+	
 	<!-- 회원 정보 상세 조회 -->
 	<select id="selectAllMemberDetail" resultType="com.dorecipe.main.member.vo.MemberVO" parameterType="String">
 		select * from member where member_id=#{member_id}
 	</select>
-
+	
 	<update id="updateMember" parameterType="com.dorecipe.main.member.dao.MemberDAO" >
 		update member
 		set member_pwd=#{member_pwd},
@@ -34,6 +39,15 @@
 		member_imagePath=#{member_imagePath}
 		where member_id = #{member_id}
 	</update>
+	
+		<insert id="joinMember" parameterType="com.dorecipe.main.member.dao.MemberDAO">
+	 insert into member
+(member_id,member_pwd,member_name,member_email,member_gender,member_birth,member_phone,member_joinDate,member_role,member_imagePath)
+ values(#{member_id}, #{member_pwd}, #{member_name}, #{member_email},#{member_gender}, #{member_birth},#{member_phone},now(),"member", default);
+	
+	</insert>
+	
+	
 	
 	<insert id="insertMember" parameterType="com.dorecipe.main.member.dao.MemberDAO">
 	 insert into member

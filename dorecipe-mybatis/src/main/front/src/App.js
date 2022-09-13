@@ -24,7 +24,10 @@ import CreateRecipePage from "./pages/createRecipePage";
 
 import LoginPage from "./pages/loginPage";
 import SearchRecipePage from "./pages/searchRecipePage";
-import RecipeDetailsPage from "./pages/recipeDetailsPage";
+import DetailSearchPage from "./pages/detailSearchPage";
+import DetailRecipePage from "./pages/recipeDetailsPage";
+
+import Recipe from "./Recipe.js";
 
 function App() {
   return (
@@ -60,8 +63,16 @@ function App() {
       {/* 별도록 jwt설정해줘서 관리자로 로그인 시에만 접근하도록 하기 */}
       {/* <Route path="*" element={<div>없는 페이지임</div>} /> */}
       <Route path={"/recipe/create"} element={<CreateRecipePage />} />
-      <Route path={"/recipe/search/detail"} element={<RecipeDetailsPage />} />
-      <Route path={"/recipe/search/:searchId"} element={<SearchRecipePage />} />
+      <Route path={"/recipes/search"} element={<DetailSearchPage />} />
+      <Route
+        path={"/recipes/search/details/:recipeId"}
+        element={<DetailRecipePage />}
+      />
+      <Route
+        path={"/recipe/search/:searchId"}
+        component={Recipe}
+        element={<SearchRecipePage />}
+      />
     </Routes>
   );
 

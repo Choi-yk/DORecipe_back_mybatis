@@ -1,13 +1,13 @@
 import MainLayout from "../../layout/mainLayOut";
-import RecipeDetails from "../../components/RecipeDetailCp";
+import RecipeDetailModal from "../../components/RecipeDetailCp/recipeDetail";
 
-const RecipeDetailsPage = () => {
+const DetailRecipePage = () => {
   return (
     <>
       <MainLayout>
-        <RecipeDetails />
+        <RecipeDetailModal />
       </MainLayout>
     </>
   );
 };
-export default RecipeDetailsPage;
+export default DetailRecipePage;

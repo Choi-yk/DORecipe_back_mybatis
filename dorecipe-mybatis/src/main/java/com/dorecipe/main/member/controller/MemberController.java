@@ -95,10 +95,11 @@ public class MemberController {
 	
 	
 	// 회원 등록(가입)
-	@GetMapping("/join")
-	public String Join() throws Exception {
-		return "member_form";
-	}
+//	@GetMapping("/join")
+//	public String Join() throws Exception {
+//	
+//		return "member_form";
+//	}
 	
 	
 	
@@ -152,9 +153,18 @@ public class MemberController {
 //    }
 //    
     
+	
+	//중복 아이디 체크
+	@PostMapping("/join/checkDuplicateId")
+	public MemberVO checkDuplicateId(String member_id) throws Exception{
+		System.out.println("duplicate~~ :"+memberService.CheckDuplicateId(member_id));	
+		return memberService.CheckDuplicateId(member_id);
+	}
+	
+
     
 	//원본///////////////////////////////////////////
-	@PostMapping("/join")
+	@PostMapping("/join/new")
 	public String Join(MemberVO memberVO /*Model model, HttpServletRequest request*/) throws Exception {
 		//MemberVO memberVO = (MemberVO) request.getParameterMap();
 		
