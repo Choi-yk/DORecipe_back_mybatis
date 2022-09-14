@@ -9,7 +9,7 @@ const EventList = ({ removePost, state }) => {
     if(month < 10){
       month = String("0" + month);
     }
-    let date = today.getDate()+7;
+    let date = today.getDate();
     let day = String(year + "-" + month + "-" + date);
     console.log(state.event_finDate);
     console.log(day);
@@ -44,7 +44,6 @@ const EventList = ({ removePost, state }) => {
           <span className="deleteList" onClick={removePostOnclick}>
             삭제
           </span>
-          {/* <button type="button" onClick={getDate}>이거</button> */}
         </div>
       </li>
     </>
