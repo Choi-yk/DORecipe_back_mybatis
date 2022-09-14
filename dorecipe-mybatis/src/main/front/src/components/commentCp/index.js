@@ -143,7 +143,7 @@ const CommentCp = () => {
                   ref={imageInput}
                   onChange={onLoadCommentFile}
                 />
-              <button className="cmtBtn" onClick={onClickImageUpload}>코멘트 사진 등록</button>
+              <button className="cmtBtn" onClick={onClickImageUpload}>코멘트사진</button>
             <button type="button"
 		        className="insertCmt"
 		        onClick={insertComment}
@@ -154,18 +154,30 @@ const CommentCp = () => {
 		   	
 		   	<div className="commentDiv">
 		       {commentState.map((cmt,index)=>{
+				
+				if(cmt.comment_path !== ""){
+					
+				}
+				
                return (
                 <>                
                   <div className="cmtDiv">
                      <div key={index}>
+                     	<div className="divLine"><hr/></div>
                         <div className="idDateCon">
-                        <span name="member_id" className="memberName">{cmt.member_id}</span>
-                        <span name="comment_creDate" className="comDate">{cmt.comment_creDate}</span>
-                      </div>
+                        	<span name="member_id" className="memberName">{cmt.member_id}</span>
+                        	<span name="comment_creDate" className="comDate">{cmt.comment_creDate}</span>
+                      	</div>
                       {/*<button type="button" className="deleteCmt" onClick={deleteComment}>삭제</button>*/}
-                      <span><div name="comment_content" className="comCont">{cmt.comment_content}</div></span>
-                      <img className="comImg" src={cmt.comment_path} alt={cmt.comment_path} onError={handleImgError}></img>
-                        <div className="divLine"><hr/></div>
+                      	<span><div name="comment_content" className="comCont">{cmt.comment_content}</div></span>
+                      {
+						cmt.comment_path !== ""
+                      	? <img className="comImg" 
+                      		src={cmt.comment_path} 
+                      		alt={cmt.comment_path} 
+                      		onError={handleImgError}></img>
+                      	:null
+                      }
                      </div>
                   </div>
                   </>

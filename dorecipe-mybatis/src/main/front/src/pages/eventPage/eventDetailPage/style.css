@@ -20,3 +20,7 @@ h2 {
 .disBlock{
   display: block;
 }
+.eventImg{
+  width: 70em;
+  height: 80em;
+}

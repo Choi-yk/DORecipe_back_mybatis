@@ -94,7 +94,7 @@ public class RecipeFileUpload {
 			String uploadDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 			String recipe_steps_path = "/img/recipe/steps/"+ uploadDate + "/"+uuid+"_"+originalName;
 			System.out.println("db저장 경로: " +recipe_steps_path);
-	
+			recipeVO.setOrder_path(recipe_steps_path);
 			try {
 				uploadFile.transferTo(saveStepImgsPath);
 			} catch (IOException e) {
@@ -109,8 +109,6 @@ public class RecipeFileUpload {
 		for(MultipartFile uploadFile:uploadFiles) {
 			String originalName = uploadFile.getOriginalFilename();	//클라이언트의 이미지 퍼일명
 			System.out.println("originalName:"+ originalName);
-			String fileName =originalName.substring(originalName.lastIndexOf("//")+1);	//마지막 //뒤의 파일이름가져오기
-			System.out.println("fileName:"+ fileName);
 			
 			//날짜폴더
 			String folderPath = makeFolder();
@@ -125,6 +123,12 @@ public class RecipeFileUpload {
 			String uploadDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 			String recipe_completed_path = "/img/recipe/completed/"+ uploadDate + "/"+uuid+"_"+originalName;
 			
+			////////////////////////////////////수정해야함////////////////////////////////////////////////
+//현재 디비에 1개의 이미지만 중복으로 들어감 ㅜㅜ
+			recipeVO.setCompletion_path1(recipe_completed_path);
+			recipeVO.setCompletion_path2(recipe_completed_path);
+			recipeVO.setCompletion_path3(recipe_completed_path);
+			recipeVO.setCompletion_path4(recipe_completed_path);
 			System.out.println("db저장 경로: " +recipe_completed_path);
 			
 			try {

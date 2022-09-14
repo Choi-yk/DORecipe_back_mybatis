@@ -26,52 +26,95 @@ export const DropZone = ({
   completion_path3,
   completion_path4,
 
-  setFiles1,
-  setFiles2,
-  setFiles3,
-  setFiles4,
+  setPath1,
+  setPath2,
+  setPath3,
+  setPath4,
 }) => {
-  useDropzone({
-    multiple: true,
-  });
+  // useDropzone({
+  //   multiple: true,
+  // });
 
   // drop handler
   const onDropHandler = useCallback(
     (files) => {
-      const reader = new FileReader();
       files.forEach((file) => {
+        const reader = new FileReader();
         reader.onabort = () => console.log("파일 읽기 취소");
         reader.onerror = () => console.log("파일 읽기 실패");
         reader.readAsDataURL(file);
         console.log("readAsDataURL", file);
         console.log("readAsDataURL", file.name);
 
+        //썸네일 이미지 설정일때
         if (thumbnailDropState === "thumbnailDrop") {
           setRecipeThumbnail(file.name);
         }
 
+        //순서 이미지 설정일때
         if (stepDropState === "stepDrop") {
           const copy_recipe_imgs_steps = [...recipe_imgs_steps];
           copy_recipe_imgs_steps.concat(file.name);
           console.log("recipe_imgs_steps", recipe_imgs_steps);
         }
+
+        //완성 이미지 설정일때
+        if (completionDropState === "completionDropState") {
+          switch (files.length) {
+            case 1:
+              setPath1(files[0].name);
+              return;
+            case 2:
+              setPath1(files[1].name);
+              setPath2(files[0].name);
+              return;
+            case 3:
+              setPath1(files[2].name);
+              setPath2(files[1].name);
+              setPath3(files[0].name);
+              return;
+            case 4:
+              setPath1(files[3].name);
+              setPath2(files[2].name);
+              setPath3(files[1].name);
+              setPath4(files[0].name);
+              return;
+            default:
+              return;
+          }
+        }
       });
-      console.log("files~~~", files);
+      if (completionDropState === "completionDropState") {
+        if (files.length > 4) {
+          alert("완성 사진은 최대 4개 업로드 가능합니다.");
+          return;
+        } else {
+          switch (files.length) {
+            case 1:
+              setRecipeImgFiles([files[0]]);
+              break;
+            case 2:
+              setRecipeImgFiles([files[0], files[1]]);
+              break;
+            case 3:
+              setRecipeImgFiles([files[0], files[1], files[2]]);
+              break;
+            case 4:
+              setRecipeImgFiles([files[0], files[1], files[2], files[3]]);
+              break;
+            default:
+              return;
+          }
 
-      if (stepDropState === "stepDrop") {
-        // setRecipe_imgs_steps(files[1]);
-
-        console.log("files[0]", files[0]);
-
-        setFiles(
-          files.map((file) =>
-            Object.assign(file, {
-              preview: URL.createObjectURL(file),
-            })
-          )
-        );
+          setFiles(
+            files.map((file) =>
+              Object.assign(file, {
+                preview: URL.createObjectURL(file),
+              })
+            )
+          );
+        }
       }
-
       if (thumbnailDropState === "thumbnailDrop") {
         setRecipeImgFiles(files[0]);
         setFiles(
@@ -91,6 +134,8 @@ export const DropZone = ({
     (preview) => {
       const deleteFiles = files.filter((v) => v.preview !== preview);
       setFiles(deleteFiles);
+      setRecipeImgFiles(deleteFiles);
+      console.log("deleted", deleteFiles);
     },
     [files]
   );

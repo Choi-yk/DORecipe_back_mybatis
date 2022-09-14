@@ -3,11 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dorecipe.main.recipe.dao.RecipeDAO">
-<!-- 
-	<resultMap type="com.dorecipe.main.recipe.vo.RecipeVO" id="RecipeMap">
-		<result column="member_id" property="com.dorecipe.main.member.vo.MemberVO.member_id" />
-	</resultMap>
- -->
+
 	<!-- 저장한 레시피목록 - savetype=0 -->
 	<select id="getList" resultType="com.dorecipe.main.recipe.vo.RecipeVO">
 		select * from recipe where recipe_savetype=0 order by recipe_num desc
@@ -34,22 +30,12 @@
       where r.recipe_num = #{recipe_num}
   	</select>
   	
-  	<!-- 코멘트 조회 -->
-	<select id="getComment" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="int">
-	  select * from comment where recipe_num=#{recipe_num} order by comment_num desc
+  	<!--재료 가져오기 -->	
+  	<select id="getIngredientList" resultType="com.dorecipe.main.recipe.vo.RecipeVO" parameterType="int">
+      SELECT * from r_ingredient where recipe_num = #{recipe_num}	
   	</select>
+
   	
-  	<!-- 레시피 등록 test 
-  	<insert id="insertRecipe" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
-  		insert into recipe
-  		values(null, #{recipe_title}, 0, #{recipe_introduce}, #{recipe_url}, "이미지", #{recipe_tag},
-  		#{category_kind}, #{category_theme}, #{category_way}, #{category_ing}, #{information_person}, #{information_time}, #{information_level},
-  		"완성1", "완성2", "완성3", "완성4", "팁",
-  		now(), #{member_id})
-  		
-  	</insert>-->
-
-
  	<!-- 레시피 등록 test -->
   	<insert id="recipeTemporarySave" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">		
   		insert into recipe
@@ -67,20 +53,6 @@
 	   select recipe_num from recipe where member_id=#{member_id} order by recipe_num desc limit 1;
   	</select>
 
-  	<!--
-  	<insert id="insertBundle" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
-  	insert into b_ingredient values(#{recipe_num},#{bundle_num},#{ing_num}, #{ing_ingredient},#{ing_amount});
-  	</insert>
-  	
-  	 	<insert id="insertBundle" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
-  	insert into b_ingredient values(#{bundle_num},#{ing_num}, #{ing_ingredient},#{ing_amount});
-  	</insert>
-  	
-    <insert id="insertBundleIngredients" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
-  	insert into b_ingredient values(#{recipe_num}, #{bundle_num},#{ing_num}, #{ing_ingredient}, #{ing_amount});
-  	</insert>
-  	-->
-
 	
   	<!--재료 순서 등록-->
     <insert id="insertRecipeOrder" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
@@ -92,6 +64,13 @@
   	</insert>
   	
  
+   	<!--재료 순서 등록 크롤링한 거-->
+    <insert id="insertRecipeOrderCheerio" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  	insert into r_order(recipe_num,order_num,order_explain,order_path) values
+  	(#{recipe_num}, #{order_num},#{order_explain}, #{order_path});
+  	</insert>
+ 
+ 	<!--재료 등록 크롤링한 거-->
     <insert id="insertRecipeIngredients" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
   	insert into r_ingredient(recipe_num,ing_num,ing_ingredient,ing_amount) values
   	<foreach collection="orderVoList" item="item" separator=",">
@@ -100,18 +79,12 @@
   	;
   	</insert>
   	
-  	<!--재료 등록	 
-  	   <insert id="insertRecipeIngredients" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  	
+  	<!--재료 등록 크롤링한 거-->
+    <insert id="insertRecipeIngredientsCheerio" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
   	insert into r_ingredient(recipe_num,ing_num,ing_ingredient,ing_amount) values
-  	
-  	(#{recipe_num}, #{ing_num},#{ing_ingredient}, #{ing_amount})
-  	
-  	;
-  	</insert>-->
-  	
-<!-- 원본 <insert id="insertRecipeOrder" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
-  	insert into r_order values(#{recipe_num}, #{order_num},#{order_explain}, #{order_path});
-  	</insert>-->   
+  	(#{recipe_num}, #{ing_num},#{ing_ingredient}, #{ing_amount});
+  	</insert>
   	
   	
   	<!-- 레시피 수정 -->
@@ -143,16 +116,15 @@
   	</update>
   	
   	<!-- 레시피 완성 임시저장 -->
-  	<update id="insertRecipeComplete" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  	<update id="insertRecipeComplete" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO" >
   		update recipe 
   		set
   		recipe_savetype = 1,  		
-  		recipe_imgs_completed = #{recipe_imgs_completed},
   		completion_path1 = #{completion_path1},
   		completion_path2 = #{completion_path2},
   		completion_path3 = #{completion_path3},
   		completion_path4 = #{completion_path4},
-  		completion_tip = #{completion_tip},
+  		completion_tip = #{completion_tip}
   		where recipe_num = #{recipe_num}; 			
   	</update>
 
@@ -175,15 +147,16 @@
   	</delete>
   	
 	<!-- 레시피 검색 -->
-	<select id="searchRecipe" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="String">
+	<select id="searchRecipe" resultType="com.dorecipe.main.recipe.vo.RecipeVO"  parameterType="String">
 	  select * from recipe
 	  where 
-	  recipe_savetype = 0
+	  recipe_savetype = 1
 	  and
 	  recipe_title like concat('%',#{recipe_title},'%')
 	  order by recipe_num desc
   	</select>
   	
+
   	<!-- 마이페이지 작성한 레시피 목록 savetype 0 -->
      <select id="recordCompleteRecipe" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="String">
      <!--select count(*) as c_total, m.member_id, r.recipe_title, r.recipe_rpath, r.information_level, r.information_time
@@ -201,5 +174,87 @@
       on m.member_id = #{member_id} and r.recipe_savetype = 1 -->
       select * from recipe where recipe_savetype=1 and member_id=#{member_id} order by recipe_num desc
      </select>
+
+	<!-- 레시피 상세 검색 -->
+	<select id="detailSearchRecipe" resultType="com.dorecipe.main.recipe.vo.RecipeVO"  parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+	  select * from recipe
+	  where 
+	  category_kind = #{param1} and
+	  category_theme = #{param2} and
+	  category_way = #{param3} and
+	  category_ing = #{param4} and
+	  recipe_savetype = #{param5}
+	  order by recipe_num desc
+  	</select>
+  	  	
+	<!-- 레시피 상세 검색 -->
+	<select id="showDetailSearchRecipe" resultType="com.dorecipe.main.recipe.vo.RecipeVO"  parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+	  select member.member_id , member.member_imagePath, recipe.recipe_num,recipe_title, recipe_savetype, recipe_url, recipe_rpath, 
+	  information_person,information_level, information_time,recipe_introduce,
+	  completion_path1, completion_path2, completion_path3,completion_path4,completion_tip, 
+	  order_num,order_explain,order_path,
+	  recipe_creDate 
+	  from member right outer join 
+	  recipe 
+	  on 
+	  recipe.member_id= member.member_id 
+	  left outer join r_order
+	  on r_order.recipe_num=recipe.recipe_num
+	  where 
+	  recipe.recipe_num=#{recipe_num}
+	  group by order_num 
+	  order by order_num asc;
+  	</select>
+  	
+	<!-- 레시피 상세 검색 
+	<select id="showDetailSearchRecipe" resultType="com.dorecipe.main.recipe.vo.RecipeVO"  parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
 	
+	  select * from recipe where recipe_num=#{recipe_num}
+  	</select>-->
+  	
+  	
+  	<!-- 레시피 코멘트-->
+  	
+  	<!-- 코멘트 조회 -->
+	<select id="getComment" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="int">
+	  select * from comment where recipe_num=#{recipe_num} order by comment_num desc;
+  	</select>
+  	
+  	<insert id="recipeComment" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">		
+		insert into comment 
+		values(#{recipe_num},#{comment_num},#{comment_content},#{comment_path},#{member_id},now());
+  	</insert>
+  	
+  	 <delete id="deleteComment" parameterType="int">
+  		delete from comment
+  		where comment_num=#{comment_num};	
+  	 </delete>
+  	
+  	<update id="updateComment">
+  		update comment 
+  		set 
+  		comment_content = #{comment_content} ,
+  		comment_path = #{comment_path}
+  		where comment_num = #{comment_num};			
+  	</update>
+  	  	<!--레시피 좋아요-->
+  	<select id="getRecipeLikes" resultType="Integer"   parameterType="Integer">
+	  select sum(likes) as r_like from r_like where recipe_num=#{recipe_num};
+  	</select>
+  	
+	<!--레시피 좋아요 한 적 있는 지 -->
+  	<select id="getLikedMember" resultType="String"  parameterType="com.dorecipe.main.recipe.dao.RecipeDAO" >
+	   select member_id from r_like 
+	   where recipe_num = #{param1} and recipe_num =#{param2};
+  	</select>  	
+  	
+  	<insert id="insertLikes" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">		
+		insert into r_like values(#{param1},#{param2},#{param3});
+  	</insert>
+  	
+  	<delete id="removeLikes" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO" >
+  		delete from r_like 
+  		where member_id=#{param1} and recipe_num=#{param2};	
+  	</delete>
+
 </mapper>
