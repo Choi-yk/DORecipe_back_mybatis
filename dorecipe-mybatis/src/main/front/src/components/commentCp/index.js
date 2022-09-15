@@ -4,7 +4,9 @@ import "../../style/bootstrap.min.css";
 import axios from "axios";
 import { useInput } from "../../hooks/useInput";
 import { Link,useParams } from "react-router-dom";
+import {} from "../../components/RecipeDetailCp/style";
 import styled from "styled-components";
+//import {RecipeWrap} from "../../components/RecipeDetailCp/recipeDetail";
 
 //레시피 상세 페이지 아래에 위치할 코멘트 등록
 //코멘트 등록, 삭제
@@ -66,7 +68,7 @@ const CommentCp = () => {
 	},[comment_content,comment_path]);
 	
 	//파일 files에 넣기
-	const [CommentFiles, setFiles] = useState("");
+	const [CommentFiles, setFiles] = useState('');
 	const onLoadCommentFile = (e) => {
 	    //이미지명 담기
 	    onChangeCommentPath(e);
@@ -74,9 +76,11 @@ const CommentCp = () => {
 	    const file = e.target.files;
 	    setFiles(file);
 	};
+	//업로드할 사진 미리보기
 	
-// 코멘트 리스트 ///////////////////
-		
+	
+	
+	// 코멘트 리스트 ///////////////////	
 	const [commentState, setCommentState] = useState([
 		{
 			recipe_num: recipeId,
@@ -122,14 +126,16 @@ const CommentCp = () => {
    }  
 	
 	return (
-		<>
+		<>	
+			<CommentWrap>
 			<div className="commentDiv">
-			<h5 className="comh3">| Comment</h5>
+			<div className="cmtTitle"><span className="comh3">코멘트 </span>Comment</div>
+			<hr/>
             <div className="cmtForm">  
               <textarea
               	className="cmtContent"
                 rows="3"
-                cols="70"
+                cols="65"
                 onChange={onChangeContent}
                 name="comment_content"
                 id="commentContent"
@@ -144,11 +150,12 @@ const CommentCp = () => {
                   onChange={onLoadCommentFile}
                 />
               <button className="cmtBtn" onClick={onClickImageUpload}>코멘트사진</button>
-            <button type="button"
+              <div className="insertBtn">
+              <button type="button"
 		        className="insertCmt"
 		        onClick={insertComment}
 		        disabled={error}
-		      >등록</button>
+		      >등록</button></div>
 		   	</div>
 		   	</div>
 		   	
@@ -185,9 +192,32 @@ const CommentCp = () => {
                })}
 
       		</div>
-   
+   			</CommentWrap>
    		</>
    		
    	);
 };
+
+const CommentWrap = styled.div`
+  margin: 0 auto;
+  max-width: 40em;
+  & .instructionWrap {
+    & hr {
+      margin: 0.5em 0;
+      margin-bottom: 1em;
+    }
+    & .accented {
+      font-size: 1.1em;
+      font-weight: 700;
+    }
+  }
+  & div .accented {
+    font-size: 1.1em;
+    font-weight: 700;
+  }
+  & div .clickable {
+    cursor: pointer;
+  }
+`;
+
 export default CommentCp;
