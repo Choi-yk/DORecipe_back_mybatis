@@ -1,14 +1,18 @@
 import { useCallback, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import styled from "styled-components";
+import { SubmitRecipeBtn } from "../../_common/buttons";
+
 import { useInput } from "../../../hooks/useInput";
 
 
 const MemberInfoForm = () => {
 
     let { memberId } = useParams();
+
+    const navigate = useNavigate();
 
     // 수정 useInput
     let [member_email, onChangeMemberEmail, setMemberEmail] = useInput("");
@@ -135,34 +139,44 @@ const MemberInfoForm = () => {
     },[memberId]);
 
     // 멤버 탈퇴
-    const removeHandler = useCallback(() => {
+    const removeHandler = () => {
         // const removeState = memberState.filter((item) => item.member_id !== memberId);
         // setMemberState(removeState);
-        
-        // if(window.confirm("정말 탈퇴하시겠습니까?")) {
-            // axios
-            // .get(`http://localhost:9000/member/info/delete/${memberId}`)
-            // .then((data) => {
-            //     console.log(data);
-            //     console.log(data.member_id);
-            //     window.location.href = "http://localhost:3000/member/info/"+memberId;
-            // });
-        // }
-        // else
-        //     alert("취소되었습니다.");
-          
-    });
+
+        if(window.confirm("정말 탈퇴하시겠습니까?")) {
+            axios
+            .get(`http://localhost:9000/member/info/delete/${memberId}`,
+            {
+                data: {
+                    member_id: memberId
+                }
+            })
+            .then((data) => {
+                console.log(data);
+                alert("탈퇴되었습니다.");
+                navigate("/");
+                // window.href.location="/"; // 왜 안가는거야?
+            });
+            
+        }
+        else {
+            alert("취소되었습니다.");
+            navigate("/member/info/"+memberId);
+        }
+            
+
+    };
  
 
     return(
         <>
         {/* 회원 정보 */}
-        <form className="myPage-box1">
+        <form className="container-sm myPage-box1 center">
             <SectionTitle>회원 정보</SectionTitle>
-            <div className="center">
-                <button onChange={onChangeMemberImg}>
+            <div className="">
+                {/* <button onChange={onChangeMemberImg}> */}
                     <img className="rounded-circle profileImage" src="/img/profileImage.png" alt="프로필 임시 이미지" />
-                </button>
+                {/* </button> */}
                 {/* src={memberState.member_imagePath} */}
                 {/* <div className="mt-5 imgPreview">
                     <input
@@ -175,7 +189,7 @@ const MemberInfoForm = () => {
                 </div> */}
                 
             </div>
-            <div className="memberInfo">
+            <div className="">
                 <div>
                     <span className="columnName">아이디</span>
                     <span name="member_id">{memberState.member_id}</span>
@@ -206,29 +220,39 @@ const MemberInfoForm = () => {
                 </div>
                 <div>
                     <span className="columnName">휴대폰 번호</span>
-                    <input type="text" name="member_phone"
+                    <input className="" type="text" name="member_phone"
                         defaultValue={memberState.member_phone} 
-                        onChange={onChangeMemberPhone} />
+                        onChange={onChangeMemberPhone}
+                        style={{ width: "20em"}} />
                 </div>
                 <div>
                     <span className="columnName">이메일 주소</span>
-                    <input type="text" name="member_email"
+                    <input className="" center type="text" name="member_email"
                         defaultValue={memberState.member_email}
-                        onChange={onChangeMemberEmail} />
+                        onChange={onChangeMemberEmail}
+                        style={{ width: "20em"}} />
                 </div>
             </div>
             <div>
                 <ul>
                     <li>
-                        <Link to="/">
-                            <button>취소</button>
+                        <Link to="/" style={{ textDecoration: "none" }}>
+                            <SubmitRecipeBtn>
+                                취소
+                            </SubmitRecipeBtn>
                         </Link>
                     </li>
                     <li>
-                        <button type="button" onClick={modHandler}>수정</button>
+                        <SubmitRecipeBtn onClick={modHandler}>
+                            수정하기
+                        </SubmitRecipeBtn>
+                        {/* <button type="button" onClick={modHandler}>수정</button> */}
                     </li>
                     <li>
-                        <button type="button" onClick={removeHandler}>탈퇴하기</button>
+                        <SubmitRecipeBtn onClick={removeHandler}>
+                            탈퇴하기
+                        </SubmitRecipeBtn>
+                        {/* <button type="button" onClick={removeHandler}>탈퇴하기</button> */}
                     </li>
                 </ul>
                 {/* 버튼 임시
@@ -253,7 +277,7 @@ export default MemberInfoForm;
 const SectionTitle = styled.div`
   background-color: #8d3232;
   display: inline-block;
-  width: 90%;
+  width:90%;
   margin: 1em 3em;
   color: #fffdf5;
   height: 2.4em;

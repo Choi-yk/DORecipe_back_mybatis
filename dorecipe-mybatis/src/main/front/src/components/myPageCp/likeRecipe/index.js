@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 import styled from "styled-components";
+import NullRecipe from "../nullRecipeList";
 
 
 const LikeRecipeList = () => {
@@ -23,15 +24,15 @@ const LikeRecipeList = () => {
         }
     ]);
 
-    function testAxios() {
+    function Axios() {
         axios({
-            url: "/recipe/like/"+memberId,
+            url: "member/info/like/"+memberId,
             method: "get",
             data: {
                 recipe_num: 0,
                 recipe_title: "",
                 recipe_rpath: "",
-                recipe_savetype: 1,
+                recipe_savetype: 0,
                 information_level: "",
                 information_time: ""
             },
@@ -43,22 +44,47 @@ const LikeRecipeList = () => {
     }
 
     useEffect(() => {
-        testAxios();
+        Axios();
     }, []);
 
     return(
         <>
         {/* 좋아요한 레시피 */}
-        <div className="myPage-box2">
+        <div className="container-sm myPage-box2 center">
             <div>
                 <SectionTitle>
                     좋아요한 레시피
                     <span className="likeRecipeTotal">
-                        <FontAwesomeIcon icon={faHeart} className="heart" />
-                        총 n개
+                        {/* <FontAwesomeIcon icon={faHeart} className="heart" /> */}
+                        총 {likeState.length}개
                     </span>
                 </SectionTitle>
-                <LikeRecipeList />
+                <Scrollable>
+                    <div>
+                        {
+                            likeState.length !== 0
+                            ?
+                            likeState.map((e) => (
+                                <LikeRecipeList
+                                    likeState={e}
+                                />
+                            ))
+                            :
+                            <NullRecipe />
+                        }
+                    </div>
+                </Scrollable>
+                {/* {
+                    likeState.length !== 0
+                    ?
+                    likeState.map((e) => (
+                        <LikeRecipeList
+                            likeState={e}
+                        />
+                    ))
+                    :
+                    <NullRecipe />
+                } */}
             </div>
         </div>
         </>
@@ -78,4 +104,29 @@ const SectionTitle = styled.div`
   font-weight: 700;
   padding: 0.5em 0;
   padding-left: 0.5em;
+  text-align: center;
+`;
+
+const Scrollable = styled.section`
+  width: 100%;
+  margin: 1em auto;
+
+  & > div {
+    padding: 2rem;
+    height: 27em;
+    overflow-y: auto;
+    margin: 0 auto;
+
+    ::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+    ::-webkit-scrollbar-thumb {
+      height: 30%;
+      background-color: #463635;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: #fffdf5;
+      border: 1px solid #463635;
+    }
+  }
 `;
