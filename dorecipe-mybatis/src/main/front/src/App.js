@@ -89,6 +89,7 @@ function App() {
         path={"/recipes/search/details/:recipeId"}
         element={<DetailRecipePage />}
       />
+            
     </Routes>
   );
 
