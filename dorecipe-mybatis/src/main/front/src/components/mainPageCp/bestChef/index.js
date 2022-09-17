@@ -54,7 +54,7 @@ const BestChef = () => {
               return (
                 <>
                   {" "}
-                  <BestChefWrap key={e}>
+                  <BestChefWrap key={e.member_rank}>
                     <ChefRank>{e.member_rank}</ChefRank>{" "}
                     {e.member_imagePath === null ? (
                       <ProfileImg />

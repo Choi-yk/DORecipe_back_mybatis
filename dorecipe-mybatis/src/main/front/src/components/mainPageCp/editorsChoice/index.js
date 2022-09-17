@@ -84,19 +84,24 @@ const EditorsChoiceSection = () => {
           {state.map((e) => {
             return (
               <>
-                <SwiperSlide className="slide1">
+                <SwiperSlide className="slide1" key={e.recipe_rank}>
                   <Link to={`notice/${e.recipe_name}`} className="links">
-                    <RecipeWrap key={e}>
+                    {/* <RecipeWrap key={e}> */}
+                    <RecipeWrap >
                       {/* <RecipeRank>{e.recipe_rank}</RecipeRank>{" "} */}
-                      <RecipeImg>
+                      <RecipeImg key={e.recipeImg}>
                         <img
                           className="bannerimg"
                           src={e.recipeImg}
                           alt="bannerimg"
                         ></img>
                       </RecipeImg>
-                      <div className="recipe_name">{e.recipe_name}</div>
-                      <div className="user_name">{e.user_name}</div>
+                      <div className="recipe_name" key={e.recipe_name}>
+                        {e.recipe_name}
+                      </div>
+                      <div className="user_name" key={e.user_name}>
+                        {e.user_name}
+                      </div>
                     </RecipeWrap>
                   </Link>
                 </SwiperSlide>

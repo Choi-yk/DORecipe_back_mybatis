@@ -122,14 +122,19 @@ function App() {
   };
   // const { currentUser, showModeratorBoard, showAdminBoard } = user.state;
   const { currentUser, showModeratorBoard, showAdminBoard } = user;
-  console.log("currentUser", currentUser);
+  // console.log("currentUser", currentUser);
   return (
     <Routes history={history}>
-      <Route path={"/notice/list"} element={<NoticePage />} />
-      <Route path={"/notice/detail/:noticeId"} element={<NoticeDetailPage />} />
+      <Route path={"/notice/list"} element={<NoticePage />} user={user} />
+
+      <Route
+        path={"/notice/detail/:noticeId"}
+        element={<NoticeDetailPage />}
+        user={user}
+      />
       <Route path={"/notice/update/:noticeId"} element={<NoticeUpdatePage />} />
 
-      <Route path={"/knowhow/list"} element={<KnowhowPage />} />
+      <Route path={"/knowhow/list"} element={<KnowhowPage />} user={user} />
       <Route
         path={"/knowhow/detail/:knowhowId"}
         element={<KnowhowDetailPage />}
@@ -184,7 +189,6 @@ function App() {
         element={<DetailRecipePage />}
       />
       <Route path={"/*"} element={<NotFoundPage />} />
-
     </Routes>
   );
 }

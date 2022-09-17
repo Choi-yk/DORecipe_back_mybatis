@@ -7,8 +7,19 @@ import { useInput } from "../../hooks/useInput";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+// import UserService from "../../reduxRefresh/services/userService";
+import UserService from "../../reduxRefresh/services/userService";
+import EventBus from "../../reduxRefresh/common";
+import { useSelector } from "react-redux";
+
 const RegistPosts = () => {
   let [tap, setTap] = useState(0);
+
+  // useEffect(() => {
+  //   UserService.getAdminBoard().then((response) => {
+  //     console.log(response);
+  //   });
+  // });
 
   return (
     <>

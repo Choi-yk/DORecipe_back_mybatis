@@ -82,7 +82,7 @@ const BestRecipe = () => {
               return (
                 <>
                   {" "}
-                  <Link to={`recipe/${e.recipe_name}`} className="links">
+                  <Link to={`recipe/${e.recipe_rank}`} className="links">
                     <RecipeWrap key={e}>
                       <RecipeRank>{e.recipe_rank}</RecipeRank>{" "}
                       <RecipeImg>

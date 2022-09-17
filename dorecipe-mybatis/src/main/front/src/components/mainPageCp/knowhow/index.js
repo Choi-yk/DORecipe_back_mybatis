@@ -12,35 +12,35 @@ const KnowhowMain = () => {
 
   const [state, setState] = useState([
     {
-        know_num: 0,
+      know_num: 0,
+      know_title: "",
+      know_content: "",
+      know_creDate: "",
+      know_path: "",
+    },
+  ]);
+
+  function testAxios() {
+    axios({
+      url: "/knowhow/list",
+      method: "get",
+      data: {
+        know_num: "",
         know_title: "",
         know_content: "",
         know_creDate: "",
-        know_path: ""
-    }]);
+        know_path: "",
+      },
+      baseURL: "http://localhost:9000",
+    }).then(function (response) {
+      console.log(response.data);
+      setState(response.data);
+    });
+  }
 
-    function testAxios() {
-        axios({
-          url: "/knowhow/list",
-          method: "get",
-          data: {
-            know_num: "",
-            know_title: "",
-            know_content: "",
-            know_creDate: "",
-            know_path: ""
-          },
-          baseURL: "http://localhost:9000",
-        }).then(function (response) {
-          console.log(response.data);
-          setState(response.data);
-        });
-    }
-
-    useEffect(() => {
-        testAxios();
-    }, []);
-  
+  useEffect(() => {
+    testAxios();
+  }, []);
 
   return (
     <>
@@ -51,9 +51,9 @@ const KnowhowMain = () => {
           {state.map((e) => {
             return (
               <>
-                <SwiperSlide className="slide1">
+                <SwiperSlide className="slide1" key={e.know_num}>
                   <Link to={`knowhow/detail/${e.know_num}`} className="links">
-                    <RecipeWrap key={e}>
+                    <RecipeWrap>
                       {/* <RecipeRank>{e.recipe_rank}</RecipeRank>{" "} */}
                       <RecipeImg>
                         <img
@@ -103,7 +103,7 @@ const RecipeImg = styled.div`
   & > img {
     // width: 15em;
     width: 300px;
-    height 200px;
+    height: 200px;
     padding-bottom: 0.5em;
     object-fit: cover;
   }

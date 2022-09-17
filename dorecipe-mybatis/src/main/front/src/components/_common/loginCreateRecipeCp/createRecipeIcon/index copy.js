@@ -1,48 +1,55 @@
 import { useNavigate, Link } from "react-router-dom";
-import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
 import OverlayTrigger from "react-bootstrap/esm/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
+import "./style.css";
+import { useSelector } from "react-redux";
 
-const CreateRecipeIcon = ({ userState }) => {
-  //로그인된 상태에서만 레시피 작성가능
-  /**로그인 구현 안돼서 임시로 테스트, true==로그인*/
-  // const [loginStatus, setLogin] = useState(true);
+const CreateRecipeIcon = () => {
+  const user = useSelector((state) => state);
 
-  //페이지 이동
+  // const auth = useSelector((state) =>
+  //   state.auth.user.roles.includes("ROLE_ADMIN")
+  // );
+
+  console.log("CreateRecipeIcon_auth", user);
+
   const navigate = useNavigate();
-  const onClickLogin = () => {
-    navigate("/");
-  };
-  const onClickLogOut = () => {
-    // setLogin(false); 로그아웃 시키고 메인페이지로
-    navigate("/");
+  const onClickRecipe = () => {
+    navigate("/recipe/create");
   };
 
   const popover = (
     <Popover>
       <Popover.Body>
-        {userState ? (
+        {!user.auth.isLoggedIn ? (
           <>
-            <div className="linkItems" onClick={onClickLogin}>
-              마이페이지
+            <Link className="linkItems" to="/">
+              로그인 후 작성가능합니다
+            </Link>
+          </>
+        ) : (
+          <>
+            <div className="linkItems" onClick={onClickRecipe}>
+              레시피 작성
             </div>
-            <div className="linkItems" onClick={onClickLogOut}>
-              로그아웃
+          </>
+        )}
+        {/* {user ? (
+          <>
+            <div className="linkItems" onClick={onClickRecipe}>
+              레시피 작성
             </div>
           </>
         ) : (
           <>
-            <Link className="linkItems" to="/join">
-              회원가입
-            </Link>
             <Link className="linkItems" to="/">
-              로그인
+              로그인 후 작성가능합니다
             </Link>
           </>
-        )}
+        )} */}
       </Popover.Body>
     </Popover>
   );
@@ -53,31 +60,29 @@ const CreateRecipeIcon = ({ userState }) => {
       <style type="text/css">
         {`
       .btn-success {
+        display: inline-block;
+        border: 1px solid #fffdf5;
+        border-radius: 100%;
+        width: 2em;
+        height: 2em;
         width: 2em;
         height: 2em;
         border-radius: 100%;
         background-color: transparent;
         margin-right:3em;
-        border:1px solid transparent;
-        // color: #463635;
+
       }
-      .btn-success::after{
-        background-color: transparent;
-      }
-      .btn-success:hover{
-        background-color: transparent;
-      }
+      
       `}
       </style>
       <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
         <Button variant="success">
           {" "}
-          <FontAwesomeIcon icon={faCircleUser} className="userIcon" />
+          <FontAwesomeIcon className="createRecipeIcon" icon={faPencil} />
         </Button>
       </OverlayTrigger>
     </>
   );
-
   return (
     <>
       <ToggleMsgBtn />
@@ -85,10 +90,3 @@ const CreateRecipeIcon = ({ userState }) => {
   );
 };
 export default CreateRecipeIcon;
-const CreateRecipeWrap = styled.div`
-  display: inline-block;
-  border: 1px solid #fffdf5;
-  border-radius: 100%;
-  width: 2em;
-  height: 2em;
-`;

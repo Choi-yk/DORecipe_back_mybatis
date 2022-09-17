@@ -19,36 +19,27 @@ const AccountIcon = () => {
   //페이지 이동
   // const user = useSelector((state) => state);
   const navigate = useNavigate();
-
-  // console.log("user", user);
-  // const onClickLogOut = () => {
-  //   // console.log("state", state);
-  //   navigate("/");
-  // };
   const dispatch = useDispatch();
   const user = useSelector((state) => state);
-  // const [userState, setState] = useState(auth);
-  // const [userState, setState] = useState(user);
-  // console.log("auth?!@@@@@@@@@", auth);
+  // const currentUser = user.auth.user;
 
-  const [userState, setCurrentUser] = useState(user);
+  // const [userState, setCurrentUser] = useState(user);
+  const [userState, setCurrentUser] = useState(user.auth.user);
   console.log("로그ㅇ아웃useState", userState);
   const onClickLogOut = useCallback(() => {
     //로그아웃 시키고 메인페이지로
     dispatch(logout());
-    navigate("/");
+    window.location.replace("/");
+    // navigate("/");
   }, [dispatch]);
 
   const popover = useCallback(
     <Popover>
       <Popover.Body>
-        {/* {state ? ( */}
         {user.auth.isLoggedIn ? (
           <>
             {user.auth.user.roles.includes("ROLE_ADMIN") ? (
-              <Link className="linkItems" to="/admin">
-                관리자 페이지
-              </Link>
+              <></>
             ) : (
               <Link className="linkItems" to="/member/info/">
                 마이 페이지

@@ -28,7 +28,7 @@ const BannerLayout = ({ children }) => {
             // spaceBetween={0}
             pagination={{ clickable: true }}
             scrollbar={{ draggable: true }}
-            onSwiper={(swiper) => console.log(swiper)}
+            // onSwiper={(swiper) => console.log(swiper)}
             // onSlideChange={() => console.log("slide change")}
           >
             {children}

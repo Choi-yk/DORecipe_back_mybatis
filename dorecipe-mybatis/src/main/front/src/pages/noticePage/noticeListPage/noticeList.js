@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
-import axios from "axios";
 
-const NoticeList = ({ removePost, state, user }) => {
+const NoticeList = ({ removePost, state, BtnState }) => {
   const removePostOnclick = () => {
     removePost(state.notice_num);
   };
-
+  console.log("NoticeList", BtnState);
   return (
     <>
       <li>
@@ -14,10 +13,11 @@ const NoticeList = ({ removePost, state, user }) => {
         <Link className="noticeTitle" to={`/notice/detail/${state.notice_num}`}>
           {state.notice_title}
         </Link>
-
         <div className="noticeDate">{state.notice_creDate}</div>
         {/* {user.auth.user.roles.includes("ROLE_ADMIN") && ( */}
-        {user.showAdminBoard && (
+        {/* {user.auth.includes("ROLE_ADMIN") && ( */}
+        {/* {user.includes("ROLE_ADMIN") && ( */}
+        {BtnState && (
           <div className="updateOrDelete">
             <Link
               className="updateList"
