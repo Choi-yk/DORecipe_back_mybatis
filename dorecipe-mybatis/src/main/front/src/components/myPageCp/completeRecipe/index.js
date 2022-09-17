@@ -5,6 +5,7 @@ import axios from "axios";
 import CompleteList from "./recipeList";
 
 import styled from "styled-components";
+import NullRecipe from "../nullRecipeList";
 
 const CompleteRecipeList = () => {
 
@@ -25,7 +26,7 @@ const CompleteRecipeList = () => {
 
     // 작성한 레시피 정보 가져오기
     // member_id가 ~인 레시피의 컬럼들을 다 가져와야지!
-    function testAxios() {
+    function Axios() {
         axios({
             url: "/member/info/complete/"+memberId,
             method: "get",
@@ -50,26 +51,44 @@ const CompleteRecipeList = () => {
 
 
     useEffect(() => {
-        testAxios();
+        Axios();
     }, []);
 
     return(
         <>
-        <div className="myPage-box3">
+        <div className="container-sm myPage-box3">
             <div>
                 <SectionTitle>
                     작성한 레시피
                     <span className="likeRecipeTotal">총 {C_recipeState.length}개</span>
                 </SectionTitle>
-                {/* <span className="likeRecipeTotal">총 {C_recipeState.length}개</span> */}
+                <Scrollable>
+                    <div>
+                        {
+                            C_recipeState.length !== 0
+                            ?
+                            C_recipeState.map((e) => (
+                                <CompleteList
+                                    C_recipeState={e}
+                                />  
+                            ))
+                            :
+                            <NullRecipe />
+                        }
+                    </div>
+                </Scrollable>
+                {/* {
+                    C_recipeState.length !== 0
+                    ?
+                    C_recipeState.map((e) => (
+                        <CompleteList
+                            C_recipeState={e}
+                        />  
+                    ))
+                    :
+                    <NullRecipe />
+                } */}
             </div>
-        {
-            C_recipeState.map((e) => (
-                <CompleteList
-                    C_recipeState={e}
-                />  
-            ))
-        }
         </div> 
         </>
     );
@@ -87,4 +106,29 @@ const SectionTitle = styled.div`
   font-weight: 700;
   padding: 0.5em 0;
   padding-left: 0.5em;
+  text-align: center;
+`;
+
+const Scrollable = styled.section`
+  width: 100%;
+  margin: 1em auto;
+
+  & > div {
+    padding: 2rem;
+    height: 27em;
+    overflow-y: auto;
+    margin: 0 auto;
+
+    ::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+    ::-webkit-scrollbar-thumb {
+      height: 30%;
+      background-color: #463635;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: #fffdf5;
+      border: 1px solid #463635;
+    }
+  }
 `;

@@ -9,9 +9,9 @@ const AdminPostMng = () => {
   return (
     <>
      <MainLayout>
-      <List/>
-      <RegistPosts/>
-      <KnowhowPage/>
+        <RegistPosts/>
+        <List/>
+        <KnowhowPage/>
      </MainLayout>
     </>
   );

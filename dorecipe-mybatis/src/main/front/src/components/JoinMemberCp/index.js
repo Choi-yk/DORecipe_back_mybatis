@@ -218,7 +218,7 @@ const SignUpTemplate = () => {
           // }
         })
         .then(function () {
-          navigate("/join");
+          // navigate("/member");
         });
     },
     [member_id]

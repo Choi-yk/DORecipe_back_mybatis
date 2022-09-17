@@ -51,9 +51,9 @@ const EventPage = () => {
         <div className="eventTableWrap">
           <ul>
             <div className="tableHead">
-              <div className="eventNo">No.</div>
-              <div className="eventTitle">제목</div>
-              <div className="eventDate">참여 기간</div>
+              <div className="noticeNo">No.</div>
+              <div className="noticeTitle">제목</div>
+              <div className="noticeDate">참여 기간</div>
               <div className="updateOrDelete">수정 및 삭제</div>
             </div>
             {state.map((e) => (

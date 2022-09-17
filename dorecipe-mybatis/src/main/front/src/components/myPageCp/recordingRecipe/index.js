@@ -5,6 +5,7 @@ import axios from "axios";
 import RecordList from "./recipeList";
 
 import styled from "styled-components";
+import NullRecipe from "../nullRecipeList";
 
 
 const RecordingRecipeList = () => {
@@ -22,7 +23,7 @@ const RecordingRecipeList = () => {
         }
     ]);
 
-    function testAxios() {
+    function Axios() {
         axios({
             url: "/recipe/recording/"+memberId,
             method: "get",
@@ -46,26 +47,45 @@ const RecordingRecipeList = () => {
     }
 
     useEffect(() => {
-        testAxios();
+        Axios();
     }, []);
 
     return(
         <>
         {/* 작성중인 레시피 */}
-        <div className="myPage-box4">
+        <div className="container-sm myPage-box4">
             <div>
                 <SectionTitle>
                     작성중인 레시피
                     <span className="likeRecipeTotal">총 {recipeState.length}개</span>
-                </SectionTitle>  
+                </SectionTitle>
+                <Scrollable>
+                    <div>
+                        {
+                            recipeState.length !== 0
+                            ?
+                            recipeState.map((e) => (
+                                <RecordList
+                                    recipeState={e}
+                                />  
+                            ))
+                            :
+                            <NullRecipe />
+                        }
+                    </div>
+                </Scrollable>
+                {/* {
+                    recipeState.length !== 0
+                    ?
+                    recipeState.map((e) => (
+                        <RecordList
+                            recipeState={e}
+                        />  
+                    ))
+                    :
+                    <NullRecipe />
+                 } */}
             </div>
-            {
-                recipeState.map((e) => (
-                    <RecordList
-                        recipeState={e}
-                    />  
-                ))
-             }
         </div>
         </>
     );
@@ -82,4 +102,29 @@ const SectionTitle = styled.div`
   font-weight: 700;
   padding: 0.5em 0;
   padding-left: 0.5em;
+  text-align: center;
+`;
+
+const Scrollable = styled.section`
+  width: 100%;
+  margin: 1em auto;
+
+  & > div {
+    padding: 2rem;
+    height: 27em;
+    overflow-y: auto;
+    margin: 0 auto;
+
+    ::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+    ::-webkit-scrollbar-thumb {
+      height: 30%;
+      background-color: #463635;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: #fffdf5;
+      border: 1px solid #463635;
+    }
+  }
 `;

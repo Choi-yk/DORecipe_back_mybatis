@@ -58,7 +58,7 @@ const KnowhowDetailPage = () => {
                 <div>{state.know_content}</div>
               </div>
           </li>
-          <Link className="mt-3 left btn btn-outline-secondary" to={"/"}> 이전으로</Link>
+          <Link className="mt-3 left btn btn-outline-secondary" to={"/admin"}> 이전으로</Link>
           </MainLayout>
         </>
     );

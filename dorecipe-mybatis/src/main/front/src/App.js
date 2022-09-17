@@ -184,6 +184,7 @@ function App() {
         element={<DetailRecipePage />}
       />
       <Route path={"/*"} element={<NotFoundPage />} />
+
     </Routes>
   );
 }

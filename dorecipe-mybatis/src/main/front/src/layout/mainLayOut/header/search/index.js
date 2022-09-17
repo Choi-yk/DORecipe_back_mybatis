@@ -6,6 +6,7 @@ import { MainLogo } from "../../../../components/_common/mainLogo";
 import { Link } from "react-router-dom";
 const HeaderSearch = () => {
   const [search, onChangeSearch, setSearch] = useInput("");
+
   return (
     <>
       <SearchWrap>

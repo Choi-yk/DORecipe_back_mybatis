@@ -8,5 +8,14 @@
     "nodemon": "^2.0.19",
     "socket.io": "^4.5.2"
   },
-  "type": "module"
+  "type": "module",
+  "name": "cheerio",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

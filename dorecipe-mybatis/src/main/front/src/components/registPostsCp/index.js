@@ -102,8 +102,6 @@ function TabContent(props) {
     ) {
       alert("제목, 내용, 이벤트 기간을 입력해 주세요.");
     } else {
-      alert("등록되었습니다.");
-
       axios({
         method: "POST",
         url: "http://localhost:9000/event/insert",
@@ -111,7 +109,12 @@ function TabContent(props) {
         data: formData,
       }).then((response) => {
         console.log(response.data);
-        window.location.href = "http://localhost:3000/event/list";
+        alert("등록되었습니다.");
+        document.getElementById("eventData1").value = "";
+        document.getElementById("eventData2").value = "";
+        document.getElementById("eventData3").value = "";
+        document.getElementById("eventData4").value = "";
+        document.getElementById("eventData5").value = "";
       });
     }
   });
@@ -189,7 +192,11 @@ function TabContent(props) {
         }
         alert("노하우가 등록되었습니다.");
         //노하우 리스트로 이동
-        window.location.href = "http://localhost:3000/knowhow/list";
+        document.getElementById("knowData1").value = "";
+        document.getElementById("knowData2").value = "";
+        document.getElementById("KnowFile").value = "";
+        setKnowFiles(null);
+        KnowPreview();
       });
     }
   });
@@ -218,7 +225,6 @@ function TabContent(props) {
     reader2.onload = () =>
       (imgEl2.style.backgroundImage = `url(${reader2.result})`);
     if (!KnowFiles[0]) {
-      console.log("파일x");
     } else {
       reader2.readAsDataURL(KnowFiles[0]);
     }
@@ -261,7 +267,6 @@ function TabContent(props) {
           document.getElementById("noticeTitle").value = "";
           document.getElementById("noticeContent").value = "";
           alert("공지사항이 등록되었습니다.");
-          window.location.href = "http://localhost:3000/notice/list";
         });
       }
     },
@@ -315,9 +320,9 @@ function TabContent(props) {
         등록
       </button>
     </div>, // 공지사항 끝-------------------------------------------------------
-    <div>
+    <div className="">
       <h4 className="left">이벤트</h4>
-      <table className="left">
+      <table className="left dpib">
         <thead>
           <tr>
             <td>제목</td>
@@ -397,10 +402,6 @@ function TabContent(props) {
       <div className="mt-5 imgPreview floatRight">
         <div className="img_box" />
       </div>
-
-      <Link className="mt-3 left2 btn btn-outline-secondary" to={"/event/list"}>
-        이벤트페이지
-      </Link>
       <button
         type="button"
         className="left3 btn btn-outline-secondary"
@@ -436,7 +437,7 @@ function TabContent(props) {
               <input
                 name="know_path"
                 type="file"
-                id="knowData2"
+                id="KnowFile"
                 accept="image/*"
                 onChange={onLoadKnowFile}
               />
@@ -449,6 +450,7 @@ function TabContent(props) {
                 name="know_content"
                 required
                 className="text"
+                id="knowData2"
                 rows="4"
                 cols="50"
                 placeholder="내용을 입력해주세요"

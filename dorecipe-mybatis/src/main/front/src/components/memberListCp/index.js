@@ -62,7 +62,7 @@ const List = () => {
 
   return (
     <>
-    <div className="postMngWrap width left3">
+    <div className="bottom2 width2 left4">
       <ListWrapper>
         <h3 className="">회원 관리</h3>
         <hr className="" />

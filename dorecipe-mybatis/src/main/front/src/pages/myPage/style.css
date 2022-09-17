@@ -1,48 +1,56 @@
-h2 {
-    text-align: center;
-    margin: 1em 0;
-}
-
-li {
+ul {
     list-style: none;
 }
+/* 
+.card :hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+    cursor: pointer;
+} */
 
-.myPage-box1 {
-    width: 800px;
+.recipe-box {
+    width: 16rem;
+    min-height: 21em;
+    overflow-y: hidden;
+    
+}
+
+/* .recipe-box :hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+    cursor: pointer;
+} */
+
+/* .myPage-box1 {
+    width: 800px; 
     margin: 10px auto;
     padding: 40px 40px;
     background-color: lightblue;
     align-items: center;
-}
+} */
 
 .myPage-box2 {
-    width: 800px;
-    margin: 10px auto;
-    padding: 40px 40px;
+    /* width: 800px; */
+    /* margin: 10px auto;
+    padding: 40px 40px; */
     background-color: pink;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .myPage-box3 {
-    width: 800px;
+    /* width: 800px;
     margin: 10px auto;
-    padding: 40px 40px;
-    background-color: lightgreen;
-    align-items: center;
+    padding: 40px 40px; */
+    /* background-color: lightgreen; */
+    /* align-items: center; */
 }
 
 .myPage-box4 {
-    width: 800px;
+    /* width: 800px;
     margin: 10px auto;
-    padding: 40px 40px;
-    background-color: lightgrey;
-    align-items: center;
-}
-
-.Wrap {
-    width: 80%;
-    margin: 0 auto;
-    display: flex;
+    padding: 40px 40px; */
+    /* background-color: lightgrey; */
+    /* align-items: center; */
 }
 
 /* .Border {
@@ -58,11 +66,6 @@ li {
     font-size: 30px;
 } */
 
-.memberInfo {
-    border: 1px solid black;
-    align-items: center;
-}
-
 .columnName {
     display: block;
     /* text-align-last: left; */
@@ -72,32 +75,16 @@ li {
 }
 
 .profileImage {
-    width: 160px;
-    height: 160px;
+    width: 150px;
+    height: 150px;
     margin: 20px 20px;
 }
 
-.img_box{
-    background-size: contain;
-    overflow: hidden;
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
-    background-repeat: no-repeat;
-    width: 500px;
-    height: 300px;
+.card-img-size{
+    height: 15em;
+    object-fit: cover;
 }
 
 .likeRecipeTotal {
     font-size: small;
 }
-
-/* .knowDetailDate {
-    color: gray;
-    font-size: 12px;
-    margin: 0.5em 0 2em 0;
-}
-
-.knowDetailImage {
-    margin: 0.5em 0 2em 0;
-} */

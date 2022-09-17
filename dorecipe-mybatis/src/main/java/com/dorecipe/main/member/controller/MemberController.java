@@ -112,17 +112,17 @@ public class MemberController {
 			myFile.transferTo(new File(myFile.getOriginalFilename()));
 		}
 
-		return new ResponseEntity<>("",HttpStatus.OK);
+      return new ResponseEntity<>("",HttpStatus.OK);
 
-	}
-	
-	@PostMapping(value="upload")
-	public ResponseEntity<String> upload(MultipartFile file) throws IllegalStateException, IOException {
-//		storageService.store(file);
-		return new ResponseEntity<>("",HttpStatus.OK);
-	}
-	
-	
+   }
+   
+   @PostMapping(value="upload")
+   public ResponseEntity<String> upload(MultipartFile file) throws IllegalStateException, IOException {
+//      storageService.store(file);
+      return new ResponseEntity<>("",HttpStatus.OK);
+   }
+   
+   
 //    @GetMapping(value="download")
 //    public ResponseEntity<Resource> serveFile(@RequestParam(value="filename") String filename) {
 
@@ -130,7 +130,7 @@ public class MemberController {
 //        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
 //                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
 //    }
-	
+   
     
 //    @GetMapping("fileList")
 //    public ResponseEntity<List<MemberService>> getListFiles() {

@@ -12,9 +12,10 @@ const MemberList = ({ removePost, state, isLoading, hasItems, countState }) => {
       ) : (
         <li>
           <div className="noticeNo">{state.member_name}</div>
-          <Link className="noticeTitle" to={`/member/${state.member_id}`}>
+          <div className="noticeTitle">{state.member_id}</div>
+          {/* <Link className="noticeTitle" to={`/member/${state.member_id}`}>
             {state.member_id}
-          </Link>
+          </Link> */}
           <div className="noticeDate">{state.member_email}</div>
           <div className="updateOrDelete">
             {/* <Link className="updateList" to={`/admin/${state.member_id}`}>

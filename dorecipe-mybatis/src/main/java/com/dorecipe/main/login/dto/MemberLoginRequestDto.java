@@ -1,10 +1,10 @@
-//package com.dorecipe.main.jwt;
+//package com.dorecipe.main.login.dto;
 //
 //import lombok.Data;
 //
 //@Data
-//public class MemberLoginRequest {
-//	
+//public class MemberLoginRequestDto {
+//
 //	private String member_id;
 //	private String member_pwd;
 //	
