@@ -8,28 +8,53 @@ import Popover from "react-bootstrap/Popover";
 
 import "./style.css";
 import { useState } from "react";
-const AccountIcon = ({ userState }) => {
-  /**로그인 구현 안돼서 임시로 테스트, true==로그인*/
-  // const [loginStatus, setLogin] = useState(true);
-
+// import { useSelector } from "react-redux";
+import { useDispatch, connect, useSelector } from "react-redux";
+import { useCallback } from "react";
+import { history } from "../../../../reduxRefresh/helpers/history";
+import { logout } from "../../../../reduxRefresh/actions/auth";
+// import EventBus from "./common/EventBus";
+// import { logout } from "../../../../reduxRefresh/actions/auth";
+const AccountIcon = () => {
   //페이지 이동
+  // const user = useSelector((state) => state);
   const navigate = useNavigate();
-  const onClickLogin = () => {
-    navigate("/");
-  };
-  const onClickLogOut = () => {
-    // setLogin(false); 로그아웃 시키고 메인페이지로
-    navigate("/");
-  };
 
-  const popover = (
+  // console.log("user", user);
+  // const onClickLogOut = () => {
+  //   // console.log("state", state);
+  //   navigate("/");
+  // };
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state);
+  // const [userState, setState] = useState(auth);
+  // const [userState, setState] = useState(user);
+  // console.log("auth?!@@@@@@@@@", auth);
+
+  const [userState, setCurrentUser] = useState(user);
+  console.log("로그ㅇ아웃useState", userState);
+  const onClickLogOut = useCallback(() => {
+    //로그아웃 시키고 메인페이지로
+    dispatch(logout());
+    navigate("/");
+  }, [dispatch]);
+
+  const popover = useCallback(
     <Popover>
       <Popover.Body>
-        {userState ? (
+        {/* {state ? ( */}
+        {user.auth.isLoggedIn ? (
           <>
-            <div className="linkItems" onClick={onClickLogin}>
-              마이페이지
-            </div>
+            {user.auth.user.roles.includes("ROLE_ADMIN") ? (
+              <Link className="linkItems" to="/admin">
+                관리자 페이지
+              </Link>
+            ) : (
+              <Link className="linkItems" to="/member/info/">
+                마이 페이지
+              </Link>
+            )}
+
             <div className="linkItems" onClick={onClickLogOut}>
               로그아웃
             </div>
@@ -45,7 +70,8 @@ const AccountIcon = ({ userState }) => {
           </>
         )}
       </Popover.Body>
-    </Popover>
+    </Popover>,
+    [user]
   );
 
   const ToggleMsgBtn = () => (
@@ -84,4 +110,15 @@ const AccountIcon = ({ userState }) => {
     </>
   );
 };
-export default AccountIcon;
+
+function mapStateToProps(state) {
+  // const { user } = state.auth;
+  const { user } = state;
+
+  console.log("(mapStateToProps)(AccountIcon)", state);
+  return {
+    user,
+  };
+}
+
+export default connect(mapStateToProps)(AccountIcon);

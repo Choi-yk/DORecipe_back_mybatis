@@ -44,7 +44,7 @@ public class RecipeVO {
 	private String order_path;
 	
 	private List<RecipeVO> orderVoList;
-	private List<RecipeVO> orderVoList2;
+//	private List<RecipeVO> orderVoList2;
 	
 	//코멘트 테이블
 	private int comment_num;

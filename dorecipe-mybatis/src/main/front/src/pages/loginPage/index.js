@@ -1,140 +1,128 @@
 import "./style.css";
 import { useState, useCallback, useEffect } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import MainLayout from "../../layout/mainLayOut";
 import { MainLogo } from "../../components/_common/mainLogo";
-import KaKaoLoginPage from "../../components/LoginMemberCp";
-// import KaKaoLogin from 'react-kakao-login';
+// import { history } from "../../reduxRefresh/helpers/history";
+import { connect } from "react-redux";
+import { login } from "../../reduxRefresh/actions/auth.js";
+// const LoginPage = ({ history, dispatch, user }) => {
 
-//commit
+// const LoginPage = (state) => {
+// const LoginPage = (user) => {
+const LoginPage = (auth) => {
+  const [member_id, setMemberId] = useState();
+  const [member_pwd, setMemberPwd] = useState();
 
-const LoginPage = () => {
-   
-  
-   const [state, setState] = useState([
-      {
-         member_id:"",
-         memeber_pwd:""
-      },
-   ]);
-   
-   
-   const [member_id,setMemberId] = useState();
-   const [member_pwd,setMemberPwd] = useState();
-   
-   const handleMemberId = (e) => {
-      setMemberId(e.target.value);
-   };
-   const handleMemberPwd = (e) => {
-      setMemberPwd(e.target.value);
-   };
-   
+  const [loadingState, setState] = useState(false);
 
-   function Axios() {
-      axios({
-         url: "/login",
-         method: "get",
-         baseURL: "http://localhost:9000",
-      }).then(function(response) {
-         console.log(response.data);
-         setState(response.data);
-      });
-   }
+  //   console.log("auth", );
+  const handleMemberId = (e) => {
+    setMemberId(e.target.value);
+  };
+  const handleMemberPwd = (e) => {
+    setMemberPwd(e.target.value);
+  };
 
-   useEffect(() => {
-      Axios();
-   }, []);
-   
-   
-   const memberLogin = ()=>{
-      console.log("click login");
-       console.log("ID : ", member_id);
-       console.log("PW : ", member_pwd);
-       
-       axios
-          .post("http://localhost:9000/login",{
-            memberId : member_id,
-            memberPwd : member_pwd,
-      })
-         .then((res)=>{
-            console.log("memberLogin callback====================");
-            console.log(res);
-//            console.log("memberLogin callback====> " + res);
-            console.log("res.data.member_id :: ", res.data.member_id);
-            console.log("res.data.member_pwd :: ", res.data.member_pwd);
-            
-            if(res.data.member_id === undefined){
-               // id 일치하지 않는 경우
-               console.log("아이디 불일치",res.data.member_id);
-               alert("입력하신 id가 일치하지 않습니다.");
-               document.location.href="/login";
-            }else if(res.data.member_id === null){
-               // id는 있지만, pw 는 다른 경우
-               console.log("입력하신 비밀번호가 일치하지 않습니다.");
-               document.location.href="/login";
-            }else if(res.data.member_id === member_id){
-               // id, pw 모두 일치
-               console.log("로그인 성공!");
-               sessionStorage.setItem("member_id",member_id); // sessionStorage에 id를 member_id라는 key 값으로 저장
-               document.location.href="/";
-            }
-            
-         })
-         .catch((error)=>{
-         //console.log(error);
-         });
-   };   
-      
-   // },
-   // [member_id,member_pwd]);
-   
+  console.log("state!!!!!!!", auth);
+  const navigate = useNavigate();
+  //   const { dispatch } = state;
+  //   const { dispatch } = auth;
+  const { dispatch, history } = auth;
+  console.log("dispatch", dispatch);
 
-   return (
-      <>
+  const { isLoggedIn, message } = auth;
+  console.log("isLoggedIn", isLoggedIn);
+
+  const memberLogin = (e) => {
+    e.preventDefault();
+    console.log("ID : ", member_id);
+    console.log("PW : ", member_pwd);
+
+    //  console.log("history>?", history);
+    if (member_id.length > 0 && member_pwd.length > 0) {
+      dispatch(login(member_id, member_pwd))
+        .then(() => {
+          setState(true);
+          //  console.log("history>?", history);
+          //  history.push("/profile"); //라우팅으로 특정 페이지ㅔ서 다른 페이지로 이동할떄 프롭스 전달
+          history.push("/"); //라우팅으로 특정 페이지ㅔ서 다른 페이지로 이동할떄 프롭스 전달
+          //  history.pathname.push("/member/info/"); //라우팅으로 특정 페이지ㅔ서 다른 페이지로 이동할떄 프롭스 전달
+          //  history.push({ pathname: "/", state: { isLoggedIn } }); //라우팅으로 특정 페이지ㅔ서 다른 페이지로 이동할떄 프롭스 전달
+          //   history.state.push(...history, "/profile");
+          window.location.reload();
+        })
+        //   .then(() => {
+        //     alert("로그인 성공");
+        //     navigate({ to: "/" }, { replace: true, state: auth });
+        //   })
+        .catch((err) => {
+          setState(false);
+          console.log("err:", err);
+          //  state.state({
+          //    loading: false,
+          //  });
+        });
+    } else {
+      setState(false);
+    }
+  };
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  });
+  return (
+    <>
       <MainLayout>
-         <div className="loginSection">
-            {/* 로고 */}
-            <div className="loginWrap">
-               <div className="logoWrap">
-                  <MainLogo />
-               </div>
-               {/*  아이디, 비밀번호 입력란 */}
-               <div className="formWrap">
-                  <form action="#" method="get">
-                     <input
-                        value={member_id || ''}
-                        name="member_id"
-                        className="idInput"
-                        required
-                        type="text"
-                        placeholder="아이디"
-                        onChange={handleMemberId}
-                     />
-                     <input
-                        value={member_pwd || ''}
-                        name="memeber_pwd"
-                        className="pwdInput"
-                        required
-                        type="password"
-                        placeholder="비밀번호"
-                        onChange={handleMemberPwd}
-                     />
-                     <button type="button" name="loginBtn" onClick={memberLogin}>
-                        로그인
-                     </button>
-                  </form>
-               </div>                        
-               <div className="linkWraps">
-                  <div>
-                   {/* <KaKaoLoginPage/>    카카오 소셜 로그인*/}
-                  </div>
-                <Link to={"/join"}>회원가입</Link>
-               </div>
+        <div className="loginSection">
+          <div className="loginWrap">
+            <div className="logoWrap">
+              <MainLogo />
             </div>
-         </div>
-         </MainLayout>
-      </>
-   );
+
+            <div className="formWrap">
+              <form action="#" method="get">
+                <input
+                  value={member_id || ""}
+                  name="member_id"
+                  className="idInput"
+                  required
+                  type="text"
+                  placeholder="아이디"
+                  onChange={handleMemberId}
+                />
+                <input
+                  value={member_pwd || ""}
+                  name="memeber_pwd"
+                  className="pwdInput"
+                  required
+                  type="password"
+                  placeholder="비밀번호"
+                  onChange={handleMemberPwd}
+                />
+                <button type="button" name="loginBtn" onClick={memberLogin}>
+                  로그인
+                </button>
+              </form>
+            </div>
+            <div className="linkWraps">
+              <div>{/* <KaKaoLoginPage/>    카카오 소셜 로그인*/}</div>
+              <Link to={"/join"}>회원가입</Link>
+            </div>
+          </div>
+        </div>
+      </MainLayout>
+    </>
+  );
 };
-export default LoginPage;
+function mapStateToProps(state) {
+  const { isLoggedIn } = state.auth;
+  const { message } = state.message;
+  console.log("mapStateToProps+message", { state });
+  return {
+    isLoggedIn,
+    message,
+  };
+}
+export default connect(mapStateToProps)(LoginPage);

@@ -6,10 +6,11 @@ import OverlayTrigger from "react-bootstrap/esm/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
 
 import "./style.css";
-const CreateRecipeIcon = ({ userState }) => {
+const CreateRecipeIcon = ({ user }) => {
   //로그인된 상태에서만 레시피 작성가능
 
   //로그인되었다면 레시피 등록 페이지로, 안되면 로그인 화면으로
+  console.log(user + "???");
   const navigate = useNavigate();
   const onClickRecipe = () => {
     navigate("/recipe/create");
@@ -18,7 +19,7 @@ const CreateRecipeIcon = ({ userState }) => {
   const popover = (
     <Popover>
       <Popover.Body>
-        {userState ? (
+        {user ? (
           <>
             <div className="linkItems" onClick={onClickRecipe}>
               레시피 작성

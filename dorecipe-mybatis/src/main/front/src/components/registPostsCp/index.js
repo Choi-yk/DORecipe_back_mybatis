@@ -272,48 +272,48 @@ function TabContent(props) {
 
   return [
     <div className="block">
-        <h4 className="left">공지사항</h4>
-        <table className="left">
-          <thead>
-            <tr>
-              <td>제목</td>
-              <td>
-                <input
-                  id="noticeTitle"
-                  name="notice_title"
-                  className="text"
-                  type="text"
-                  placeholder=" 제목을 입력해주세요"
-                  onChange={onChangeNoticeTitle}
-                />
-              </td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>내용</td>
-              <td>
-                <textarea
-                  id="noticeContent"
-                  name="event_content"
-                  className="text"
-                  rows="4"
-                  cols="50"
-                  required
-                  onChange={onChangeNoticeContent}
-                ></textarea>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <button
-          type="button"
-          onClick={insertNotice}
-          disabled={error}
-          className="left2 btn btn-outline-secondary"
-        >
-          등록
-        </button>
+      <h4 className="left">공지사항</h4>
+      <table className="left">
+        <thead>
+          <tr>
+            <td>제목</td>
+            <td>
+              <input
+                id="noticeTitle"
+                name="notice_title"
+                className="text"
+                type="text"
+                placeholder=" 제목을 입력해주세요"
+                onChange={onChangeNoticeTitle}
+              />
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>내용</td>
+            <td>
+              <textarea
+                id="noticeContent"
+                name="event_content"
+                className="text"
+                rows="4"
+                cols="50"
+                required
+                onChange={onChangeNoticeContent}
+              ></textarea>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button
+        type="button"
+        onClick={insertNotice}
+        disabled={error}
+        className="left2 btn btn-outline-secondary"
+      >
+        등록
+      </button>
     </div>, // 공지사항 끝-------------------------------------------------------
     <div>
       <h4 className="left">이벤트</h4>
@@ -411,65 +411,65 @@ function TabContent(props) {
       </button>
     </div>, // 이벤트 끝-------------------------------------------------------
     <div className="block">
-        <h4 className="left">노하우</h4>
-        <table className="left dpib">
-          <thead>
-            <tr>
-              <td>제목</td>
-              <td>
-                <input
-                  name="know_title"
-                  className="text"
-                  required
-                  type="text"
-                  id="knowData1"
-                  placeholder=" 제목을 입력해주세요"
-                  onChange={onChangeKnowhowTitle}
-                />
-              </td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>파일 첨부</td>
-              <td>
-                <input
-                  name="know_path"
-                  type="file"
-                  id="knowData2"
-                  accept="image/*"
-                  onChange={onLoadKnowFile}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>내용</td>
-              <td>
-                <textarea
-                  name="know_content"
-                  required
-                  className="text"
-                  rows="4"
-                  cols="50"
-                  placeholder="내용을 입력해주세요"
-                  onChange={onChangeKnowhowContent}
-                ></textarea>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <h4 className="left">노하우</h4>
+      <table className="left dpib">
+        <thead>
+          <tr>
+            <td>제목</td>
+            <td>
+              <input
+                name="know_title"
+                className="text"
+                required
+                type="text"
+                id="knowData1"
+                placeholder=" 제목을 입력해주세요"
+                onChange={onChangeKnowhowTitle}
+              />
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>파일 첨부</td>
+            <td>
+              <input
+                name="know_path"
+                type="file"
+                id="knowData2"
+                accept="image/*"
+                onChange={onLoadKnowFile}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>내용</td>
+            <td>
+              <textarea
+                name="know_content"
+                required
+                className="text"
+                rows="4"
+                cols="50"
+                placeholder="내용을 입력해주세요"
+                onChange={onChangeKnowhowContent}
+              ></textarea>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-        <div className="mt-5 imgPreview floatRight">
-          <div className="img_box2" />
-        </div>
-        <button
-          type="button"
-          className="left3 btn btn-outline-secondary"
-          onClick={insertKnowhow}
-          disabled={error}
-        >
-          등록
-        </button>
+      <div className="mt-5 imgPreview floatRight">
+        <div className="img_box2" />
+      </div>
+      <button
+        type="button"
+        className="left3 btn btn-outline-secondary"
+        onClick={insertKnowhow}
+        disabled={error}
+      >
+        등록
+      </button>
     </div>,
     //노하우 끝-------------------------------------------------------
   ][props.tap]; // tap 0은 공지사항 1은 이벤트 2는 노하우

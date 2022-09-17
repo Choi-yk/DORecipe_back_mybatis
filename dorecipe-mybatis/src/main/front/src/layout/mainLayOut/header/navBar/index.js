@@ -5,18 +5,6 @@ import axios from "axios";
 
 const NavBar = () => {
   const [languageState, setLanguage] = useState("ko");
-  // const response = axios.post(
-  //   "https://naveropenapi.apigw.ntruss.com/web-trans/v1/translate",
-  //   //   'http://\'m Papago.</font><font class="papago-parent"><font class="papago-source" style="display:none;">\n</font>\n\n</font></div>%\n',
-  //   `source=ko&target=en&html=`,
-  //   {
-  //     headers: {
-  //       "Content-Type": "application/x-www-form-urlencoded",
-  //       "X-NCP-APIGW-API-KEY-ID": "i1t55x92ff",
-  //       "X-NCP-APIGW-API-KEY": "o7ctmzdynVyJ11lpnnFJXungjcYS1C87wUf3cIME",
-  //     },
-  //   }
-  // );
 
   return (
     <>

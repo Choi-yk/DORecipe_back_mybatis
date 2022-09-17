@@ -39,9 +39,7 @@ public class RecipeController extends RecipeFileUpload{
 		model.addAttribute("recipeList",recipeList);
 		return "recipe";
 	}
-	
-
-	
+		
 	//레시피 상세
 	@RequestMapping("/detail/{recipe_num}")
 	public String detail(Model model, @PathVariable Integer recipe_num) {
@@ -201,6 +199,29 @@ public class RecipeController extends RecipeFileUpload{
 		return "redirect:/recipe/list";
 	}
 	
+//	//레시피 임시저장한 거 수정해서 저장할때
+//	@PostMapping("/updateRecipeInstructions")
+//	public String updateRecipeInstructions(
+//			@RequestParam(value = "param1") Integer param1,
+//			@RequestParam(value = "param2") Integer param2) {
+//		recipeService.updateRecipeInstructions(param1,param2);
+//		
+//		System.out.println("레시피 수정 - Controller param1, param2:"+param1+","+param2);
+//		
+//		return "redirect:/recipe/list";
+//	}
+	
+	
+	//레시피 임시저장한 거 수정해서 저장할때
+	@PostMapping("/updateRecipeInstructions")
+	public String updateRecipeInstructions(RecipeVO recipeVO) {
+		recipeService.updateRecipeInstructions(recipeVO);
+		
+		System.out.println("레시피 수정 - Controller param1, param2:"+recipeVO);
+		
+		return "redirect:/recipe/list";
+	}
+	
 	//레시피 삭제
 	@GetMapping("delete/{recipe_num}")
 	public String delete(@PathVariable("recipe_num") Integer recipe_num) {
@@ -221,7 +242,8 @@ public class RecipeController extends RecipeFileUpload{
 	
 //	레시피 상세검색
 	@GetMapping("/detail/search")
-	public List<RecipeVO> detailSearchRecipe(@RequestParam(value = "param1") String param1,
+	public List<RecipeVO> detailSearchRecipe(
+			@RequestParam(value = "param1") String param1,
 			@RequestParam(value = "param2") String param2,
 			@RequestParam(value = "param3") String param3,
 			@RequestParam(value = "param4") String param4,

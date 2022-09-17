@@ -3,25 +3,25 @@ import MemberInfoForm from "../../components/myPageCp/memberInfo/index";
 import CompleteRecipeList from "../../components/myPageCp/completeRecipe";
 import RecordingRecipeList from "../../components/myPageCp/recordingRecipe";
 import LikeRecipeList from "../../components/myPageCp/likeRecipe";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
-import './style.css'
+import "./style.css";
 
+const MyPage = (user) => {
+  console.log("MyPage", user);
+  return (
+    <>
+      <MainLayout>
+        <MemberInfoForm />
+        {/* <LikeRecipeList /> */}
+        <CompleteRecipeList />
+        <RecordingRecipeList />
+      </MainLayout>
+    </>
+  );
+};
 
-const MyPage = () => {
-
-    return(
-        <>
-            <MainLayout>
-                <MemberInfoForm />
-                {/* <LikeRecipeList /> */}
-                <CompleteRecipeList />
-                <RecordingRecipeList />
-            </MainLayout>
-        </>
-    );
-}
-
-export default MyPage;
 // const RecipeWrap = styled.div`
 //   display: inline-flex;
 //   flex-direction: column;
@@ -42,3 +42,11 @@ export default MyPage;
 //     object-fit: cover;
 //   }
 // `;
+function mapStateToProps(state) {
+  const { user } = state.auth;
+  return {
+    user,
+  };
+}
+
+export default connect(mapStateToProps)(MyPage);

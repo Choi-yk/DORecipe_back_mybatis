@@ -1,15 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faExclamationCircle,
-  faImage,
-  faLightbulb,
-} from "@fortawesome/free-solid-svg-icons";
-
-import "./style.css";
+import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import EditDropZone from "../../_common/dropzone";
-import Dropzone from "react-dropzone";
 import { useInput } from "../../../hooks/useInput";
 import axios from "axios";
 import { SubmitRecipeBtn } from "../../_common/buttons";
@@ -59,7 +52,7 @@ const CompleteRecipe = ({ recipeState }) => {
     const formData = new FormData();
     formData.append("data", blob);
     formData.append("member_id", data.member_id);
-    // console.log(recipe_thumbnail[0].value + "!!!!!!!!!!!!!!!!!");
+
     recipe_thumbnail[0] !== undefined
       ? formData.append("recipe_imgs_completed", recipe_thumbnail[0])
       : formData.append("recipe_imgs_completed", null); /////파일 업로드
@@ -117,91 +110,109 @@ const CompleteRecipe = ({ recipeState }) => {
 
   return (
     <>
-      {" "}
-      <FlexWrap>
-        <div>
-          <Instruction>
-            <FontAwesomeIcon icon={faLightbulb} /> 완성 요리 사진 : 완성된
-            사진을 등록하시면 레시피가 더욱 돋보입니다.
-          </Instruction>
-          <BasicFormWrap>
-            <div>
-              <EditDropZone
-                files={files}
-                setFiles={setFiles}
-                setPath1={setPath1}
-                setPath2={setPath2}
-                setPath3={setPath3}
-                setPath4={setPath4}
-                onChange={onLoadImgFile}
-                setRecipeImgFiles={setRecipeImgFiles}
-                completionDropState={completionDropState}
-              />
-            </div>
-          </BasicFormWrap>
+      <TotalWrap>
+        <FlexWrap>
           <div>
             <Instruction>
-              <FontAwesomeIcon icon={faLightbulb} /> 요리팁: 레시피를 더욱
-              맛있게 하기 위해서 담은 노하우를 공유해주세요.
+              <FontAwesomeIcon icon={faLightbulb} /> 완성 요리 사진 : 완성된
+              사진을 등록하시면 레시피가 더욱 돋보입니다.
             </Instruction>
+            <BasicFormWrap>
+              <div style={{ height: "60em", margin: "0 auto" }}>
+                <EditDropZone
+                  files={files}
+                  setFiles={setFiles}
+                  setPath1={setPath1}
+                  setPath2={setPath2}
+                  setPath3={setPath3}
+                  setPath4={setPath4}
+                  onChange={onLoadImgFile}
+                  setRecipeImgFiles={setRecipeImgFiles}
+                  completionDropState={completionDropState}
+                />
+              </div>
+            </BasicFormWrap>
             <div>
-              <ContentTextarea
-                rows="2"
-                cols="50"
-                value={completion_tip}
-                onChange={onChangeTip}
-                placeholder="예: 양파를 고를때는 납작한 암양파를 고르시면 덜 맵고 단맛이 강해요."
-              ></ContentTextarea>
+              <Instruction>
+                <FontAwesomeIcon icon={faLightbulb} /> 요리팁: 레시피를 더욱
+                맛있게 하기 위해서 담은 노하우를 공유해주세요.
+              </Instruction>
+              <div>
+                <ContentTextarea
+                  rows="2"
+                  cols="50"
+                  value={completion_tip}
+                  onChange={onChangeTip}
+                  placeholder="예: 양파를 고를때는 납작한 암양파를 고르시면 덜 맵고 단맛이 강해요."
+                ></ContentTextarea>
+              </div>
             </div>
           </div>
-        </div>
-      </FlexWrap>
-      {buttonState === 0 ? (
-        <>
-          {" "}
-          <BtnWrap>
-            <SubmitRecipeBtn type="button" onClick={onSubmit} value="submit">
-              레시피 등록하기
-            </SubmitRecipeBtn>
-            <SubmitRecipeBtn
-              type="button"
-              onClick={onSubmit}
-              value="saveAsDraft"
-            >
-              임시 저장하기
-            </SubmitRecipeBtn>
-          </BtnWrap>
-        </>
-      ) : (
-        <>
-          <BtnWrap>
-            <SubmitRecipeBtn type="button" onClick={onSubmit} value="submit">
-              레시피 등록(다시)하기
-            </SubmitRecipeBtn>
-            <SubmitRecipeBtn
-              type="button"
-              onClick={onSubmit}
-              value="saveAsDraft"
-            >
-              임시(다시) 저장하기
-            </SubmitRecipeBtn>
-          </BtnWrap>
-        </>
-      )}
+        </FlexWrap>
+        {buttonState === 0 ? (
+          <>
+            {" "}
+            <BtnWrap>
+              <SubmitRecipeBtn type="button" onClick={onSubmit} value="submit">
+                레시피 등록하기
+              </SubmitRecipeBtn>
+              <SubmitRecipeBtn
+                type="button"
+                onClick={onSubmit}
+                value="saveAsDraft"
+              >
+                임시 저장하기
+              </SubmitRecipeBtn>
+            </BtnWrap>
+          </>
+        ) : (
+          <>
+            <BtnWrap>
+              <SubmitRecipeBtn type="button" onClick={onSubmit} value="submit">
+                레시피 등록(다시)하기
+              </SubmitRecipeBtn>
+              <SubmitRecipeBtn
+                type="button"
+                onClick={onSubmit}
+                value="saveAsDraft"
+              >
+                임시(다시) 저장하기
+              </SubmitRecipeBtn>
+            </BtnWrap>
+          </>
+        )}
+      </TotalWrap>
     </>
   );
 };
 export default CompleteRecipe;
 
-const FlexWrap = styled.div`
-  display: flex;
-  width: 90vw;
+const TotalWrap = styled.div`
+  width: 90%;
+  height: fit-content;
   margin: 0 auto;
-  height: 70vh;
-  flex-direction: column;
+  font-size: 14px;
+`;
+const FlexWrap = styled.div`
+  /* display: flex; */
+  min-width: 30em;
+  max-width: 100%;
+`;
+const BasicFormWrap = styled.div`
+  display: inline-flex;
+  color: #463635;
+  margin: 0 4.5em;
+  width: 90%;
+  align-items: center;
+  font-size: 6px;
+  /* height: 12em; */
+  padding: 2em;
+  justify-content: center;
   & > div {
+    height: 30em;
     padding: 2rem;
     height: 27em;
+    width: 100%;
     overflow-y: auto;
     margin: 0 auto;
 
@@ -218,20 +229,6 @@ const FlexWrap = styled.div`
     }
   }
 `;
-const BasicFormWrap = styled.div`
-  display: inline-flex;
-  color: #463635;
-  margin: 0 4.5em;
-  width: 90%;
-  align-items: center;
-  font-size: 6px;
-  height: fit-content;
-  /* background-color: aquamarine; */
-  padding: 2em;
-  justify-content: center;
-  gap: 12em;
-  height: 70em;
-`;
 const ContentTextarea = styled.textarea`
   resize: none;
   width: 44em;
@@ -245,7 +242,6 @@ const ContentTextarea = styled.textarea`
 `;
 const Instruction = styled.div`
   display: inline-block;
-  /* width: 1; */
   height: 2em;
 `;
 const BtnWrap = styled.div`

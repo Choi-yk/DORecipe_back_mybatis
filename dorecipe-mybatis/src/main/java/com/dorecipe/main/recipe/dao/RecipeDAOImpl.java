@@ -161,5 +161,15 @@ public class RecipeDAOImpl implements RecipeDAO{
 		return mapper.recordRecipe(member_id);
 	}
 
+	@Override
+	public int updateRecipeInstructions(RecipeVO recipeVO) {
+		return mapper.updateRecipeInstructions(recipeVO);
+	}
+//	
+//	@Override
+//	public int updateRecipeInstructions(Integer param1, Integer param2) {
+//		return mapper.updateRecipeInstructions(param1,param2);
+//	}
+
 }
 

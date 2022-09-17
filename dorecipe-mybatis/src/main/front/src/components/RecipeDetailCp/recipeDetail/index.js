@@ -5,7 +5,7 @@ import axios from "axios";
 import { SmallBtn } from "../../_common/buttons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faHeartCirclePlus } from "@fortawesome/free-solid-svg-icons";
-import StepRecipe from "./recipeSteps.js";
+import StepRecipe from "./recipeSteps";
 import RecipeIngredients from "./recipeIngredients";
 const RecipeDetailModal = () => {
   const search = "/";
@@ -186,7 +186,7 @@ const RecipeDetailModal = () => {
             </div>
             <div className="instructionWrap">
               <div>
-                <span className="accented">조리 순서 </span>Steps
+                <span className="accented"> 조리 순서 </span>Steps
               </div>
               <hr />
               <StepRecipe detailState={detailState} />
@@ -203,6 +203,7 @@ const BackGround = styled.div`
   color: #463635;
   height: fit-content;
   padding: 3em;
+  font-size: 14px;
   & .backBtn {
     float: right;
   }

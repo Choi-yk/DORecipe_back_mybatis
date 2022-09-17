@@ -343,12 +343,17 @@ const BasicFormWrap = styled.div`
   display: inline-flex;
   color: #463635;
   margin: 0 4.5em;
-  width: 90%;
+  max-width: 90%;
   align-items: center;
+  justify-content: space-evenly;
   font-size: 14px;
   height: fit-content;
-  padding: 2em;
-  gap: 6em;
+  padding: 0 2em;
+  flex-wrap: wrap;
+  gap: 3em;
+  & .recipeLeftWrap {
+    min-width: 40em;
+  }
 `;
 const ContentInput = styled.input`
   width: 44em;
@@ -371,11 +376,4 @@ const ContentTextarea = styled.textarea`
 const Labels = styled.label`
   display: inline-block;
   width: 7em;
-`;
-const HintMsg = styled.div`
-  font-size: 12px;
-  color: #8d3232;
-  display: block;
-  text-align: center;
-  margin-top: 1em;
 `;

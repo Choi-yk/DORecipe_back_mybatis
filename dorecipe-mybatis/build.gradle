@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.2'
+	id 'org.springframework.boot' version '2.7.3'
 	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
 	id 'java'
 	id 'war'
@@ -18,7 +18,7 @@ dependencies {
    implementation 'org.springframework.boot:spring-boot-starter-web'
    implementation 'org.springframework.boot:spring-boot-devtools'
    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-//   implementation 'commons-io:commons-io:2.6'	//의존성 주입
+   implementation 'commons-io:commons-io:2.6'	//의존성 주입
 
    
    annotationProcessor 'org.projectlombok:lombok'   //컴파일 단계에서 어노테이션을 분석하고 처리하기 위해 사용
@@ -41,9 +41,18 @@ dependencies {
    
     //jwt 관련
    implementation 'javax.xml.bind:jaxb-api'
-   implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
-   implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
-   implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+  implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+  implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
+  implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+  
+     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2',
+             'io.jsonwebtoken:jjwt-jackson:0.11.2',
+             'org.apache.commons:commons-lang3:3.0'
+   
+   //jpa
+   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.6.7'
+  
    
 }
 

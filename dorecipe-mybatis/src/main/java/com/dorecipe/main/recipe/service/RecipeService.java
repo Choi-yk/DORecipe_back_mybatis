@@ -152,5 +152,16 @@ public class RecipeService {
 	     return recordList;
 	}
 
+	//레시피 순서 수정
+	public int updateRecipeInstructions(RecipeVO recipeVO) {
+		return recipeDAO.updateRecipeInstructions(recipeVO);
+		
+	}
+//	//레시피 순서 수정
+//	public int updateRecipeInstructions(Integer param1, Integer param2) {
+//		return recipeDAO.updateRecipeInstructions(param1,param2);
+//		
+//	}
+
 
 }

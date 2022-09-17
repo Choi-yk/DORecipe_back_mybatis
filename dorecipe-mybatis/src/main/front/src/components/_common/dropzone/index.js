@@ -5,6 +5,7 @@ import {
   EditImgPreview,
   EditImgPreviewForm,
   EditImgPreviewInner,
+  FlexibleBox,
 } from "./style";
 
 export const DropZone = ({
@@ -21,20 +22,13 @@ export const DropZone = ({
   recipe_imgs_steps,
   setRecipe_imgs_steps,
 
-  completion_path1,
-  completion_path2,
-  completion_path3,
-  completion_path4,
-
+  index,
+  fileState,
   setPath1,
   setPath2,
   setPath3,
   setPath4,
 }) => {
-  // useDropzone({
-  //   multiple: true,
-  // });
-
   // drop handler
   const onDropHandler = useCallback(
     (files) => {
@@ -53,8 +47,12 @@ export const DropZone = ({
 
         //순서 이미지 설정일때
         if (stepDropState === "stepDrop") {
-          const copy_recipe_imgs_steps = [...recipe_imgs_steps];
-          copy_recipe_imgs_steps.concat(file.name);
+          setFiles([files.index, file.name]);
+          // const copy_recipe_imgs_steps = [...recipe_imgs_steps];
+          // copy_recipe_imgs_steps.concat(file.name);
+          // console.log("...files", ...files);
+          setRecipe_imgs_steps([files.index, file.name]);
+          // console.log("...files", files);
           console.log("recipe_imgs_steps", recipe_imgs_steps);
         }
 
@@ -125,6 +123,20 @@ export const DropZone = ({
           )
         );
       }
+
+      if (stepDropState === "stepDrop") {
+        for (let i = 0; i < files.length; i++) {
+          setFiles(files[i]);
+        }
+        setFiles(
+          files.map((file) =>
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+            })
+          )
+        );
+        console.log("fileState!~~~", fileState);
+      }
     },
     [files]
   );
@@ -141,7 +153,7 @@ export const DropZone = ({
   );
 
   return (
-    <Dropzone onDrop={onDropHandler}>
+    <Dropzone onDrop={onDropHandler} index={index}>
       {({ getRootProps, getInputProps }) => (
         <EditImgPreview>
           {files.length > 0 ? (
@@ -183,6 +195,20 @@ export const DropZone = ({
                 )
               )}
             </EditImgPreviewForm>
+          ) : completionDropState === "completionDropState" &&
+            files.length < 4 ? (
+            <>
+              <div className="inputBox" {...getRootProps()}>
+                <input
+                  {...getInputProps()}
+                  id="file"
+                  type="file"
+                  accept="image/*"
+                  onChange={onLoadImgFile}
+                />{" "}
+                + <p>최대 4개의 파일을 등록하실 수 있습니다.</p>
+              </div>
+            </>
           ) : (
             <div className="inputBox" {...getRootProps()}>
               <input
@@ -201,10 +227,3 @@ export const DropZone = ({
   );
 };
 export default DropZone;
-export const FlexibleBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* color: ${(props) => props.fontColor}; */
-  position: relative;
-`;

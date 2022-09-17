@@ -3,7 +3,7 @@ import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLightbulb,
-  faCircleXmark,
+  faCircleMinus,
   faPlusCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { DefaultBtn, SmallBtn } from "../../_common/buttons";
@@ -19,26 +19,6 @@ const IngredientForm = ({ recipeState }) => {
       ingredient_amount: "",
     },
   ]);
-
-  //페이지 마운트했을때 레시피 번호 가져오기 --> 기본 등록하고서 실행하도록
-  // useEffect(() => {
-  //   axios({
-  //     method: "POST",
-  //     url: "http://localhost:9000/recipe/getRecipeNum",
-  //     headers: { "Content-Type": "multipart/form-data" },
-  //     data: { member_id: "hirin012", recipe_num: 0 }, //멤버 아이디 전역으로..?
-  //   }).then((response) => {
-  //     console.log(response.data);
-  //     let newIngredients = {
-  //       recipe_num: response.data,
-  //       ingredient_num: ingredients.length,
-  //       ingredient_name: "",
-  //       ingredient_amount: "",
-  //     };
-  //     setIngredients([newIngredients]);
-  //     console.log(ingredients);
-  //   });
-  // }, []);
 
   const IngreAmountRef = useRef();
   const inputFocus = useRef();
@@ -95,14 +75,14 @@ const IngredientForm = ({ recipeState }) => {
       formData.append("data", blob);
       //레시피 배열 수 만큼 append 시켜 주기
       for (let i = 0; i < data.length; i++) {
-        formData.append(`orderVoList2[${i}].recipe_num`, recipeState);
-        formData.append(`orderVoList2[${i}].ing_num`, data[i].ingredient_num);
+        formData.append(`orderVoList[${i}].recipe_num`, recipeState);
+        formData.append(`orderVoList[${i}].ing_num`, data[i].ingredient_num);
         formData.append(
-          `orderVoList2[${i}].ing_ingredient`,
+          `orderVoList[${i}].ing_ingredient`,
           data[i].ingredient_name
         );
         formData.append(
-          `orderVoList2[${i}].ing_amount`,
+          `orderVoList[${i}].ing_amount`,
           data[i].ingredient_amount
         );
       }
@@ -129,9 +109,25 @@ const IngredientForm = ({ recipeState }) => {
           <SmallBtn
             type="button"
             className="addIngreBtn"
+            style={{ marginLeft: "1em" }}
+            onClick={onTemporarySave}
+          >
+            임시저장
+          </SmallBtn>
+          <SmallBtn
+            type="button"
+            className="addIngreBtn"
             onClick={onAddIngredientHandler}
           >
             <FontAwesomeIcon icon={faPlusCircle} /> 재료 추가
+          </SmallBtn>
+          <SmallBtn
+            type="button"
+            className="addIngreBtn"
+            style={{ marginRight: "1em" }}
+            onClick={removeIngredient}
+          >
+            <FontAwesomeIcon icon={faCircleMinus} /> 재료 삭제
           </SmallBtn>
         </div>
         <BundleWrap>
@@ -204,12 +200,6 @@ const IngredientForm = ({ recipeState }) => {
                               value={index.ingredient_amount}
                               // value={item.ingredient_amount}
                             />
-                            <FontAwesomeIcon
-                              icon={faCircleXmark}
-                              onClick={(e) => {
-                                removeIngredient(index, e);
-                              }}
-                            />
                           </div>
                         </div>
                       </div>
@@ -219,14 +209,6 @@ const IngredientForm = ({ recipeState }) => {
               })}
             </div>
           </Scrollable>
-          <DefaultBtn
-            type="button"
-            className="addIngreBtn"
-            style={{ marginTop: "3em", width: "100%" }}
-            onClick={onTemporarySave}
-          >
-            임시저장
-          </DefaultBtn>
         </BundleWrap>
       </BasicFormWrap>
     </>
@@ -237,7 +219,7 @@ const BasicFormWrap = styled.div`
   /* display: inline-flex; */
   color: #463635;
   margin: 0 4.5em;
-  width: 90%;
+  min-width: 60%;
   font-size: 14px;
   height: fit-content;
   /* background-color: aquamarine; */
@@ -249,10 +231,10 @@ const BundleWrap = styled.div`
 const Scrollable = styled.section`
   width: 100%;
   margin: 1em auto;
-
+  padding: 1em;
   & > div {
     padding: 2rem;
-    height: 27em;
+    height: 33em;
     overflow-y: auto;
     margin: 0 auto;
 

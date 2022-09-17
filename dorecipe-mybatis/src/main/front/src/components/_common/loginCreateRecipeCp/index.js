@@ -11,11 +11,6 @@ const LoginCreateRecipeLogo = () => {
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
 
-  //state
-  // const userInfo = useSelector((state) => state.user.info);
-  //리덕스 사용 X, 로그인 구현 안돼서 임시로..
-  const [userInfo, setUserInfo] = useState(false);
-
   //logout dispatch
 
   // const onLogOutHandler = useCallback(() => {
@@ -27,13 +22,15 @@ const LoginCreateRecipeLogo = () => {
   //     })
   //   );
   // }, [dispatch, navigate]);
-
+  // console.log("LoginCreateRecipeLogo", state);
   return (
     <>
       <LoginCreateRecipeWrapper>
         <LoginWrapper>
-          <AccountIcon userState={userInfo} />
-          <CreateRecipeIcon userState={userInfo} />
+          {/* <AccountIcon userState={state} /> */}
+          <AccountIcon />
+          <CreateRecipeIcon />
+          {/* <CreateRecipeIcon userState={state} /> */}
         </LoginWrapper>
       </LoginCreateRecipeWrapper>
     </>

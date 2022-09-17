@@ -25,6 +25,19 @@ public class LoginServiceImpl implements LoginService{
 	}
 
 
+	@Override
+	public MemberVO loginTry(String username, String password)  {
+		
+		 try {
+			return loginDAO.loginTry(username,password);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
 //	@Override
 //	public MemberVO findById(MemberVO memberVO) throws Exception {
 //		

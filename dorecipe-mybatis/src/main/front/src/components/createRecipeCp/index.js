@@ -44,10 +44,10 @@ const CreateRecipeForm = () => {
           slidesPerView={1}
           loop={false}
           navigation
-          spaceBetween={7}
+          spaceBetween={120}
           pagination={{ clickable: false }}
           // scrollbar={{ draggable: false }}
-          onSwiper={(swiper) => console.log(swiper)}
+          onSwiper={(swiper) => console.log("swiper", swiper)}
           onSlideChange={() => {
             axios({
               method: "POST",
@@ -77,34 +77,8 @@ const CreateRecipeForm = () => {
             </SwiperSlide>
             <SwiperSlide className="slide">
               <SectionTitle>요리 완성</SectionTitle>
-              <CompleteRecipe
-                recipeState={recipeState}
-                // buttonState={buttonState}
-              />
-              {/* {buttonState > 0 ? (
-                <>
-                  <BtnWrap>
-                    <SubmitRecipeBtn
-                      type="button"
-                      onClick={onSubmit}
-                      value="submit"
-                    >
-                      레시피 등록하기
-                    </SubmitRecipeBtn>
-                    <SubmitRecipeBtn
-                      type="button"
-                      onClick={onSubmit}
-                      value="saveAsDraft"
-                      buttonState={buttonState}
-                    >
-                      임시 저장하기
-                    </SubmitRecipeBtn>
-                  </BtnWrap>
-                </>
-              ) : (
-                <></>
-              )} */}
-            </SwiperSlide>{" "}
+              <CompleteRecipe recipeState={recipeState} />
+            </SwiperSlide>
           </form>
         </Swiper>
       </FlexWrap>
@@ -113,7 +87,9 @@ const CreateRecipeForm = () => {
 };
 export default CreateRecipeForm;
 const FlexWrap = styled.div`
-  width: 100%;
+  max-width: 100%;
+  min-width: 50%;
+
   height: 100vh;
   display: inline-flex;
   flex-wrap: wrap;
@@ -131,7 +107,4 @@ const SectionTitle = styled.div`
   font-weight: 700;
   padding: 0.5em 0;
   padding-left: 0.5em;
-`;
-const BtnWrap = styled.div`
-  display: flex;
 `;

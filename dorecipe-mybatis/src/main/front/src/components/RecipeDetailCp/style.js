@@ -3,8 +3,6 @@ export const SelectTotalWrap = styled.div`
   margin: -6em 0 50em 0;
   padding: 1.5em;
   height: fit-content;
-  background-color: #fffdf5;
-  /* background-color: pink; */
   height: 35vh;
   color: #463635;
   & .totalWrap .totalSearch {
@@ -56,8 +54,6 @@ export const ModalWrap = styled.div`
 export const SearchResults = styled.div`
   height: fit-content;
   clear: both;
-
-  /* background-color: pink; */
 `;
 export const SearchResultFlex = styled.div`
   width: 100%;
@@ -82,7 +78,6 @@ export const SearchResultFlex = styled.div`
     padding: 6.5em;
     text-align: center;
     height: 20em;
-    background-color: pink;
   }
 `;
 

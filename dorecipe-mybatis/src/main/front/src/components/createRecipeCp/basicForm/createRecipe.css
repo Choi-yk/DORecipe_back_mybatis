@@ -1,31 +1,10 @@
-/* /* html,
-body {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  color: #463635;
-} */
-/* 
-.bigDiv {
-  background: #eee;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color: #000;
-  margin: 0;
-  padding: 0;
-} */
-
 .swiper {
   width: 100%;
   height: 100%;
 }
 
 .swiper-slide {
-  /* text-align: center; */
   font-size: 14px;
-  /* background: rgb(169, 136, 136); */
-
-  /* Center slide text vertically */
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -39,31 +18,7 @@ body {
   -webkit-align-items: center;
   align-items: center;
 }
-/* 중복되는 거
-.recipeSectionTitle {
-  background-color: #8d3232;
-  color: #fffdf5;
-  height: 2.4em;
-  font-size: 21px;
-  font-weight: 700;
-  padding: 0.5em 0;
-  padding-left: 0.5em;
-  margin: 1em 0;
-} */
-/* .recipeBasicWrap {
-  height: fit-content;
-  margin: 1em 0;
-} */
 
-/* 공통 */
-/* form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80em;
-  flex-wrap: wrap;
-} */
-/* 레시피 제목, 소개, 카테고리, 인원,태그 */
 .recipeLeftWrap {
   padding: 1em;
   height: 30em;
@@ -189,11 +144,6 @@ label {
   cursor: pointer;
   outline: none;
   border: transparent;
-}
-.fa-xmark {
-  font-size: 15px;
-  margin-left: 5px;
-  padding-right: 3px;
 }
 /*레시피 이미지등록 */
 .recipeRightWrap {

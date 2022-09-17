@@ -1,25 +1,46 @@
-// import { userDATA, userUpdateInfo } from "../util/data";
-// export default class UserService {
-//   login(req) {
-//     console.log(req);
-//     const response = userDATA();
-//     return response;
+// // import { userDATA, userUpdateInfo } from "../util/data";
+// // export default class UserService {
+// //   login(req) {
+// //     console.log(req);
+// //     const response = userDATA();
+// //     return response;
+// //   }
+// //   relogin(req) {
+// //     const response = req;
+// //     return response;
+// //   }
+// //   logout(req) {
+// //     console.log(req);
+// //     console.log("회원가입 성공");
+// //   }
+// //   sign(req) {
+// //     console.log(req);
+// //     console.log("회원가입 성공");
+// //   }
+// //   update(req) {
+// //     console.log(req);
+// //     const response = userUpdateInfo;
+// //     return response;
+// //   }
+// // }
+// import api from "./api";
+
+// class UserService {
+//   getPublicContent() {
+//     return api.get("/test/all");
 //   }
-//   relogin(req) {
-//     const response = req;
-//     return response;
+
+//   getUserBoard() {
+//     return api.get("/test/user");
 //   }
-//   logout(req) {
-//     console.log(req);
-//     console.log("회원가입 성공");
+
+//   getModeratorBoard() {
+//     return api.get("/test/mod");
 //   }
-//   sign(req) {
-//     console.log(req);
-//     console.log("회원가입 성공");
-//   }
-//   update(req) {
-//     console.log(req);
-//     const response = userUpdateInfo;
-//     return response;
+
+//   getAdminBoard() {
+//     return api.get("/test/admin");
 //   }
 // }
+
+// export default new UserService();

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import MainLayout from "../../../layout/mainLayOut";
 
+import { useSelector } from "react-redux";
 const NoticePage = () => {
   const [state, setState] = useState([
     {
@@ -14,6 +15,7 @@ const NoticePage = () => {
       notice_creDate: "",
     },
   ]);
+  const user = useSelector((state) => state);
 
   function testAxios() {
     axios({
@@ -34,6 +36,7 @@ const NoticePage = () => {
   }
 
   useEffect(() => {
+    console.log("user~~~~~~~~~~~", user);
     testAxios();
   }, []);
 
@@ -49,33 +52,44 @@ const NoticePage = () => {
 
   return (
     <>
-    <MainLayout>
-      <div className="noticeWrap">
-        <h2>| Notice |</h2>
-        <Link className="updateList" to={"/admin"}>
-          등록
-        </Link>
-        <div className="noticeTableWrap">
-          <ul>
-            <div className="tableHead">
-              <div className="noticeNo">No.</div>
-              <div className="noticeTitle">제목</div>
-              <div className="noticeDate">작성일자</div>
-              <div className="updateOrDelete">수정 및 삭제</div>
-            </div>
-            {state.map((e) => (
-              <NoticeList
-                key={e.notice_num}
-                removePost={removePost}
-                // updatePost={updatePost}
-                state={e}
-              />
-            ))}
-          </ul>
+      <MainLayout>
+        <div className="noticeWrap">
+          <h2>| Notice |</h2>
+          {/* {user.auth.user.roles.includes("ROLE_ADMIN") && (
+            <Link className="updateList" to={"/admin"}>
+              등록
+            </Link>
+          )} */}
+          {user.showAdminBoard && (
+            <Link className="updateList" to={"/admin"}>
+              등록
+            </Link>
+          )}
+
+          <div className="noticeTableWrap">
+            <ul>
+              <div className="tableHead">
+                <div className="noticeNo">No.</div>
+                <div className="noticeTitle">제목</div>
+                <div className="noticeDate">작성일자</div>
+                {user.showAdminBoard && (
+                  <div className="updateOrDelete">수정 및 삭제</div>
+                )}
+              </div>
+              {state.map((e) => (
+                <NoticeList
+                  key={e.notice_num}
+                  removePost={removePost}
+                  user={user}
+                  // updatePost={updatePost}
+                  state={e}
+                />
+              ))}
+            </ul>
+          </div>
+          {/* <button onClick={() => testAxios()}>axiosTest</button> */}
         </div>
-        {/* <button onClick={() => testAxios()}>axiosTest</button> */}
-      </div>
-      <div className="bottom"/>
+        <div className="bottom" />
       </MainLayout>
     </>
   );

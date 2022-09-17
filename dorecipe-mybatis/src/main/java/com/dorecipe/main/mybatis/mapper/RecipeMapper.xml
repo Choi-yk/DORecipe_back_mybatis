@@ -13,15 +13,7 @@
       SELECT * from recipe
       where recipe_num = #{recipe_num}		
   	</select>
-  	
-  	<!-- 레시피재료 조회 
-	<select id="getBundle" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="int">
-	  select r.recipe_num,r.bundle,b.ing_ingredient,b.ing_amount from r_bundle r
-	  inner join b_ingredient b
-      on r.recipe_num=b.recipe_num and r.bundle_num=b.bundle_num
-      where r.recipe_num = #{recipe_num}
-  	</select>-->
-  	
+  	  	
   	<!-- 요리순서 조회 -->
 	<select id="getOrder" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="int">
 	  select r.recipe_num,o.order_num,o.order_explain,o.order_path from recipe r
@@ -36,7 +28,7 @@
   	</select>
 
   	
- 	<!-- 레시피 등록 test -->
+ 	<!-- 레시피 등록 -->
   	<insert id="recipeTemporarySave" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">		
   		insert into recipe
 		(recipe_title,recipe_savetype,recipe_introduce,recipe_url,recipe_rpath,
@@ -70,7 +62,6 @@
   	(#{recipe_num}, #{order_num},#{order_explain}, #{order_path});
   	</insert>
  
- 	<!--재료 등록 크롤링한 거-->
     <insert id="insertRecipeIngredients" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
   	insert into r_ingredient(recipe_num,ing_num,ing_ingredient,ing_amount) values
   	<foreach collection="orderVoList" item="item" separator=",">
@@ -132,12 +123,34 @@
   	<update id="updateRecipeInstructions" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
   		update r_order 
   		set 
-  		<foreach collection="orderVoList2" item="item" separator=",">
+  		<foreach collection="orderVoList" item="item" separator=",">
   		item.order_explain=#{item.order_explain},
-  		item.order_path= #{item.order_path}
-  		</foreach>
+  		item.order_path= #{item.order_path},
   		where recipe_num = #{recipe_num} and order_num=#{item.order_num}; 			
+  		</foreach>
   	</update>-->
+  	
+  	
+  	<!-- 레시피 순서 임시저장 수정
+  	<update id="updateRecipeInstructions" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  		update r_order 
+  		set 
+  		<foreach collection="orderVoList" item="item" separator=",">
+  		item.order_explain=#{item.order_explain},
+  		item.order_path= #{item.order_path},
+  		where recipe_num = #{param1} and order_num=#{param2}; 			
+  		</foreach>
+  	</update>-->
+  	
+  	<update id="updateRecipeInstructions" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  		update r_order 
+  		set 
+  		<foreach collection="orderVoList" item="item" separator=",">
+  		order_explain=#{item.order_explain},
+  		order_path= #{item.order_path}, order_num=#{item.order_num}
+  		</foreach>
+  		where recipe_num = #{recipe_num} ;			
+  	</update>
   	
   	
   	<!-- 레시피 삭제 -->

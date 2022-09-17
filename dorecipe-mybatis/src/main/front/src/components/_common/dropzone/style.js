@@ -6,8 +6,10 @@ export const EditImgPreview = styled.section`
   border-radius: 0.5rem;
   font-size: 2rem;
   cursor: pointer;
-  margin-bottom: 0.5rem;
+  max-height: 18em;
+  min-height: 6em;
 
+  padding: 3rem;
   & > .inputBox {
     width: 100%;
     height: 100%;
@@ -65,4 +67,10 @@ export const EditImgPreviewInner = styled.div`
       left: 50%;
     }
   }
+`;
+export const FlexibleBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 `;

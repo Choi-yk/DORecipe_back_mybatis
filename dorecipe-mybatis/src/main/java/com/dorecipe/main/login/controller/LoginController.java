@@ -86,49 +86,63 @@ public class LoginController {
 	
 	
 	//////////////jwt test 이전 mapping ///////////////////////////
-	@PostMapping("/login")
-	//public String login(MemberVO memberVO, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
-//	public String login(@RequestBody HashMap<String,String> requestJsonHashMap,HttpServletResponse res) throws Exception{	
-	public MemberVO login(@RequestBody HashMap<String,String> requestJsonHashMap) throws Exception{	
-			
-		//HashMap<String, Object> rtnMap = new HashMap<String, Object>();
+//	@PostMapping("/user/login")
+//	//public String login(MemberVO memberVO, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
+////	public String login(@RequestBody HashMap<String,String> requestJsonHashMap,HttpServletResponse res) throws Exception{	
+//	public MemberVO login(@RequestBody HashMap<String,String> requestJsonHashMap) throws Exception{	
+//			
+//		//HashMap<String, Object> rtnMap = new HashMap<String, Object>();
+//		
+//		System.out.println("%%%%%member_id = "+requestJsonHashMap.get("memberId"));
+//		System.out.println("%%%%%member_Pwd = "+requestJsonHashMap.get("memberPwd"));
+//		
+//		MemberVO memberVO = new MemberVO();
+//		
+//		memberVO.setMember_id(requestJsonHashMap.get("memberId"));
+//		memberVO.setMember_pwd(requestJsonHashMap.get("memberPwd"));
+//		
+//		//HttpSession session = req.getSession();
+//			//System.out.println("%%%%%" + memberVO);
+//			//System.out.println("%%%%%" + req.getParameter("memberId"));
+//			
+//			
+//			memberVO = loginService.Login(memberVO);
+//			
+//			
+//			if(memberVO == null) {
+////				session.setAttribute("member",null);
+////				rttr.addFlashAttribute("msg",false);
+//				System.out.println("memberVO 객체가 null..............");
+//				
+////				return "redirect:/login";				
+//			}else {	//로그인 성공햇을 때
+////				session.setAttribute("member", memberVO);
+//				System.out.println("memberVO 객체에 값 들어감!!!!!!!!!!!");
+//				System.out.println("!!!!!!!member_id = "+ memberVO.getMember_id());
+//				System.out.println("!!!!!!!member_pwd = " + memberVO.getMember_pwd());
+//				
+////				return "redirect:/";
+//
+//			}
+//		return memberVO;
+//	}
+	
+	
+//	@PostMapping("user/login")
+	@PostMapping("/loginTry")
+	public MemberVO loginTry(
+			@RequestParam(value = "member_id",required=false) String member_id, 
+			@RequestParam(value = "member_pwd",required=false) String member_pwd) throws Exception {
 		
-		System.out.println("%%%%%member_id = "+requestJsonHashMap.get("memberId"));
-		System.out.println("%%%%%member_Pwd = "+requestJsonHashMap.get("memberPwd"));
-		
-		MemberVO memberVO = new MemberVO();
-		
-		memberVO.setMember_id(requestJsonHashMap.get("memberId"));
-		memberVO.setMember_pwd(requestJsonHashMap.get("memberPwd"));
-		
-		//HttpSession session = req.getSession();
-			//System.out.println("%%%%%" + memberVO);
-			//System.out.println("%%%%%" + req.getParameter("memberId"));
-			
-			
-			memberVO = loginService.Login(memberVO);
-			
-			
-			if(memberVO == null) {
-//				session.setAttribute("member",null);
-//				rttr.addFlashAttribute("msg",false);
-				System.out.println("memberVO 객체가 null..............");
-				
-//				return "redirect:/login";				
-			}else {	//로그인 성공햇을 때
-//				session.setAttribute("member", memberVO);
-				System.out.println("memberVO 객체에 값 들어감!!!!!!!!!!!");
-				System.out.println("!!!!!!!member_id = "+ memberVO.getMember_id());
-				System.out.println("!!!!!!!member_pwd = " + memberVO.getMember_pwd());
-				
-//				return "redirect:/";
-
-			}
-		return memberVO;
+//		System.out.println("로그인 성공~~");
+		return loginService.loginTry(member_id,member_pwd);
 	}
 	
+//	@RequestMapping(path="user/login", method =RequestMethod.GET)
+//	@RequestMapping(path="/login", method =RequestMethod.GET)
 	@RequestMapping(path="/login", method =RequestMethod.GET)
 	public MemberVO login(MemberVO memberVO) throws Exception {
+		System.out.println("로그인 form");
 		return loginService.Login(memberVO);
 	}
 	

@@ -78,4 +78,10 @@ public interface RecipeDAO {
 	// 작성중인 레시피 조회
 	List<RecipeVO> recordRecipe(String member_id);
 
+	//레시피 순서 임시저장 수정
+	int updateRecipeInstructions(RecipeVO recipeVO);
+//	
+//	//레시피 순서 임시저장 수정
+//	int updateRecipeInstructions(Integer param1, Integer param2);
+
 }

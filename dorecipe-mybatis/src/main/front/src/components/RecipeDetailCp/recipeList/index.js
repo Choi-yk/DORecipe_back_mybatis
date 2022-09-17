@@ -15,12 +15,20 @@ const RecipeList = ({ recipeState }) => {
           <ItemWrap onClick={onClickRecipe}>
             {/* <ItemWrap > */}
             <div>
-              <img
-                src={recipeState.recipe_rpath}
-                alt={recipeState.recipe_rpath}
-              />
+              <>
+                <img
+                  src={recipeState.recipe_rpath}
+                  alt={recipeState.recipe_rpath}
+                />
+              </>
             </div>
-            <div>{recipeState.recipe_title}</div>
+            <div>
+              {recipeState.recipe_title.length < 35 ? (
+                <>{recipeState.recipe_title}</>
+              ) : (
+                <>{recipeState.recipe_title.substring(0, 35) + "..."}</>
+              )}
+            </div>
             <div>
               <span>{recipeState.information_level}</span>
               <span className="floatRight">{recipeState.information_time}</span>
@@ -44,6 +52,7 @@ const ItemWrap = styled.div`
   flex-direction: column;
   & div {
     overflow-y: hidden;
+    overflow-x: hidden;
     max-width: 16em;
     max-height: 12em;
   }
