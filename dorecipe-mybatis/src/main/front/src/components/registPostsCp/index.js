@@ -395,7 +395,7 @@ function TabContent(props) {
                 required
                 id="eventData4"
                 onChange={onChangeEventCreDate}
-              />{" "}
+              />
               ~
               <input
                 name="event_finDate"

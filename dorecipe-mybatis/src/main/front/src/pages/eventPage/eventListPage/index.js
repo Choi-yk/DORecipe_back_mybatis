@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import MainLayout from "../../../layout/mainLayOut";
 import { useSelector } from "react-redux";
+import styled from "styled-components";
 
 const EventPage = () => {
   const [state, setState] = useState([
@@ -67,6 +68,8 @@ const EventPage = () => {
                 <div className="noticeDate">참여 기간</div>
                 {BtnState && <div className="updateOrDelete">수정 및 삭제</div>}
               </div>
+              <Scrollable>
+              <div>
               {state.map((e) => (
                 <EventList
                   key={e.event_num}
@@ -76,6 +79,8 @@ const EventPage = () => {
                   state={e}
                 />
               ))}
+              </div>
+              </Scrollable>
             </ul>
           </div>
         </div>
@@ -85,3 +90,37 @@ const EventPage = () => {
   );
 };
 export default EventPage;
+
+
+const Scrollable = styled.section`
+  width: 100%;
+  margin: 0 auto;
+
+  & > div {
+    padding: 0 0.6rem;
+    width: 102%;
+    height: 450px;
+    overflow-y: auto;
+    margin: 0 auto;
+    transform: translateX(-1%);
+    ::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+    ::-webkit-scrollbar-thumb {
+      height: 30%;
+      background-color: #fffdf5;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: #8d3232;
+    }
+  }
+  & > div > li {
+    list-style: none;
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    padding: 1em 0;
+    border-bottom: 1px solid #ad939156;
+  }
+`;
