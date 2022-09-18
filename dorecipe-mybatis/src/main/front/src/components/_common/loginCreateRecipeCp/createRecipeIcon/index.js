@@ -28,6 +28,7 @@ const CreateRecipeIcon = () => {
   const onClickRecipe = () => {
     navigate("/recipe/create");
   };
+
   const onClickAdmin = () => {
     navigate("/admin");
   };
@@ -37,7 +38,7 @@ const CreateRecipeIcon = () => {
       <Popover.Body>
         {!user.auth.isLoggedIn ? (
           <>
-            <Link className="linkItems" to="/">
+            <Link className="linkItems" to="/login">
               <div>로그인 후 </div>
               <div>작성 가능합니다</div>
             </Link>
@@ -52,7 +53,7 @@ const CreateRecipeIcon = () => {
           <>
             <>
               <div className="linkItems" onClick={onClickAdmin}>
-                관리자 홈으로
+                <div>관리자 홈</div>
               </div>
             </>
           </>

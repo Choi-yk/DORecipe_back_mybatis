@@ -154,9 +154,18 @@ function App() {
       )} */}
       <Route path={"/admin"} element={<AdminPostMng />} />
       <Route path={"/join"} element={<JoinMemberPage />} />
-      <Route path={"/member/info"} element={<MyPage />} />
+      {/* {currentUser ? (
+
+      ):(
+
+      )} */}
+      {currentUser && <Route path={"/member/info"} element={<MyPage />} />}
+
       {/* <Route path={"/member/info/:memberId"} element={<MyPage />} /> */}
-      <Route path={"/member"} element={<MemberListPage />} />
+      {/* {showAdminBoard && (
+      
+      )} */}
+      {/* <Route path={"/member"} element={<MemberListPage />} /> */}
       {/* <Route path={"/login"} element={<LoginPage />} userState={user} /> */}
       <Route path={"/login"} element={<LoginPage />} />
 

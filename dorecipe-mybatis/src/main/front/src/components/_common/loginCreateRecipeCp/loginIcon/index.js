@@ -21,11 +21,10 @@ const AccountIcon = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state);
-  // const currentUser = user.auth.user;
 
   // const [userState, setCurrentUser] = useState(user);
-  const [userState, setCurrentUser] = useState(user.auth.user);
-  console.log("로그ㅇ아웃useState", userState);
+  // const [userState, setCurrentUser] = useState(user.auth.user);
+  // console.log("로그ㅇ아웃useState", userState);
   const onClickLogOut = useCallback(() => {
     //로그아웃 시키고 메인페이지로
     dispatch(logout());
@@ -38,13 +37,13 @@ const AccountIcon = () => {
       <Popover.Body>
         {user.auth.isLoggedIn ? (
           <>
-            {user.auth.user.roles.includes("ROLE_ADMIN") ? (
+            {/* {user.auth.user.roles.includes("ROLE_ADMIN") ? (
               <></>
-            ) : (
-              <Link className="linkItems" to="/member/info/">
-                마이 페이지
-              </Link>
-            )}
+            ) : ( */}
+            <Link className="linkItems" to="/member/info/">
+              마이 페이지
+            </Link>
+            {/* )} */}
 
             <div className="linkItems" onClick={onClickLogOut}>
               로그아웃
