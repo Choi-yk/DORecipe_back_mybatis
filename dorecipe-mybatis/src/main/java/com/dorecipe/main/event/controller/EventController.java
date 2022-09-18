@@ -26,7 +26,8 @@ import com.dorecipe.main.event.vo.EventVO;
 
 import lombok.RequiredArgsConstructor;
 
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins="http://localhost:3000")
 @RestController
 @RequestMapping("/event")
 @RequiredArgsConstructor

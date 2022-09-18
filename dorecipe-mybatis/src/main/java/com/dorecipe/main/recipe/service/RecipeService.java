@@ -91,8 +91,13 @@ public class RecipeService {
 	}
 
 	//레시피 상세 검색페이지
-	public List<RecipeVO> detailSearchRecipe(String category_kind,String category_theme,String category_way,String category_ing, int recipe_savetype) {
-		List<RecipeVO> searchResult = recipeDAO.detailSearchRecipe(category_kind,category_theme,category_way,category_ing,recipe_savetype);
+//	public List<RecipeVO> detailSearchRecipe(String category_kind,String category_theme,String category_way,String category_ing, int recipe_savetype) {
+//		List<RecipeVO> searchResult = recipeDAO.detailSearchRecipe(category_kind,category_theme,category_way,category_ing,recipe_savetype);
+//		return searchResult;
+//	}
+	public List<RecipeVO> detailSearchRecipe(RecipeVO recipeVO) {
+		List<RecipeVO> searchResult = recipeDAO.detailSearchRecipe(recipeVO);
+		System.out.println("Service ==> " + recipeVO);
 		return searchResult;
 	}
 
@@ -125,20 +130,28 @@ public class RecipeService {
 	}
 
 	//좋아요 취소하기
-	public Integer removeLikes(String param1, Integer param2) {
-		return recipeDAO.removeLikes(param1,param2);
+//	public Integer removeLikes(String param1, Integer param2) {
+//		return recipeDAO.removeLikes(param1,param2);
+//	}
+	public Integer removeLikes(RecipeVO recipeVO) {
+		return recipeDAO.removeLikes(recipeVO);
 	}
 
 	//좋아요 추가하기
-	public Integer insertLikes(String param1, Integer param2, Integer param3) {
-		return recipeDAO.insertLikes(param1,param2,param3);
+//	public Integer insertLikes(String param1, Integer param2, Integer param3) {
+//		return recipeDAO.insertLikes(param1,param2,param3);
+//	}
+	public Integer insertLikes(RecipeVO recipeVO) {
+		return recipeDAO.insertLikes(recipeVO);
 	}
 
 	//좋아요한 멤버
-	public String getLikedMember(String param1, Integer param2) {
-		return recipeDAO.getLikedMember(param1,param2);
+//	public String getLikedMember(String param1, Integer param2) {
+//		return recipeDAO.getLikedMember(param1,param2);
+//	}
+	public String getLikedMember(RecipeVO recipeVO) {
+		return recipeDAO.getLikedMember(recipeVO);
 	}
-
 	
 	// 작성한 레시피 조회
 	public List<RecipeVO> recordCompleteRecipe(String member_id) {

@@ -20,8 +20,8 @@ import com.dorecipe.main.recipe.vo.RecipeVO;
 
 import lombok.RequiredArgsConstructor;
 
-
-@CrossOrigin(origins={"http://localhost:3000","http://localhost:3005"}) 
+@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins={"http://localhost:3000","http://localhost:3005"}) 
 @RequestMapping(value="/recipe")
 @RequiredArgsConstructor
 @RestController
@@ -30,8 +30,9 @@ public class RecipeController extends RecipeFileUpload{
 
 	@Autowired
 	private RecipeService recipeService;
-
 	
+	RecipeVO recipeVO;
+		
 	//레시피 목록
 	@RequestMapping("/list")
 	public String EventList(Model model) {
@@ -210,8 +211,6 @@ public class RecipeController extends RecipeFileUpload{
 //		
 //		return "redirect:/recipe/list";
 //	}
-	
-	
 	//레시피 임시저장한 거 수정해서 저장할때
 	@PostMapping("/updateRecipeInstructions")
 	public String updateRecipeInstructions(RecipeVO recipeVO) {
@@ -241,14 +240,34 @@ public class RecipeController extends RecipeFileUpload{
 	}
 	
 //	레시피 상세검색
+//	@GetMapping("/detail/search")
+//	public List<RecipeVO> detailSearchRecipe(
+//			@RequestParam(value = "param1") String param1,
+//			@RequestParam(value = "param2") String param2,
+//			@RequestParam(value = "param3") String param3,
+//			@RequestParam(value = "param4") String param4,
+//			@RequestParam(value = "param5")int param5) {	
+//		return recipeService.detailSearchRecipe(param1,param2,param3,param4,param5);
+//	}
 	@GetMapping("/detail/search")
-	public List<RecipeVO> detailSearchRecipe(
-			@RequestParam(value = "param1") String param1,
+	public List<RecipeVO> detailSearchRecipe(@RequestParam(value = "param1") String param1,
 			@RequestParam(value = "param2") String param2,
 			@RequestParam(value = "param3") String param3,
 			@RequestParam(value = "param4") String param4,
-			@RequestParam(value = "param5")int param5) {	
-		return recipeService.detailSearchRecipe(param1,param2,param3,param4,param5);
+			@RequestParam(value = "param5")int param5,RecipeVO recipeVO) {	
+		System.out.println("param1 ==> " + param1);
+		System.out.println("param2 ==> " + param2);
+		System.out.println("param3 ==> " + param3);
+		System.out.println("param4 ==> " + param4);
+		System.out.println("param5 ==> " + param5);
+		
+		recipeVO.setCategory_kind(param1);
+		recipeVO.setCategory_theme(param2);
+		recipeVO.setCategory_way(param3);
+		recipeVO.setCategory_ing(param4);
+		recipeVO.setRecipe_savetype(param5);
+		
+		return recipeService.detailSearchRecipe(recipeVO);
 	}
 	
 	//레시피 상세 검색 결과 자세히 보기
@@ -259,33 +278,66 @@ public class RecipeController extends RecipeFileUpload{
 	}
 
 	//레시피 삭제
+//	@GetMapping("/removeLikes")
+//	public Integer removeLikes(@RequestParam(value = "param1") String param1,
+//			@RequestParam(value = "param2")  Integer param2) {		
+//		System.out.println("좋아요 취소하기"+param1);
+//		return recipeService.removeLikes(param1,param2);
+//	
+//	}
 	@GetMapping("/removeLikes")
-	public Integer removeLikes(@RequestParam(value = "param1") String param1,
-			@RequestParam(value = "param2")  Integer param2) {		
-		System.out.println("좋아요 취소하기"+param1);
-		return recipeService.removeLikes(param1,param2);
+	public Integer removeLikes(@RequestParam(value = "member_id") String member_id,
+			@RequestParam(value = "recipe_num")  Integer recipe_num) {		
+		System.out.println("좋아요 취소하기"+member_id);
+		
+		recipeVO.setMember_id(member_id);
+		recipeVO.setRecipe_num(recipe_num);
+				
+		return recipeService.removeLikes(recipeVO);
 	
 	}
+	
 	//레시피 좋아요
+//	@GetMapping("/insertLikes")
+//	public Integer insertLikes(
+//			@RequestParam(value = "param1") String param1,
+//			@RequestParam(value = "param2")  Integer param2,
+//			@RequestParam(value = "param3")  Integer param3
+//			) {		
+//		System.out.println("좋아요 하기"+param1);
+//		return recipeService.insertLikes(param1,param2,param3);
+//		
+//	}
 	@GetMapping("/insertLikes")
 	public Integer insertLikes(
-			@RequestParam(value = "param1") String param1,
-			@RequestParam(value = "param2")  Integer param2,
-			@RequestParam(value = "param3")  Integer param3
+			@RequestParam(value = "member_id") String member_id,
+			@RequestParam(value = "recipe_num")  Integer recipe_num,
+			@RequestParam(value = "likes")  Integer likes
 			) {		
-		System.out.println("좋아요 하기"+param1);
-		return recipeService.insertLikes(param1,param2,param3);
+		System.out.println("좋아요 하기"+member_id);
+		
+		recipeVO.setMember_id(member_id);
+		recipeVO.setRecipe_num(recipe_num);
+		recipeVO.setLikes(likes);
+		
+		return recipeService.insertLikes(recipeVO);
 		
 	}
+	
 	//레시피 좋아요한 회원아이디
 	@GetMapping("/getLikedMember")
 	public String getLikedMember(
 			@RequestParam(value = "param1")  String param1,
 			@RequestParam(value = "param2") Integer param2
 			) {		
-		System.out.println( "좋아요한 멤버"+recipeService.getLikedMember(param1,param2));
-		return recipeService.getLikedMember(param1,param2);
+//		System.out.println( "좋아요한 멤버"+recipeService.getLikedMember(param1,param2));
+//		return recipeService.getLikedMember(param1,param2);
 		
+		System.out.println( "좋아요한 멤버"+recipeService.getLikedMember(recipeVO));
+		recipeVO.setMember_id(param1);
+		recipeVO.setRecipe_num(param2);
+		
+		return recipeService.getLikedMember(recipeVO);
 	}
 	
 }

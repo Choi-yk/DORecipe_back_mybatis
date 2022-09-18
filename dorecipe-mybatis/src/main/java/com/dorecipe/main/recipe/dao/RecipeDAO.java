@@ -44,9 +44,10 @@ public interface RecipeDAO {
 	List<RecipeVO> searchRecipe(String recipe_title);
 
 	//레시피 상세 검색
-	List<RecipeVO> detailSearchRecipe(String category_kind, String category_theme, String category_way,
-			String category_ing, int recipe_savetype);
-
+//	List<RecipeVO> detailSearchRecipe(String category_kind, String category_theme, String category_way,
+//			String category_ing, int recipe_savetype);
+	List<RecipeVO> detailSearchRecipe(RecipeVO recipeVO);
+	
 	//레시피 상세 검색 상세 레시피 보기
 	List<RecipeVO> showDetailSearchRecipe(Integer recipe_num);
 
@@ -63,12 +64,16 @@ public interface RecipeDAO {
 	Integer getRecipeLikes(Integer recipe_num);
 
 	//좋아요 삭제
-	Integer removeLikes(String param1, Integer param2);
+//	Integer removeLikes(String param1, Integer param2);
+	Integer removeLikes(RecipeVO recipeVO);
+	
 	//좋아요 추가
-	Integer insertLikes(String param1, Integer param2,Integer param3);
+//	Integer insertLikes(String param1, Integer param2,Integer param3);
+	Integer insertLikes(RecipeVO recipeVO);
+	
 	//좋아요한 멤버
-	String getLikedMember(String param1, Integer param2);
-
+//	String getLikedMember(String param1, Integer param2);
+	String getLikedMember(RecipeVO recipeVO);
 
 
 	

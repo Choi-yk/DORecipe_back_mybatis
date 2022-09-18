@@ -2,7 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dorecipe.main.recipe.dao.RecipeDAO">
+<!-- <mapper namespace="com.dorecipe.main.recipe.dao.RecipeDAO"> -->
+<mapper namespace="mapper.recipe">
 
 	<!-- 저장한 레시피목록 - savetype=0 -->
 	<select id="getList" resultType="com.dorecipe.main.recipe.vo.RecipeVO">
@@ -192,11 +193,11 @@
 	<select id="detailSearchRecipe" resultType="com.dorecipe.main.recipe.vo.RecipeVO"  parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
 	  select * from recipe
 	  where 
-	  category_kind = #{param1} and
-	  category_theme = #{param2} and
-	  category_way = #{param3} and
-	  category_ing = #{param4} and
-	  recipe_savetype = #{param5}
+	  category_kind = #{category_kind} and
+	  category_theme = #{category_theme} and
+	  category_way = #{category_way} and
+	  category_ing = #{category_ing} and
+	  recipe_savetype = #{recipe_savetype}
 	  order by recipe_num desc
   	</select>
   	  	

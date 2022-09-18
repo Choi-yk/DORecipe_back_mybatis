@@ -14,13 +14,17 @@ public class RecommendRecipeDAOImpl implements RecommendRecipeDAO{
 	private RecommendRecipeDAO mapper;
 	
 	@Autowired
-	public RecommendRecipeDAOImpl(SqlSession sqlSession) {
-		mapper = sqlSession.getMapper(RecommendRecipeDAO.class);
-	}
+	SqlSession sqlSession;
+	
+//	@Autowired
+//	public RecommendRecipeDAOImpl(SqlSession sqlSession) {
+//		mapper = sqlSession.getMapper(RecommendRecipeDAO.class);
+//	}
 	
 	@Override
 	public List<RecommendRecipeVO> getList() {
-		return mapper.getList();
+//		return mapper.getList();
+		return sqlSession.selectList("mapper.recommendRecipe.getList");
 	}
 	
 }
