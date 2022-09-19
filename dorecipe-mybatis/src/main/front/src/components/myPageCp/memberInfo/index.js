@@ -3,281 +3,274 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import styled from "styled-components";
-import { SubmitRecipeBtn } from "../../_common/buttons";
-
+import { MediumBtn, SubmitRecipeBtn } from "../../_common/buttons";
+import "./style.css";
 import { useInput } from "../../../hooks/useInput";
-
+import { useDispatch, useSelector } from "react-redux";
+import { login, logout } from "../../../reduxRefresh/actions/auth";
+import { SET_MESSAGE } from "../../../reduxRefresh/actions/types";
+import Message from "../../../reduxRefresh/reducers/message";
 
 const MemberInfoForm = () => {
+  const userMsg = useSelector((state) => state.message);
+  const user = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const [userState, setUserState] = useState(user);
+  const [currentId, setCurrentId] = useState();
+  const [currentUserId, setCurrentUserId] = useState();
+  const [currentEmail, setEmail] = useState();
+  const [currentRole, setRole] = useState();
+  const navigate = useNavigate();
+  console.log("userState", userState);
+  //   console.log("MemberInfoForm", user);
 
-    let { memberId } = useParams();
-
-    const navigate = useNavigate();
-
-    // 수정 useInput
-    let [member_email, onChangeMemberEmail, setMemberEmail] = useInput("");
-    let [member_phone, onChangeMemberPhone, setMemberPhone] = useInput("");
-    let [member_imagePath, onChangeMemberImg, setMemberImg] = useInput("");
-
-    // 멤버
-    const [memberState, setMemberState] = useState([
-        {
-            member_id: "",
-            member_pwd: "",
-            member_name: "",
-            member_email: "",
-            member_gender: "",
-            member_birth: "",
-            member_phone: "",
-            member_imagePath: "/img/profileImage.png",
-            member_joinDate: "",
-            member_role: ""
-        }
-    ]);
-
-    function Axios() {
-        axios({
-            url: "/member/info/"+memberId,
-            method: "get",
-            data: {
-                member_id: memberId,
-                member_pwd: "",
-                member_name: "",
-                member_email: "",
-                member_gender: "",
-                member_birth: "",
-                member_phone: "",
-                member_imagePath: "",
-                member_joinDate: "",
-                member_role: "member"
-            },
-            baseURL: "http://localhost:9000"
-        }).then(function(response) {
-			console.log(response.data);
-            console.log(response.data.member_id);
-			setMemberState(response.data);
-		});
+  useEffect(() => {
+    if (user.auth.isLoggedIn) {
+      console.log("currentUserId", user.auth.user.id);
+      setCurrentUserId(user.auth.user.id);
+      setCurrentId(user.auth.user.username);
+      setEmail(user.auth.user.email);
+      axios({
+        url: "/member/getMember/" + currentId,
+        method: "get",
+        baseURL: "http://localhost:9000",
+      })
+        .then(function (response) {
+          console.log("response.data", response.data);
+          setMemberPhone(response.data.member_phone);
+          setMemberBday(response.data.member_birth.substring(0, 10));
+          setMemberGender(response.data.member_gender);
+          setMemberName(response.data.member_name);
+          setMemberNickName(response.data.member_nickname);
+          setMemberProfile(response.data.member_imagePath);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      if (user.auth.user.roles.includes("ROLE_ADMIN")) {
+        setRole("admin");
+      }
+    } else {
+      //   dispatch(Message("login"));
+      //   dispatch(logout());
+      alert("로그인 페이지로 이동합니다");
+      navigate("/login");
     }
+  });
+  useCallback(() => {}, []);
+  let { memberId } = useParams();
 
+  // 수정 useInput
+  let [member_email, onChangeMemberEmail, setMemberEmail] = useInput("");
+  let [member_phone, onChangeMemberPhone, setMemberPhone] = useInput("");
+  let [member_birth, onChangeMemberBday, setMemberBday] = useInput("");
+  let [member_gender, onChangeGender, setMemberGender] = useInput("");
+  let [member_name, onChangeMemberName, setMemberName] = useInput("");
+  let [member_nickname, onChangeNickName, setMemberNickName] = useInput("");
+  let [member_imagePath, onChangeProfile, setMemberProfile] = useInput("");
 
-    // 파일 보내기
-    // const[files, setFiles] = useState("");
+  // 멤버
 
-    // const onLoadFile = (e)=>{
+  // 미리보기
+  // const preview = ()=>{
+  //     if(!files) return false;
+  //     const imgEl = document.querySelector('.img_box');
+  //     const reader = new FileReader();
 
-    //     onChangeMemberImg(e);
+  //     reader.onload = () =>
+  //     (imgEl.style.backgroundImage = `url(${reader.result})`);
 
-    //     const file = e.target.files;
-    //     setFiles(file);
-    // };
-    
-    useEffect(() => {
-        Axios();
+  //     reader.readAsDataURL(files[0]);
+  // }
 
-        // preview();
-        // return() => preview();
-    }, []);
-
-    // 미리보기
-    // const preview = ()=>{
-    //     if(!files) return false;
-    //     const imgEl = document.querySelector('.img_box');
-    //     const reader = new FileReader();
-
-    //     reader.onload = () =>
-    //     (imgEl.style.backgroundImage = `url(${reader.result})`);
-
-    //     reader.readAsDataURL(files[0]);
-    // }
-
-
-    // 멤버 정보 수정
-    const modHandler = useCallback((e) => {
-        e.preventDefault(); // 정리~
-
-        member_email = document.getElementsByName("member_email")[0].value;
-        member_phone = document.getElementsByName("member_phone")[0].value;
-        // member_imagePath = document.getElementsByName("member_imagePath")[0].value;
-
-        // 멤버 데이터
-        const data = {
-            member_id: `${memberId}`,
-            member_email: `${member_email}`,
-            member_phone: `${member_phone}`,
-            // member_imagePath: `${member_imagePath.replace(/c:\\fakepath\\/i,'')}`
-        }
-
-        const formData = new FormData();
-
-        formData.append("member_id", memberId);
-        formData.append("member_email", data.member_email);
-        formData.append("member_phone", data.member_phone);
-        // formData.append("member_imagePath", data.member_imagePath);
-        // formData.append("member_image", files[0]);
-
-        if(data.member_phone === "") {
-            alert("전화번호를 입력해 주세요.");
-            window.focus(member_phone);
-
-        }
-        else if( data.member_email === "") {
-            alert("이메일을 입력해 주세요.");
-            window.focus(member_email);
-        }   
-        else {
-            axios({
-                method: "post",
-                url: "http://localhost:9000/member/info/update",
-                headers: { "Content-Type": "multipart/form-data" },
-                data: formData
-            }).then((response) => {
-                console.log(response.data);
-                alert("수정되었습니다.");
-                window.location.href = "http://localhost:3000/member/info/"+memberId;
+  const onUnsubscribe = (e) => {
+    e.preventDefault();
+    if (window.confirm("탈퇴하시겠습니까?")) {
+      axios({
+        url: "/member/delete/" + member_name,
+        method: "get",
+        baseURL: "http://localhost:9000",
+      })
+        .then(() => {
+          axios({
+            url: "/member/delete/user/" + currentUserId,
+            method: "post",
+            baseURL: "http://localhost:9000",
+          })
+            .then(function (response) {
+              console.log("response.data", response.data);
             })
-        }
-    },[memberId]);
 
-    // 멤버 탈퇴
-    const removeHandler = () => {
-        // const removeState = memberState.filter((item) => item.member_id !== memberId);
-        // setMemberState(removeState);
-
-        if(window.confirm("정말 탈퇴하시겠습니까?")) {
-            axios
-            .get(`http://localhost:9000/member/info/delete/${memberId}`,
-            {
-                data: {
-                    member_id: memberId
-                }
+            .then(function (response) {
+              console.log("탈퇴성공");
+              navigate("/");
             })
-            .then((data) => {
-                console.log(data);
-                alert("탈퇴되었습니다.");
-                navigate("/");
-                // window.href.location="/"; // 왜 안가는거야?
+            .catch((e) => {
+              console.log(e);
             });
-            
-        }
-        else {
-            alert("취소되었습니다.");
-            navigate("/member/info/"+memberId);
-        }
-            
+        })
+        .then(function (response) {
+          console.log("response.data", response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+      alert("취소하셨습니다.");
+    }
+  };
+  const onChangeInfo = (e) => {
+    e.preventDefault();
+    if (window.confirm("수정하시겠습니까?")) {
+      axios({
+        url: "/member/update/" + currentId,
+        method: "get",
+        baseURL: "http://localhost:9000",
+      })
+        .then(function (response) {
+          console.log("response.data", response.data);
+        })
 
-    };
- 
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+      alert("취소하셨습니다.");
+    }
+  };
 
-    return(
-        <>
-        {/* 회원 정보 */}
-        <form className="container-sm myPage-box1 center">
-            <SectionTitle>회원 정보</SectionTitle>
-            <div className="">
-                {/* <button onChange={onChangeMemberImg}> */}
-                    <img className="rounded-circle profileImage" src="/img/profileImage.png" alt="프로필 임시 이미지" />
-                {/* </button> */}
-                {/* src={memberState.member_imagePath} */}
-                {/* <div className="mt-5 imgPreview">
-                    <input
-                        name="member_imagePath"
-                        type="file"
-                        accept="img/*"
-                        onChange={onLoadFile}
-                        defaultValue={memberState.member_imagePath}
-                    />
-                </div> */}
-                
-            </div>
-            <div className="">
-                <div>
-                    <span className="columnName">아이디</span>
-                    <span name="member_id">{memberState.member_id}</span>
-                    {/* <input type="text" name="member_id"
-                                defaultValue={memberState.member_id} 
-                                disabled/> */}
-                </div>
-                <div>
-                    <span className="columnName">이름</span>
-                    <span name="member_name">{memberState.member_name}</span>
-                    {/* <input type="text" name="member_name"
-                                    defaultValue={memberState.member_name}
-                                    disabled /> */}
-                </div>
-                <div>
-                    <span className="columnName">성별</span>
-                    <span name="member_gender">{memberState.member_gender}</span>
-                            {/* <input type="text" name="member_gender"
-                                    defaultValue={memberState.member_gender}
-                                    disabled /> */}
-                </div>
-                <div>
-                    <span className="columnName">생년월일</span>
-                    <span name="member_birth">{memberState.member_birth}</span>
-                            {/* <input type="text" name="member_birth"
-                                    defaultValue={memberState.member_birth}
-                                    disabled /> */}
-                </div>
-                <div>
-                    <span className="columnName">휴대폰 번호</span>
-                    <input className="" type="text" name="member_phone"
-                        defaultValue={memberState.member_phone} 
-                        onChange={onChangeMemberPhone}
-                        style={{ width: "20em"}} />
-                </div>
-                <div>
-                    <span className="columnName">이메일 주소</span>
-                    <input className="" center type="text" name="member_email"
-                        defaultValue={memberState.member_email}
-                        onChange={onChangeMemberEmail}
-                        style={{ width: "20em"}} />
-                </div>
-            </div>
-            <div>
-                <ul>
-                    <li>
-                        <Link to="/" style={{ textDecoration: "none" }}>
-                            <SubmitRecipeBtn>
-                                취소
-                            </SubmitRecipeBtn>
-                        </Link>
-                    </li>
-                    <li>
-                        <SubmitRecipeBtn onClick={modHandler}>
-                            수정하기
-                        </SubmitRecipeBtn>
-                        {/* <button type="button" onClick={modHandler}>수정</button> */}
-                    </li>
-                    <li>
-                        <SubmitRecipeBtn onClick={removeHandler}>
-                            탈퇴하기
-                        </SubmitRecipeBtn>
-                        {/* <button type="button" onClick={removeHandler}>탈퇴하기</button> */}
-                    </li>
-                </ul>
-                {/* 버튼 임시
-                <ul class="btn-box-multiple">
-                    <li>
-                        <div class="btn-purple-line">
-                            <a href="//www.wavve.com">취소</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="btn-purple">
-                            <a href="javascript:;" onclick="onSubmit();">수정</a>
-                        </div>
-                    </li>
-                </ul> */}
-            </div>
-        </form>
-        </>
-    );
-}
+  return (
+    <>
+      {/* 회원 정보 */}
+      <form className="container-sm myPage-box1 center">
+        <SectionTitle>
+          {currentRole === "admin" ? (
+            <span> 관리자 </span>
+          ) : (
+            <span> 회원 </span>
+          )}
+          정보
+        </SectionTitle>
+        <div className="imgWrap">
+          {/* <button onChange={onChangeMemberImg}> */}
+          {member_imagePath == null ? (
+            <img src={member_imagePath} />
+          ) : (
+            <img src="/img/profileImage.png" />
+          )}
+
+          {/* </button> */}
+          {/* <div className="mt-5 imgPreview">
+            <input
+              name="member_imagePath"
+              type="file"
+              accept="img/*"
+              // onChange={onLoadFile}
+              defaultValue={member_imagePath}
+            />
+          </div> */}
+        </div>
+
+        <div className="infoWrap">
+          <div className="items">
+            <span className="columnName">아이디</span>
+            {/* <span name="member_id">{currentId}</span> */}
+            <input
+              type="text"
+              name="member_id"
+              style={{ display: "inline" }}
+              // defaultValue={memberState.member_id}
+              defaultValue={currentId}
+              disabled
+            />
+          </div>
+          <div className="items">
+            <span className="columnName">닉네임</span>
+            {/* <span name="member_id">{currentId}</span> */}
+            <input
+              type="text"
+              style={{ display: "inline" }}
+              name="member_nickname"
+              // defaultValue={memberState.member_id}
+              defaultValue={member_nickname}
+            />
+          </div>
+          <div className="items">
+            <span className="columnName">이름</span>
+            {/* <span name="member_name">{memberState.member_name}</span> */}
+            <input
+              type="text"
+              style={{ display: "inline" }}
+              name="member_name"
+              defaultValue={member_name}
+              disabled
+            />
+          </div>
+          <div className="items">
+            <span className="columnName">성별</span>
+            {/* <span name="member_gender">{memberState.member_gender}</span> */}
+            <input
+              type="text"
+              style={{ display: "inline" }}
+              name="member_gender"
+              defaultValue={member_gender}
+              disabled
+            />
+          </div>
+          <div className="items">
+            <span className="columnName">생년월일</span>
+            {/* <span name="member_birth">{memberState.member_birth}</span> */}
+            <input
+              type="text"
+              style={{ display: "inline" }}
+              name="member_birth"
+              defaultValue={member_birth}
+              disabled
+            />
+          </div>
+          <div className="items">
+            <div className="columnName">휴대폰 번호</div>
+            <input
+              type="text"
+              name="member_phone"
+              style={{ display: "inline" }}
+              defaultValue={member_phone}
+              // defaultValue={memberState.member_phone}
+              onChange={onChangeMemberPhone}
+            />
+          </div>
+          <div className="items">
+            <span className="columnName">이메일 주소</span>
+            <input
+              disabled
+              type="text"
+              name="member_email"
+              style={{ display: "inline" }}
+              defaultValue={currentEmail}
+              onChange={onChangeMemberEmail}
+            />
+          </div>
+          <div style={{ margin: "1em" }}>
+            <span>
+              <MediumBtn onClick={onChangeInfo}>수정하기</MediumBtn>
+              {/* <SubmitRecipeBtn onClick={modHandler}>수정하기</SubmitRecipeBtn> */}
+              {/* <button type="button" onClick={modHandler}>수정</button> */}
+            </span>
+            <span style={{ marginLeft: "3em" }}>
+              {/* <SubmitRecipeBtn onClick={removeHandler}> */}
+              <MediumBtn onClick={onUnsubscribe}>탈퇴하기</MediumBtn>
+            </span>
+          </div>
+        </div>
+      </form>
+    </>
+  );
+};
 export default MemberInfoForm;
 const SectionTitle = styled.div`
   background-color: #8d3232;
   display: inline-block;
-  width:90%;
+  width: 90%;
   margin: 1em 3em;
   color: #fffdf5;
   height: 2.4em;

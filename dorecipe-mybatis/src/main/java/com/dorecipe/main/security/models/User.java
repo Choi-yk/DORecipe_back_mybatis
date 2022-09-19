@@ -3,6 +3,7 @@ package com.dorecipe.main.security.models;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -30,7 +32,7 @@ import lombok.Setter;
 public class User {
 
 		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		@GeneratedValue(strategy = GenerationType.IDENTITY )
 		private Long id;
 		
 		@NotBlank
@@ -46,7 +48,7 @@ public class User {
 		@Size(max = 120)
 		private String password;
 		
-		@ManyToMany(fetch = FetchType.LAZY)
+		@ManyToMany(fetch = FetchType.LAZY )
 		@JoinTable(name = "user_roles",
 			joinColumns = @JoinColumn(name ="user_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id"))

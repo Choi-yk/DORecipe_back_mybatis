@@ -9,7 +9,6 @@ public interface MemberService {
 	public List<MemberVO> listMembers() throws Exception;
 
 	//회원 정보 수정
-//	public void ModifyMember(MemberVO memberVO) throws Exception;
 	public void ModifyMember(MemberVO memberVO) throws Exception;
 	
 	// 회원 등록(가입)
@@ -22,5 +21,5 @@ public interface MemberService {
 	public MemberVO listMemberDetails(String member_id) throws Exception;
 
 	//회원 아이디 중복 조회
-	public MemberVO CheckDuplicateId(String member_id) throws Exception;
+//	public MemberVO CheckDuplicateId(String member_id) throws Exception;
 }

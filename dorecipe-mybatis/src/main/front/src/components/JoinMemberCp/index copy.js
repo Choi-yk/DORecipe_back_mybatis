@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { BigBtn, SmallBtn } from "../_common/buttons";
 
-import { connect, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { register } from "../../reduxRefresh/actions/auth";
 
 const SignUpTemplate = () => {
@@ -209,8 +209,8 @@ const SignUpTemplate = () => {
         baseURL: "http://localhost:9000",
       })
         .then(function (response) {
-          console.log(response);
-          console.log("data", response.data);
+          // console.log(response);
+          // console.log("data", response.data);
 
           if (response.data !== "") {
             setDuplicateChk(false);
@@ -221,7 +221,7 @@ const SignUpTemplate = () => {
             // if (idExp.current.test(member_id)) {
             setDuplicateChk(true);
             setMemId(member_id);
-            console.log(member_id);
+            // console.log(member_id);
             // } else {
             // setMemId("");
             // return alert("아이디 형식이 올바르지 않습니다");

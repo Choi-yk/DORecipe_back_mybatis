@@ -1,0 +1,37 @@
+.columnName {
+  min-width: 7em;
+  /* float: left; */
+  display: inline-block;
+  margin-right: 1em;
+}
+
+.imgWrap {
+  padding: 3em;
+}
+.imgWrap img {
+  max-width: 6em;
+  overflow: hidden;
+  /* padding: 3em; */
+  border-radius: 100%;
+}
+.infoWrap {
+  gap: 1em;
+  display: inline-flex;
+
+  width: 27em;
+  flex-direction: column;
+}
+input {
+  height: 2em;
+  width: 16em;
+  display: inline;
+  margin-left: 3em;
+  padding: 0.5em;
+}
+.title {
+  width: 3rem;
+  display: inline-block;
+}
+.items {
+  /* margin-top: 1em; */
+}

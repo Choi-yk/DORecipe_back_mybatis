@@ -8,73 +8,68 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import NullRecipe from "../nullRecipeList";
 
-
 const LikeRecipeList = () => {
-    let { memberId } = useParams();
-    
-    // 작성중 레시피
-    const [likeState, setLikeState] = useState([
-        {
-            recipe_num: 0,
-            recipe_title: "",
-            recipe_rpath: "",
-            recipe_savetype: 0,
-            information_level: "",
-            information_time: ""
-        }
-    ]);
+  let { memberId } = useParams();
 
-    function Axios() {
-        axios({
-            url: "member/info/like/"+memberId,
-            method: "get",
-            data: {
-                recipe_num: 0,
-                recipe_title: "",
-                recipe_rpath: "",
-                recipe_savetype: 0,
-                information_level: "",
-                information_time: ""
-            },
-            baseURL: "http://localhost:9000"
-        }).then(function(response) {
-            console.log(response.data);
-            setLikeState(response.data);
-        });
-    }
+  // 작성중 레시피
+  const [likeState, setLikeState] = useState([
+    {
+      recipe_num: 0,
+      recipe_title: "",
+      recipe_rpath: "",
+      recipe_savetype: 0,
+      information_level: "",
+      information_time: "",
+    },
+  ]);
 
-    useEffect(() => {
-        Axios();
-    }, []);
+  function Axios() {
+    axios({
+      url: "member/info/like/" + memberId,
+      method: "get",
+      data: {
+        recipe_num: 0,
+        recipe_title: "",
+        recipe_rpath: "",
+        recipe_savetype: 0,
+        information_level: "",
+        information_time: "",
+      },
+      baseURL: "http://localhost:9000",
+    }).then(function (response) {
+      console.log(response.data);
+      setLikeState(response.data);
+    });
+  }
 
-    return(
-        <>
-        {/* 좋아요한 레시피 */}
-        <div className="container-sm myPage-box2 center">
+  useEffect(() => {
+    // Axios();
+  }, []);
+
+  return (
+    <>
+      {/* 좋아요한 레시피 */}
+      <div className="container-sm myPage-box2 center">
+        <div>
+          <SectionTitle>
+            좋아요한 레시피
+            <span className="likeRecipeTotal">
+              {/* <FontAwesomeIcon icon={faHeart} className="heart" /> */}총{" "}
+              {likeState.length}개
+            </span>
+          </SectionTitle>
+          <Scrollable>
             <div>
-                <SectionTitle>
-                    좋아요한 레시피
-                    <span className="likeRecipeTotal">
-                        {/* <FontAwesomeIcon icon={faHeart} className="heart" /> */}
-                        총 {likeState.length}개
-                    </span>
-                </SectionTitle>
-                <Scrollable>
-                    <div>
-                        {
-                            likeState.length !== 0
-                            ?
-                            likeState.map((e) => (
-                                <LikeRecipeList
-                                    likeState={e}
-                                />
-                            ))
-                            :
-                            <NullRecipe />
-                        }
-                    </div>
-                </Scrollable>
-                {/* {
+              {likeState.length !== 0 ? (
+                likeState.map((e) => (
+                  <LikeRecipeList key={e.recipe_num} likeState={e} />
+                ))
+              ) : (
+                <NullRecipe />
+              )}
+            </div>
+          </Scrollable>
+          {/* {
                     likeState.length !== 0
                     ?
                     likeState.map((e) => (
@@ -85,12 +80,11 @@ const LikeRecipeList = () => {
                     :
                     <NullRecipe />
                 } */}
-            </div>
         </div>
-        </>
-    );
-
-}
+      </div>
+    </>
+  );
+};
 
 export default LikeRecipeList;
 const SectionTitle = styled.div`

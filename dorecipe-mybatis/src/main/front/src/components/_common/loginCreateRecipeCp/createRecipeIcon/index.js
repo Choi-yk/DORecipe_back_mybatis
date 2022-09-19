@@ -14,7 +14,7 @@ const CreateRecipeIcon = () => {
 
   const [userState, setUserState] = useState(user);
   const [iconState, setIcon] = useState(faPencil);
-  console.log("CreateRecipeIcon_auth", user);
+  // console.log("CreateRecipeIcon_auth", user);
 
   useEffect(() => {
     if (userState.auth.isLoggedIn) {
