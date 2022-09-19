@@ -1,10 +1,7 @@
 .formWrap {
-  /* min-width: 50em; */
   max-width: fit-content;
-  /* 미디어 쿼리,,, */
-  margin-top: 2em auto;
-  height: 100em;
-  /* display: flex; */
+  /* height: 100em; */
+  padding: 3em 0;
   justify-content: center;
 }
 .duplicateCheckId {
@@ -15,25 +12,35 @@
   width: 5em;
   height: 2em;
 }
+.dateInput {
+  width: 6em;
+  margin-right: 1em;
+}
 
 .form {
   height: fit-content;
-  min-width: 40em;
+  width: 30em;
 }
 form > input {
   width: 14.5em;
   height: 2em;
-  /* margin: 0.2em; */
+  margin-bottom: 1em;
+}
+.formWrap input {
+  margin-top: 1em;
+  width: 26em;
+  height: 2.5em;
 }
 select {
-  width: 15em;
+  width: 26.2em;
   height: 2em;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
 }
 
 .formLabels {
   display: block;
   font-weight: 700;
-  margin: 1em 0;
   color: #463635;
 }
 .submitJoinBtn {

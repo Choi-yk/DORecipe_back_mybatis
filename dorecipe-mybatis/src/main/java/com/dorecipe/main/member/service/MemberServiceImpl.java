@@ -60,12 +60,12 @@ public class MemberServiceImpl implements MemberService {
       return memberDAO.deleteMember(member_id);
    }
 
-   //중복 회원 검색
-   @Override
-   public MemberVO CheckDuplicateId(String member_id) throws Exception {
-      MemberVO memberID = memberDAO.checkDuplicateId(member_id);
-      System.out.println("memberID : "+memberID);
-      return memberID;
-   }
+//   //중복 회원 검색
+//   @Override
+//   public MemberVO CheckDuplicateId(String member_id) throws Exception {
+//      MemberVO memberID = memberDAO.checkDuplicateId(member_id);
+//      System.out.println("memberID : "+memberID);
+//      return memberID;
+//   }
 
 }

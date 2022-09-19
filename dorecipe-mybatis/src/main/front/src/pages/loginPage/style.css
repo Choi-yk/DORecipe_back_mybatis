@@ -1,8 +1,8 @@
 /* login부분 */
 .loginWrap {
   width: 100%;
-  overflow: hidden;
   height: 30em;
+  margin-bottom: 6em;
 }
 .loginSection {
   display: inline-flex;

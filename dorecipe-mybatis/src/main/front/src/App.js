@@ -159,12 +159,18 @@ function App() {
       ):(
 
       )} */}
-      {currentUser && <Route path={"/member/info"} element={<MyPage />} />}
 
-      {/* <Route path={"/member/info/:memberId"} element={<MyPage />} /> */}
+      {currentUser ? (
+        <Route path={"/member/info/"} element={<MyPage />} />
+      ) : (
+        // <Route path={"/member/info/:memberId"} element={<MyPage />} />
+        <Route path={"/"} element={<MainPage />} />
+      )}
+      {/* <Route path={"/member/info"} element={<MyPage />} /> */}
       {/* {showAdminBoard && (
       
       )} */}
+      <Route path={"/member/info"} element={<MyPage />} />
       {/* <Route path={"/member"} element={<MemberListPage />} /> */}
       {/* <Route path={"/login"} element={<LoginPage />} userState={user} /> */}
       <Route path={"/login"} element={<LoginPage />} />

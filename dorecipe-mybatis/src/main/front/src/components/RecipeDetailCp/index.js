@@ -296,6 +296,7 @@ const DetailSearch = () => {
                       onClick={onClickOption}
                       value={v}
                       selected={"종류별"}
+                      key={v.recipe_num}
                       // style={{ backgroundColor: "green" }}
                     >
                       {v}
@@ -304,6 +305,7 @@ const DetailSearch = () => {
                 ) : (
                   <>
                     <DefaultBtn
+                      key={v.recipe_num}
                       onClick={onClickOption}
                       value={v}
                       selected={"종류별"}
@@ -325,6 +327,7 @@ const DetailSearch = () => {
                       onClick={onClickOption}
                       value={v}
                       selected={"상황•테마별"}
+                      key={v.recipe_num}
                     >
                       {v}
                     </SelectedBtn>
@@ -335,6 +338,7 @@ const DetailSearch = () => {
                       onClick={onClickOption}
                       value={v}
                       selected={"상황•테마별"}
+                      key={v.recipe_num}
                     >
                       {v}
                     </DefaultBtn>
@@ -350,6 +354,7 @@ const DetailSearch = () => {
                 v === selectedIngredientsState[0] ? (
                   <>
                     <SelectedBtn
+                      key={v.recipe_num}
                       onClick={onClickOption}
                       value={v}
                       selected={"재료별"}
@@ -360,6 +365,7 @@ const DetailSearch = () => {
                 ) : (
                   <>
                     <DefaultBtn
+                      key={v.recipe_num}
                       onClick={onClickOption}
                       value={v}
                       selected={"재료별"}
@@ -380,6 +386,7 @@ const DetailSearch = () => {
                     <SelectedBtn
                       onClick={onClickOption}
                       value={v}
+                      key={v.recipe_num}
                       selected={"방법별"}
                     >
                       {v}
@@ -390,6 +397,7 @@ const DetailSearch = () => {
                     <DefaultBtn
                       onClick={onClickOption}
                       value={v}
+                      key={v.recipe_num}
                       selected={"방법별"}
                     >
                       {v}

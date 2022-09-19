@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dorecipe.main.knowhow.vo.KnowhowVO;
-import com.dorecipe.main.member.vo.MemberVO;
+//import com.dorecipe.main.member2.vo.MemberVO;
 
 @Repository
 public class KnowhowDAOImpl implements KnowhowDAO {

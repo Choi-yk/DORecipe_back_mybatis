@@ -31,8 +31,6 @@ const LoginPage = (auth) => {
 
   console.log("state!!!!!!!", auth);
   const navigate = useNavigate();
-  //   const { dispatch } = state;
-  //   const { dispatch } = auth;
   const { dispatch, history } = auth;
   console.log("dispatch", dispatch);
 
