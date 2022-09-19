@@ -102,8 +102,8 @@ const RecipeWrap = styled.div`
 const RecipeImg = styled.div`
   & > img {
     // width: 15em;
-    width: 300px;
-    height: 200px;
+    width: 15em;
+    height: 9em;
     padding-bottom: 0.5em;
     object-fit: cover;
   }

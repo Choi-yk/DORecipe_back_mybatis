@@ -41,7 +41,7 @@ public class KnowhowController {
 	// 노하우 목록 전체 조회
 	@RequestMapping("/list")
 	public List<KnowhowVO> getKnowhow() throws Exception {
-		System.out.println("노하우 목록 출력 됨~~~~ - Controller");
+//		System.out.println("노하우 목록 출력 됨~~~~ - Controller");
 		
 		return knowhowService.listKnowhow();
 	}
@@ -71,7 +71,7 @@ public class KnowhowController {
 		
 		//파일 없으면 나머지 저장
 		if(uploadFiles == null) {
-			knowhowService.insertKnowhow(knowhowVO);
+			knowhowService.updateKnowhow(knowhowVO);
 			return;
 		}
 		fileUpload(knowhowVO, uploadFiles);

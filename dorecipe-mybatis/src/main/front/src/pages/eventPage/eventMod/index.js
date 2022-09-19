@@ -229,8 +229,7 @@ const EventModify = () => {
         <img className="img_box" alt=""/>
         {/* src={state.event_path}  */}
     </div>
-
-
+    
     <br/>
     <Link className="left btn btn-outline-secondary" to={"/event/list"}>목록으로</Link>
     <button type="button" 

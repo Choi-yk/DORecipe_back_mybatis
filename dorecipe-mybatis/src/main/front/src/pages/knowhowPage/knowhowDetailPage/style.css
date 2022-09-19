@@ -22,7 +22,7 @@ li {
     padding: 2em 0 0.5em 0;
     text-align: left;
     font-weight: bolder;
-    font-size: large;
+    font-size: 2em;
 }
 
 .knowDetailDate {
@@ -33,4 +33,5 @@ li {
 
 .knowDetailImage {
     margin: 0.5em 0 2em 0;
+    width: 30em;
 }

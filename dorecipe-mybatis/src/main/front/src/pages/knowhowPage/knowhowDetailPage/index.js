@@ -54,11 +54,13 @@ const KnowhowDetailPage = () => {
                 <h2>| Knowhow |</h2>
                 <div className="knowDetailTitle knowBorder">{state.know_title}</div>  
                 <div className="knowDetailDate">{state.know_creDate}</div>
-                <img className="knowDetailImage" src={state.know_path} alt={state.know_path} />
+                {/* <div className='center'> */}
+                  <img className="knowDetailImage" src={state.know_path} alt={state.know_path} />
+                {/* </div> */}
                 <div>{state.know_content}</div>
               </div>
           </li>
-          <Link className="mt-3 left btn btn-outline-secondary" to={"/admin"}> 이전으로</Link>
+          {/* <Link className="mt-3 left btn btn-outline-secondary" to={"/admin"}> 이전으로</Link> */}
           </MainLayout>
         </>
     );

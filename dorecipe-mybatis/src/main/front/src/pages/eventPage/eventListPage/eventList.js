@@ -10,8 +10,6 @@ const EventList = ({ removePost, state, BtnState }) => {
   }
   let date = today.getDate();
   let day = String(year + "-" + month + "-" + date);
-  console.log(state.event_finDate);
-  console.log(day);
   //--------------------
 
   const removePostOnclick = () => {
@@ -29,9 +27,11 @@ const EventList = ({ removePost, state, BtnState }) => {
 
         <div className="noticeDate">
           {state.event_creDate}~{state.event_finDate}
-          {state.event_finDate <= day ? (
-            <span className="finDate"> [종료]</span>
-          ) : null}
+          {
+          state.event_finDate < day 
+          ? (<span className="finDate"> [종료]</span>) 
+          : null
+          }
         </div>
         {BtnState && (
           <div className="updateOrDelete">

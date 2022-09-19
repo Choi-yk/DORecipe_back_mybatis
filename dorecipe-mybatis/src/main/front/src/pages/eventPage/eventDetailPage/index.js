@@ -37,7 +37,7 @@ const EventDetailPage = () => {
   useEffect(() => {
     Axios();
   }, []);
-
+  console.log(state.event_path + "이거");
   return (
     <>
     <MainLayout>
@@ -46,16 +46,23 @@ const EventDetailPage = () => {
           <Link className="btn btn-outline-secondary centerRight" to={"/event/list"}>이전으로</Link>
           <h2>| Event |</h2><br/>
         </div>
-        <h4>
+        <h5>
           참여기간 : {state.event_creDate}~{state.event_finDate}
-        </h4><br/>
+        </h5><br/>
         <h2>{state.event_title}</h2><br/>
         <hr className="hr"/>
-        <img
-          className="eventImg"
-          src={state.event_path}
-          alt={state.event_path}
-        />
+        {
+          state.event_path !== ""
+          ? (
+          <img
+            className="eventImg"
+            src={state.event_path}
+            alt={state.event_path}
+          />
+          )
+          : null
+        }
+        
         <p className="left width">{state.event_content}</p>
       </div>
       <div className="bottom"/>
