@@ -6,9 +6,9 @@ import RecordList from "./recipeList";
 
 import styled from "styled-components";
 import NullRecipe from "../nullRecipeList";
+import { useSelector } from "react-redux";
 
 const RecordingRecipeList = () => {
-  let { memberId } = useParams();
 
   // 작성중 레시피
   const [recipeState, setRecipeState] = useState([
@@ -22,32 +22,32 @@ const RecordingRecipeList = () => {
     },
   ]);
 
+  const user = useSelector((state) => state);
+  const [member_id, setMemberId] = useState();
+  useEffect(() => {
+      setMemberId(user.auth.user.username);
+      console.log("현재 로그인 아이디(recipeT) : " + member_id);
+
+      if(member_id !== undefined){
+        Axios();
+      }
+  });
+
+  const formData = new FormData();
+  formData.append("member_id", member_id)
+
   function Axios() {
+    // console.log("작성중레시피 가져오니?" + member_id)
     axios({
-      url: "/recipe/recording/" + memberId,
-      method: "get",
-      data: {
-        recipe_num: 0,
-        recipe_title: "",
-        recipe_rpath: "",
-        recipe_savetype: 1,
-        information_level: "",
-        information_time: "",
-      },
+      url: "/recipe/recordingType0",
+      method: "Post",
+      data: formData,
       baseURL: "http://localhost:9000",
     }).then(function (response) {
       console.log(response.data);
-      // console.log("작성중 제목" + response.data.recipe_title);
-      // console.log("작성중 이미지 url" + response.data.recipe_rpath);
-      // console.log("작성중 난이도" + response.data.information_level);
-      // console.log("작성중 시간" + response.data.information_time);
       setRecipeState(response.data);
     });
   }
-
-  useEffect(() => {
-    // Axios();
-  }, []);
 
   return (
     <>

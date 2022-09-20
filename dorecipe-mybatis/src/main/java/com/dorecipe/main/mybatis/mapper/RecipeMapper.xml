@@ -7,7 +7,7 @@
 
 	<!-- 저장한 레시피목록 - savetype=0 -->
 	<select id="getList" resultType="com.dorecipe.main.recipe.vo.RecipeVO">
-		select * from recipe where recipe_savetype=0 order by recipe_num desc
+		select * from recipe where recipe_savetype=1 order by recipe_num desc
 	</select>
 	
 	<select id="getDetail" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="int">
@@ -203,21 +203,21 @@
   	  	
 	<!-- 레시피 상세 검색 -->
 	<select id="showDetailSearchRecipe" resultType="com.dorecipe.main.recipe.vo.RecipeVO"  parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
-	  select member.member_id , member.member_imagePath, recipe.recipe_num,recipe_title, recipe_savetype, recipe_url, recipe_rpath, 
+	  select member2.member_id , member2.member_imagePath, recipe.recipe_num,recipe_title, recipe_savetype, recipe_url, recipe_rpath, 
 	  information_person,information_level, information_time,recipe_introduce,
 	  completion_path1, completion_path2, completion_path3,completion_path4,completion_tip, 
 	  order_num,order_explain,order_path,
 	  recipe_creDate 
-	  from member right outer join 
+	  from member2 right outer join 
 	  recipe 
 	  on 
-	  recipe.member_id= member.member_id 
+	  recipe.member_id= member2.member_id 
 	  left outer join r_order
 	  on r_order.recipe_num=recipe.recipe_num
 	  where 
 	  recipe.recipe_num=#{recipe_num}
 	  group by order_num 
-	  order by order_num asc;
+	  order by order_num desc
   	</select>
   	
 	<!-- 레시피 상세 검색 

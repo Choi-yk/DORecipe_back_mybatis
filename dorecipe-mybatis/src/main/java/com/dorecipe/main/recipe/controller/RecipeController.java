@@ -340,4 +340,10 @@ public class RecipeController extends RecipeFileUpload{
 		return recipeService.getLikedMember(recipeVO);
 	}
 	
+	@PostMapping("/recordingType0")
+	public List<RecipeVO> getMemberRecipeSt0(@RequestParam(value = "member_id") String member_id){
+		System.out.println("ST0" + member_id);
+		return null;
+	}
+	
 }

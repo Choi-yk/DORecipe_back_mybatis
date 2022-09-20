@@ -13,7 +13,7 @@ import EditDropZone from "../../_common/dropzone";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
-const BasicForm = ({ recipeState }) => {
+const BasicForm = () => {
   const [recipe_title, onChangeRecipeTitle, setRecipeTitle] = useInput("");
   const [recipe_introduce, onChangeRecipeIntro, setRecipeIntro] = useInput("");
   const [recipe_url, onChangeRecipeUrl, setRecipeUrl] = useInput("");
@@ -33,13 +33,13 @@ const BasicForm = ({ recipeState }) => {
   const [thumbnailDropState, setThumbnailDropState] = useState("thumbnailDrop");
 
 // member_id 가져오기
-  // const user = useSelector((state) => state);
-  // const [member_id, setMemberId] = useState();
-  // useEffect(() => {
-  //     setMemberId(user.auth.user.username);
-  //     console.log("현재 로그인 아이디 : " + member_id);
-  // });
-//----------------------------------------------------
+  const user = useSelector((state) => state);
+  const [member_id, setMemberId] = useState();
+  useEffect(() => {
+      setMemberId(user.auth.user.username);
+      console.log("현재 로그인 아이디 : " + member_id);
+  });
+// ----------------------------------------------------
 
 
 
@@ -66,7 +66,7 @@ const BasicForm = ({ recipeState }) => {
         information_time: `${information_time}`,
         information_level: `${information_level}`,
         recipe_creDate: "",
-        member_id: `${recipeState.member_id}`, //로그인한 멤버 정보 들어갈 자리
+        member_id: `${member_id}`, //로그인한 멤버 정보 들어갈 자리
       };
 
       console.log("data", data);

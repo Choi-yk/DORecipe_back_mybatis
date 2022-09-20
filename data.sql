@@ -9,15 +9,12 @@ select * from roles;
 select * from member2;
 select * from users;
 
-select * from member2 
-left outer join 
-users on users.id
-where member2.member_id = users.username ;
-
+select * from r_ingredient;
+select * from recipe;
 INSERT INTO roles(name) VALUES('ROLE_USER');
 INSERT INTO roles(name) VALUES('ROLE_MODERATOR');
 INSERT INTO roles(name) VALUES('ROLE_ADMIN');
-insert into member2 values('hirin012','혜린','김김밥2','여자','2001/03/03','0109929229',now(),null);
+insert into member2 values('admin','유년눈','운영자','여자','2001/03/03','0109929229',now(),null);
 
 drop table if exists member2;
 create table member2( -- 회원테이블
@@ -33,6 +30,7 @@ create table member2( -- 회원테이블
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 );
+
 
 drop table if exists r_like;
 create table r_like( -- 레시피좋아요테이블
