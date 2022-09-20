@@ -6,7 +6,7 @@
 		select * from member2 
 		left outer join 
 		users on users.id
-		where member2.id = users.id ;
+		where member2.member_id = users.username ;
 	</select>
 	
 	<!-- 
@@ -16,13 +16,13 @@
 	
 	<!-- 회원 정보 상세 조회 -->
 	<select id="selectAllMemberDetail" resultType="com.dorecipe.main.member.vo.MemberVO" parameterType="String">
-		select member2.username,member_nickname,member_name,member_gender,
+		select member2.member_id,member_nickname,member_name,member_gender,
 		member_birth,member_phone,member_imagePath,email
 		from 
 		member2 
 		left outer join users on users.id
-		where member2.id = users.id
-		and member2.username=#{username};
+		where member2.member_id = users.username
+		and member2.member_id=#{username};
 	</select>
 	
 	<update id="updateMember" parameterType="com.dorecipe.main.member.dao.MemberDAO" >
@@ -44,7 +44,7 @@
 	
 	<insert id="insertMember" parameterType="com.dorecipe.main.member.dao.MemberDAO">
 		 insert into member2 values
-		 (null, #{username},#{member_nickname},#{member_name},#{member_gender},
+		 (#{username},#{member_nickname},#{member_name},#{member_gender},
 		 #{member_birth},#{member_phone},now(),default);
 	</insert>
 	

@@ -11,8 +11,9 @@ import { useInput } from "../../../hooks/useInput";
 import { useState, useCallback, useEffect } from "react";
 import EditDropZone from "../../_common/dropzone";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
-const BasicForm = () => {
+const BasicForm = ({ recipeState }) => {
   const [recipe_title, onChangeRecipeTitle, setRecipeTitle] = useInput("");
   const [recipe_introduce, onChangeRecipeIntro, setRecipeIntro] = useInput("");
   const [recipe_url, onChangeRecipeUrl, setRecipeUrl] = useInput("");
@@ -26,11 +27,23 @@ const BasicForm = () => {
     useInput("");
   const [information_time, onChangeTime, setTime] = useInput("");
   const [information_level, onChangeLevel, setLevel] = useInput("");
-  const [member_id, onChangeMemberId, setMemberId] = useInput("");
 
   const [files, setFiles] = useState("");
   const [recipe_thumbnail, setRecipeImgFiles] = useState("");
   const [thumbnailDropState, setThumbnailDropState] = useState("thumbnailDrop");
+
+// member_id 가져오기
+  // const user = useSelector((state) => state);
+  // const [member_id, setMemberId] = useState();
+  // useEffect(() => {
+  //     setMemberId(user.auth.user.username);
+  //     console.log("현재 로그인 아이디 : " + member_id);
+  // });
+//----------------------------------------------------
+
+
+
+
 
   const onLoadImgFile = (e) => {
     onChangeRecipeThumbnail(e);
@@ -53,7 +66,7 @@ const BasicForm = () => {
         information_time: `${information_time}`,
         information_level: `${information_level}`,
         recipe_creDate: "",
-        member_id: "hirin012", //로그인한 멤버 정보 들어갈 자리
+        member_id: `${recipeState.member_id}`, //로그인한 멤버 정보 들어갈 자리
       };
 
       console.log("data", data);

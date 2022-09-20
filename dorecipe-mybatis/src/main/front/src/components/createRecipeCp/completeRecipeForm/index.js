@@ -41,7 +41,7 @@ const CompleteRecipe = ({ recipeState }) => {
       completion_path4: `${path4}`,
       completion_tip: `${completion_tip}`,
       recipe_num: `${recipeState}`,
-      member_id: "hirin012", //로그인한 멤버 정보 들어갈 자리
+      member_id: `${recipeState.member_id}`, //로그인한 멤버 정보 들어갈 자리
     };
 
     console.log("data", data);

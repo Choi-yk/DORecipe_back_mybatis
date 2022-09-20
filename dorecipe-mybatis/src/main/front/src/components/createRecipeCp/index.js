@@ -15,7 +15,8 @@ import CompleteRecipe from "./completeRecipeForm";
 import { SubmitRecipeBtn, DefaultBtn } from "../_common/buttons";
 import RecipeOrderDrag from "./recipeStepForm";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const CreateRecipeForm = () => {
   const onSubmit = (e) => {
@@ -33,6 +34,20 @@ const CreateRecipeForm = () => {
     //   }
     // }
   };
+
+
+
+// member_id 가져오기
+const user = useSelector((state) => state);
+const [member_id, setMemberId] = useState();
+useEffect(() => {
+    setMemberId(user.auth.user.username);
+    console.log("현재 로그인 아이디 : " + member_id);
+});
+// -----------------------------------------------
+
+
+
   const [recipeState, setRecipeState] = useState();
   // const [buttonState, setBtnState] = useState(0);
 
@@ -53,7 +68,7 @@ const CreateRecipeForm = () => {
               method: "POST",
               url: "http://localhost:9000/recipe/getRecipeNum",
               headers: { "Content-Type": "multipart/form-data" },
-              data: { member_id: "hirin012", recipe_num: 0 }, //멤버 아이디 전역으로..?
+              data: { member_id: `${member_id}`, recipe_num: 0 }, //멤버 아이디 전역으로..?
             }).then((response) => {
               console.log(response.data);
               setRecipeState(response.data);
@@ -63,7 +78,7 @@ const CreateRecipeForm = () => {
           <form encType="multipart/form-data">
             <SwiperSlide className="slide">
               <SectionTitle>레시피 등록</SectionTitle>
-              <BasicForm />
+              <BasicForm recipeState={recipeState}/>
             </SwiperSlide>
             <SwiperSlide className="slide">
               <SectionTitle>재료 등록</SectionTitle>

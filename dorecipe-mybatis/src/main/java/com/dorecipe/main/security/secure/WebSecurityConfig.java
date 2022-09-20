@@ -70,7 +70,7 @@ public class WebSecurityConfig {
         .antMatchers("/api/test/**").permitAll()
         .antMatchers("/member/delete/user/**").permitAll()
         .antMatchers("/","/notice/**","/recipe/**","/knowhow/**","/event/**","/join", "/member/**").permitAll()
-        .anyRequest().authenticated();
+        .anyRequest().permitAll();
     
     http.authenticationProvider(authenticationProvider());
 

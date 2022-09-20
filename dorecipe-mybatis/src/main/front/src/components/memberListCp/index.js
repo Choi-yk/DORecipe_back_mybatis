@@ -22,6 +22,7 @@ const List = () => {
       data: {
         member_id: "",
         member_pwd: "",
+        member_nickname: "",
         member_name: "",
         member_email: "",
         member_gender: "",
@@ -30,7 +31,7 @@ const List = () => {
         member_imagePath: "",
         member_joinDate: "",
         member_like: "",
-        member_role: "",
+        email: "",
       },
       baseURL: "http://localhost:9000",
     })

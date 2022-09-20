@@ -68,8 +68,8 @@ public class MemberController {
 	}
 	// 회원 정보 가져오기
 	@GetMapping("/getMember/{member_id}")
-	public MemberVO getMember(@PathVariable("member_id") String member_id, Model model) throws Exception {
-		
+	public MemberVO getMember(@PathVariable("member_id") String member_id) throws Exception {
+		System.out.println(" /getMember/member_id------------------------" + member_id);
 		MemberVO memberVO = memberService.listMemberDetails(member_id);
 		return memberVO;
 
@@ -111,8 +111,9 @@ public class MemberController {
 
 	//원본///////////////////////////////////////////
 	@PostMapping("/join/new")
-	public String Join(MemberVO memberVO /*Model model, HttpServletRequest request*/) throws Exception {
+	public String Join(MemberVO memberVO) throws Exception {
 		//MemberVO memberVO = (MemberVO) request.getParameterMap();
+		System.out.println("/join/new=====================" + memberVO);
 		
 		memberService.JoinMember(memberVO);
 		

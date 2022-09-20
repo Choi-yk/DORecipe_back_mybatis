@@ -39,6 +39,7 @@ import lombok.Setter;
 	private String member_imagePath;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date member_joinDate;
+	private String email;
 		
 	
 	// 데이터 출력
