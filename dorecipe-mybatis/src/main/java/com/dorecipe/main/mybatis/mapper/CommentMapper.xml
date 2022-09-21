@@ -16,7 +16,7 @@
 				(select IFNULL(max(comment_num),0)+1 from comment ALIAS_FOR_SUBQUERY where  recipe_num = #{recipe_num}),
 				#{comment_content},
 				#{comment_path},
-        		'aaa',
+        		#{member_id},
         		now()
 			);
 	</insert>
