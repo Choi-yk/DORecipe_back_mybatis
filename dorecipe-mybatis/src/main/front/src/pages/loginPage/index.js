@@ -29,10 +29,10 @@ const LoginPage = (auth) => {
     setMemberPwd(e.target.value);
   };
 
-  console.log("state!!!!!!!", auth);
+  // console.log("state!!!!!!!", auth);
   const navigate = useNavigate();
   const { dispatch, history } = auth;
-  console.log("dispatch", dispatch);
+  // console.log("dispatch", dispatch);
 
   // useEffect(() => {
   //    Axios();
@@ -92,7 +92,7 @@ const LoginPage = (auth) => {
   // [member_id,member_pwd]);
 
   const { isLoggedIn, message } = auth;
-  console.log("isLoggedIn", isLoggedIn);
+  // console.log("isLoggedIn", isLoggedIn);
 
   const memberLogin = (e) => {
     e.preventDefault();

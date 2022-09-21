@@ -38,7 +38,7 @@ const BasicForm = () => {
   useEffect(() => {
       setMemberId(user.auth.user.username);
       console.log("현재 로그인 아이디 : " + member_id);
-  });
+  },[member_id]);
 // ----------------------------------------------------
 
 

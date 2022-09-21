@@ -16,7 +16,7 @@ const RecordingRecipeList = () => {
       recipe_num: 0,
       recipe_title: "",
       recipe_rpath: "",
-      recipe_savetype: 0,
+      recipe_savetype: 1,
       information_level: "",
       information_time: "", 
     }, 

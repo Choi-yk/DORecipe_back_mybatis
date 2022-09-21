@@ -195,7 +195,7 @@ public class RecipeDAOImpl implements RecipeDAO{
 	@Override
 	public List<RecipeVO> recordCompleteRecipe(String member_id) {
 //		return mapper.recordCompleteRecipe(member_id);
-		return sqlSession.selectOne("mapper.recipe.recordCompleteRecipe",member_id);
+		return sqlSession.selectList("mapper.recipe.recordCompleteRecipe",member_id);
 	}
 
 	@Override

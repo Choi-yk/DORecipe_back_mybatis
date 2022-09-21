@@ -173,7 +173,7 @@
 
   	<!-- 마이페이지 작성한 레시피 목록 savetype 0 -->
      <select id="recordCompleteRecipe" resultType="com.dorecipe.main.recipe.vo.RecipeVO"   parameterType="String">
-      select * from recipe where recipe_savetype=0 and member_id=#{member_id} order by recipe_num desc
+      select * from recipe where recipe_savetype=0 and member_id=#{member_id} order by recipe_num desc;
      </select>
      
      <!-- 마이페이지 작성중인 레시피 목록 savetype 1 -->

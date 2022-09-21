@@ -25,19 +25,19 @@ const LoginPage = (auth) => {
   };
 
   //   console.log("state!!!!!!!", user);
-  console.log("state!!!!!!!", auth);
+  // console.log("state!!!!!!!", auth);
   //   console.log("user!!!!!!!", user);
   const navigate = useNavigate();
   //   const { dispatch } = state;
   const { dispatch, history } = auth;
 
   const { isLoggedIn, message } = auth;
-  console.log("isLoggedIn", isLoggedIn);
-  console.log("message", message);
+  // console.log("isLoggedIn", isLoggedIn);
+  // console.log("message", message);
   const memberLogin = (e) => {
     e.preventDefault();
-    console.log("ID : ", member_id);
-    console.log("PW : ", member_pwd);
+    // console.log("ID : ", member_id);
+    // console.log("PW : ", member_pwd);
 
     if (member_id.length > 0 && member_pwd.length > 0) {
       dispatch(login(member_id, member_pwd))
