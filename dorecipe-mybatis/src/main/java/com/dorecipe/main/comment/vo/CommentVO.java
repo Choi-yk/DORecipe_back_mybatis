@@ -12,6 +12,54 @@ public class CommentVO {
 	private int comment_num;
 	private String comment_content;
 	private String comment_path;
+	public int getRecipe_num() {
+		return recipe_num;
+	}
+
+	public void setRecipe_num(int recipe_num) {
+		this.recipe_num = recipe_num;
+	}
+
+	public int getComment_num() {
+		return comment_num;
+	}
+
+	public void setComment_num(int comment_num) {
+		this.comment_num = comment_num;
+	}
+
+	public String getComment_content() {
+		return comment_content;
+	}
+
+	public void setComment_content(String comment_content) {
+		this.comment_content = comment_content;
+	}
+
+	public String getComment_path() {
+		return comment_path;
+	}
+
+	public void setComment_path(String comment_path) {
+		this.comment_path = comment_path;
+	}
+
+	public String getMember_id() {
+		return member_id;
+	}
+
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
+
+	public Date getComment_creDate() {
+		return comment_creDate;
+	}
+
+	public void setComment_creDate(Date comment_creDate) {
+		this.comment_creDate = comment_creDate;
+	}
+
 	private String member_id;
 	private Date comment_creDate;
 	
