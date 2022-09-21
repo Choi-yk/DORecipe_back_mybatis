@@ -27,7 +27,7 @@ import com.dorecipe.main.comment.vo.CommentVO;
 import lombok.RequiredArgsConstructor;
 
 @CrossOrigin(origins="http://localhost:3000")
-@RestController
+@RestController 
 @RequiredArgsConstructor
 @RequestMapping("/comment")
 public class CommentController {
@@ -35,26 +35,26 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 	
-	//aplication.properties 파일업로드 경로 가져오기
+	//aplication.properties �뙆�씪�뾽濡쒕뱶 寃쎈줈 媛��졇�삤湲�
 	@Value("${part7.upload.path}")
 	private String uploadPath;
 	
 	
-	@GetMapping("/delete") // 이벤트 삭제
+	@GetMapping("/delete") // �씠踰ㅽ듃 �궘�젣
 	public void Delete(@PathVariable("recipe_num") Integer recipe_num,@PathVariable("comment_num") Integer comment_num) throws Exception {
 		commentService.deleteComment(recipe_num,comment_num);
 	}
 	
 	@GetMapping("/list/{recipe_num}")
 	public List<CommentVO> selectComment(@PathVariable Integer recipe_num) {
-		System.out.println("controller : recipeNum에 맞는 코멘트 찾기");
+		System.out.println("controller : recipeNum�뿉 留욌뒗 肄붾찘�듃 李얘린");
 		return commentService.selectComment(recipe_num);
 	}
 	
 //	@PostMapping("/insert/{comment_num}")
 //	public void insertComment(CommentVO commentVO,@PathVariable Integer comment_num, @RequestParam(value="comment_image",required = false) MultipartFile[] uploadFiles) throws Exception{
 ////	public void insertComment(CommentVO commentVO) throws Exception{
-//		if(uploadFiles == null) {//파일이 없으면 나머지 저장
+//		if(uploadFiles == null) {//�뙆�씪�씠 �뾾�쑝硫� �굹癒몄� ���옣
 //			commentService.insertEvent(commentVO,comment_num);
 //			return;
 //		}
@@ -77,32 +77,32 @@ public class CommentController {
 		System.out.println("comment insert test complete!! "+ commentVO.getComment_content());
 	}
 	
-	//파일 업로드
+	//�뙆�씪 �뾽濡쒕뱶
 	private CommentVO fileUpload(CommentVO commentVO, MultipartFile[] uploadFiles) {
-		//MultipartFile은 단건만 배열로 설정하면 다수의 파일을 받을 수있습니다.
-		//배열을 활용하면 동시에 여러개의 파일 정보를 처리할 수 있으므로 화면에서 여러개의 파일을 동시에 업로드 할 수 있습니다.
+		//MultipartFile�� �떒嫄대쭔 諛곗뿴濡� �꽕�젙�븯硫� �떎�닔�쓽 �뙆�씪�쓣 諛쏆쓣 �닔�엳�뒿�땲�떎.
+		//諛곗뿴�쓣 �솢�슜�븯硫� �룞�떆�뿉 �뿬�윭媛쒖쓽 �뙆�씪 �젙蹂대�� 泥섎━�븷 �닔 �엳�쑝誘�濡� �솕硫댁뿉�꽌 �뿬�윭媛쒖쓽 �뙆�씪�쓣 �룞�떆�뿉 �뾽濡쒕뱶 �븷 �닔 �엳�뒿�땲�떎.
 		
 		for(MultipartFile uploadFile:uploadFiles) {
 			String originalName = uploadFile.getOriginalFilename();
 			System.out.println("originalName:"+ originalName);
-			String fileName = originalName.substring(originalName.lastIndexOf("//")+1); //마지막 //뒤의 파일이름가져오기
+			String fileName = originalName.substring(originalName.lastIndexOf("//")+1); //留덉�留� //�뮘�쓽 �뙆�씪�씠由꾧��졇�삤湲�
 			System.out.println("fileName:"+ fileName);
 			
-			//날짜 폴더
+			//�궇吏� �뤃�뜑
 	        String folderPath = makeFolder();
-	        //UUID unique파일명 만들기
+	        //UUID unique�뙆�씪紐� 留뚮뱾湲�
 	        String uuid = UUID.randomUUID().toString();
-	        //저장할 파일 이름 중간에 "_"를 이용하여 구분
+	        //���옣�븷 �뙆�씪 �씠由� 以묎컙�뿉 "_"瑜� �씠�슜�븯�뿬 援щ텇
 	        String saveCommentName = uploadPath + File.separator 
 	        		+ folderPath +File.separator + uuid + "_" + fileName;
-	        System.out.println("전체경로" + saveCommentName);
+	        System.out.println("�쟾泥닿꼍濡�" + saveCommentName);
 	        Path saveCommentPath = Paths.get(saveCommentName);
-	        //Paths.get() 메서드는 특정 경로의 파일 정보를 가져옵니다.(경로 정의하기)
+	        //Paths.get() 硫붿꽌�뱶�뒗 �듅�젙 寃쎈줈�쓽 �뙆�씪 �젙蹂대�� 媛��졇�샃�땲�떎.(寃쎈줈 �젙�쓽�븯湲�)
 	        
-	        //db에 저장 할 이미지 경로
+	        //db�뿉 ���옣 �븷 �씠誘몄� 寃쎈줈
 	        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 			String comment_path = "/img/comment/" + date + "/" + uuid + "_" + fileName;
-			System.out.println("저장한 경로"+ comment_path);
+			System.out.println("���옣�븳 寃쎈줈"+ comment_path);
 			commentVO.setComment_path(comment_path);
 	        
 	        try{
@@ -114,10 +114,10 @@ public class CommentController {
 		 return commentVO;
 	}
 	
-	//폴더 생성
+	//�뤃�뜑 �깮�꽦
 	private String makeFolder(){
 	  	String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-	    //LocalDate를 문자열로 포멧
+	    //LocalDate瑜� 臾몄옄�뿴濡� �룷硫�
 	    String folderPath = str.replace("/", File.separator);
 	    File uploadPathFolder = new File(uploadPath, folderPath);
 	    if(uploadPathFolder.exists() == false){
