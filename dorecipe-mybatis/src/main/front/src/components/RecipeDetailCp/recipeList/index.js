@@ -4,7 +4,7 @@ const RecipeList = ({ recipeState }) => {
   const navigate = useNavigate();
 
   const onClickRecipe = () => {
-    navigate(`/recipes/search/details/${recipeState.recipe_num}`);
+    navigate(`/recipe/search/details/${recipeState.recipe_num}`);
   };
 
   return (
