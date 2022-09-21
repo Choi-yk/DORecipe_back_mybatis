@@ -20,7 +20,7 @@ import com.dorecipe.main.recipe.vo.RecipeVO;
 
 import lombok.RequiredArgsConstructor;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*")
 //@CrossOrigin(origins={"http://localhost:3000","http://localhost:3005"}) 
 @RequestMapping(value="/recipe")
 @RequiredArgsConstructor
