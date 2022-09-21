@@ -4,8 +4,9 @@ drop database dorecipe;
 -- use recipes;
 use dorecipe;
 -- user
-select * from user_roles;
-select * from roles;
+select * from recipe;
+select * from recipe;
+
 select * from member2;
 select * from users;
 
