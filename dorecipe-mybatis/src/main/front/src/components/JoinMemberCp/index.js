@@ -81,49 +81,33 @@ const SignUpTemplate = () => {
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
   );
   const userMsg = useSelector((state) => state.message);
+
   const onJoinMemberHandler = useCallback(
     (e) => {
       e.preventDefault();
 
       if (!idExp.current.test(member_id)) {
-        if (
-          !alert("아이디 형식이 일치하지 않습니다(영문 또는 숫자포함 6 ~20자)")
-        ) {
-          setMemId("");
-          return;
-        }
+        alert("아이디 형식이 일치하지 않습니다(영문 또는 숫자포함 6 ~20자)");
+        setMemId("");
+      } else if (!pwdExp.current.test(member_pwd)) {
+        setPwd("");
+        setConfirm("");
+        alert(
+          "비밀번호 형식이 일치하지 않습니다(대소문자 특수문자($ ! % @) 포함  9 ~ 18자)"
+        );
+      } else if (!phoneReg.current.test(member_phone)) {
+        alert("전화번호 형식이 올바르지 않습니다");
+        setPhone("");
+      } else if (!emailReg.current.test(member_email)) {
+        alert("이메일형식이 올바르지 않습니다.");
+        setEmail("");
       } else {
         setMemId(member_id);
-      }
-      if (!pwdExp.current.test(member_pwd)) {
-        if (
-          !alert(
-            "비밀번호 형식이 일치하지 않습니다(대소문자 특수문자($ ! % @) 포함  9 ~ 18자)"
-          )
-        ) {
-          setPwd("");
-          setConfirm("");
-          return;
-        }
-      } else {
         setPwd(member_pwd);
-      }
-      if (!phoneReg.current.test(member_phone)) {
-        if (!alert("전화번호 형식이 올바르지 않습니다")) {
-          setPhone("");
-          return;
-        }
-      } else {
         setPhone(member_phone);
-      }
-      if (!emailReg.current.test(member_email)) {
-        if (!alert("이메일형식이 올바르지 않습니다.")) {
-          setEmail("");
-          return;
-        }
-      } else {
         setEmail(member_email);
       }
+
       dispatch(register(member_id, member_email, member_pwd))
         .then((response) => {
           console.log("response", response);
@@ -198,21 +182,6 @@ const SignUpTemplate = () => {
         <form className="form">
           <div className="formLabels">
             아이디
-            {/* {member_id.length === 0 ? (
-              <WarningMsg>
-                필수 <FontAwesomeIcon icon={faExclamationCircle} /> : 영문 또는
-                숫자포함 6 ~20자{" "}
-              </WarningMsg>
-            ) : duplicateCheck == true ? (
-              <WarningMsg>사용가능한 아이디입니다. </WarningMsg>
-            ) : duplicateCheck == null ? (
-              <></>
-            ) : (
-              <WarningMsg>
-                사용불가능한 아이디입니다.{" "}
-                <FontAwesomeIcon icon={faExclamationCircle} />
-              </WarningMsg>
-            )} */}
             {member_id.length === 0 ? (
               <WarningMsg>
                 필수 <FontAwesomeIcon icon={faExclamationCircle} /> : 영문 또는
@@ -226,7 +195,6 @@ const SignUpTemplate = () => {
             type="text"
             name="member_id"
             required
-            // className="idInput"
             autoSave="false"
             placeholder="내용을 입력해주세요"
             value={member_id}

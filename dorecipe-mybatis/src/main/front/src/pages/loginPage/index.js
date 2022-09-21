@@ -42,7 +42,10 @@ const LoginPage = () => {
           navigate("/");
         })
         .catch((err) => {
-          console.log("로그인 실패");
+          // console.log("로그인 실패");
+          alert("로그인에 실패하셨습니다.");
+          setMemberId("");
+          setMemberPwd("");
           setState(false);
         });
     } else {

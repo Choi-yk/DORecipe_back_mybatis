@@ -9,7 +9,6 @@ import NullRecipe from "../nullRecipeList";
 import { useDispatch, useSelector } from "react-redux";
 
 const RecordingRecipeList = () => {
-
   // 작성중 레시피
   const [recipeState, setRecipeState] = useState([
     {
@@ -18,8 +17,8 @@ const RecordingRecipeList = () => {
       recipe_rpath: "",
       recipe_savetype: 1,
       information_level: "",
-      information_time: "", 
-    }, 
+      information_time: "",
+    },
   ]);
 
   const user = useSelector((state) => state);
@@ -27,20 +26,19 @@ const RecordingRecipeList = () => {
   useEffect(() => {
     if (user.auth.isLoggedIn) {
       setMemberId(user.auth.user.username);
-      console.log(member_id + " 이건???????????")
-      if(member_id !== undefined){
-        Axios(); 
+      console.log(member_id + " 이건???????????");
+      if (member_id !== undefined) {
+        Axios();
       }
     }
-  },[member_id]);
-
+  }, [member_id]);
 
   const formData = new FormData();
-  formData.append("member_id", member_id)
+  formData.append("member_id", member_id);
 
   function Axios() {
     // console.log("작성중레시피 가져오니?" + member_id)
-    axios({ 
+    axios({
       url: "/recipe/recordingType0",
       method: "Post",
       data: formData,
@@ -69,7 +67,7 @@ const RecordingRecipeList = () => {
                 <NullRecipe />
               )}
             </div>
-          </Scrollable> 
+          </Scrollable>
           {/* {
             recipeState.length !== 0
             ?

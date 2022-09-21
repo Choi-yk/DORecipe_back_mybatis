@@ -16,14 +16,16 @@ const RecipeDetailModal = () => {
   const param = location.pathname.substring(lastIndex).replace("/", "");
   console.log(param);
 
-
+  const user = useSelector((state) => state);
   const params = useParams();
   const navigate = useNavigate();
   const onClickBack = () => {
     navigate(-1);
   };
 
-  const [loginState, setLoginState] = useState("admin");
+  console.log("user", user);
+  // const [loginState, setLoginState] = useState("admin");
+  const [loginState, setLoginState] = useState(user.auth.isLoggedIn);
 
   const [detailState, setDetailState] = useState([
     {
@@ -60,7 +62,6 @@ const RecipeDetailModal = () => {
   const searchParam = params.recipeId;
 
   useEffect(() => {
-
     const searchParam = params.recipeId;
 
     axios
@@ -75,7 +76,7 @@ const RecipeDetailModal = () => {
         setIngredientState(response.data);
       })
       .catch((e) => console.log(e));
-    axios 
+    axios
       .get("http://localhost:9000/recipe/getRecipeLikes/", {
         params: { recipe_num: searchParam },
       })
@@ -85,10 +86,10 @@ const RecipeDetailModal = () => {
       })
       .catch((e) => console.log(e));
     axios
-      .get("http://localhost:9000/recipe/getLikedMember/", { 
-        params: { param1: detailState[0].member_id , param2: searchParam },
+      .get("http://localhost:9000/recipe/getLikedMember/", {
+        params: { param1: detailState[0].member_id, param2: searchParam },
       })
-      .then(function (response) {  
+      .then(function (response) {
         console.log("heartstate", response.data);
         response.data
           ? setHeartState(faHeart)

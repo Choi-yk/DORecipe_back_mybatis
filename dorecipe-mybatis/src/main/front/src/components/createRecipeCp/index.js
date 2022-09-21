@@ -35,18 +35,14 @@ const CreateRecipeForm = () => {
     // }
   };
 
-
-
-// member_id 가져오기
-const user = useSelector((state) => state);
-const [member_id, setMemberId] = useState();
-useEffect(() => {
+  // member_id 가져오기
+  const user = useSelector((state) => state);
+  const [member_id, setMemberId] = useState();
+  useEffect(() => {
     setMemberId(user.auth.user.username);
     console.log("현재 로그인 아이디 : " + member_id);
-});
-// -----------------------------------------------
-
-
+  });
+  // -----------------------------------------------
 
   const [recipeState, setRecipeState] = useState();
   // const [buttonState, setBtnState] = useState(0);
@@ -78,7 +74,7 @@ useEffect(() => {
           <form encType="multipart/form-data">
             <SwiperSlide className="slide">
               <SectionTitle>레시피 등록</SectionTitle>
-              <BasicForm recipeState={recipeState}/>
+              <BasicForm recipeState={recipeState} />
             </SwiperSlide>
             <SwiperSlide className="slide">
               <SectionTitle>재료 등록</SectionTitle>
