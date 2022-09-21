@@ -343,7 +343,13 @@ public class RecipeController extends RecipeFileUpload{
 	@PostMapping("/recordingType0")
 	public List<RecipeVO> getMemberRecipeSt0(@RequestParam(value = "member_id") String member_id){
 		System.out.println("ST0" + member_id);
-		return null;
+		return recipeService.recordRecipe(member_id);
+	}
+	
+	@PostMapping("/recordingType1")
+	public List<RecipeVO> getMemberRecipeSt1(@RequestParam(value = "member_id") String member_id){
+		System.out.println("ST1" + member_id);
+		return recipeService.recordCompleteRecipe(member_id);
 	}
 	
 }

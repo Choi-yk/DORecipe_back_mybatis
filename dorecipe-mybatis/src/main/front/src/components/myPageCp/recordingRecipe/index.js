@@ -6,7 +6,7 @@ import RecordList from "./recipeList";
 
 import styled from "styled-components";
 import NullRecipe from "../nullRecipeList";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const RecordingRecipeList = () => {
 
@@ -18,33 +18,34 @@ const RecordingRecipeList = () => {
       recipe_rpath: "",
       recipe_savetype: 0,
       information_level: "",
-      information_time: "",
-    },
+      information_time: "", 
+    }, 
   ]);
 
   const user = useSelector((state) => state);
   const [member_id, setMemberId] = useState();
   useEffect(() => {
+    if (user.auth.isLoggedIn) {
       setMemberId(user.auth.user.username);
-      console.log("현재 로그인 아이디(recipeT) : " + member_id);
-
+      console.log(member_id + " 이건???????????")
       if(member_id !== undefined){
-        Axios();
+        Axios(); 
       }
-  });
+    }
+  },[member_id]);
+
 
   const formData = new FormData();
   formData.append("member_id", member_id)
 
   function Axios() {
     // console.log("작성중레시피 가져오니?" + member_id)
-    axios({
+    axios({ 
       url: "/recipe/recordingType0",
       method: "Post",
       data: formData,
       baseURL: "http://localhost:9000",
     }).then(function (response) {
-      console.log(response.data);
       setRecipeState(response.data);
     });
   }
@@ -68,17 +69,17 @@ const RecordingRecipeList = () => {
                 <NullRecipe />
               )}
             </div>
-          </Scrollable>
+          </Scrollable> 
           {/* {
-                    recipeState.length !== 0
-                    ?
-                    recipeState.map((e) => (
-                        <RecordList
-                            recipeState={e}
-                        />  
-                    ))
-                    :
-                    <NullRecipe />
+            recipeState.length !== 0
+            ?
+            recipeState.map((e) => (
+                <RecordList
+                    recipeState={e}
+                />  
+            ))
+            :
+            <NullRecipe />
                  } */}
         </div>
       </div>
@@ -106,7 +107,7 @@ const Scrollable = styled.section`
 
   & > div {
     padding: 2rem;
-    height: 27em;
+    height: 40em;
     overflow-y: auto;
     margin: 0 auto;
 

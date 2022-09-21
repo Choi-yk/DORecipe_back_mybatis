@@ -6,50 +6,48 @@ import CompleteList from "./recipeList";
 
 import styled from "styled-components";
 import NullRecipe from "../nullRecipeList";
+import { useSelector } from "react-redux";
 
 const CompleteRecipeList = () => {
-  let { memberId } = useParams();
-
   // 작성한 레시피
-  const [C_recipeState, setCRecipeState] = useState([
+  const [recipeState, setRecipeState] = useState([
     {
       recipe_num: 0,
       recipe_title: "",
       recipe_rpath: "",
       recipe_savetype: 0,
-      information_level: "",
+      information_level: "", 
       information_time: "",
     },
   ]);
 
+  const user = useSelector((state) => state);
+  const [member_id, setMemberId] = useState();
+  useEffect(() => {
+      setMemberId(user.auth.user.username);
+      console.log(member_id + " 이건???????????")
+      if(member_id !== undefined){
+        Axios(); 
+      }
+  },[member_id]); 
+
   // 작성한 레시피 정보 가져오기
   // member_id가 ~인 레시피의 컬럼들을 다 가져와야지!
+  const formData = new FormData();
+  formData.append("member_id", member_id)
   function Axios() {
-    axios({
-      url: "/member/info/complete/" + memberId,
-      method: "get",
-      data: {
-        recipe_num: 0,
-        recipe_title: "",
-        recipe_rpath: "",
-        recipe_savetype: 0,
-        information_level: "",
-        information_time: "",
-      },
-      baseURL: "http://localhost:9000",
-    }).then(function (response) {
-      console.log(response.data);
-      // console.log("작성한 제목" + response.data.recipe_title);
-      // console.log("작성한 이미지 url" + response.data.recipe_rpath);
-      // console.log("작성한 난이도" + response.data.information_level);
-      // console.log("작성한 시간" + response.data.information_time);
-      setCRecipeState(response.data);
-    });
-  }
+      console.log("작성중레시피 가져오니?" + member_id)
+      axios({
+        url: "/recipe/recordingType1",
+        method: "Post",
+        data: formData,
+        baseURL: "http://localhost:9000",
+      }).then(function (response) {
+        setRecipeState(response.data); 
+      });
+    }
+  
 
-  useEffect(() => {
-    // Axios();
-  }, []);
 
   return (
     <>
@@ -57,12 +55,12 @@ const CompleteRecipeList = () => {
         <div>
           <SectionTitle>
             작성한 레시피
-            <span className="likeRecipeTotal">총 {C_recipeState.length}개</span>
+            <span className="likeRecipeTotal">총 {recipeState.length}개</span>
           </SectionTitle>
           <Scrollable>
             <div>
-              {C_recipeState.length !== 0 ? (
-                C_recipeState.map((e) => (
+              {recipeState.length !== 0 ? (
+                recipeState.map((e) => (
                   <CompleteList key={e.recipe_num} C_recipeState={e} />
                 ))
               ) : (

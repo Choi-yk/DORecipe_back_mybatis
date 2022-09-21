@@ -226,7 +226,7 @@ const EventModify = () => {
         
     {/* 이미지 */}
     <div className="mt-5 imgPreview floatRight">
-        <img className="img_box" alt=""/>
+        <div className="img_box" />
         {/* src={state.event_path}  */}
     </div>
     
