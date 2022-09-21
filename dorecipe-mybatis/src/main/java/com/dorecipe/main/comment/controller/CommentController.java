@@ -47,7 +47,7 @@ public class CommentController {
 	
 	@GetMapping("/list/{recipe_num}")
 	public List<CommentVO> selectComment(@PathVariable Integer recipe_num) {
-		System.out.println("controller : recipeNum�뿉 留욌뒗 肄붾찘�듃 李얘린");
+		System.out.println("controller : recipeNum" + recipe_num);
 		return commentService.selectComment(recipe_num);
 	}
 	

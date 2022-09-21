@@ -13,7 +13,7 @@ import EditDropZone from "../../_common/dropzone";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
-const BasicForm = () => {
+const BasicForm = ({recipeState}) => {
   const [recipe_title, onChangeRecipeTitle, setRecipeTitle] = useInput("");
   const [recipe_introduce, onChangeRecipeIntro, setRecipeIntro] = useInput("");
   const [recipe_url, onChangeRecipeUrl, setRecipeUrl] = useInput("");
@@ -38,7 +38,7 @@ const BasicForm = () => {
   useEffect(() => {
       setMemberId(user.auth.user.username);
       console.log("현재 로그인 아이디 : " + member_id);
-  },[member_id]);
+  });
 // ----------------------------------------------------
 
 

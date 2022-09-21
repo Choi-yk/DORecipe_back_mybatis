@@ -13,7 +13,7 @@ return(
     <ul className="">
         <li className="profileWrap">
             <div className="mt-5">
-                <a href={`http://localhost:3000/recipes/search/details/${state.recipe_num}`}>
+                <a href={`http://localhost:3000/recipe/search/details/${state.recipe_num}`}>
                     <img className="searchRecipeImg"
                          src={state.recipe_rpath} alt="x"/>
                 </a>

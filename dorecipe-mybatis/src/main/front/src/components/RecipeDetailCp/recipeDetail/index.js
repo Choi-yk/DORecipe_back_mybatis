@@ -7,12 +7,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faHeartCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import StepRecipe from "./recipeSteps";
 import RecipeIngredients from "./recipeIngredients";
+import { useDispatch, useSelector } from "react-redux";
+
 const RecipeDetailModal = () => {
   const search = "/";
   let location = useLocation();
   const lastIndex = location.pathname.lastIndexOf(search);
   const param = location.pathname.substring(lastIndex).replace("/", "");
   console.log(param);
+
 
   const params = useParams();
   const navigate = useNavigate();
@@ -24,9 +27,8 @@ const RecipeDetailModal = () => {
 
   const [detailState, setDetailState] = useState([
     {
-      member_id: 0,
-      member_imagePath: "",
-      recipe_num: param,
+      // member_imagePath: "",
+      recipe_num: 0,
       recipe_title: "",
       recipe_introduce: "",
       recipe_url: "",
@@ -42,6 +44,7 @@ const RecipeDetailModal = () => {
       order_num: "",
       order_path: "",
       recipe_creDate: "",
+      member_id: "",
     },
   ]);
   const [ingredientState, setIngredientState] = useState([
@@ -55,8 +58,11 @@ const RecipeDetailModal = () => {
   const [recipe_likes, setRecipeLikes] = useState(0);
   const [heartState, setHeartState] = useState();
   const searchParam = params.recipeId;
+
   useEffect(() => {
+
     const searchParam = params.recipeId;
+
     axios
       .get("http://localhost:9000/recipe/search/details/" + searchParam)
       .then(function (response) {
@@ -69,7 +75,7 @@ const RecipeDetailModal = () => {
         setIngredientState(response.data);
       })
       .catch((e) => console.log(e));
-    axios
+    axios 
       .get("http://localhost:9000/recipe/getRecipeLikes/", {
         params: { recipe_num: searchParam },
       })
@@ -79,10 +85,10 @@ const RecipeDetailModal = () => {
       })
       .catch((e) => console.log(e));
     axios
-      .get("http://localhost:9000/recipe/getLikedMember/", {
-        params: { param1: "admin", param2: searchParam },
+      .get("http://localhost:9000/recipe/getLikedMember/", { 
+        params: { param1: detailState[0].member_id , param2: searchParam },
       })
-      .then(function (response) {
+      .then(function (response) {  
         console.log("heartstate", response.data);
         response.data
           ? setHeartState(faHeart)

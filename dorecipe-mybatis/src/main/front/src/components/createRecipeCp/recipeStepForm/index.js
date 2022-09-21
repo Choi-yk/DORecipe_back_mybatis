@@ -11,6 +11,7 @@ import { SmallBtn, DefaultBtn } from "../../_common/buttons";
 import "./style.css";
 import axios from "axios";
 import Dropzone from "react-dropzone";
+import { useSelector } from "react-redux";
 
 const RecipeOrderDrag = ({ recipeState }) => {
   const [files1, setFiles1] = useState([]);
@@ -43,6 +44,17 @@ const RecipeOrderDrag = ({ recipeState }) => {
   const [files28, setFiles28] = useState([]);
   const [files29, setFiles29] = useState([]);
   const [files30, setFiles30] = useState([]);
+
+
+// member_id 가져오기
+const user = useSelector((state) => state);
+const [member_id, setMemberId] = useState();
+useEffect(() => {
+    setMemberId(user.auth.user.username);
+    console.log("현재 로그인 아이디 : " + member_id);
+});
+// ----------------------------------------------------
+
 
   const [stepState, setStep] = useState([
     {

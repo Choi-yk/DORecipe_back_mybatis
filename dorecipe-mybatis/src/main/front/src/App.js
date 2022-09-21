@@ -187,7 +187,7 @@ function App() {
 
       <Route path={"/recipes/search"} element={<DetailSearchPage />} />
       <Route
-        path={"/recipes/search/details/:recipeId"}
+        path={"/recipe/search/details/:recipeId"}
         element={<DetailRecipePage />}
       />
       <Route

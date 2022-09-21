@@ -35,7 +35,7 @@
 		(recipe_title,recipe_savetype,recipe_introduce,recipe_url,recipe_rpath,
 		category_kind,category_theme,category_way,category_ing,information_person,information_time,information_level,
 		recipe_creDate,member_id)
- 		values(#{recipe_title},0,#{recipe_introduce},#{recipe_url},#{recipe_rpath},#{category_kind},
+ 		values(#{recipe_title},1,#{recipe_introduce},#{recipe_url},#{recipe_rpath},#{category_kind},
  		#{category_theme}, #{category_way},#{category_ing},#{information_person},#{information_time},#{information_level},
  		now(),#{member_id}); 
   	</insert>
@@ -195,20 +195,20 @@
   	  	
 	<!-- 레시피 상세 검색 -->
 	<select id="showDetailSearchRecipe" resultType="com.dorecipe.main.recipe.vo.RecipeVO"  parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
-	  select member2.member_id , member2.member_imagePath, recipe.recipe_num,recipe_title, recipe_savetype, recipe_url, recipe_rpath, 
-	  information_person,information_level, information_time,recipe_introduce,
-	  completion_path1, completion_path2, completion_path3,completion_path4,completion_tip, 
-	  order_num,order_explain,order_path,
-	  recipe_creDate 
-	  from member2 right outer join 
-	  recipe 
+	  select m.member_id , r.recipe_num, r.recipe_title, r.recipe_savetype, r.recipe_url, r.recipe_rpath, 
+	  r.information_person, r.information_level, r.information_time,r.recipe_introduce,
+	  r.completion_path1, r.completion_path2, r.completion_path3,r.completion_path4,r.completion_tip, 
+	  r_order.order_num,r_order.order_explain,r_order.order_path,
+	  r.recipe_creDate 
+	  from member2 m right outer join 
+	  recipe r
 	  on 
-	  recipe.member_id= member2.member_id 
+	  r.member_id= m.member_id 
 	  left outer join r_order
-	  on r_order.recipe_num=recipe.recipe_num
+	  on r_order.recipe_num=r.recipe_num
 	  where 
-	  recipe.recipe_num=#{recipe_num}and
-      recipe.recipe_saveType = 0
+	  r.recipe_num = #{recipe_num} and
+      r.recipe_saveType = 0
 	  group by order_num 
 	  order by order_num asc
   	</select>
@@ -252,7 +252,7 @@
 	<!--레시피 좋아요 한 적 있는 지 -->
   	<select id="getLikedMember" resultType="String"  parameterType="com.dorecipe.main.recipe.dao.RecipeDAO" >
 	   select member_id from r_like 
-	   where recipe_num = #{param1} and recipe_num =#{param2};
+	   where member_id = #{param1} and recipe_num =#{param2};
   	</select>  	
   	
   	<insert id="insertLikes" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">		
