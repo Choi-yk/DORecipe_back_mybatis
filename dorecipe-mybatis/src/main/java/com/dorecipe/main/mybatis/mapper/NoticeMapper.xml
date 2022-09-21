@@ -18,7 +18,7 @@
 	<!-- parameterType은 넘겨 받는 입력타입  --> 
  	<insert id="insertNotice" parameterType="com.dorecipe.main.notice.dao.NoticeDAO">
 		insert into notice(member_id,notice_title,notice_content,notice_creDate)
-		values("hirin012",#{notice_title},#{notice_content},now())
+		values(#{member_id},#{notice_title},#{notice_content},now())
 	</insert >
 
  

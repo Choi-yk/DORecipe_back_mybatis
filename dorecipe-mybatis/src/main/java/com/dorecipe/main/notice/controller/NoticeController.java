@@ -20,9 +20,9 @@ import com.dorecipe.main.notice.service.NoticeService;
 import com.dorecipe.main.notice.vo.Notice;
 
 import lombok.RequiredArgsConstructor;
-
-@CrossOrigin(origins="http://localhost:3000")   //react연동 -> 주석 해제
-@RequestMapping(value="/notice")
+@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins="http://localhost:3000")   //react연동 -> 주석 해제
+@RequestMapping("/notice")
 @RequiredArgsConstructor	//생성자 주입을 위한.
 @RestController   //react연동 -> 주석 해제
 //@Controller // 잠깐만

@@ -4,13 +4,14 @@ import "../../style/bootstrap.min.css";
 import { Nav } from "react-bootstrap";
 import axios from "axios";
 import { useInput } from "../../hooks/useInput";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 // import UserService from "../../reduxRefresh/services/userService";
 import UserService from "../../reduxRefresh/services/userService";
 import EventBus from "../../reduxRefresh/common";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../reduxRefresh/actions/auth";
 
 const RegistPosts = () => {
   let [tap, setTap] = useState(0);
@@ -248,37 +249,53 @@ function TabContent(props) {
   let [notice_title, onChangeNoticeTitle, setNoticeTitle] = useInput("");
   let [notice_content, onChangeNoticeContent, setNoticeContent] = useInput("");
 
+  const user = useSelector((state) => state);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  console.log("insertNotice", user);
   const insertNotice = useCallback(
     (e) => {
-      const noticeData = {
-        notice_title: `${notice_title}`,
-        notice_content: `${notice_content}`,
-      };
+      e.preventDefault();
+      if (user !== undefined && user.auth.user.roles.includes("ROLE_USER")) {
+        const noticeData = {
+          member_id: `${user.auth.user.username}`,
+          notice_title: `${notice_title}`,
+          notice_content: `${notice_content}`,
+        };
 
-      const noticeBlob = new Blob([JSON.stringify(noticeData)], {
-        type: "application/json",
-      });
-
-      const formData = new FormData();
-      formData.append("noticeData", noticeBlob);
-
-      formData.append("notice_title", noticeData.notice_title);
-      formData.append("notice_content", noticeData.notice_content);
-
-      if (noticeData.notice_title === "" || noticeData.notice_content === "") {
-        alert("제목과 내용을 입력해주세요.");
-      } else {
-        axios({
-          method: "POST",
-          url: "http://localhost:9000/notice/insert",
-          headers: { "Content-Type": "multipart/form-data" },
-          data: formData,
-        }).then((response) => {
-          console.log(response.data);
-          document.getElementById("noticeTitle").value = "";
-          document.getElementById("noticeContent").value = "";
-          alert("공지사항이 등록되었습니다.");
+        const noticeBlob = new Blob([JSON.stringify(noticeData)], {
+          type: "application/json",
         });
+
+        const formData = new FormData();
+
+        formData.append("noticeData", noticeBlob);
+        formData.append("member_id", noticeData.member_id);
+        formData.append("notice_title", noticeData.notice_title);
+        formData.append("notice_content", noticeData.notice_content);
+
+        if (
+          noticeData.notice_title === "" ||
+          noticeData.notice_content === ""
+        ) {
+          alert("제목과 내용을 입력해주세요.");
+        } else {
+          axios({
+            method: "POST",
+            url: "http://localhost:9000/notice/insert",
+            headers: { "Content-Type": "multipart/form-data" },
+            data: formData,
+          }).then((response) => {
+            console.log(response.data);
+            document.getElementById("noticeTitle").value = "";
+            document.getElementById("noticeContent").value = "";
+            alert("공지사항이 등록되었습니다.");
+          });
+        }
+      } else {
+        dispatch(logout());
+        navigate("/");
       }
     },
     [notice_title, notice_content]

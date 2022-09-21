@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 
 @CrossOrigin(origins = "*")
 //@CrossOrigin(origins={"http://localhost:3000","http://localhost:3005"}) 
-@RequestMapping(value="/recipe")
+@RequestMapping("/recipe")
 @RequiredArgsConstructor
 @RestController
 public class RecipeController extends RecipeFileUpload{

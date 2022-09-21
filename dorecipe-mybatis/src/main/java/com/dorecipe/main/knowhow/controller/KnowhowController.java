@@ -24,9 +24,9 @@ import com.dorecipe.main.knowhow.service.KnowhowService;
 import com.dorecipe.main.knowhow.vo.KnowhowVO;
 
 import lombok.RequiredArgsConstructor;
-
-@CrossOrigin(origins="http://localhost:3000")
-@RequestMapping(value="/knowhow")
+@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins="http://localhost:3000")
+@RequestMapping("/knowhow")
 @RequiredArgsConstructor
 @RestController
 public class KnowhowController {

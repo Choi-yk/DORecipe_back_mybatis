@@ -110,7 +110,7 @@ const SignUpTemplate = () => {
 
       dispatch(register(member_id, member_email, member_pwd))
         .then((response) => {
-          console.log("response", response);
+          // console.log("response", response);
           const data = {
             username: `${member_id}`,
             member_nickname: `${member_nickname}`,
@@ -120,8 +120,6 @@ const SignUpTemplate = () => {
             member_phone: `${member_phone}`,
             member_joinDate: "",
           };
-          // console.log(data.member_id);
-          // formData blob json형태로 보내기
           const blob = new Blob([JSON.stringify(data)], {
             type: "application/json",
           });
