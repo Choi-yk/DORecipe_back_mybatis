@@ -189,7 +189,7 @@
 	  category_theme = #{category_theme} and
 	  category_way = #{category_way} and
 	  category_ing = #{category_ing} and
-	  recipe_savetype = #{recipe_savetype}
+	  recipe_savetype = 0
 	  order by recipe_num desc
   	</select>
   	  	

@@ -75,7 +75,7 @@ const RecipeDetailModal = () => {
         setIngredientState(response.data);
       })
       .catch((e) => console.log(e));
-    axios 
+    axios
       .get("http://localhost:9000/recipe/getRecipeLikes/", {
         params: { recipe_num: searchParam },
       })

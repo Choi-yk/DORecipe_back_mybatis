@@ -5,7 +5,7 @@ drop database dorecipe;
 use dorecipe;
 -- user
 select * from recipe;
-select * from recipe;
+select * from r_order;
 
 select * from member2;
 select * from users;
