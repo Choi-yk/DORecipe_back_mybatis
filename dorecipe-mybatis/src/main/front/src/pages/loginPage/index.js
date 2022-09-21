@@ -24,7 +24,7 @@ const LoginPage = () => {
   // const { isLoggedIn, message } = auth;
 
   const dispatch = useDispatch();
-  const auth = useSelector();
+  const auth = useSelector((state) => state);
 
   console.log("auth!!!!!!", auth);
 
@@ -35,18 +35,14 @@ const LoginPage = () => {
 
     //  console.log("history>?", history);
     if (member_id.length > 0 && member_pwd.length > 0) {
-      dispatch(login(member_id, member_pwd)).then(() => {
-        setState(true);
-        // history.push("/");
-        window.location.reload();
-      });
-      console
-        .log("auth", auth)
-        //   .then(() => {
-        //     alert("로그인 성공");
-        //     navigate({ to: "/" }, { replace: true, state: auth });
-        //   })
+      dispatch(login(member_id, member_pwd))
+        .then(() => {
+          setState(true);
+          // window.location.reload();
+          navigate("/");
+        })
         .catch((err) => {
+          console.log("로그인 실패");
           setState(false);
         });
     } else {
@@ -57,6 +53,7 @@ const LoginPage = () => {
     // if (isLoggedIn) {
     //   navigate("/");
     // }
+    console.log("auth!!!!!!", auth);
   });
   return (
     <>
