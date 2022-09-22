@@ -17,12 +17,13 @@ import RecipeOrderDrag from "./recipeStepForm";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CreateRecipeForm = () => {
   const user = useSelector((state) => state);
   const [member_id, setMemberId] = useState();
   const navigate = useNavigate();
+  const params = useParams();
   // useDispatch(messageReducer(CLEAR_MESSAGE));
   useEffect(() => {
     if (user.auth.isLoggedIn) {
@@ -30,7 +31,7 @@ const CreateRecipeForm = () => {
       setMemberId(user.auth.user.username);
       navigate("/");
     }
-    console.log("CreateRecipeForm : " + member_id);
+    console.log("params : " + { params });
     console.log("CreateRecipeForm", user);
   }, []);
 
@@ -56,7 +57,8 @@ const CreateRecipeForm = () => {
           //     navigate("/");
           //   }
           // }}
-          onSwiper={(swiper) => console.log("swiper", swiper)}
+
+          // onSwiper={(swiper) => console.log("params", params)}
           onSlideChange={() => {
             axios({
               method: "POST",
@@ -71,18 +73,17 @@ const CreateRecipeForm = () => {
         >
           <form encType="multipart/form-data">
             <SwiperSlide className="slide">
-              <SectionTitle>레시피 등록</SectionTitle>
-              {/* <BasicForm recipeState={recipeState} /> */}
+              <SectionTitle recipeId={params}>레시피 등록</SectionTitle>
               <BasicForm />
             </SwiperSlide>
             <SwiperSlide className="slide">
-              <SectionTitle>재료 등록</SectionTitle>
+              <SectionTitle recipeId={params}>재료 등록</SectionTitle>
               <IngredientForm recipeState={recipeState} />
             </SwiperSlide>
             <SwiperSlide className="slide">
-              <SectionTitle>요리 순서</SectionTitle>
+              <SectionTitle recipeId={params}>요리 순서</SectionTitle>
               <div>
-                <RecipeOrderDrag recipeState={recipeState} />
+                <RecipeOrderDrag recipeId={params} recipeState={recipeState} />
               </div>
             </SwiperSlide>
             <SwiperSlide className="slide">

@@ -15,7 +15,7 @@ const CreateRecipeIcon = () => {
   const [iconState, setIcon] = useState(faPencil);
 
   useEffect(() => {
-    console.log("CreateRecipeIcon", userState);
+    // console.log("CreateRecipeIcon", userState);
     if (userState.auth.isLoggedIn) {
       if (userState.auth.user.roles.includes("ROLE_ADMIN")) {
         setIcon(faHouse);

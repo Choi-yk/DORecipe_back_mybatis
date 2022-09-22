@@ -153,7 +153,7 @@ public class RecipeController extends RecipeFileUpload{
 		return recipeVO.toString();
 	}
 	
-//	//레시피 목록
+	//레시피 목록
 	@GetMapping("/getIngredientList/{recipe_num}")
 	public List<RecipeVO> getIngredientList( @PathVariable Integer recipe_num) {
 		return recipeService.getIngredientList(recipe_num);
@@ -199,17 +199,18 @@ public class RecipeController extends RecipeFileUpload{
 		return "redirect:/recipe/list";
 	}
 	
-//	//레시피 임시저장한 거 수정해서 저장할때
-//	@PostMapping("/updateRecipeInstructions")
-//	public String updateRecipeInstructions(
-//			@RequestParam(value = "param1") Integer param1,
-//			@RequestParam(value = "param2") Integer param2) {
-//		recipeService.updateRecipeInstructions(param1,param2);
-//		
-//		System.out.println("레시피 수정 - Controller param1, param2:"+param1+","+param2);
-//		
-//		return "redirect:/recipe/list";
-//	}
+	
+	//레시피 임시저장한 거 수정해서 저장할때
+	@GetMapping("/updateRecipeSaveType/{recipe_num}")
+	public String updateRecipeInstructions(@PathVariable("recipe_num") int recipe_num, Model model
+		) {
+		recipeService.updateRecipeSaveType(recipe_num);
+		
+		System.out.println("레시피 수정 - Controller  recipe_num:"+recipe_num);
+		
+		return "redirect:/recipe/list";
+	}
+	
 	//레시피 임시저장한 거 수정해서 저장할때
 	@PostMapping("/updateRecipeInstructions")
 	public String updateRecipeInstructions(RecipeVO recipeVO) {
@@ -221,7 +222,7 @@ public class RecipeController extends RecipeFileUpload{
 	}
 	
 	//레시피 삭제
-	@GetMapping("delete/{recipe_num}")
+	@GetMapping("/delete/{recipe_num}")
 	public String delete(@PathVariable("recipe_num") Integer recipe_num) {
 		recipeService.deleteRecipe(recipe_num);
 		
@@ -272,6 +273,12 @@ public class RecipeController extends RecipeFileUpload{
 	//레시피 상세 검색 결과 자세히 보기
 	@GetMapping("/search/details/{recipe_num}")
 	public List<RecipeVO> showDetailSearchRecipe(@PathVariable("recipe_num")Integer recipe_num) {
+		System.out.println("레시피번호 검색 : " + recipe_num);		
+		return recipeService.showDetailSearchRecipe(recipe_num);
+	}
+	//레시피 상세 검색 결과 자세히 보기
+	@GetMapping("/temporary/{recipe_num}")
+	public List<RecipeVO> showDetailTemporySaved(@PathVariable("recipe_num")Integer recipe_num) {
 		System.out.println("레시피번호 검색 : " + recipe_num);		
 		return recipeService.showDetailSearchRecipe(recipe_num);
 	}

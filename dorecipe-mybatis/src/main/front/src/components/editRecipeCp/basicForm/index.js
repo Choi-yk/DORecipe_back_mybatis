@@ -168,7 +168,7 @@ const BasicForm = () => {
                 value={category_kind}
                 onChange={onChangeKind}
               >
-                <option value="전체" default>
+                <option value="default" default>
                   종류별
                 </option>
                 <option value="전체">전체</option>
@@ -196,7 +196,7 @@ const BasicForm = () => {
                 value={category_theme}
                 onChange={onChangeTheme}
               >
-                <option value="전체" default>
+                <option value="default" default>
                   상황•테마별
                 </option>
                 <option value="전체">전체</option>
@@ -221,7 +221,7 @@ const BasicForm = () => {
                 value={category_ing}
                 onChange={onChangeIngr}
               >
-                <option value="전체" default>
+                <option value="default" default>
                   재료별
                 </option>
                 <option value="전체">전체</option>
@@ -248,7 +248,7 @@ const BasicForm = () => {
                 value={category_way}
                 onChange={onChangeWay}
               >
-                <option value="전체" default>
+                <option value="default" default>
                   방법별
                 </option>
                 <option value="전체">전체</option>

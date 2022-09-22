@@ -50,6 +50,8 @@ public interface RecipeDAO {
 	
 	//레시피 상세 검색 상세 레시피 보기
 	List<RecipeVO> showDetailSearchRecipe(Integer recipe_num);
+	//레시피 상세 검색 상세 레시피 보기
+	List<RecipeVO> showDetailTemporySaved(Integer recipe_num);
 
 	//크롤링_재료 순서
 	int insertRecipeOrderCheerio(RecipeVO recipeVO);
@@ -88,5 +90,7 @@ public interface RecipeDAO {
 //	
 //	//레시피 순서 임시저장 수정
 //	int updateRecipeInstructions(Integer param1, Integer param2);
+	//레시피 순서 임시에서 완전저장으로
+	int updateRecipeSaveType(int recipe_num);
 
 }
