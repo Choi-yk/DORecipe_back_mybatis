@@ -12,6 +12,9 @@ public class CommentVO {
 	private int comment_num;
 	private String comment_content;
 	private String comment_path;
+	private String member_id;
+	private String comment_creDate;
+	
 	public int getRecipe_num() {
 		return recipe_num;
 	}
@@ -52,21 +55,18 @@ public class CommentVO {
 		this.member_id = member_id;
 	}
 
-	public Date getComment_creDate() {
+	public String getComment_creDate() {
 		return comment_creDate;
 	}
 
-	public void setComment_creDate(Date comment_creDate) {
+	public void setComment_creDate(String comment_creDate) {
 		this.comment_creDate = comment_creDate;
 	}
-
-	private String member_id;
-	private Date comment_creDate;
 	
 	private CommentVO() { }
 
 	public CommentVO(int recipe_num, int comment_num, String comment_content, String comment_path, String member_id,
-			Date comment_creDate) {
+			String comment_creDate) {
 		super();
 		this.recipe_num = recipe_num;
 		this.comment_num = comment_num;
