@@ -39,20 +39,21 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
-	// 관리자 페이지 - 회원목록 조회
-	@RequestMapping("/list")
-	public String list(Model model) throws Exception {
-		List<MemberVO> membersList = memberService.listMembers();
-		
-		model.addAttribute("membersList", membersList);
-		
-		System.out.println("회원 목록 출력 됨~~~~ - Controller");
-		
-		return "membersList";
-	}
+//	// 관리자 페이지 - 회원목록 조회
+//	@RequestMapping("/list")
+//	public String list(Model model) throws Exception {
+//		List<MemberVO> membersList = memberService.listMembers();
+//		
+//		model.addAttribute("membersList", membersList);
+//		
+//		System.out.println("회원 목록 출력 됨~~~~ - Controller");
+//		
+//		return "membersList";
+//	}
 	
 	@RequestMapping(path="/list", method =RequestMethod.GET)
 	public List<MemberVO> listMembers() throws Exception {
+		System.out.println(memberService.listMembers());
 		return memberService.listMembers();
 	}
 	

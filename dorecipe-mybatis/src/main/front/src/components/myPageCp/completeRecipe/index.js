@@ -25,9 +25,9 @@ const CompleteRecipeList = () => {
   const [member_id, setMemberId] = useState();
 
   useEffect(() => {
+    //작성한 레시피 정보
     console.log("작성한레시피" + member_id);
-    // setMemberId(user.auth.user.username);
-    // console.log(member_id + " 이건???????????")
+    setMemberId(user.auth.user.username);
     if (member_id !== undefined) {
       Axios();
     }

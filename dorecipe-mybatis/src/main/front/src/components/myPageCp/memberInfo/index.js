@@ -21,7 +21,6 @@ const MemberInfoForm = () => {
   const [currentRole, setRole] = useState();
   const navigate = useNavigate();
   console.log("userState", userState);
-  //   console.log("MemberInfoForm", user);
 
   useEffect(() => {
     if (user.auth.isLoggedIn) {
@@ -98,7 +97,6 @@ const MemberInfoForm = () => {
             <img src="/img/profileImage.png" />
           )}
         </div>
-
         <div className="infoWrap">
           <div className="items">
             <span className="columnName">아이디</span>
@@ -172,7 +170,7 @@ const MemberInfoForm = () => {
           </div>
           <div className="items">
             <span className="columnName">이메일 주소</span>
-            <span name="member_birth">{member_email}</span>
+            <span name="member_birth">{currentEmail}</span>
             {/* <input
               disabled
               type="text"
