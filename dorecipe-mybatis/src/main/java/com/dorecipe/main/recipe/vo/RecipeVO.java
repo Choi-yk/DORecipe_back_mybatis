@@ -306,9 +306,12 @@ public class RecipeVO {
 
 
 	public void setOrder_path(String order_path) {
+		if(order_path.contains("https://recipe")) {
+			this.order_path=order_path;
+		} else {
 		String uploadDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 		this.order_path = "/img/recipe/steps/"+ uploadDate +
-				"/"+UUID.randomUUID().toString()+"_"+order_path;
+				"/"+UUID.randomUUID().toString()+"_"+order_path;}
 			
 	}
 
