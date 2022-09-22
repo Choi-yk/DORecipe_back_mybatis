@@ -121,7 +121,6 @@ const MemberInfoForm = () => {
               // defaultValue={memberState.member_id}
               defaultValue={member_nickname}
             /> */}
-            <span>{member_nickname}</span>
           </div>
           <div className="items">
             <span className="columnName">이름</span>

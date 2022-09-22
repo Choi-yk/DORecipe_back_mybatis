@@ -74,7 +74,6 @@ function TabContent(props) {
   const [event_creDate, onChangeEventCreDate, setCDate] = useInput("");
   const [event_finDate, onChangeEventFinDate, setFDate] = useInput("");
 
-  const [emptyError, setEmptyError] = useState(null);
   const [error, setError] = useState(null);
 
   const eventHandler = useCallback((e) => {
@@ -385,6 +384,7 @@ function TabContent(props) {
             <td>
               <input
                 name="event_path"
+                className="mb-2"
                 type="file"
                 id="eventData2"
                 accept="image/*"
@@ -409,7 +409,7 @@ function TabContent(props) {
           </tr>
           <tr>
             <td>이벤트 기간</td>
-            <td>
+            <td className="eventDataTd">
               <input
                 name="event_creDate"
                 className="date eventData"
@@ -417,8 +417,7 @@ function TabContent(props) {
                 required
                 id="eventData4"
                 onChange={onChangeEventCreDate}
-              />
-              ~
+                />
               <input
                 name="event_finDate"
                 className="date eventData"

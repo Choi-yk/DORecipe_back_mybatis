@@ -61,3 +61,7 @@
 .bottom2 {
     margin-bottom: 200px;
 }
+
+.eventDataTd{
+    width: auto;
+}
