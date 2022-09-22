@@ -35,7 +35,6 @@ const MemberInfoForm = () => {
       axios({
         url: "/member/getMember/" + user.auth.user.username,
         method: "get",
-        // params: { member_id: currentUserName },
         baseURL: "http://localhost:9000",
       })
         .then(function (response) {

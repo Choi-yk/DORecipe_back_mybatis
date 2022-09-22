@@ -24,8 +24,7 @@ const AccountIcon = () => {
   // const currentUser = user.auth.user;
 
   // const [userState, setCurrentUser] = useState(user);
-  const [userState, setCurrentUser] = useState(user.auth.user);
-  console.log("로그ㅇ아웃useState", userState);
+  // console.log("로그ㅇ아웃useState", userState);
   const onClickLogOut = useCallback(() => {
     //로그아웃 시키고 메인페이지로
     dispatch(logout());

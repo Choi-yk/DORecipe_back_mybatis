@@ -8,8 +8,8 @@ import Popover from "react-bootstrap/Popover";
 
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback } from "react";
-import { logout } from "../../../../reduxRefresh/actions/auth";
+import { useCallback, useEffect } from "react";
+import { login, logout } from "../../../../reduxRefresh/actions/auth";
 const AccountIcon = () => {
   //페이지 이동
   const navigate = useNavigate();
