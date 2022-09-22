@@ -23,8 +23,7 @@ import com.dorecipe.main.security.secure.jwt.AuthTokenFilter;
 import com.dorecipe.main.security.secure.services.UserDetailsServiceImpl;
 
 @Configuration
-@EnableGlobalMethodSecurity(
-		prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig { 
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
