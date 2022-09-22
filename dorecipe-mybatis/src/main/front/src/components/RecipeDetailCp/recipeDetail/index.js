@@ -62,6 +62,7 @@ const RecipeDetailModal = () => {
   const searchParam = params.recipeId;
 
   useEffect(() => {
+        
     const searchParam = params.recipeId;
 
     axios
@@ -96,6 +97,7 @@ const RecipeDetailModal = () => {
           : setHeartState(faHeartCirclePlus);
       })
       .catch((e) => console.log(e));
+      
   }, []);
 
   const getRecipeLikes = axios

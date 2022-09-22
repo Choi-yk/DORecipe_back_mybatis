@@ -79,7 +79,7 @@
 
 .commentDiv{
 	/*width: 700px;*/
-    margin: 10px auto;
+    margin: 30px auto;
     /*padding: 40px 40px;*/
     align-items: center;
     /*background-color:orange;*/
@@ -93,8 +93,9 @@
 }
 
 .insertBtn{
-	/*float:right;*/
-	background-color:pink;
+	margin-right:18px;
+	float:right;
+	/*background-color:#8000ff;*/
 }
 
 .cmtDiv{
@@ -103,6 +104,6 @@
 }
 
 .divLine{
-	margin-top:30px;
+	margin-top:50px;
 	/*background-color: #463635;*/
 }

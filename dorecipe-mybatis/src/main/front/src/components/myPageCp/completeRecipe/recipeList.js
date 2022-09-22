@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
 
 import styled from "styled-components";
+import "./style.css";
 
 const CompleteList = ({C_recipeState}) => {
 return(
     <>
     {/* 작성한 레시피 */}
-            <RecipeWrap>
+        <RecipeWrap>
             <li className="card recipe-box">
                 <Link to={`/recipes/search/details/${C_recipeState.recipe_num}`}>
-                    <img className="card-img-top card-img-size"
+                    <img className="card-img-top card-img-size CRcard"
                         src={C_recipeState.recipe_rpath}
                         alt="profileImage" />
                 </Link>
@@ -22,7 +23,7 @@ return(
                 &nbsp;&nbsp;&nbsp;
                 {C_recipeState.information_time}
             </li>
-            </RecipeWrap>
+        </RecipeWrap>
     </>
 )
 }

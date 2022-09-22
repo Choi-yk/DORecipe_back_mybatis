@@ -7,6 +7,7 @@ import { useInput } from "../../hooks/useInput";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {} from "../../components/RecipeDetailCp/style";
 import styled from "styled-components";
+
 import { useSelector } from "react-redux";
 
 //레시피 상세 페이지 아래에 위치할 코멘트 등록
@@ -16,6 +17,8 @@ const CommentCp = () => {
   const [comment_num, onChangeNum, setNum] = useInput("");
   const [comment_content, onChangeContent, setContent] = useInput("");
   const [comment_path, onChangeCommentPath, setPath] = useInput("");
+
+  const [submitState, setSubmitState] = useState(0);
   const [member_id, setMemberId] = useState("");
   const [emptyError, setEmptyError] = useState(null);
   const [error, setError] = useState(null);
@@ -28,19 +31,20 @@ const CommentCp = () => {
   const user = useSelector((state) => state);
 
   useEffect(() => {
-    setMemberId(user.auth.user.username);
-    console.log(member_id);
+    console.log("user", user);
   }, []);
 
   const insertComment = useCallback(
     (e) => {
       e.preventDefault();
+
       if (user.auth.isLoggedIn) {
         const commentData = {
           recipe_num: recipeId,
           comment_num: Index,
           comment_content: `${comment_content}`, //코멘트내용
           comment_path: `${comment_path.replace(/c:\\fakepath\\/i, "")}`, //이미지 경로
+
           member_id: user.auth.user.username,
         };
         console.log("commentData", commentData);
@@ -69,9 +73,11 @@ const CommentCp = () => {
             data: commentFormData,
           }).then((response) => {
             console.log(response.data);
-
+            setSubmitState(1);
+            setContent("");
+            setPath("");
             alert("코멘트가 등록되었습니다.");
-            navigate("/recipes/search/details/" + recipeId);
+            commentAxios();
           });
         }
       } else {
@@ -79,7 +85,7 @@ const CommentCp = () => {
         navigate("/login");
       }
     },
-    [comment_content, comment_path]
+    [comment_content, comment_path, submitState]
   );
 
   //파일 files에 넣기
@@ -152,6 +158,7 @@ const CommentCp = () => {
               className="cmtContent"
               rows="3"
               cols="65"
+              value={comment_content}
               onChange={onChangeContent}
               name="comment_content"
               id="commentContent"
@@ -173,7 +180,7 @@ const CommentCp = () => {
                 type="button"
                 className="insertCmt"
                 onClick={insertComment}
-                // disabled={error}
+                disabled={error}
               >
                 등록
               </button>

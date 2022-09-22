@@ -10,7 +10,7 @@ return(
                 <li className="card recipe-box center">
                     {/* <div className="card recipe-box center"> */}
                         <Link to={`/recipes/search/details/${recipeState.recipe_num}`}>
-                            <img className="card-img-top card-img-size" 
+                            <img className="card-img-top card-img-size Rcard" 
                             src={recipeState.recipe_rpath} 
                             alt="profileImage" />
                         </Link>
