@@ -43,7 +43,6 @@ const EventDetailPage = () => {
     <MainLayout>
       <div className="eventCenter">
         <div>
-          <Link className="btn btn-outline-secondary centerRight" to={"/event/list"}>이전으로</Link>
           <h2>| Event |</h2><br/>
         </div>
         <h5>
@@ -65,7 +64,8 @@ const EventDetailPage = () => {
         
         <p className="left width eventContent">{state.event_content}</p>
       </div>
-      <div className="bottom"/>
+      <hr className="hr"/>
+      <Link className="btn btn-outline-secondary centerRight left" to={"/event/list"}>이전으로</Link>
       </MainLayout>
     </>
   );

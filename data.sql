@@ -4,8 +4,10 @@ drop database dorecipe;
 -- use recipes;
 use dorecipe;
 -- user
+select * from member2;
 select * from recipe;
-select * from r_order;
+
+select email from users where username = 'zkdrns1702';
 
 select * from member2;
 select * from users;
@@ -80,7 +82,7 @@ drop table if exists r_order;
 create table r_order( -- 레시피요리순서테이블
    recipe_num int, -- 레시피 번호
     order_num int, -- 순서 번호 
-    order_explain varchar(200), -- 설명
+    order_explain varchar(2000), -- 설명
     order_path varchar(200), -- 이미지 경로
     primary key(recipe_num,order_num),                         
     foreign key (recipe_num) references recipe(recipe_num)

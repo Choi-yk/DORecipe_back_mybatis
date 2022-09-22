@@ -26,4 +26,6 @@ h2 {
 }
 .eventContent{
 	white-space : pre-wrap;
+  float: left;
+  text-align: left;
 }

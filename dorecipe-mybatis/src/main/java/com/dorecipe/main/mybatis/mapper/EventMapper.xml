@@ -6,7 +6,7 @@
 <mapper namespace="mapper.event">
 
    <select id="getList" resultType="com.dorecipe.main.event.vo.EventVO">
-      select * from event order by event_finDate desc
+      select * from event order by event_num desc
    </select>
    
    <select id="getDetail" resultType="com.dorecipe.main.event.vo.EventVO"   parameterType="int">

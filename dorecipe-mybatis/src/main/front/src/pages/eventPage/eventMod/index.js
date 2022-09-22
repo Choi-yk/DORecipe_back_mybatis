@@ -210,7 +210,7 @@ const EventModify = () => {
                 type="date"
                 defaultValue={state.event_creDate} 
                 onChange={onChangeEventCreDate}
-                /> ~
+                />
               <input 
                 name="event_finDate" 
                 className="date" 
