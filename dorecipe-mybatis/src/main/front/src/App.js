@@ -1,7 +1,5 @@
-// import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useState, useCallback, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Routes, Route, useParams } from "react-router-dom";
 
 import NoticePage from "./pages/noticePage/noticeListPage";
 import NoticeDetailPage from "./pages/noticePage/noticeDetailPage";
@@ -18,7 +16,6 @@ import EventModify from "./pages/eventPage/eventMod";
 import MyPage from "./pages/myPage";
 import AdminPostMng from "./pages/adminPage";
 import JoinMemberPage from "./pages/joinMemberPage";
-import MemberListPage from "./pages/memberListPage";
 
 import MainPage from "./pages/mainPage";
 import CreateRecipePage from "./pages/createRecipePage";
@@ -31,17 +28,18 @@ import DetailRecipePage from "./pages/recipeDetailsPage";
 
 import NotFoundPage from "./pages/errorPage";
 
-import Recipe from "./Recipe.js";
-
 import { useDispatch, useSelector } from "react-redux";
-
 import { logout } from "./reduxRefresh/actions/auth";
 import { clearMessage } from "./reduxRefresh/actions/message";
-// import UserState from "./reduxRefresh/reducers/auth";
-import { history } from "./reduxRefresh/helpers/history";
+import { history, historylocation } from "./reduxRefresh/helpers/history";
 
 import EventBus from "./reduxRefresh/common";
-import { connect } from "react-redux";
+
+import { ThemeProvider } from "styled-components";
+import { theme } from "./style/theme";
+import EditRecipeForm from "./components/editRecipeCp";
+import ModifyRecipePage from "./pages/modifyRecipePage";
+
 function App() {
   const userMsg = useSelector((state) => state.message);
   const user = useSelector((state) => state);
@@ -50,6 +48,7 @@ function App() {
   console.log("user", user);
   console.log("userMsg", userMsg);
   const [userState, setCurrentUser] = useState(user);
+  const recipeID = useParams();
 
   useEffect(() => {
     user.state = {
@@ -58,26 +57,10 @@ function App() {
       showAdminBoard: false,
       currentUser: undefined,
     };
-    // user.auth = {          /////////reload할때 바꿔줘서 문제였음
-    //   //마운트 되었을때 상태 설정
-    //   isLoggedIn: false,
-    // };
     dispatch(clearMessage());
   }, []);
 
-  // history.listen((location) => {
-  //   // console.log("location", history.location);
-  //   // user.dispatch(clearMessage()); // clear message when changing location
-  //   dispatch(clearMessage()); // clear message when changing location
-  // });
-
   useEffect(() => {
-    // const userState = user;
-    // history.listen((location) => {
-    //   // user.dispatch(clearMessage(location)); // clear message when changing location
-    //   user.dispatch(clearMessage()); // clear message when changing location
-    //   // console.log(history, history);
-    // });
     dispatch(clearMessage());
     const currentUser = user.auth.user;
     if (currentUser) {
@@ -112,72 +95,96 @@ function App() {
     user.state = userState;
     console.log("logOut", user);
   };
-  // const { currentUser, showModeratorBoard, showAdminBoard } = user.state;
+
   const { currentUser, showModeratorBoard, showAdminBoard } = user;
-  // console.log("currentUser", currentUser);
+
   return (
-    <Routes history={history}>
-      {/* <Routes> */}
-      <Route path={"/notice/list"} element={<NoticePage />} user={user} />
+    <ThemeProvider theme={theme}>
+      <Routes history={history}>
+        {/* <Routes> */}
+        <Route path={"/notice/list"} element={<NoticePage />} user={user} />
 
-      <Route
-        path={"/notice/detail/:noticeId"}
-        element={<NoticeDetailPage />}
-        user={user}
-      />
-      <Route path={"/notice/update/:noticeId"} element={<NoticeUpdatePage />} />
+        <Route
+          path={"/notice/detail/:noticeId"}
+          element={<NoticeDetailPage />}
+          user={user}
+        />
+        <Route
+          path={"/notice/update/:noticeId"}
+          element={<NoticeUpdatePage />}
+        />
 
-      <Route path={"/knowhow/list"} element={<KnowhowPage />} user={user} />
-      <Route
-        path={"/knowhow/detail/:knowhowId"}
-        element={<KnowhowDetailPage />}
-      />
-      <Route
-        path={"/knowhow/update/:knowhowId"}
-        element={<KnowhowUpdatePage />}
-      />
+        <Route path={"/knowhow/list"} element={<KnowhowPage />} user={user} />
+        <Route
+          path={"/knowhow/detail/:knowhowId"}
+          element={<KnowhowDetailPage />}
+        />
+        <Route
+          path={"/knowhow/update/:knowhowId"}
+          element={<KnowhowUpdatePage />}
+        />
 
-      <Route path={"/event/list"} element={<EventPage />} auth={user} />
-      <Route path={"/event/detail/:detailId"} element={<EventDetailPage />} />
-      <Route path={"/event/update/:detailId"} element={<EventModify />} />
+        <Route path={"/event/list"} element={<EventPage />} auth={user} />
+        <Route path={"/event/detail/:detailId"} element={<EventDetailPage />} />
+        <Route path={"/event/update/:detailId"} element={<EventModify />} />
 
-      <Route path={"/admin"} element={<AdminPostMng />} />
-      <Route path={"/join"} element={<JoinMemberPage />} />
+        <Route path={"/admin"} element={<AdminPostMng />} />
+        <Route path={"/join"} element={<JoinMemberPage />} />
 
-      {currentUser ? (
-        <Route path={"/member/info/"} element={<MyPage />} />
-      ) : (
-        // <Route path={"/member/info/:memberId"} element={<MyPage />} />
-        <Route path={"/"} element={<MainPage />} />
-      )}
+        {currentUser ? (
+          <Route path={"/member/info/"} element={<MyPage />} />
+        ) : (
+          // <Route path={"/member/info/:memberId"} element={<MyPage />} />
+          <Route path={"/"} element={<MainPage />} />
+        )}
 
-      <Route path={"/member/info"} element={<MyPage />} />
+        <Route path={"/member/info"} element={<MyPage />} />
 
-      <Route path={"/login"} element={<LoginPage />} />
+        <Route path={"/login"} element={<LoginPage />} />
 
-      <Route exact path={"/"} element={<MainPage />} />
-      {currentUser ? (
+        <Route exact path={"/"} element={<MainPage />} />
+        {currentUser ? (
+          <Route
+            path={"/recipe/create/:recipeId"}
+            element={<CreateRecipePage />}
+          />
+        ) : (
+          <Route path={"/"} element={<MainPage />} />
+        )}
+        {/* {currentUser &&  (
+          <Route
+            path={"/recipe/create/:recipeId"}
+            element={<CreateRecipePage />}
+          />
+        )} */}
+        <Route path={"/recipes/search"} element={<DetailSearchPage />} />
+        <Route
+          path={"/recipe/search/details/:recipeId"}
+          element={<DetailRecipePage />}
+        />
+        <Route
+          path={"/recipe/search/:searchId"}
+          element={<SearchRecipePage />}
+        />
+
+        <Route
+          path={"/recipe/search/:searchId"}
+          element={<SearchRecipePage />}
+        />
+
         <Route path={"/recipe/create"} element={<CreateRecipePage />} />
-      ) : (
-        <Route path={"/"} element={<MainPage />} />
-      )}
 
-      <Route path={"/recipes/search"} element={<DetailSearchPage />} />
-      <Route
-        path={"/recipe/search/details/:recipeId"}
-        element={<DetailRecipePage />}
-      />
-      <Route path={"/recipe/search/:searchId"} element={<SearchRecipePage />} />
-
-      <Route path={"/recipe/search/:searchId"} element={<SearchRecipePage />} />
-
-      <Route path={"/recipe/create"} element={<CreateRecipePage />} />
-      <Route
-        path={"/recipes/search/details/:recipeId"}
-        element={<DetailRecipePage />}
-      />
-      <Route path={"/*"} element={<NotFoundPage />} />
-    </Routes>
+        <Route
+          path={"/recipe/update/:recipeID"}
+          element={<ModifyRecipePage />}
+        />
+        <Route
+          path={"/recipes/search/details/:recipeid"}
+          element={<DetailRecipePage />}
+        />
+        <Route path={"/*"} element={<NotFoundPage />} />
+      </Routes>
+    </ThemeProvider>
   );
 }
 

@@ -36,8 +36,8 @@ const CompleteRecipe = ({ recipeState }) => {
     onChangePath4(e);
   };
 
-  const onTempSubmit = useCallback((e) => {
-    // const { value } = e.target;
+  const onSubmit = useCallback((e) => {
+    const { value } = e.target;
     e.preventDefault();
     const data = {
       recipe_savetype: 1,
@@ -101,27 +101,17 @@ const CompleteRecipe = ({ recipeState }) => {
       console.log("성공?");
     });
 
-    // console.log({ value });
-    // if (value === "submit") {
-    //   if (buttonState === 0) {
-    //   }
+    console.log({ value });
+    if (value === "submit") {
+      if (buttonState === 0) {
+      }
 
-    //   alert(" 등록하셨습니다.");
-    //   setBtnState(buttonState + 1);
-    // } else if (value === "saveAsDraft") {
-    //   alert(" 임시저장 하셨습니다.");
-    //   setBtnState(buttonState + 1);
-    // }
-  });
-
-  const onFinalSubmit = useCallback((e) => {
-    // const { value } = e.target;
-    // e.preventDefault();
-    onTempSubmit(e);
-    axios
-      .get("http://localhost:9000/recipe/updateRecipeSaveType/" + recipeState)
-      .then((response) => console.log(response))
-      .then(() => navigate("/member/info/"));
+      alert(" 등록하셨습니다.");
+      setBtnState(buttonState + 1);
+    } else if (value === "saveAsDraft") {
+      alert(" 임시저장 하셨습니다.");
+      setBtnState(buttonState + 1);
+    }
   });
 
   return (
@@ -169,16 +159,12 @@ const CompleteRecipe = ({ recipeState }) => {
           <>
             {" "}
             <BtnWrap>
-              <SubmitRecipeBtn
-                type="button"
-                onClick={onFinalSubmit}
-                value="submit"
-              >
+              <SubmitRecipeBtn type="button" onClick={onSubmit} value="submit">
                 레시피 등록하기
               </SubmitRecipeBtn>
               <SubmitRecipeBtn
                 type="button"
-                onClick={onTempSubmit}
+                onClick={onSubmit}
                 value="saveAsDraft"
               >
                 임시 저장하기
@@ -188,19 +174,15 @@ const CompleteRecipe = ({ recipeState }) => {
         ) : (
           <>
             <BtnWrap>
-              <SubmitRecipeBtn
-                type="button"
-                onClick={onFinalSubmit}
-                value="submit"
-              >
-                레시피 등록하기
+              <SubmitRecipeBtn type="button" onClick={onSubmit} value="submit">
+                레시피 등록(다시)하기
               </SubmitRecipeBtn>
               <SubmitRecipeBtn
                 type="button"
-                onClick={onTempSubmit}
+                onClick={onSubmit}
                 value="saveAsDraft"
               >
-                임시 저장하기
+                임시(다시) 저장하기
               </SubmitRecipeBtn>
             </BtnWrap>
           </>

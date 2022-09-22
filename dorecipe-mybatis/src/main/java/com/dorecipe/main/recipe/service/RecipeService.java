@@ -106,6 +106,12 @@ public class RecipeService {
 		List<RecipeVO> searchResultDetails = recipeDAO.showDetailSearchRecipe(recipe_num);
 		return searchResultDetails;
 	}
+	//임시저장한 거 수정하기 위해 불러오는 정보
+	public List<RecipeVO> showDetailTemporySaved(Integer recipe_num) {
+		List<RecipeVO> showDetailTemporySaved = recipeDAO.showDetailTemporySaved(recipe_num);
+		System.out.println(showDetailTemporySaved.toString());
+		return showDetailTemporySaved;
+	}
 
 	//레시피 순서 크롤링한 거 넣기
 	public int insertRecipeOrderCheerio(RecipeVO recipeVO) {
@@ -170,11 +176,18 @@ public class RecipeService {
 		return recipeDAO.updateRecipeInstructions(recipeVO);
 		
 	}
+
+	public int updateRecipeSaveType(int recipe_num) {
+		return recipeDAO.updateRecipeSaveType(recipe_num);		
+	}
+
 //	//레시피 순서 수정
 //	public int updateRecipeInstructions(Integer param1, Integer param2) {
 //		return recipeDAO.updateRecipeInstructions(param1,param2);
 //		
 //	}
+	//레시피 저장 0으로 수정
+		
 
 
 }

@@ -76,3 +76,4 @@ export const MediumBtn = styled.button`
     border: 1px solid #463635;
   }
 `;
+// export const XBtn = styled.div``;

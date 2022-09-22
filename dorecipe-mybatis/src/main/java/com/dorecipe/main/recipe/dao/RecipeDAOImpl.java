@@ -132,6 +132,12 @@ public class RecipeDAOImpl implements RecipeDAO{
 //		return mapper.showDetailSearchRecipe(recipe_num);
 		return sqlSession.selectList("mapper.recipe.showDetailSearchRecipe",recipe_num);
 	}
+	//상세검색 결과
+	@Override
+	public List<RecipeVO> showDetailTemporySaved(Integer recipe_num) {
+//		return mapper.showDetailSearchRecipe(recipe_num);
+		return sqlSession.selectList("mapper.recipe.showDetailTemporySaved",recipe_num);
+	}
 
 	////////////크롤링
 	@Override
@@ -214,6 +220,12 @@ public class RecipeDAOImpl implements RecipeDAO{
 //	public int updateRecipeInstructions(Integer param1, Integer param2) {
 //		return mapper.updateRecipeInstructions(param1,param2);
 //	}
+
+	@Override
+	public int updateRecipeSaveType(int recipe_num) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("mapper.recipe.updateRecipeSaveType",recipe_num);
+	}
 
 }
 

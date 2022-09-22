@@ -20,7 +20,7 @@ const MemberInfoForm = () => {
   const [currentEmail, setEmail] = useState();
   const [currentRole, setRole] = useState();
   const navigate = useNavigate();
-  console.log("userState", userState);
+  // console.log("userState~~", userState);
 
   useEffect(() => {
     if (user.auth.isLoggedIn) {
@@ -37,7 +37,7 @@ const MemberInfoForm = () => {
         baseURL: "http://localhost:9000",
       })
         .then(function (response) {
-          console.log("response.data", response);
+          // console.log("response.data", response);
           setMemberPhone(response.data.member_phone);
           setMemberBday(response.data.member_birth.substring(0, 10));
           setMemberGender(response.data.member_gender);
@@ -90,7 +90,6 @@ const MemberInfoForm = () => {
           정보
         </SectionTitle>
         <div className="imgWrap">
-          {/* <button onChange={onChangeMemberImg}> */}
           {member_imagePath == null ? (
             <img src={member_imagePath} />
           ) : (
@@ -100,93 +99,35 @@ const MemberInfoForm = () => {
         <div className="infoWrap">
           <div className="items">
             <span className="columnName">아이디</span>
-            {/* <span name="member_id">{currentId}</span> */}
+
             <span>{currentUserName}</span>
-            {/* <input
-              type="text"
-              name="member_id"
-              style={{ display: "inline" }}
-              // defaultValue={memberState.member_id}
-              defaultValue={currentUserName}
-              disabled
-            /> */}
           </div>
           <div className="items">
             <span className="columnName">닉네임</span>
             <span name="member_id">{member_nickname}</span>
-            {/* <input
-              type="text"
-              style={{ display: "inline" }}
-              name="member_nickname"
-              // defaultValue={memberState.member_id}
-              defaultValue={member_nickname}
-            /> */}
+
+            <span>{member_nickname}</span>
           </div>
           <div className="items">
             <span className="columnName">이름</span>
             <span name="member_name">{member_name}</span>
-            {/* <input
-              type="text"
-              style={{ display: "inline" }}
-              name="member_name"
-              defaultValue={member_name}
-              disabled
-            /> */}
           </div>
           <div className="items">
             <span className="columnName">성별</span>
             <span name="member_gender">{member_gender}</span>
-            {/* <input
-              type="text"
-              style={{ display: "inline" }}
-              name="member_gender"
-              defaultValue={member_gender}
-              disabled
-            /> */}
           </div>
           <div className="items">
             <span className="columnName">생년월일</span>
             <span name="member_birth">{member_birth}</span>
-            {/* <input
-              type="text"
-              style={{ display: "inline" }}
-              name="member_birth"
-              defaultValue={member_birth}
-              disabled
-            /> */}
           </div>
           <div className="items">
             <div className="columnName">휴대폰 번호</div>
             <span name="member_birth">{member_phone}</span>
-            {/* <input
-              type="text"
-              name="member_phone"
-              style={{ display: "inline" }}
-              defaultValue={member_phone}
-              // defaultValue={memberState.member_phone}
-              onChange={onChangeMemberPhone}
-            /> */}
           </div>
           <div className="items">
             <span className="columnName">이메일 주소</span>
             <span name="member_birth">{currentEmail}</span>
-            {/* <input
-              disabled
-              type="text"
-              name="member_email"
-              style={{ display: "inline" }}
-              defaultValue={currentEmail}
-              onChange={onChangeMemberEmail}
-            /> */}
           </div>
-          {/* <div style={{ margin: "1em" }}>
-            <span>
-              <MediumBtn onClick={onChangeInfo}>수정하기</MediumBtn>
-            </span>
-            <span style={{ marginLeft: "3em" }}>
-              <MediumBtn onClick={onUnsubscribe}>탈퇴하기</MediumBtn>
-            </span>
-          </div> */}
         </div>
       </form>
     </>

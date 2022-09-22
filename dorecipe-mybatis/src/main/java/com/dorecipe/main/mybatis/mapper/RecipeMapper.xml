@@ -103,8 +103,8 @@
   	</update>-->
   	
   	<!-- 레시피 재료 임시저장 -->
-  	<update id="updateRecipeIngredients" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
-  		update recipe set recipe_savetype = #{recipe_savetype} where recipe_num = #{recipe_num} ; 			
+  	<update id="updateRecipeSaveType" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  		update recipe set recipe_savetype = 0 where recipe_num = #{recipe_num} ; 			
   	</update>
   	
   	<!-- 레시피 완성 임시저장 -->
@@ -209,6 +209,26 @@
 	  where 
 	  r.recipe_num = #{recipe_num} and
       r.recipe_saveType = 0
+	  group by order_num 
+	  order by order_num asc
+  	</select>
+  	
+  	
+  	<select id="showDetailTemporySaved" resultType="com.dorecipe.main.recipe.vo.RecipeVO"  parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+	  select m.member_id , r.recipe_num, r.recipe_title, r.recipe_savetype, r.recipe_url, r.recipe_rpath, 
+	  r.information_person, r.information_level, r.information_time,r.recipe_introduce,
+	  r.completion_path1, r.completion_path2, r.completion_path3,r.completion_path4,r.completion_tip, 
+	  r_order.order_num,r_order.order_explain,r_order.order_path,
+	  r.recipe_creDate 
+	  from member2 m right outer join 
+	  recipe r
+	  on 
+	  r.member_id= m.member_id 
+	  left outer join r_order
+	  on r_order.recipe_num=r.recipe_num
+	  where 
+	  r.recipe_num = #{recipe_num} and
+      r.recipe_saveType = 1
 	  group by order_num 
 	  order by order_num asc
   	</select>

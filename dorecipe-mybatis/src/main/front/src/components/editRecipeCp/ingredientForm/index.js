@@ -10,10 +10,11 @@ import { DefaultBtn, SmallBtn } from "../../_common/buttons";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 
-const IngredientForm = ({ recipeState }) => {
+const IngredientForm = ({ recipeId }) => {
+  console.log("IngredientForm", recipeId);
   const [ingredients, setIngredients] = useState([
     {
-      recipe_num: recipeState,
+      recipe_num: recipeId,
       ingredient_num: 1,
       ingredient_name: "",
       ingredient_amount: "",
@@ -75,7 +76,7 @@ const IngredientForm = ({ recipeState }) => {
       formData.append("data", blob);
       //레시피 배열 수 만큼 append 시켜 주기
       for (let i = 0; i < data.length; i++) {
-        formData.append(`orderVoList[${i}].recipe_num`, recipeState);
+        formData.append(`orderVoList[${i}].recipe_num`, recipeId);
         formData.append(`orderVoList[${i}].ing_num`, data[i].ingredient_num);
         formData.append(
           `orderVoList[${i}].ing_ingredient`,

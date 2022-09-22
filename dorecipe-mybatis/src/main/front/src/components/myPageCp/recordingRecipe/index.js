@@ -6,7 +6,7 @@ import RecordList from "./recipeList";
 
 import styled from "styled-components";
 import NullRecipe from "../nullRecipeList";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const RecordingRecipeList = () => {
   // 작성중 레시피
@@ -22,22 +22,22 @@ const RecordingRecipeList = () => {
   ]);
 
   const user = useSelector((state) => state);
+  const [recipeLength, setRecipeLength] = useState(); //레시피 삭제 감지
   const [member_id, setMemberId] = useState();
   useEffect(() => {
     if (user.auth.isLoggedIn) {
       setMemberId(user.auth.user.username);
-      console.log(member_id + " 이건???????????");
-      if (member_id !== undefined) {
+      if (user.auth.user.username !== undefined) {
         Axios();
       }
     }
-  }, [member_id]);
+  }, [recipeLength]);
+  // }, [member_id]);
 
   const formData = new FormData();
   formData.append("member_id", member_id);
 
   function Axios() {
-    // console.log("작성중레시피 가져오니?" + member_id)
     axios({
       url: "/recipe/recordingType0",
       method: "Post",
@@ -45,6 +45,7 @@ const RecordingRecipeList = () => {
       baseURL: "http://localhost:9000",
     }).then(function (response) {
       setRecipeState(response.data);
+      setRecipeLength(response.data.length);
     });
   }
 
@@ -55,30 +56,27 @@ const RecordingRecipeList = () => {
         <div>
           <SectionTitle>
             작성중인 레시피
-            <span className="likeRecipeTotal" style={totalRecipe}> 총 {recipeState.length}개</span>
+            <span className="likeRecipeTotal" style={totalRecipe}>
+              {" "}
+              총 {recipeState.length}개
+            </span>
           </SectionTitle>
           <Scrollable>
             <div>
               {recipeState.length !== 0 ? (
                 recipeState.map((e) => (
-                  <RecordList key={e.recipe_num} recipeState={e} />
+                  <RecordList
+                    key={e.recipe_num}
+                    recipeState={e}
+                    recipeLength={recipeLength}
+                    setRecipeLength={setRecipeLength}
+                  />
                 ))
               ) : (
                 <NullRecipe />
               )}
             </div>
           </Scrollable>
-          {/* {
-            recipeState.length !== 0
-            ?
-            recipeState.map((e) => (
-                <RecordList
-                    recipeState={e}
-                />  
-            ))
-            :
-            <NullRecipe />
-                 } */}
         </div>
       </div>
     </>
@@ -123,5 +121,5 @@ const Scrollable = styled.section`
   }
 `;
 let totalRecipe = {
-   fontSize : "15px"
+  fontSize: "15px",
 };

@@ -13,8 +13,7 @@ const RecipeDetailModal = () => {
   const search = "/";
   let location = useLocation();
   const lastIndex = location.pathname.lastIndexOf(search);
-  const param = location.pathname.substring(lastIndex).replace("/", "");
-  console.log(param);
+  const param = location.pathname.substring(lastIndex).replace("/", ""); //레시피 번호 가져오기
 
   const user = useSelector((state) => state);
   const params = useParams();
@@ -47,11 +46,13 @@ const RecipeDetailModal = () => {
       order_path: "",
       recipe_creDate: "",
       member_id: "",
+      recipe_saveType: 0,
     },
   ]);
   const [ingredientState, setIngredientState] = useState([
     {
       recipe_num: param,
+
       ing_num: 0,
       ing_ingredient: "",
       ing_amount: "",
@@ -62,9 +63,7 @@ const RecipeDetailModal = () => {
   const searchParam = params.recipeId;
 
   useEffect(() => {
-        
-    const searchParam = params.recipeId;
-
+    const searchParam = params.recipeIds;
     axios
       .get("http://localhost:9000/recipe/search/details/" + searchParam)
       .then(function (response) {
@@ -97,7 +96,6 @@ const RecipeDetailModal = () => {
           : setHeartState(faHeartCirclePlus);
       })
       .catch((e) => console.log(e));
-      
   }, []);
 
   const getRecipeLikes = axios
