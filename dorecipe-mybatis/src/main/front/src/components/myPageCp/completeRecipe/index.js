@@ -56,7 +56,7 @@ const CompleteRecipeList = () => {
         <div>
           <SectionTitle>
             작성한 레시피
-            <span className="likeRecipeTotal">총 {recipeState.length}개</span>
+            <span className="likeRecipeTotal" style={totalRecipe}> 총 {recipeState.length}개</span>
           </SectionTitle>
           <Scrollable>
             <div>
@@ -123,3 +123,6 @@ const Scrollable = styled.section`
     }
   }
 `;
+let totalRecipe = {
+   fontSize : "15px"
+};
