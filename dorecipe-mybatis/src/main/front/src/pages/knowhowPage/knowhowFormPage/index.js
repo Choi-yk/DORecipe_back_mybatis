@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useInput } from '../../../hooks/useInput';
 import './style.css'
+import MainLayout from '../../../layout/mainLayOut';
 
 const KnowhowUpdatePage = () => {
 
@@ -124,6 +125,7 @@ const KnowhowUpdatePage = () => {
 
    return (
       <>
+         <MainLayout>
          <div>
             <li>
                <div className="knowhowWrap">
@@ -133,7 +135,7 @@ const KnowhowUpdatePage = () => {
                </div>
             </li>
             <form>
-               <table className="left">
+               <table className="left dpib">
                   <thead>
                      <tr>
                         <td>
@@ -196,7 +198,7 @@ const KnowhowUpdatePage = () => {
 
                {/* 이미지 */}
                <div className="mt-5 imgPreview floatRight">
-                  <img className="img_box" alt=""/>
+                  <div className="img_box"/>
                   {/* src={state.event_path}  */}
                </div>
 
@@ -209,6 +211,7 @@ const KnowhowUpdatePage = () => {
                </button>
             </form>
          </div>
+         </MainLayout>
       </>
    );
 }
