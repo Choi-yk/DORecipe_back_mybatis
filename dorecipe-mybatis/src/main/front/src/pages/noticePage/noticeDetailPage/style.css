@@ -30,3 +30,6 @@ li {
     font-size: 12px;
     margin: 0.5em 0 2em 0;
 }
+.notcieDetailContent{
+	white-space : pre-wrap;
+}

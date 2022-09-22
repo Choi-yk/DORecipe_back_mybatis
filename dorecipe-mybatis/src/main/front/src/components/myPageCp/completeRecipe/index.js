@@ -25,9 +25,9 @@ const CompleteRecipeList = () => {
   const [member_id, setMemberId] = useState();
 
   useEffect(() => {
+    //작성한 레시피 정보
     console.log("작성한레시피" + member_id);
-    // setMemberId(user.auth.user.username);
-    // console.log(member_id + " 이건???????????")
+    setMemberId(user.auth.user.username);
     if (member_id !== undefined) {
       Axios();
     }
@@ -56,7 +56,7 @@ const CompleteRecipeList = () => {
         <div>
           <SectionTitle>
             작성한 레시피
-            <span className="likeRecipeTotal">총 {recipeState.length}개</span>
+            <span className="likeRecipeTotal" style={totalRecipe}> 총 {recipeState.length}개</span>
           </SectionTitle>
           <Scrollable>
             <div>
@@ -123,3 +123,6 @@ const Scrollable = styled.section`
     }
   }
 `;
+let totalRecipe = {
+   fontSize : "15px"
+};

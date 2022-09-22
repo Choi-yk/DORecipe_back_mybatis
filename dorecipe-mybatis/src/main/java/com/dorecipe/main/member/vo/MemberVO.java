@@ -31,6 +31,7 @@ import lombok.Setter;
 
 	private String member_id;
 	private String username;
+	private String email;
 	private String member_nickname;
 	private String member_name;
 	private String member_gender;

@@ -24,3 +24,6 @@ h2 {
   width: 70em;
   height: 80em;
 }
+.eventContent{
+	white-space : pre-wrap;
+}

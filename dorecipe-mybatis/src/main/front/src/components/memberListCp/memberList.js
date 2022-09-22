@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 const MemberList = ({ removePost, state, isLoading, hasItems, countState }) => {

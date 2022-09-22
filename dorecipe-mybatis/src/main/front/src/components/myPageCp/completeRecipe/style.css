@@ -1,11 +1,15 @@
 .CRcard{
     display: inline-flex;
     width: 15em;
-    height: 10em;
+    height: 9em;
+    padding-bottom: 0.5em;
+    object-fit: cover;
 }
 
 .Rcard{
     display: inline-flex;
     width: 15em;
-    height: 10em;
+    height: 9em;
+    padding-bottom: 0.5em;
+    object-fit: cover;
 }
