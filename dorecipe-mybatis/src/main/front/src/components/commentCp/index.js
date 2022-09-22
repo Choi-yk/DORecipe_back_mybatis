@@ -7,7 +7,8 @@ import { useInput } from "../../hooks/useInput";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {} from "../../components/RecipeDetailCp/style";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useSelector } from "react-redux";
 
 //레시피 상세 페이지 아래에 위치할 코멘트 등록
 //코멘트 등록, 삭제
@@ -16,8 +17,9 @@ const CommentCp = () => {
   const [comment_num, onChangeNum, setNum] = useInput("");
   const [comment_content, onChangeContent, setContent] = useInput("");
   const [comment_path, onChangeCommentPath, setPath] = useInput("");
-  //const [member_id, onChangeMemberId, setMemberId] = useInput("");
 
+  const [submitState, setSubmitState] = useState(0);
+  const [member_id, setMemberId] = useState("");
   const [emptyError, setEmptyError] = useState(null);
   const [error, setError] = useState(null);
 
@@ -26,27 +28,24 @@ const CommentCp = () => {
   var Index = 0;
 
   const navigate = useNavigate();
-
-// member_id 가져오기 -----------------------------------
   const user = useSelector((state) => state);
-  const [member_id, setMemberId] = useState();
+
   useEffect(() => {
-      setMemberId(user.auth.user.username);
-      console.log("현재 로그인 아이디 : " + member_id);
-  });
-// ----------------------------------------------------
+    console.log("user", user);
+  }, []);
 
   const insertComment = useCallback(
     (e) => {
       e.preventDefault();
 
-      if (`${member_id}` != null) {
+      if (user.auth.isLoggedIn) {
         const commentData = {
           recipe_num: recipeId,
           comment_num: Index,
           comment_content: `${comment_content}`, //코멘트내용
           comment_path: `${comment_path.replace(/c:\\fakepath\\/i, "")}`, //이미지 경로
-          member_id: `${member_id}`, //로그인한 멤버 정보 들어갈 자리
+
+          member_id: user.auth.user.username,
         };
         console.log("commentData", commentData);
 
@@ -74,12 +73,11 @@ const CommentCp = () => {
             data: commentFormData,
           }).then((response) => {
             console.log(response.data);
-            //setMemberId(user.auth.user.username);
-            //setCommentState(response.data.comment_num);
-            //console.log(sessionStorage.getItem("member_id"));
+            setSubmitState(1);
+            setContent("");
+            setPath("");
             alert("코멘트가 등록되었습니다.");
-            window.location.replace("/recipes/search/details/" + recipeId);
-            //navigate("/recipes/search/details/" + recipeId);
+            commentAxios();
           });
         }
       } else {
@@ -87,7 +85,7 @@ const CommentCp = () => {
         navigate("/login");
       }
     },
-    [comment_content, comment_path]
+    [comment_content, comment_path, submitState]
   );
 
   //파일 files에 넣기
@@ -133,6 +131,7 @@ const CommentCp = () => {
 
   useEffect(() => {
     commentAxios();
+    console.log("comment+user", user);
   }, []);
   // 코멘트 리스트 끝 ///////////////
 
@@ -150,17 +149,16 @@ const CommentCp = () => {
     <>
       <CommentWrap>
         <div className="commentDiv">
-        
           <div className="cmtTitle">
             <span className="comh3">코멘트 </span>Comment
           </div>
           <hr />
           <div className="cmtForm">
-          
             <textarea
               className="cmtContent"
               rows="3"
               cols="65"
+              value={comment_content}
               onChange={onChangeContent}
               name="comment_content"
               id="commentContent"
@@ -183,11 +181,11 @@ const CommentCp = () => {
                 className="insertCmt"
                 onClick={insertComment}
                 disabled={error}
-              >등록</button>
+              >
+                등록
+              </button>
             </div>
-            
           </div>
-          
         </div>
 
         <div className="commentDiv">
@@ -230,7 +228,6 @@ const CommentCp = () => {
             );
           })}
         </div>
-        
       </CommentWrap>
     </>
   );

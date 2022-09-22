@@ -7,7 +7,7 @@ const MemberList = ({ removePost, state, isLoading, hasItems, countState }) => {
 
   return (
     <>
-      {hasItems == 0 ? (
+      {hasItems === 0 ? (
         <li> 가입한 회원이 없습니다. </li>
       ) : (
         <li>

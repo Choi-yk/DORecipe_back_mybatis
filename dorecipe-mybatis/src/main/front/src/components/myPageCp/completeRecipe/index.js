@@ -16,7 +16,7 @@ const CompleteRecipeList = () => {
       recipe_title: "",
       recipe_rpath: "",
       recipe_savetype: 0,
-      information_level: "", 
+      information_level: "",
       information_time: "",
     },
   ]);
@@ -25,32 +25,30 @@ const CompleteRecipeList = () => {
   const [member_id, setMemberId] = useState();
 
   useEffect(() => {
-    console.log("작성한레시피" + member_id)
-      setMemberId(user.auth.user.username);
-      // console.log(member_id + " 이건???????????")
-      if(member_id !== undefined){
-        Axios(); 
-      }
-  },[member_id]);
+    console.log("작성한레시피" + member_id);
+    // setMemberId(user.auth.user.username);
+    // console.log(member_id + " 이건???????????")
+    if (member_id !== undefined) {
+      Axios();
+    }
+  }, [member_id]);
 
   // 작성한 레시피 정보 가져오기
   // member_id가 ~인 레시피의 컬럼들을 다 가져와야지!
   const formData = new FormData();
-  formData.append("member_id", member_id)
+  formData.append("member_id", member_id);
 
   function Axios() {
-      console.log("작성중레시피 가져오니?" + member_id)
-      axios({
-        url: "/recipe/recordingType1",
-        method: "Post",
-        data: formData,
-        baseURL: "http://localhost:9000",
-      }).then(function (response) {
-        setRecipeState(response.data); 
-      });
-    }
-  
-
+    console.log("작성중레시피 가져오니?" + member_id);
+    axios({
+      url: "/recipe/recordingType1",
+      method: "Post",
+      data: formData,
+      baseURL: "http://localhost:9000",
+    }).then(function (response) {
+      setRecipeState(response.data);
+    });
+  }
 
   return (
     <>

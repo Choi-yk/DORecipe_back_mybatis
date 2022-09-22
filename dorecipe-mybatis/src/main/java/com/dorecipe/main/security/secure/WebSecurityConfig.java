@@ -68,8 +68,7 @@ public class WebSecurityConfig {
         .authorizeRequests().antMatchers("/api/auth/**").permitAll()
 //        .authorizeRequests().antMatchers("/api/auth/**").permitAll()
         .antMatchers("/api/test/**").permitAll()
-        .antMatchers("/member/delete/user/**").permitAll()
-        .antMatchers("/","/notice/**","/recipe/**","/knowhow/**","/event/**","/join", "/member/**").permitAll()
+        .antMatchers("/","/notice/**","/recipe/**","/knowhow/**","/event/**","/join", "/member/**", "/comment/**").permitAll()
         .anyRequest().permitAll();
     
     http.authenticationProvider(authenticationProvider());

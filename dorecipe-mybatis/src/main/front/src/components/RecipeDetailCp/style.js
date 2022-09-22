@@ -82,7 +82,7 @@ export const SearchResultFlex = styled.div`
 `;
 
 export const StyledLink = styled.div`
-  cursor: pointer;
+  /* cursor: pointer; */
   padding-top: 1em;
   color: ${(props) => props.theme.accentedColor};
   overflow: hidden;
@@ -90,9 +90,11 @@ export const StyledLink = styled.div`
     color: #8d3232;
   }
   & .icon:hover {
-    cursor: pointer;
     transition: all ease 1s;
     transform: rotate(360deg);
     padding: 2em;
+  }
+  & .pointerCursor:hover {
+    cursor: pointer;
   }
 `;

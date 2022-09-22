@@ -11,18 +11,18 @@ import { useEffect } from "react";
 
 const CreateRecipeIcon = () => {
   const user = useSelector((state) => state);
-
   const [userState, setUserState] = useState(user);
   const [iconState, setIcon] = useState(faPencil);
-  // console.log("CreateRecipeIcon_auth", user);
 
   useEffect(() => {
+    console.log("CreateRecipeIcon", userState);
     if (userState.auth.isLoggedIn) {
       if (userState.auth.user.roles.includes("ROLE_ADMIN")) {
         setIcon(faHouse);
+        setUserState(userState.auth.user);
       }
     } else setIcon(faPencil);
-  });
+  }, []);
 
   const navigate = useNavigate();
   const onClickRecipe = () => {
@@ -43,34 +43,19 @@ const CreateRecipeIcon = () => {
               <div>작성 가능합니다</div>
             </Link>
           </>
-        ) : iconState === faPencil ? (
+        ) : user.auth.user.roles.includes("ROLE_ADMIN") ? (
           <>
-            <div className="linkItems" onClick={onClickRecipe}>
-              레시피 작성
+            <div className="linkItems" onClick={onClickAdmin}>
+              <div>관리자 홈</div>
             </div>
           </>
         ) : (
           <>
-            <>
-              <div className="linkItems" onClick={onClickAdmin}>
-                <div>관리자 홈</div>
-              </div>
-            </>
+            <div className="linkItems" onClick={onClickRecipe}>
+              레시피 작성
+            </div>
           </>
         )}
-        {/* {user ? (
-          <>
-            <div className="linkItems" onClick={onClickRecipe}>
-              레시피 작성
-            </div>
-          </>
-        ) : (
-          <>
-            <Link className="linkItems" to="/">
-              로그인 후 작성가능합니다
-            </Link>
-          </>
-        )} */}
       </Popover.Body>
     </Popover>
   );
@@ -98,7 +83,6 @@ const CreateRecipeIcon = () => {
       </style>
       <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
         <Button variant="success">
-          {" "}
           <FontAwesomeIcon className="createRecipeIcon" icon={iconState} />
         </Button>
       </OverlayTrigger>

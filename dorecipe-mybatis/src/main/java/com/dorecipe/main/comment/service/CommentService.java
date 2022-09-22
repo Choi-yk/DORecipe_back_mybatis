@@ -7,7 +7,7 @@ import com.dorecipe.main.comment.vo.CommentVO;
 public interface CommentService {
 
 //	public int insertEvent(CommentVO commentVO,Integer comment_num);
-	public int insertEvent(CommentVO commentVO);
+	public int insertComment(CommentVO commentVO);
 
 	public int deleteComment(Integer recipe_num,Integer comment_num);
 
