@@ -108,7 +108,7 @@ const Scrollable = styled.section`
 
   & > div {
     padding: 2rem;
-    height: 40em;
+    height: 30em;
     overflow-y: auto;
     margin: 0 auto;
 

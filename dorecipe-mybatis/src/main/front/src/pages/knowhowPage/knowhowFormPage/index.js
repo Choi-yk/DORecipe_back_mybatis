@@ -116,7 +116,7 @@ const KnowhowUpdatePage = () => {
             console.log(response.data);
             alert("수정되었습니다.");
             //노하우 리스트로 이동
-            window.location.href = "http://localhost:3000/knowhow/list"
+            window.location.href = "http://localhost:3000/admin"
           });
       }
      }, [knowhowId, know_title, know_content, know_path]
