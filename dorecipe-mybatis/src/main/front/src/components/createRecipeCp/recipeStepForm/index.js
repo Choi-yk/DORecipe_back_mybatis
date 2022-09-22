@@ -50,8 +50,8 @@ const RecipeOrderDrag = ({ recipeState }) => {
   const user = useSelector((state) => state);
   const [member_id, setMemberId] = useState();
   useEffect(() => {
-    // setMemberId(user.auth.user.username);
-    console.log("현재 로그인 아이디 : " + member_id);
+    // console.log("현재 로그인 아이디 : ", user.auth.user.username);
+    setMemberId(user.auth.user.username);
   });
   // ----------------------------------------------------
   const userState = useSelector((state) => state.auth.isLoggedIn);

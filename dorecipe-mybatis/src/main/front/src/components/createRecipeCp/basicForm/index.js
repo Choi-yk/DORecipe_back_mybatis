@@ -54,7 +54,7 @@ const BasicForm = () => {
       e.preventDefault();
       const data = {
         recipe_title: `${recipe_title}`,
-        recipe_savetype: 1,
+        recipe_savetype: 1, //임시저장
         recipe_introduce: `${recipe_introduce}`,
         recipe_url: `${recipe_url}`,
         recipe_rpath: `${recipe_rpath}`,
@@ -90,7 +90,7 @@ const BasicForm = () => {
       formData.append("information_level", data.information_level);
       formData.append("information_time", data.information_time);
       formData.append("recipe_creDate", data.recipe_creDate);
-      formData.append("member_id", data.member_id);
+      formData.append("member_id", user.auth.user.username);
 
       axios({
         method: "POST",

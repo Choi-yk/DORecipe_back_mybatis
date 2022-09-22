@@ -58,7 +58,7 @@ function App() {
       showAdminBoard: false,
       currentUser: undefined,
     };
-    // user.auth = {
+    // user.auth = {          /////////reload할때 바꿔줘서 문제였음
     //   //마운트 되었을때 상태 설정
     //   isLoggedIn: false,
     // };

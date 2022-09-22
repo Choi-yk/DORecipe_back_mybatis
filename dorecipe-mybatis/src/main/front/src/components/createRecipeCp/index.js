@@ -25,12 +25,12 @@ const CreateRecipeForm = () => {
   const navigate = useNavigate();
   // useDispatch(messageReducer(CLEAR_MESSAGE));
   useEffect(() => {
-    // if (user.auth.isLoggedIn) {
-    // } else {
-    //   setMemberId(user.auth.user.username);
-    //   navigate("/");
-    // }
-    // console.log("CreateRecipeForm : " + member_id);
+    if (user.auth.isLoggedIn) {
+    } else {
+      setMemberId(user.auth.user.username);
+      navigate("/");
+    }
+    console.log("CreateRecipeForm : " + member_id);
     console.log("CreateRecipeForm", user);
   }, []);
 
@@ -62,7 +62,7 @@ const CreateRecipeForm = () => {
               method: "POST",
               url: "http://localhost:9000/recipe/getRecipeNum",
               headers: { "Content-Type": "multipart/form-data" },
-              data: { member_id: `${member_id}`, recipe_num: 0 },
+              data: { member_id: user.auth.user.username, recipe_num: 0 },
             }).then((response) => {
               console.log(response.data);
               setRecipeState(response.data);
