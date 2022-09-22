@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './style.css'
 import MainLayout from '../../../layout/mainLayOut';
+//import Split from "react-split";
 
 const NoticeDetailPage = () => {
 
@@ -52,7 +53,10 @@ const NoticeDetailPage = () => {
             <h2>| Notice |</h2>
             <div className="noticeDetailTitle noticeBorder">{state.notice_title}</div>  
             <div className="noticeDetailDate">{state.notice_creDate}</div>
-            <div>{state.notice_content}</div>
+            <div className="notcieDetailContent">{state.notice_content}</div>
+            
+        
+            
           </div>
       </li>
       <div className='bottom' />

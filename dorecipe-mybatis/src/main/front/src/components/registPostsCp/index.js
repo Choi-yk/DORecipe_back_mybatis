@@ -261,7 +261,7 @@ function TabContent(props) {
         const noticeData = {
           member_id: `${user.auth.user.username}`,
           notice_title: `${notice_title}`,
-          notice_content: `${notice_content}`,
+          notice_content: `${notice_content}`
         };
 
         const noticeBlob = new Blob([JSON.stringify(noticeData)], {
@@ -269,7 +269,10 @@ function TabContent(props) {
         });
 
         const formData = new FormData();
-
+		
+		//notice_content = `${notice_content}`.replace(/<br>|<br\>|<br \/>)/g, '\n\r');	
+		//줄바꿈 - 콘솔에는 줄바꿈되어서 찍힘,db에도 화면에는 줄바꿈 안됨
+		
         formData.append("noticeData", noticeBlob);
         formData.append("member_id", noticeData.member_id);
         formData.append("notice_title", noticeData.notice_title);
@@ -288,6 +291,7 @@ function TabContent(props) {
             data: formData,
           }).then((response) => {
             console.log(response.data);
+            console.log("줄바꿈 적용됐나..? ",notice_content);
             document.getElementById("noticeTitle").value = "";
             document.getElementById("noticeContent").value = "";
             alert("공지사항이 등록되었습니다.");
@@ -328,10 +332,11 @@ function TabContent(props) {
             <td>
               <textarea
                 id="noticeContent"
-                name="event_content"
-                className="text"
+                name="notice_content"
+                className="content"
                 rows="4"
                 cols="50"
+                wrap="hard"
                 required
                 onChange={onChangeNoticeContent}
               ></textarea>
@@ -392,7 +397,7 @@ function TabContent(props) {
             <td>
               <textarea
                 name="event_content"
-                className="text"
+                className="content"
                 placeholder=" 내용을 입력해주세요"
                 rows="4"
                 cols="50"
@@ -477,7 +482,7 @@ function TabContent(props) {
               <textarea
                 name="know_content"
                 required
-                className="text"
+                className="content"
                 id="knowData2"
                 rows="4"
                 cols="50"
@@ -512,5 +517,6 @@ const WarningMsg = styled.div`
   font-size: smaller;
   font-weight: 400;
 `;
+
 
 export default RegistPosts;

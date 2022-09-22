@@ -63,7 +63,7 @@ const EventDetailPage = () => {
           : null
         }
         
-        <p className="left width">{state.event_content}</p>
+        <p className="left width eventContent">{state.event_content}</p>
       </div>
       <div className="bottom"/>
       </MainLayout>
