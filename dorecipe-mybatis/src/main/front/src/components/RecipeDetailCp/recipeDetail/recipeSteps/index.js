@@ -1,19 +1,21 @@
 import styled from "styled-components";
 const StepRecipe = ({ detailState }) => {
+  
   return (
     <>
       {" "}
       <RecipeStepWrap>
         <div>
-          {detailState.map((e, index) => {
+          {detailState.map((e, index) => { 
             return (
               <>
                 {e.order_explain !== "" ? (
                   <>
                     <TotalWrap>
-                      {e.order_path !== "undefined" ? (
+                      {e.order_path !== "undefined" ? 
+                      (                       
                         <>
-                          <Img src={e.order_path} alt={e.order_path} />
+                          <Img src={e.order_path}  alt={e.order_path} />
                         </>
                       ) : (
                         <Img
