@@ -20,12 +20,6 @@ const CompleteRecipe = ({ recipeState }) => {
   const user = useSelector((state) => state.auth.isLoggedIn);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/login");
-  //   }
-  // }, []);
-
   const [path1, onChangePath1, setPath1] = useInput("");
   const [path2, onChangePath2, setPath2] = useInput("");
   const [path3, onChangePath3, setPath3] = useInput("");

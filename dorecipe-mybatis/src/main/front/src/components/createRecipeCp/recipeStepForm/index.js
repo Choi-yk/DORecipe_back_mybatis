@@ -45,6 +45,7 @@ const RecipeOrderDrag = ({ recipeState }) => {
   const [files28, setFiles28] = useState([]);
   const [files29, setFiles29] = useState([]);
   const [files30, setFiles30] = useState([]);
+  // const [fileName, file.name]
 
   // member_id 가져오기
   const user = useSelector((state) => state);
@@ -90,7 +91,7 @@ const RecipeOrderDrag = ({ recipeState }) => {
   const dragItemRef = useRef();
   const dragOverItemRef = useRef();
   const inputFocus = useRef();
-
+  console.log("stepImg", stepState[0].stepImg.name);
   //input값 인지
   const handleFormChange = (index, e) => {
     let stepCopy = [...stepState];
@@ -189,14 +190,12 @@ const RecipeOrderDrag = ({ recipeState }) => {
             data[i].stepDescription
           );
           formData.append(`recipe_imgs_steps`, stepState[i].stepImg);
-          if (data[i].stepImg !== undefined) {
-            formData.append(
-              `orderVoList[${i}].order_path`,
-              data[i].stepImg.path
-            );
-          } else {
-            formData.append(`orderVoList[${i}].order_path`, null);
-          }
+          // console.log("stepImg", data[i].stepImg.File.name);
+
+          formData.append(
+            `orderVoList[${i}].order_path`,
+            stepState[i].stepImg.name
+          );
         }
         for (let value of formData.values()) {
           console.log(value);
@@ -223,7 +222,6 @@ const RecipeOrderDrag = ({ recipeState }) => {
             method: "POST",
             url: "http://localhost:9000/recipe/updateRecipeInstructions",
             headers: { "Content-Type": "multipart/form-data" },
-            // params:{param1:recipeState,param2:i},
             data: formData,
           })
             .then((response) => {
@@ -351,6 +349,7 @@ const RecipeOrderDrag = ({ recipeState }) => {
                                       reader.readAsDataURL(file);
                                       console.log("readAsDataURL", file);
                                       console.log("readAsDataURL", file.name);
+
                                       const copyState = [...stepState];
                                       copyState[0].stepImg = file;
                                       setStep(copyState);

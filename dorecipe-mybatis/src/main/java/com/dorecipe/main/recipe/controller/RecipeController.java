@@ -142,7 +142,6 @@ public class RecipeController extends RecipeFileUpload{
 	@PostMapping("/insertRecipeOrder")
 	public String insertRecipeOrder(RecipeVO recipeVO, @RequestParam(value = "recipe_imgs_steps", required = false)MultipartFile[] uploadFiles) {
 		
-		
 		if(uploadFiles == null) {
 			recipeService.insertRecipeOrder(recipeVO);
 			System.out.println("레시피 등록됨 근데 upload파일이 null임 - Controller");

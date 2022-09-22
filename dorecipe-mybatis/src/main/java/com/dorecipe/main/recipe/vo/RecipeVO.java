@@ -1,6 +1,12 @@
 package com.dorecipe.main.recipe.vo;
 
+import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Value;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +15,9 @@ import lombok.Setter;
 @Setter
 public class RecipeVO {
 
+	@Value("${part4.upload.path}")
+	public String uploadPathStepImages;
+	
 	//레시피테이블
 	private Integer recipe_num;
 	private String recipe_title;
@@ -22,6 +31,35 @@ public class RecipeVO {
 	}
 	
 
+	public List<RecipeVO> getOrderVoList() {
+		return orderVoList;
+	}
+
+
+	public void setOrderVoList(List<RecipeVO> orderVoList) {
+		this.orderVoList = orderVoList;
+	}
+
+
+	
+
+	private String category_theme;
+	private String category_way;
+	private String category_ing;
+	private String information_person;
+	private String information_time;
+	private String information_level;
+	private String completion_path1;
+	private String completion_path2;
+	private String completion_path3;
+	private String completion_path4;
+	private String completion_tip;
+	private String recipe_creDate;
+	private String member_id;
+	
+		
+	//요리재료 테이블
+	private int ing_num;
 	public String getRecipe_title() {
 		return recipe_title;
 	}
@@ -268,17 +306,10 @@ public class RecipeVO {
 
 
 	public void setOrder_path(String order_path) {
-		this.order_path = order_path;
-	}
-
-
-	public List<RecipeVO> getOrderVoList() {
-		return orderVoList;
-	}
-
-
-	public void setOrderVoList(List<RecipeVO> orderVoList) {
-		this.orderVoList = orderVoList;
+		String uploadDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+		this.order_path = "/img/recipe/steps/"+ uploadDate +
+				"/"+UUID.randomUUID().toString()+"_"+order_path;
+			
 	}
 
 
@@ -337,23 +368,8 @@ public class RecipeVO {
 	}
 
 
-	private String category_theme;
-	private String category_way;
-	private String category_ing;
-	private String information_person;
-	private String information_time;
-	private String information_level;
-	private String completion_path1;
-	private String completion_path2;
-	private String completion_path3;
-	private String completion_path4;
-	private String completion_tip;
-	private String recipe_creDate;
-	private String member_id;
-	
-		
-	//요리재료 테이블
-	private int ing_num;
+
+
 	private String ing_ingredient;
 	private String ing_amount;
 	
@@ -362,9 +378,56 @@ public class RecipeVO {
 	private String order_explain;
 	private String order_path;
 	
+	
+//	private String order_path1;
+//	private String order_path2;
+//	private String order_path3;
+//	private String order_path4;
+//	private String order_path5;
+//	private String order_path6;
+//	private String order_path7;
+//	private String order_path8;
+//	private String order_path9;
+//	private String order_path10;
+//	private String order_path11;
+//	private String order_path12;
+//	private String order_path13;
+//	private String order_path14;
+//	private String order_path15;
+//	private String order_path16;
+//	private String order_path17;
+//	private String order_path18;
+//	private String order_path19;
+//	private String order_path20;
+//	private String order_path21;
+//	private String order_path22;
+//	private String order_path23;
+//	private String order_path24;
+//	private String order_path25;
+//	private String order_path26;
+//	private String order_path27;
+//	private String order_path28;
+//	private String order_path29;
+//	private String order_path30;
+	
+
+
 	private List<RecipeVO> orderVoList;
+	private List<String> orderVoList_path;
 //	private List<RecipeVO> orderVoList2;
 	
+	public List<String> getOrderVoList_path() {
+		return orderVoList_path;
+	}
+
+
+	public void setOrderVoList_path(List<String> orderVoList_path) {
+		this.orderVoList_path = orderVoList_path;
+	}
+
+
+
+
 	//코멘트 테이블
 	private int comment_num;
 	private String comment_content;
@@ -378,6 +441,9 @@ public class RecipeVO {
 	// 데이터 출력
 	@Override
 	public String toString() {
-		return "recipe_rpath [recipe_rpath=" + recipe_rpath + "]";
+		return "order_path [order_path=" + order_path + "]";
 	}
+
+
+
 }

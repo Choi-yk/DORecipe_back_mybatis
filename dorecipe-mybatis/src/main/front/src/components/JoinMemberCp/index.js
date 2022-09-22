@@ -10,7 +10,7 @@ import { BigBtn, SmallBtn } from "../_common/buttons";
 import "./style.css";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { register, login } from "../../reduxRefresh/actions/auth";
-import Message from "../../reduxRefresh/reducers/message";
+
 const SignUpTemplate = () => {
   /** input state설정해주기 */
   const dispatch = useDispatch();
