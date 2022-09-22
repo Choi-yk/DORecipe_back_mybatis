@@ -62,6 +62,6 @@
     margin-bottom: 200px;
 }
 
-.eventDataTd{
-    width: auto;
+.floatLeft{
+    float: left;
 }
