@@ -33,7 +33,7 @@ import NotFoundPage from "./pages/errorPage";
 
 import Recipe from "./Recipe.js";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { logout } from "./reduxRefresh/actions/auth";
 import { clearMessage } from "./reduxRefresh/actions/message";
@@ -45,48 +45,42 @@ import { connect } from "react-redux";
 function App() {
   const userMsg = useSelector((state) => state.message);
   const user = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   console.log("user", user);
   console.log("userMsg", userMsg);
   const [userState, setCurrentUser] = useState(user);
 
   useEffect(() => {
-    // setCurrentUser({
-    //   showModeratorBoard: false,
-    //   showAdminBoard: false,
-    //   currentUser: undefined,
-    // });
     user.state = {
       //마운트 되었을때 상태 설정
       showModeratorBoard: false,
       showAdminBoard: false,
       currentUser: undefined,
     };
-    user.auth = {
-      //마운트 되었을때 상태 설정
-      isLoggedIn: false,
-    };
+    // user.auth = {
+    //   //마운트 되었을때 상태 설정
+    //   isLoggedIn: false,
+    // };
+    dispatch(clearMessage());
   }, []);
 
-  history.listen((location) => {
-    console.log("location", history.location);
-    user.dispatch(clearMessage()); // clear message when changing location
-  });
+  // history.listen((location) => {
+  //   // console.log("location", history.location);
+  //   // user.dispatch(clearMessage()); // clear message when changing location
+  //   dispatch(clearMessage()); // clear message when changing location
+  // });
 
   useEffect(() => {
     // const userState = user;
-    history.listen((location) => {
-      // user.dispatch(clearMessage(location)); // clear message when changing location
-      user.dispatch(clearMessage()); // clear message when changing location
-      // console.log(history, history);
-    });
+    // history.listen((location) => {
+    //   // user.dispatch(clearMessage(location)); // clear message when changing location
+    //   user.dispatch(clearMessage()); // clear message when changing location
+    //   // console.log(history, history);
+    // });
+    dispatch(clearMessage());
     const currentUser = user.auth.user;
     if (currentUser) {
-      // user.state = {
-      //   currentUser: currentUser,
-      //   showModeratorBoard: currentUser.roles.includes("ROLE_MODERATOR"),
-      //   showAdminBoard: currentUser.roles.includes("ROLE_ADMIN"),
-      // };
       setCurrentUser({
         currentUser: currentUser,
         showModeratorBoard: currentUser.roles.includes("ROLE_MODERATOR"),
@@ -95,8 +89,6 @@ function App() {
       user.state = userState;
       console.log("currentUser", currentUser);
     } else {
-      // alert("로그아웃하셨습니다.");
-      // console.log("로그아웃!");
       setCurrentUser({
         showModeratorBoard: false,
         showAdminBoard: false,
@@ -111,7 +103,7 @@ function App() {
   }, []);
 
   const logOut = () => {
-    user.dispatch(logout());
+    dispatch(logout());
     setCurrentUser({
       showModeratorBoard: false,
       showAdminBoard: false,
@@ -125,6 +117,7 @@ function App() {
   // console.log("currentUser", currentUser);
   return (
     <Routes history={history}>
+      {/* <Routes> */}
       <Route path={"/notice/list"} element={<NoticePage />} user={user} />
 
       <Route
@@ -147,18 +140,9 @@ function App() {
       <Route path={"/event/list"} element={<EventPage />} auth={user} />
       <Route path={"/event/detail/:detailId"} element={<EventDetailPage />} />
       <Route path={"/event/update/:detailId"} element={<EventModify />} />
-      {/* {showAdminBoard ? (
-        <Route path={"/admin"} element={<AdminPostMng />} />
-      ) : (
-        <Route path={"/admin"} element={<NotFoundPage />} />
-      )} */}
+
       <Route path={"/admin"} element={<AdminPostMng />} />
       <Route path={"/join"} element={<JoinMemberPage />} />
-      {/* {currentUser ? (
-
-      ):(
-
-      )} */}
 
       {currentUser ? (
         <Route path={"/member/info/"} element={<MyPage />} />
@@ -166,19 +150,12 @@ function App() {
         // <Route path={"/member/info/:memberId"} element={<MyPage />} />
         <Route path={"/"} element={<MainPage />} />
       )}
-      {/* <Route path={"/member/info"} element={<MyPage />} /> */}
-      {/* {showAdminBoard && (
-      
-      )} */}
+
       <Route path={"/member/info"} element={<MyPage />} />
-      {/* <Route path={"/member"} element={<MemberListPage />} /> */}
-      {/* <Route path={"/login"} element={<LoginPage />} userState={user} /> */}
+
       <Route path={"/login"} element={<LoginPage />} />
 
       <Route exact path={"/"} element={<MainPage />} />
-
-      {/* 별도록 jwt설정해줘서 관리자로 로그인 시에만 접근하도록 하기 */}
-      {/* <Route path="*" element={<div>없는 페이지임</div>} /> */}
       {currentUser ? (
         <Route path={"/recipe/create"} element={<CreateRecipePage />} />
       ) : (
@@ -190,11 +167,7 @@ function App() {
         path={"/recipe/search/details/:recipeId"}
         element={<DetailRecipePage />}
       />
-      <Route
-        path={"/recipe/search/:searchId"}
-        // component={Recipe}
-        element={<SearchRecipePage />}
-      />
+      <Route path={"/recipe/search/:searchId"} element={<SearchRecipePage />} />
 
       <Route path={"/recipe/search/:searchId"} element={<SearchRecipePage />} />
 
@@ -207,15 +180,5 @@ function App() {
     </Routes>
   );
 }
-// console.log("history.location", history.location);
-function mapStateToProps(state) {
-  // const { user } = state.auth;
-  const { user } = state;
 
-  console.log("(mapStateToProps)(App)", state);
-  return {
-    user,
-  };
-}
-
-export default connect(mapStateToProps)(App);
+export default App;
