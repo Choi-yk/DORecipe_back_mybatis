@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -75,6 +75,15 @@ public class MemberController {
 
 		
 	}
+	// 회원 정보 가져오기
+//	@PostMapping("/getMember")
+//	public MemberVO getMember(@RequestParam("member_id") String member_id) throws Exception {
+//		System.out.println(" /getMember/member_id------------------------" + member_id);
+//		MemberVO memberVO = memberService.listMemberDetails(member_id);
+//		return memberVO;
+//		
+//		
+//	}
 	
 	@PostMapping("/update")
 //	public String Update(@PathVariable("member_id") String member_id, MemberVO member) throws Exception {

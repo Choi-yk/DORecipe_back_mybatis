@@ -14,6 +14,8 @@ import RecipeList from "./recipeList";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUtensils } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../reduxRefresh/actions/auth.js";
 
 const DetailSearch = () => {
   const [optionState, setOptionState] = useState([
@@ -32,10 +34,22 @@ const DetailSearch = () => {
   ]);
 
   const navigate = useNavigate();
-
+  const user = useSelector((state) => state.auth.isLoggedIn);
+  // useDispatch(login())
+  const auth = useSelector((state) => state.auth.user);
+  const [authState, setAuthState] = useState();
   const createRecipeLink = () => {
     navigate("/recipe/create");
+    // authState.roles.includes("ROLE_USER")
+    //   ? navigate("/recipe/create")
+    //   : alert("레시피 등록은 일반회원만 가능합니다.");
   };
+  useEffect(() => {
+    if (user) {
+      setAuthState(auth);
+    }
+  }, []);
+  // console.log("DetailSearch!!!!!!!!!", auth.state.curentUser);
 
   const [categoryStates, setCategoryStates] = useState([
     "전체",
@@ -420,10 +434,31 @@ const DetailSearch = () => {
                   <RecipeList key={e.recipe_num} recipeState={e} />
                 </>
               ))
+            ) : user ? (
+              <>
+                <div className="createRecipeLinkWrap">
+                  <div>
+                    <StyledLink>
+                      <div className="icon pointerCursor">
+                        <FontAwesomeIcon
+                          icon={faUtensils}
+                          className="userIcon"
+                        />
+                      </div>
+                      해당 검색어로 만들어진 레시피가 아직 없습니다.
+                      {authState.roles.includes("ROLE_USER") && (
+                        <div onClick={createRecipeLink}>
+                          [ 레시피 등록하러 가기 ]{" "}
+                        </div>
+                      )}
+                    </StyledLink>
+                  </div>
+                </div>
+              </>
             ) : (
               <>
                 <div className="createRecipeLinkWrap">
-                  <div onClick={createRecipeLink}>
+                  <div>
                     <StyledLink>
                       <div className="icon">
                         <FontAwesomeIcon
@@ -431,8 +466,7 @@ const DetailSearch = () => {
                           className="userIcon"
                         />
                       </div>
-                      해당 검색어로 만들어진 레시피가 아직 없습니다. [ 레시피
-                      등록하러 가기 ]{" "}
+                      해당 검색어로 만들어진 레시피가 아직 없습니다.
                     </StyledLink>
                   </div>
                 </div>

@@ -20,12 +20,7 @@ public class RecipeVO {
 	public Integer getRecipe_num() {
 		return recipe_num;
 	}
-
-
-	public void setRecipe_num(Integer recipe_num) {
-		this.recipe_num = recipe_num;
-	}
-
+	
 
 	public String getRecipe_title() {
 		return recipe_title;
@@ -334,6 +329,11 @@ public class RecipeVO {
 
 	public void setLikes(int likes) {
 		this.likes = likes;
+	}
+
+
+	public void setRecipe_num(Integer recipe_num) {
+		this.recipe_num = recipe_num;
 	}
 
 

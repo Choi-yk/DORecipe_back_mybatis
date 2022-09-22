@@ -7,29 +7,19 @@ import OverlayTrigger from "react-bootstrap/esm/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
 
 import "./style.css";
-import { useState } from "react";
-// import { useSelector } from "react-redux";
-import { useDispatch, connect, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useCallback } from "react";
-import { history } from "../../../../reduxRefresh/helpers/history";
 import { logout } from "../../../../reduxRefresh/actions/auth";
-// import EventBus from "./common/EventBus";
-// import { logout } from "../../../../reduxRefresh/actions/auth";
 const AccountIcon = () => {
   //페이지 이동
-  // const user = useSelector((state) => state);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state);
 
-  // const [userState, setCurrentUser] = useState(user);
-  // const [userState, setCurrentUser] = useState(user.auth.user);
-  // console.log("로그ㅇ아웃useState", userState);
   const onClickLogOut = useCallback(() => {
     //로그아웃 시키고 메인페이지로
     dispatch(logout());
-    window.location.replace("/");
-    // navigate("/");
+    navigate("/");
   }, [dispatch]);
 
   const popover = useCallback(
@@ -37,13 +27,9 @@ const AccountIcon = () => {
       <Popover.Body>
         {user.auth.isLoggedIn ? (
           <>
-            {/* {user.auth.user.roles.includes("ROLE_ADMIN") ? (
-              <></>
-            ) : ( */}
             <Link className="linkItems" to="/member/info/">
               마이 페이지
             </Link>
-            {/* )} */}
 
             <div className="linkItems" onClick={onClickLogOut}>
               로그아웃
@@ -100,15 +86,4 @@ const AccountIcon = () => {
     </>
   );
 };
-
-function mapStateToProps(state) {
-  // const { user } = state.auth;
-  const { user } = state;
-
-  console.log("(mapStateToProps)(AccountIcon)", state);
-  return {
-    user,
-  };
-}
-
-export default connect(mapStateToProps)(AccountIcon);
+export default AccountIcon;

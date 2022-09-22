@@ -1,11 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import EditDropZone from "../../_common/dropzone";
 import { useInput } from "../../../hooks/useInput";
 import axios from "axios";
 import { SubmitRecipeBtn } from "../../_common/buttons";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 const CompleteRecipe = ({ recipeState }) => {
   //btn state : 버튼 1번 이상 클릭 시 전체 임시저장/등록, 한번만 클릭시 해당 페이지 저장
   const [buttonState, setBtnState] = useState(0);
@@ -13,6 +16,15 @@ const CompleteRecipe = ({ recipeState }) => {
   const [completionDropState, setCompletionDropState] = useState(
     "completionDropState"
   );
+
+  const user = useSelector((state) => state.auth.isLoggedIn);
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate("/login");
+  //   }
+  // }, []);
 
   const [path1, onChangePath1, setPath1] = useInput("");
   const [path2, onChangePath2, setPath2] = useInput("");

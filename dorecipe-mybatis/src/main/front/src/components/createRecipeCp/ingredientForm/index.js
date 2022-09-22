@@ -9,8 +9,19 @@ import {
 import { DefaultBtn, SmallBtn } from "../../_common/buttons";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const IngredientForm = ({ recipeState }) => {
+  const user = useSelector((state) => state.auth.isLoggedIn);
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate("/login");
+  //   }
+  // }, []);
+
   const [ingredients, setIngredients] = useState([
     {
       recipe_num: recipeState,

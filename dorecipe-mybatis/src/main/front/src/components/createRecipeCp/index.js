@@ -16,36 +16,25 @@ import { SubmitRecipeBtn, DefaultBtn } from "../_common/buttons";
 import RecipeOrderDrag from "./recipeStepForm";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CreateRecipeForm = () => {
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    // setBtnState(buttonState + 1);
-    // const { value } = e.target;
-
-    // if (buttonState > 0) {
-    //   console.log({ value });
-    //   if (value === "submit") {
-    //     alert("등록하셨습니다.");
-    //   } else if (value === "saveAsDraft") {
-    //     alert("임시저장 하셨습니다.");
-    //   }
-    // }
-  };
-
-  // member_id 가져오기
   const user = useSelector((state) => state);
   const [member_id, setMemberId] = useState();
+  const navigate = useNavigate();
+  // useDispatch(messageReducer(CLEAR_MESSAGE));
   useEffect(() => {
-    setMemberId(user.auth.user.username);
-    console.log("현재 로그인 아이디 : " + member_id);
-  });
-  // -----------------------------------------------
+    // if (user.auth.isLoggedIn) {
+    // } else {
+    //   setMemberId(user.auth.user.username);
+    //   navigate("/");
+    // }
+    // console.log("CreateRecipeForm : " + member_id);
+    console.log("CreateRecipeForm", user);
+  }, []);
 
   const [recipeState, setRecipeState] = useState();
-  // const [buttonState, setBtnState] = useState(0);
 
   return (
     <>
@@ -58,13 +47,22 @@ const CreateRecipeForm = () => {
           spaceBetween={120}
           pagination={{ clickable: false }}
           // scrollbar={{ draggable: false }}
+          // onBeforeSlideChangeStart={() => {
+          //   if (
+          //     window.confirm("임시저장을 하지 않으면 정보를 잃을 수 있습니다.")
+          //   ) {
+          //     Swiper.enabled = false;
+          //   } else {
+          //     navigate("/");
+          //   }
+          // }}
           onSwiper={(swiper) => console.log("swiper", swiper)}
           onSlideChange={() => {
             axios({
               method: "POST",
               url: "http://localhost:9000/recipe/getRecipeNum",
               headers: { "Content-Type": "multipart/form-data" },
-              data: { member_id: `${member_id}`, recipe_num: 0 }, //멤버 아이디 전역으로..?
+              data: { member_id: `${member_id}`, recipe_num: 0 },
             }).then((response) => {
               console.log(response.data);
               setRecipeState(response.data);
@@ -74,7 +72,8 @@ const CreateRecipeForm = () => {
           <form encType="multipart/form-data">
             <SwiperSlide className="slide">
               <SectionTitle>레시피 등록</SectionTitle>
-              <BasicForm recipeState={recipeState} />
+              {/* <BasicForm recipeState={recipeState} /> */}
+              <BasicForm />
             </SwiperSlide>
             <SwiperSlide className="slide">
               <SectionTitle>재료 등록</SectionTitle>

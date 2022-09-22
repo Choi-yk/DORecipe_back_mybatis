@@ -13,7 +13,7 @@ import EditDropZone from "../../_common/dropzone";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
-const BasicForm = ({recipeState}) => {
+const BasicForm = () => {
   const [recipe_title, onChangeRecipeTitle, setRecipeTitle] = useInput("");
   const [recipe_introduce, onChangeRecipeIntro, setRecipeIntro] = useInput("");
   const [recipe_url, onChangeRecipeUrl, setRecipeUrl] = useInput("");
@@ -32,18 +32,18 @@ const BasicForm = ({recipeState}) => {
   const [recipe_thumbnail, setRecipeImgFiles] = useState("");
   const [thumbnailDropState, setThumbnailDropState] = useState("thumbnailDrop");
 
-// member_id 가져오기
+  // member_id 가져오기
   const user = useSelector((state) => state);
-  const [member_id, setMemberId] = useState();
+  const [member_id, setMemberId] = useState("");
   useEffect(() => {
-      setMemberId(user.auth.user.username);
-      console.log("현재 로그인 아이디 : " + member_id);
-  });
-// ----------------------------------------------------
-
-
-
-
+    console.log("BasicForm", user);
+    // if (user.auth.isLoggedIn) {
+    setMemberId(user.auth.user.username);
+    console.log(user.auth.user.username);
+    console.log("현재 로그인 아이디!!!!! : " + member_id);
+    // }
+  }, []);
+  // ----------------------------------------------------
 
   const onLoadImgFile = (e) => {
     onChangeRecipeThumbnail(e);
@@ -127,17 +127,6 @@ const BasicForm = ({recipeState}) => {
       <div>
         <BasicFormWrap>
           <div className="recipeLeftWrap">
-            {/* <div className="recipeTitleWrap">
-              <Labels htmlFor="recipeTitle">임시 - 회원 아이디</Labels>
-              <ContentInput
-                type="text"
-                required
-                value={member_id}
-                onChange={onChangeMemberId}
-                className="titleInput"
-                placeholder="로그인 기능 구현되면 제거할 인풋"
-              />
-            </div> */}
             <div className="recipeTitleWrap">
               <Labels htmlFor="recipeTitle">레시피 제목</Labels>
               <ContentInput

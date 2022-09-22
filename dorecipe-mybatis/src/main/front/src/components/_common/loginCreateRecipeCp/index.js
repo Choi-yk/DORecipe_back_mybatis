@@ -7,30 +7,12 @@ import { useInput } from "../../../hooks/useInput";
 import AccountIcon from "./loginIcon";
 import CreateRecipeIcon from "./createRecipeIcon";
 const LoginCreateRecipeLogo = () => {
-  //util
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-
-  //logout dispatch
-
-  // const onLogOutHandler = useCallback(() => {
-  //   dispatch(
-  //     loginUser({
-  //       // member_id: member_id,
-  //       // member_pwd: member_pwd,
-  //       navigate: navigate,
-  //     })
-  //   );
-  // }, [dispatch, navigate]);
-  // console.log("LoginCreateRecipeLogo", state);
   return (
     <>
       <LoginCreateRecipeWrapper>
         <LoginWrapper>
-          {/* <AccountIcon userState={state} /> */}
           <AccountIcon />
           <CreateRecipeIcon />
-          {/* <CreateRecipeIcon userState={state} /> */}
         </LoginWrapper>
       </LoginCreateRecipeWrapper>
     </>

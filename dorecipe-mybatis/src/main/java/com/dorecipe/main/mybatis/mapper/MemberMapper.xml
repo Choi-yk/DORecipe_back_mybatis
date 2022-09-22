@@ -39,9 +39,7 @@
 		 #{member_birth},#{member_phone},now(),default);
 	
 	</insert>
-	
-	
-	
+		
 	<insert id="insertMember" parameterType="com.dorecipe.main.member.dao.MemberDAO">
 		 insert into member2 values
 		 (#{username},#{member_nickname},#{member_name},#{member_gender},

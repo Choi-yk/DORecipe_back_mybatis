@@ -69,12 +69,12 @@ public class CommentController {
 	@PostMapping("/insert")
 	public void insertComment(CommentVO commentVO, @RequestParam(value="comment_image",required = false) MultipartFile[] uploadFiles) throws Exception{
 		if(uploadFiles == null) {
-			commentService.insertEvent(commentVO);
+			commentService.insertComment(commentVO);
 			return;
 		}
 		fileUpload(commentVO, uploadFiles);
 		System.out.println("---comment insert test");
-		commentService.insertEvent(commentVO);
+		commentService.insertComment(commentVO);
 		System.out.println("comment insert test complete!! "+ commentVO.getComment_content());
 	}
 	

@@ -20,7 +20,7 @@ public class CommentServiceImpl implements CommentService{
 //		return commentDAO.insertComment(commentVO,comment_num);
 //	}
 	@Override
-	public int insertEvent(CommentVO commentVO) {
+	public int insertComment(CommentVO commentVO) {
 		System.out.println("comment insert service부분 + " + commentVO.getComment_content());
 		return commentDAO.insertComment(commentVO);
 	}

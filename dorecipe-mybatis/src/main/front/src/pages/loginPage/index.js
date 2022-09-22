@@ -26,8 +26,7 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state);
 
-  console.log("auth!!!!!!", auth);
-
+  // console.log("auth!!!!!!", auth);
   const memberLogin = (e) => {
     e.preventDefault();
     console.log("ID : ", member_id);
@@ -52,12 +51,7 @@ const LoginPage = () => {
       setState(false);
     }
   };
-  useEffect(() => {
-    // if (isLoggedIn) {
-    //   navigate("/");
-    // }
-    console.log("auth!!!!!!", auth);
-  });
+
   return (
     <>
       <MainLayout>

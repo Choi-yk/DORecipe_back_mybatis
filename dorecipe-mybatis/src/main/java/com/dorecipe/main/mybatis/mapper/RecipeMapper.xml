@@ -35,7 +35,7 @@
 		(recipe_title,recipe_savetype,recipe_introduce,recipe_url,recipe_rpath,
 		category_kind,category_theme,category_way,category_ing,information_person,information_time,information_level,
 		recipe_creDate,member_id)
- 		values(#{recipe_title},1,#{recipe_introduce},#{recipe_url},#{recipe_rpath},#{category_kind},
+ 		values(#{recipe_title},#{recipe_savetype},#{recipe_introduce},#{recipe_url},#{recipe_rpath},#{category_kind},
  		#{category_theme}, #{category_way},#{category_ing},#{information_person},#{information_time},#{information_level},
  		now(),#{member_id}); 
   	</insert>
