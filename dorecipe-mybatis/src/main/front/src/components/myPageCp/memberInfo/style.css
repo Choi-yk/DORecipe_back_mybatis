@@ -1,6 +1,8 @@
 .columnName {
   min-width: 7em;
-  /* float: left; */
+
+  display: inline-block;
+  width: 5em;
   display: inline-block;
   margin-right: 1em;
 }
@@ -18,20 +20,16 @@
   gap: 1em;
   display: inline-flex;
 
-  width: 27em;
+  width: 85%;
   flex-direction: column;
 }
-input {
-  height: 2em;
-  width: 16em;
-  display: inline;
-  margin-left: 3em;
-  padding: 0.5em;
-}
+
 .title {
   width: 3rem;
   display: inline-block;
 }
 .items {
-  /* margin-top: 1em; */
+  display: inline-flex;
+  gap: 3em;
+  width: 100%;
 }

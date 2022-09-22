@@ -105,8 +105,6 @@ const MemberInfoForm = () => {
           <div className="items">
             <span className="columnName">닉네임</span>
             <span name="member_id">{member_nickname}</span>
-
-            <span>{member_nickname}</span>
           </div>
           <div className="items">
             <span className="columnName">이름</span>
