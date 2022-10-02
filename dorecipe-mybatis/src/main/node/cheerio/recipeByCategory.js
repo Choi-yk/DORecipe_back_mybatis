@@ -436,51 +436,53 @@ for (let count = 0; count < recipeLinkList.length; count++) {
     } else if (links[count].match(/cat4=62&/)) {
       catResult[0]["typeOfRecipe"] = "기타";
     }
+    if (recipeTitle.text().length > 0) {
+      catResult[0]["recipeTitle"] = recipeTitle.text();
+      catResult[0]["recipeAuthor"] = recipeAuthor.text().replace(/\s/g, "");
+      catResult[0]["recipeIntro"] = recipeIntro.text().replace(/\s\s/g, "");
+      catResult[0]["recipeServing"] = recipeServing.text().replace("\n", "");
+      catResult[0]["recipeTime"] = recipeTime.text().replace("\n\t", "");
+      catResult[0]["recipeDifficulty"] = recipeDifficulty
+        .text()
+        .replace("\n", "");
+      catResult[0]["recipeThumbnail"] = recipeThumbnail.find("img").attr("src");
+      catResult[0]["authorProfilePic"] = authorProfilePic
+        .find("img")
+        .attr("src");
+    }
+    const data = {
+      recipe_title: `${catResult[0].recipeTitle}`,
+      recipe_savetype: 0,
+      recipe_introduce: `${catResult[0].recipeIntro}`,
+      recipe_url: "",
+      recipe_rpath: `${catResult[0].recipeThumbnail}`,
+      category_kind: `${catResult[0].typeOfRecipe}`,
+      category_theme: `${catResult[0].occasionOfRecipe}`,
+      category_way: `${catResult[0].cookingMethod}`,
+      category_ing: `${catResult[0].ingreOfRecipe}`,
+      information_person: `${catResult[0].recipeServing}`,
+      information_time: `${catResult[0].recipeTime}`,
+      information_level: `${catResult[0].recipeDifficulty}`,
+      recipe_creDate: "",
+      // member_id: `${result[0].recipeAuthor}`, //로그인한 멤버 정보 들어갈 자리
+      member_id: `admin`, //로그인한 멤버 정보 들어갈 자리
+    };
 
-    catResult[0]["recipeTitle"] = recipeTitle.text();
-    catResult[0]["recipeAuthor"] = recipeAuthor.text().replace(/\s/g, "");
-    catResult[0]["recipeIntro"] = recipeIntro.text().replace(/\s\s/g, "");
-    catResult[0]["recipeServing"] = recipeServing.text().replace("\n", "");
-    catResult[0]["recipeTime"] = recipeTime.text().replace("\n\t", "");
-    catResult[0]["recipeDifficulty"] = recipeDifficulty
-      .text()
-      .replace("\n", "");
-    catResult[0]["recipeThumbnail"] = recipeThumbnail.find("img").attr("src");
-    catResult[0]["authorProfilePic"] = authorProfilePic.find("img").attr("src");
+    axios({
+      method: "POST",
+      url: "http://localhost:9000/recipe/save",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      data: data,
+      // data: formData,
+    }).then((response) => {
+      // for (let value of data.values()) {
+      //   console.log(value);
+      // }
+      console.log(response);
+      console.log("성공?");
+    });
   }
-  // if (recipeLinkList[count].includes("cat1=&")) {
-  //   catResult[0].cookingMethod = "전체";
-  //   catResult[0]["cookingMethod"] = "전체";
-  //   // break;
-  // } else if (recipeLinkList[count].includes("cat1=6&")) {
-  //   catResult[0]["typeOfRecipe"] = "볶음";
-  // } else if (recipeLinkList[count].includes("cat1=1&")) {
-  //   catResult[0]["typeOfRecipe"] = "끓이기";
-  // } else if (recipeLinkList[count].includes("cat1=7&")) {
-  //   catResult[0]["typeOfRecipe"] = "부침";
-  // } else if (recipeLinkList[count].includes("cat1=36&")) {
-  //   catResult[0]["typeOfRecipe"] = "조림";
-  // } else if (recipeLinkList[count].includes("cat1=41&")) {
-  //   catResult[0]["typeOfRecipe"] = "무침";
-  // } else if (recipeLinkList[count].includes("cat1=42&")) {
-  //   catResult[0]["typeOfRecipe"] = "비빔";
-  // } else if (recipeLinkList[count].includes("cat1=8&")) {
-  //   catResult[0]["typeOfRecipe"] = "찜";
-  // } else if (recipeLinkList[count].includes("cat1=10&")) {
-  //   catResult[0]["typeOfRecipe"] = "절임";
-  // } else if (recipeLinkList[count].includes("cat1=9&")) {
-  //   catResult[0]["typeOfRecipe"] = "튀김";
-  // } else if (recipeLinkList[count].includes("cat1=38&")) {
-  //   catResult[0]["typeOfRecipe"] = "삶기";
-  // } else if (recipeLinkList[count].includes("cat1=67&")) {
-  //   catResult[0]["typeOfRecipe"] = "굽기";
-  // } else if (recipeLinkList[count].includes("cat1=39&")) {
-  //   catResult[0]["typeOfRecipe"] = "데치기";
-  // } else if (recipeLinkList[count].includes("cat1=37&")) {
-  //   catResult[0]["typeOfRecipe"] = "회";
-  // } else if (recipeLinkList[count].includes("cat1=11&")) {
-  //   catResult[0]["typeOfRecipe"] = "기타";
-  // }
-
   console.log("catResult", catResult);
 }

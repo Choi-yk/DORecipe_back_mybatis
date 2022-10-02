@@ -7,7 +7,6 @@ import MainLayout from "../../../layout/mainLayOut";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-
 const NoticePage = () => {
   const [state, setState] = useState([
     {
@@ -40,6 +39,7 @@ const NoticePage = () => {
         notice_creDate: "2022/08/17",
       },
       baseURL: "http://localhost:9000",
+      // baseURL: process.env.REACT_APP_HOST,
     }).then(function (response) {
       // console.log(response.data);
       setState(response.data);
@@ -82,17 +82,17 @@ const NoticePage = () => {
                 {BtnState && <div className="updateOrDelete">수정 및 삭제</div>}
               </div>
               <Scrollable>
-              <div>
-              {state.map((e) => (
-                <NoticeList
-                  key={e.notice_num}
-                  removePost={removePost}
-                  BtnState={BtnState}
-                  state={e}
-                />
-              ))}
-            </div>
-            </Scrollable>
+                <div>
+                  {state.map((e) => (
+                    <NoticeList
+                      key={e.notice_num}
+                      removePost={removePost}
+                      BtnState={BtnState}
+                      state={e}
+                    />
+                  ))}
+                </div>
+              </Scrollable>
             </ul>
           </div>
         </div>
@@ -102,7 +102,6 @@ const NoticePage = () => {
   );
 };
 export default NoticePage;
-
 
 const Scrollable = styled.section`
   width: 100%;

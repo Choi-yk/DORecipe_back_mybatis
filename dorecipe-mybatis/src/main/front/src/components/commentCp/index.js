@@ -69,6 +69,7 @@ const CommentCp = () => {
           axios({
             method: "POST",
             url: "http://localhost:9000/comment/insert",
+            // url: process.env.REACT_APP_HOST + "/comment/insert",
             headers: { "Content-Type": "multipart/form-data" },
             data: commentFormData,
           }).then((response) => {
@@ -114,6 +115,7 @@ const CommentCp = () => {
   function commentAxios() {
     axios({
       url: "http://localhost:9000/comment/list/" + recipeId,
+      // url: process.env.REACT_APP_HOST + "/comment/list/" + recipeId,
       method: "get",
       data: {
         recipe_num: "",

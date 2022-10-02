@@ -63,44 +63,44 @@ const RecipeDetailModal = () => {
 
   useEffect(() => {
     const searchParam = params.recipeId;
-    if(searchParam !== undefined){
-    axios
-      .get("http://localhost:9000/recipe/search/details/" + searchParam)
-      .then(function (response) {
-        setDetailState(response.data);
-      })
-      .catch((e) => console.log(e));
-    axios
-      .get("http://localhost:9000/recipe/getIngredientList/" + searchParam)
-      .then(function (response) {
-        setIngredientState(response.data);
-      })
-      .catch((e) => console.log(e));
-    axios
-      .get("http://localhost:9000/recipe/getRecipeLikes/", {
-        params: { recipe_num: searchParam },
-      })
-      .then(function (response) {
-        console.log(response.data);
-        response.data ? setRecipeLikes(response.data) : setRecipeLikes(0);
-      })
-      .catch((e) => console.log(e));
-    axios
-      .get("http://localhost:9000/recipe/getLikedMember/", {
-        params: { param1: detailState[0].member_id, param2: searchParam },
-      })
-      .then(function (response) {
-        console.log("heartstate", response.data);
-        response.data
-          ? setHeartState(faHeart)
-          : setHeartState(faHeartCirclePlus);
-      })
-      .catch((e) => console.log(e));
+    if (searchParam !== undefined) {
+      axios
+        .get("/recipe/search/details/" + searchParam)
+        .then(function (response) {
+          setDetailState(response.data);
+        })
+        .catch((e) => console.log(e));
+      axios
+        .get("/recipe/getIngredientList/" + searchParam)
+        .then(function (response) {
+          setIngredientState(response.data);
+        })
+        .catch((e) => console.log(e));
+      axios
+        .get("/recipe/getRecipeLikes/", {
+          params: { recipe_num: searchParam },
+        })
+        .then(function (response) {
+          console.log(response.data);
+          response.data ? setRecipeLikes(response.data) : setRecipeLikes(0);
+        })
+        .catch((e) => console.log(e));
+      axios
+        .get("/getLikedMember/", {
+          params: { param1: detailState[0].member_id, param2: searchParam },
+        })
+        .then(function (response) {
+          console.log("heartstate", response.data);
+          response.data
+            ? setHeartState(faHeart)
+            : setHeartState(faHeartCirclePlus);
+        })
+        .catch((e) => console.log(e));
     }
   }, []);
 
   const getRecipeLikes = axios
-    .get("http://localhost:9000/recipe/getRecipeLikes/", {
+    .get("/recipe/getRecipeLikes/", {
       params: { recipe_num: searchParam },
     })
     .then(function (response) {
@@ -114,7 +114,7 @@ const RecipeDetailModal = () => {
     if (heartState === faHeart) {
       //좋아요를 누른 상태
       axios
-        .get("http://localhost:9000/recipe/removeLikes", {
+        .get("/recipe/removeLikes", {
           params: {
             param1: loginState, //좋아요 누른 사람
             param2: searchParam,
@@ -124,7 +124,7 @@ const RecipeDetailModal = () => {
         .then(getRecipeLikes);
     } else if (heartState === faHeartCirclePlus) {
       axios
-        .get("http://localhost:9000/recipe/insertLikes", {
+        .get("/recipe/insertLikes", {
           params: {
             param1: loginState, //좋아요 누른 사람
             param2: searchParam,

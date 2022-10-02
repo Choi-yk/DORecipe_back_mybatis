@@ -34,6 +34,8 @@ const MemberInfoForm = () => {
       axios({
         url: "/member/getMember/" + user.auth.user.username,
         method: "get",
+        // baseURL: process.env.REACT_APP_HOST,
+        // baseURL: process.env.REACT_APP_API_URL,
         baseURL: "http://localhost:9000",
       })
         .then(function (response) {

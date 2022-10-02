@@ -89,7 +89,7 @@ const IngredientForm = ({ recipeState }) => {
 
       axios({
         method: "POST",
-        url: "http://localhost:9000/recipe/insertRecipeIngredients",
+        url: "/recipe/insertRecipeIngredients",
         headers: { "Content-Type": "multipart/form-data" },
         data: formData,
       }).then((response) => {

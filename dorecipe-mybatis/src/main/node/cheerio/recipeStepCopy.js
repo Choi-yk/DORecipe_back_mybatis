@@ -1,6 +1,79 @@
 import fetch from "node-fetch";
 import { load } from "cheerio";
 import axios from "axios";
+
+let cat1 = ["", 6, 1, 7, 36, 41, 42, 8, 10, 9, 38, 67, 39, 37, 11]; //테마별
+let cat2 = ["", 12, 18, 13, 1, 21, 15, 43, 18, 45, 20, 46, 44, 14, 22]; //상황별
+let cat3 = ["", 70, 71, 72, 23, 28, 24, 50, 33, 47, 32, 25, 31, 48, 27, 26, 34]; //상황별
+let cat4 = [
+  "",
+  63,
+  56,
+  54,
+  55,
+  60,
+  53,
+  52,
+  61,
+  57,
+  58,
+  65,
+  64,
+  68,
+  66,
+  69,
+  59,
+  62,
+]; //종류별
+let links = []; //카테고리별 주소
+const categoryUrl =
+  "https://www.10000recipe.com/recipe/list.html?q=&query=&cat1=" +
+  cat1 +
+  "&cat2=" +
+  cat2 +
+  "&cat3=" +
+  cat3 +
+  "&cat4=" +
+  cat4 +
+  "&order=reco&page=";
+
+for (let items in cat1) {
+  // console.log(cat1[items]);
+  for (let items2 in cat2) {
+    for (let items3 in cat3) {
+      for (let items4 in cat4) {
+        // for (let index = 1; index <= 1; index++) {
+        links.push(
+          "https://www.10000recipe.com/recipe/list.html?q=&query=&cat1=" +
+            cat1[items] +
+            "&cat2=" +
+            cat2[items2] +
+            "&cat3=" +
+            cat3[items3] +
+            "&cat4=" +
+            cat4[items4] +
+            "&order=reco&page=1"
+          // +index
+        );
+        // console.log(
+        //   "https://www.10000recipe.com/recipe/list.html?q=&query=&cat1=" +
+        //     cat1[items] +
+        //     "&cat2=" +
+        //     cat2[items2] +
+        //     "&cat3=" +
+        //     cat3[items3] +
+        //     "&cat4=" +
+        //     cat4[items4]
+        // );
+        // }
+      }
+    }
+  }
+}
+// console.log("links.length", links.length);
+console.log("links", links);
+console.log("links", links.length);
+
 const result = [
   {
     recipeId: "", //레시피 번호
@@ -18,6 +91,7 @@ const result = [
 
 let recipeOrderResult = [];
 
+// for (let count = 6978100; count < 6978200; count++) {
 for (let count = 6978100; count < 6978200; count++) {
   // for (let count = 6907542; count < 6907543; count++) {
   // for (let count = 6907542; count < 6907550; count++) {
@@ -248,17 +322,17 @@ for (let count = 6978100; count < 6978200; count++) {
       order_explain: `${recipeOrderResult[i].stepDescription}`,
       order_path: `${recipeOrderResult[i].stepImg}`,
     };
-    console.log("data", data);
+    // console.log("data", data);
 
-    axios({
-      method: "POST",
-      url: "http://localhost:9000/recipe/insertRecipeOrderCheerio",
-      headers: { "Content-Type": "multipart/form-data" },
-      data: data,
-      // data: recipeOrderResult,
-    }).then((response) => {
-      console.log(response.data);
-    });
+    // axios({
+    //   method: "POST",
+    //   url: "http://localhost:9000/recipe/insertRecipeOrderCheerio",
+    //   headers: { "Content-Type": "multipart/form-data" },
+    //   data: data,
+    //   // data: recipeOrderResult,
+    // }).then((response) => {
+    //   console.log(response.data);
+    // });
   }
 
   // for (let i = 0; i < steps.length; i++) {

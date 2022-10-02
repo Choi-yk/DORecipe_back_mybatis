@@ -63,6 +63,7 @@ const CreateRecipeForm = () => {
             axios({
               method: "POST",
               url: "http://localhost:9000/recipe/getRecipeNum",
+              // url: process.env.REACT_APP_HOST + "/recipe/getRecipeNum",
               headers: { "Content-Type": "multipart/form-data" },
               data: { member_id: user.auth.user.username, recipe_num: 0 },
             }).then((response) => {

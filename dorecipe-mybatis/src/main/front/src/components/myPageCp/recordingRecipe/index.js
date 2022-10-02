@@ -43,6 +43,8 @@ const RecordingRecipeList = () => {
       method: "Post",
       data: formData,
       baseURL: "http://localhost:9000",
+      // baseURL: process.env.REACT_APP_HOST,
+      // baseURL: process.env.REACT_APP_API_URL,
     }).then(function (response) {
       setRecipeState(response.data);
       setRecipeLength(response.data.length);

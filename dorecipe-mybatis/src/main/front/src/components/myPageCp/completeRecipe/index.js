@@ -45,6 +45,7 @@ const CompleteRecipeList = () => {
       method: "Post",
       data: formData,
       baseURL: "http://localhost:9000",
+      // baseURL: process.env.REACT_APP_HOST,
     }).then(function (response) {
       setRecipeState(response.data);
     });

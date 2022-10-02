@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../../_common/bannerLayout/style.css";
+import axios from "axios";
 const BestRecipe = () => {
   //axios로 레시피 받아와서 출력하기
 
@@ -71,6 +72,14 @@ const BestRecipe = () => {
     console.log(state[i].recipe_rank);
   }
   console.log(state);
+
+  axios
+    // .get(process.env.REACT_APP_HOST + "/recipe/search/details/")
+    .get("http://localhost:9000/recipe/search/details/")
+    .then((result) => {
+      console.log(result);
+      setState(result.data);
+    });
 
   return (
     <>

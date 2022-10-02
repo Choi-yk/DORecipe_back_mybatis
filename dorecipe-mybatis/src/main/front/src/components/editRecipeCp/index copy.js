@@ -36,32 +36,19 @@ const EditRecipeForm = () => {
     if (user.auth.isLoggedIn) {
       setMemberId(user.auth.user.username);
       setRecipeNumState(params);
-
       axios
         .get(
-          "http://localhost:9000/recipe/getIngredientList/" +
-            historylocation.pathname.substring(
-              historylocation.pathname.lastIndexOf("/") + 1, //현재위치
-              historylocation.pathname.length
-            )
+          // process.env.REACT_APP_HOST + "/recipe/update/" + params
+          "http://localhost:9000/recipe/update/" + params
+          // historylocation.pathname.substring(
+          //   historylocation.pathname.lastIndexOf("/") + 1, //현재위치
+          //   historylocation.pathname.length
+          // )
         )
         .then((response) => {
-          console.log("getIngredientList!!!!!!!!!!!!", response.data);
+          console.log("response", response.data);
         })
         .catch((e) => console.log(e));
-      // axios
-      //   .get(
-      //     // process.env.REACT_APP_HOST + "/recipe/update/" + params
-      //     "http://localhost:9000/recipe/update/" + params
-      //     // historylocation.pathname.substring(
-      //     //   historylocation.pathname.lastIndexOf("/") + 1, //현재위치
-      //     //   historylocation.pathname.length
-      //     // )
-      //   )
-      //   .then((response) => {
-      //     console.log("response", response.data);
-      //   })
-      //   .catch((e) => console.log(e));
       axios
         .get(
           // process.env.REACT_APP_HOST +
@@ -77,17 +64,9 @@ const EditRecipeForm = () => {
         .catch((e) => console.log(e));
       axios
         // .get(process.env.REACT_APP_HOST + "/recipe/getIngredientList/" + params)
-        // .get("http://localhost:9000/recipe/getIngredientList/" + params)
-        .get(
-          "http://localhost:9000/recipe/getIngredientList/" +
-            historylocation.pathname.substring(
-              historylocation.pathname.lastIndexOf("/") + 1, //현재위치
-              historylocation.pathname.length
-            )
-        )
+        .get("http://localhost:9000/recipe/getIngredientList/" + params)
         .then((response) => {
           setIngredientState(response.data);
-          console.log("getIngredientList", response.data);
         })
         .catch((e) => console.log(e));
     } else {
@@ -96,7 +75,7 @@ const EditRecipeForm = () => {
     console.log(
       "currentLocation : " +
         historylocation.pathname.substring(
-          historylocation.pathname.lastIndexOf("/") + 1, //현재위치
+          historylocation.pathname.lastIndexOf("/"), //현재위치
           historylocation.pathname.length
         )
     );

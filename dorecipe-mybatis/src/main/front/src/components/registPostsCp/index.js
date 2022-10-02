@@ -115,6 +115,7 @@ function TabContent(props) {
     } else {
       axios({
         method: "POST",
+        // url: process.env.REACT_APP_HOST + "/event/insert",
         url: "http://localhost:9000/event/insert",
         headers: { "Content-Type": "multipart/form-data" },
         data: formData,
@@ -194,7 +195,10 @@ function TabContent(props) {
     else {
       axios({
         method: "post",
-        url: "http://localhost:9000/knowhow/insert",
+
+        baseURL: "http://localhost:9000",
+        url: "/knowhow/insert",
+        // url: process.env.REACT_APP_HOST + "/knowhow/insert",
         headers: { "Content-Type": "multipart/form-data" },
         data: KnowFormData,
       }).then((response) => {
@@ -260,7 +264,7 @@ function TabContent(props) {
         const noticeData = {
           member_id: `${user.auth.user.username}`,
           notice_title: `${notice_title}`,
-          notice_content: `${notice_content}`
+          notice_content: `${notice_content}`,
         };
 
         const noticeBlob = new Blob([JSON.stringify(noticeData)], {
@@ -268,10 +272,10 @@ function TabContent(props) {
         });
 
         const formData = new FormData();
-		
-		//notice_content = `${notice_content}`.replace(/<br>|<br\>|<br \/>)/g, '\n\r');	
-		//줄바꿈 - 콘솔에는 줄바꿈되어서 찍힘,db에도 화면에는 줄바꿈 안됨
-		
+
+        //notice_content = `${notice_content}`.replace(/<br>|<br\>|<br \/>)/g, '\n\r');
+        //줄바꿈 - 콘솔에는 줄바꿈되어서 찍힘,db에도 화면에는 줄바꿈 안됨
+
         formData.append("noticeData", noticeBlob);
         formData.append("member_id", noticeData.member_id);
         formData.append("notice_title", noticeData.notice_title);
@@ -286,11 +290,12 @@ function TabContent(props) {
           axios({
             method: "POST",
             url: "http://localhost:9000/notice/insert",
+            // url: process.env.REACT_APP_HOST + "/notice/insert",
             headers: { "Content-Type": "multipart/form-data" },
             data: formData,
           }).then((response) => {
             console.log(response.data);
-            console.log("줄바꿈 적용됐나..? ",notice_content);
+            console.log("줄바꿈 적용됐나..? ", notice_content);
             document.getElementById("noticeTitle").value = "";
             document.getElementById("noticeContent").value = "";
             alert("공지사항이 등록되었습니다.");
@@ -417,7 +422,7 @@ function TabContent(props) {
                 required
                 id="eventData4"
                 onChange={onChangeEventCreDate}
-                />
+              />
               <input
                 name="event_finDate"
                 className="date eventData"
@@ -516,6 +521,5 @@ const WarningMsg = styled.div`
   font-size: smaller;
   font-weight: 400;
 `;
-
 
 export default RegistPosts;

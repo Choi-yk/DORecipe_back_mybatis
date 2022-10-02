@@ -36,19 +36,6 @@ const EditRecipeForm = () => {
     if (user.auth.isLoggedIn) {
       setMemberId(user.auth.user.username);
       setRecipeNumState(params);
-
-      axios
-        .get(
-          "http://localhost:9000/recipe/getIngredientList/" +
-            historylocation.pathname.substring(
-              historylocation.pathname.lastIndexOf("/") + 1, //현재위치
-              historylocation.pathname.length
-            )
-        )
-        .then((response) => {
-          console.log("getIngredientList!!!!!!!!!!!!", response.data);
-        })
-        .catch((e) => console.log(e));
       // axios
       //   .get(
       //     // process.env.REACT_APP_HOST + "/recipe/update/" + params

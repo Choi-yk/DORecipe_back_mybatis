@@ -36,6 +36,7 @@ const LikeRecipeList = () => {
         information_time: "",
       },
       baseURL: "http://localhost:9000",
+      // baseURL: process.env.REACT_APP_HOST,
     }).then(function (response) {
       console.log(response.data);
       setLikeState(response.data);

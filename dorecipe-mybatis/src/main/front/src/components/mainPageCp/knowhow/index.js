@@ -31,6 +31,7 @@ const KnowhowMain = () => {
         know_creDate: "",
         know_path: "",
       },
+      // baseURL: process.env.REACT_APP_HOST,
       baseURL: "http://localhost:9000",
     }).then(function (response) {
       console.log(response.data);

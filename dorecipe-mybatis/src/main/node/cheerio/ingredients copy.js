@@ -3,7 +3,7 @@ import { load } from "cheerio";
 import axios from "axios";
 const result = [
   {
-    recipeId: "", //레시피 번호
+    recipeId: 0, //레시피 번호
     recipeAuthor: "",
     recipeTitle: "", //레시피 제목
     recipeIntro: "", //레시피 소개
@@ -31,6 +31,8 @@ for (let count = 6978100; count < 6978200; count++) {
 
   let $ = load(body);
 
+  result[0].recipeId = count - 6978100 + 1;
+
   //   let all = $("*");
   // const menuTitle = $(".view2_summary h3");
   // const recipeAuthor = $(".user_info2_name");
@@ -48,7 +50,8 @@ for (let count = 6978100; count < 6978200; count++) {
   const recipeTime = $(".view2_summary_info2");
   const recipeDifficulty = $(".view2_summary_info3");
   // const recipeIngredients = $(".case1 li");
-  const recipeIngredients = $(".ready_ingre3 ul li");
+  const recipeIngredients = $(".ready_ingre3 ul li ");
+  // const recipeIngredients = $(".ready_ingre3 ul li a");
   const recipeIngredientsUnit = $(".ingre_unit");
   const recipeThumbnail = $(".centeredcrop");
   const authorProfilePic = $(".user_info2");
@@ -109,7 +112,7 @@ for (let count = 6978100; count < 6978200; count++) {
     });
   }
 
-  console.log("recipeOrderResult: ", recipeOrderResult);
+  // console.log("recipeOrderResult: ", recipeOrderResult);
   //////////////////////////////////////////////////////////////////////////////////레시피 댓글
 
   // export const recipeCommentResult = [];
@@ -241,26 +244,37 @@ for (let count = 6978100; count < 6978200; count++) {
   //   order_explain:stepDescription,
   //   order_path:stepImg,
   // }
-  for (let i = 0; i < steps.length; i++) {
-    const data = {
-      recipe_num: `${recipeOrderResult[0].recipe_num}`,
-      order_num: `${recipeOrderResult[i].steps}`,
-      order_explain: `${recipeOrderResult[i].stepDescription}`,
-      order_path: `${recipeOrderResult[i].stepImg}`,
+  // for (let i = 0; i < steps.length; i++) {
+  // let data = [];
+  let ingredientsData = [];
+  for (let j = 0; j < result[0].recipeIngredients.length; j++) {
+    // const data = {
+    ingredientsData = {
+      // recipe_num: `${result[0].recipeId}`,
+      // recipe_num: count - 6978099,
+      // recipe_num: count - 6978099,
+      recipe_num: count - 6978099,
+      ing_num: j + 1,
+      ing_ingredient: `${result[0].recipeIngredients[j]}`,
+      ing_amount: `${result[0].recipeIngredientsUnit[j]}`,
     };
-    console.log("data", data);
-
+    console.log("ingredientsData", ingredientsData);
+    // console.log(
+    //   "result[0].recipeIngredients.length",
+    //   result[0].recipeIngredients.length
+    // );
     axios({
       method: "POST",
-      url: "http://localhost:9000/recipe/insertRecipeOrderCheerio",
+      url: "http://localhost:9000/recipe/insertRecipeIngredientsCheerio",
       headers: { "Content-Type": "multipart/form-data" },
-      data: data,
+      data: ingredientsData,
       // data: recipeOrderResult,
     }).then((response) => {
       console.log(response.data);
     });
   }
 
+  // }
   // for (let i = 0; i < steps.length; i++) {
   //   recipeOrderResult.push({
   //     recipe_num: count - 6978100,

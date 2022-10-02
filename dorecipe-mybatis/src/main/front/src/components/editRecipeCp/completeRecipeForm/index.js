@@ -89,6 +89,7 @@ const CompleteRecipe = ({ recipeState }) => {
     axios({
       method: "POST",
       url: "http://localhost:9000/recipe/insertRecipeComplete",
+      // url: process.env.REACT_APP_HOST + "/recipe/insertRecipeComplete",
       headers: {
         "Content-Type": "multipart/form-data",
       },

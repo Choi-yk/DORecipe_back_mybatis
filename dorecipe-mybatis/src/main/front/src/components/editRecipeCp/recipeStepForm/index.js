@@ -204,6 +204,8 @@ const RecipeOrderDrag = ({ recipeState }) => {
         if (btnState <= 1) {
           axios({
             method: "POST",
+
+            // url: process.env.REACT_APP_HOST + "/recipe/insertRecipeOrder",
             url: "http://localhost:9000/recipe/insertRecipeOrder",
             headers: { "Content-Type": "multipart/form-data" },
             data: formData,
@@ -221,7 +223,10 @@ const RecipeOrderDrag = ({ recipeState }) => {
           //업데이트문
           axios({
             method: "POST",
-            url: "http://localhost:9000/recipe/updateRecipeInstructions",
+            baseURL: "http://localhost:9000",
+            url:
+              // process.env.REACT_APP_HOST + "/recipe/updateRecipeInstructions",
+              "/recipe/updateRecipeInstructions",
             headers: { "Content-Type": "multipart/form-data" },
             data: formData,
           })

@@ -8,6 +8,7 @@ import { SwiperSlide } from "swiper/react";
 
 const EditorsChoiceSection = () => {
   //axios로 노하우 받아와서 출력하기
+  // http://localhost:3000/recipe/search/details/99
 
   const [state, setState] = useState([
     {
@@ -87,7 +88,7 @@ const EditorsChoiceSection = () => {
                 <SwiperSlide className="slide1" key={e.recipe_rank}>
                   <Link to={`notice/${e.recipe_name}`} className="links">
                     {/* <RecipeWrap key={e}> */}
-                    <RecipeWrap >
+                    <RecipeWrap>
                       {/* <RecipeRank>{e.recipe_rank}</RecipeRank>{" "} */}
                       <RecipeImg key={e.recipeImg}>
                         <img

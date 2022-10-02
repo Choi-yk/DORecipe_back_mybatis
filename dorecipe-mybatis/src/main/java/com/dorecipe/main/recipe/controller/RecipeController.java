@@ -156,6 +156,7 @@ public class RecipeController extends RecipeFileUpload{
 	//레시피 목록
 	@GetMapping("/getIngredientList/{recipe_num}")
 	public List<RecipeVO> getIngredientList( @PathVariable Integer recipe_num) {
+		 System.out.println("recipe_num: "+recipe_num);
 		return recipeService.getIngredientList(recipe_num);
 	}
 	

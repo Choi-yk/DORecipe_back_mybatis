@@ -244,6 +244,7 @@ const NoticeUpdatePage = () => {
         notice_creDate: "",
       },
       baseURL: "http://localhost:9000",
+      // baseURL: process.env.REACT_APP_HOST,
     }).then(function (response) {
       console.log(response.data);
       setState(response.data);
@@ -282,13 +283,14 @@ const NoticeUpdatePage = () => {
       } else {
         axios({
           method: "POST",
+          // url: process.env.REACT_APP_HOST + "/notice/update",
           url: "http://localhost:9000/notice/update",
           headers: { "Content-Type": "multipart/form-data" },
           data: formData,
         }).then((response) => {
           console.log(response.data);
           alert("공지사항이 수정되었습니다.");
-          window.location.href = "http://localhost:3000/notice/list";
+          window.location.href = "/notice/list";
         });
       }
     },

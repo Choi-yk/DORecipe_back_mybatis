@@ -90,11 +90,11 @@ const SignUpTemplate = () => {
         alert("아이디 형식이 일치하지 않습니다(영문 또는 숫자포함 6 ~20자)");
         setMemId("");
       } else if (!pwdExp.current.test(member_pwd)) {
-        setPwd("");
-        setConfirm("");
         alert(
           "비밀번호 형식이 일치하지 않습니다(대소문자 특수문자($ ! % @) 포함  9 ~ 18자)"
         );
+        setPwd("");
+        setConfirm("");
       } else if (!phoneReg.current.test(member_phone)) {
         alert("전화번호 형식이 올바르지 않습니다");
         setPhone("");
@@ -135,6 +135,7 @@ const SignUpTemplate = () => {
 
           axios({
             method: "POST",
+            // url: process.env.REACT_APP_HOST + "/member/join/new",
             url: "http://localhost:9000/member/join/new",
             data: submitData,
           }).then((response) => {

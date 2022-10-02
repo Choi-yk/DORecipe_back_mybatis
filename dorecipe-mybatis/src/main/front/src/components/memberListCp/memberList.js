@@ -18,7 +18,7 @@ const MemberList = ({ removePost, state, isLoading, hasItems, countState }) => {
           {/* <Link className="noticeTitle" to={`/member/${state.member_id}`}>
             {state.member_id}
           </Link> */}
-          <div className="noticeDate">{state.email}</div>
+          <div className="noticeDate">{state.member_email}</div>
           <div className="updateOrDelete">
             {/* <Link className="updateList" to={`/admin/${state.member_id}`}>
               수정

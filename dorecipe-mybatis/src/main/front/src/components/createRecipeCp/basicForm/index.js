@@ -11,7 +11,7 @@ import { useInput } from "../../../hooks/useInput";
 import { useState, useCallback, useEffect } from "react";
 import EditDropZone from "../../_common/dropzone";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const BasicForm = () => {
   const [recipe_title, onChangeRecipeTitle, setRecipeTitle] = useInput("");
@@ -82,10 +82,19 @@ const BasicForm = () => {
       formData.append("recipe_url", data.recipe_url);
       formData.append("recipe_rpath", data.recipe_rpath);
       formData.append("recipe_thumbnail", recipe_thumbnail);
-      formData.append("category_kind", data.category_kind);
-      formData.append("category_theme", data.category_theme);
-      formData.append("category_way", data.category_way);
-      formData.append("category_ing", data.category_ing);
+      //기본값을 전체로 들어가게끔
+      data.category_kind !== ""
+        ? formData.append("category_kind", data.category_kind)
+        : formData.append("category_kind", "전체");
+      data.category_theme !== ""
+        ? formData.append("category_theme", data.category_theme)
+        : formData.append("category_theme", "전체");
+      data.category_way !== ""
+        ? formData.append("category_way", data.category_way)
+        : formData.append("category_way", "전체");
+      data.category_ing !== ""
+        ? formData.append("category_ing", data.category_ing)
+        : formData.append("category_ing", "전체");
       formData.append("information_person", data.information_person);
       formData.append("information_level", data.information_level);
       formData.append("information_time", data.information_time);
@@ -94,6 +103,7 @@ const BasicForm = () => {
 
       axios({
         method: "POST",
+        // url: process.env.REACT_APP_HOST + "/recipe/save",
         url: "http://localhost:9000/recipe/save",
         headers: {
           "Content-Type": "multipart/form-data",
@@ -168,9 +178,7 @@ const BasicForm = () => {
                 value={category_kind}
                 onChange={onChangeKind}
               >
-                <option value="전체" default>
-                  종류별
-                </option>
+                <option value="전체">종류별</option>
                 <option value="전체">전체</option>
                 <option value="밑반찬">밑반찬</option>
                 <option value="메인반찬">메인반찬</option>
@@ -196,9 +204,7 @@ const BasicForm = () => {
                 value={category_theme}
                 onChange={onChangeTheme}
               >
-                <option value="전체" default>
-                  상황•테마별
-                </option>
+                <option>상황•테마별</option>
                 <option value="전체">전체</option>
                 <option value="일상">일상</option>
                 <option value="초스피드">초스피드</option>
@@ -221,9 +227,7 @@ const BasicForm = () => {
                 value={category_ing}
                 onChange={onChangeIngr}
               >
-                <option value="전체" default>
-                  재료별
-                </option>
+                <option>재료별</option>
                 <option value="전체">전체</option>
                 <option value="소고기">소고기</option>
                 <option value="돼지고기">돼지고기</option>
@@ -248,9 +252,7 @@ const BasicForm = () => {
                 value={category_way}
                 onChange={onChangeWay}
               >
-                <option value="전체" default>
-                  방법별
-                </option>
+                <option>방법별</option>
                 <option value="전체">전체</option>
                 <option value="볶음">볶음</option>
                 <option value="끓이기">끓이기</option>
@@ -277,9 +279,7 @@ const BasicForm = () => {
                 value={information_person}
                 onChange={onChangeServingSize}
               >
-                <option value="default" default>
-                  인분
-                </option>
+                <option>인분</option>
                 <option value="1인분">1인분</option>
                 <option value="2인분">2인분</option>
                 <option value="3인분">3인분</option>
@@ -292,9 +292,7 @@ const BasicForm = () => {
                 value={information_time}
                 onChange={onChangeTime}
               >
-                <option value="default" default>
-                  시간
-                </option>
+                <option>시간</option>
                 <option value="5분 이내">5분 이내</option>
                 <option value="15분 이내">15분 이내</option>
                 <option value="20분 이내">20분 이내</option>
@@ -310,9 +308,7 @@ const BasicForm = () => {
                 value={information_level}
                 onChange={onChangeLevel}
               >
-                <option value="default" default>
-                  난이도
-                </option>
+                <option>난이도</option>
                 <option value="아무나">아무나</option>
                 <option value="초급">초급</option>
                 <option value="중급">중급</option>

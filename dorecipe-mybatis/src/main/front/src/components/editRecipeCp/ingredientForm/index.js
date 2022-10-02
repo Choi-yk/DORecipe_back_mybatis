@@ -90,6 +90,7 @@ const IngredientForm = ({ recipeId }) => {
 
       axios({
         method: "POST",
+        // url: process.env.REACT_APP_HOST + "/recipe/insertRecipeIngredients",
         url: "http://localhost:9000/recipe/insertRecipeIngredients",
         headers: { "Content-Type": "multipart/form-data" },
         data: formData,

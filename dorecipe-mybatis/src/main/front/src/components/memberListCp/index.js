@@ -33,6 +33,7 @@ const List = () => {
         member_like: "",
         email: "",
       },
+      // baseURL: process.env.REACT_APP_HOST,
       baseURL: "http://localhost:9000",
     })
       .then(function (response) {
@@ -63,35 +64,35 @@ const List = () => {
 
   return (
     <>
-    <div className="bottom2 width2 left4">
-      <ListWrapper>
-        <h3 className="">회원 관리</h3>
-        <hr className="" />
-        <div className="">
-          <ul>
-            <TableHead>
-              <div className="noticeNo">이름</div>
-              <div className="noticeTitle">아이디</div>
-              <div className="noticeDate">이메일</div>
-              <div className="updateOrDelete"></div>
-              {/* 수정은 로그인한 회원이 하도록 기능 옮기기 */}
-            </TableHead>
-            <Scrollable>
-              <div>
-                {state.map((e) => (
-                  <MemberList
-                    key={e.member_id}
-                    removePost={removePost}
-                    state={e}
-                    isLoading={isLoading}
-                    hasItems={hasItems}
-                  />
-                ))}
-              </div>
-            </Scrollable>{" "}
-          </ul>
-        </div>
-      </ListWrapper>
+      <div className="bottom2 width2 left4">
+        <ListWrapper>
+          <h3 className="">회원 관리</h3>
+          <hr className="" />
+          <div className="">
+            <ul>
+              <TableHead>
+                <div className="noticeNo">이름</div>
+                <div className="noticeTitle">아이디</div>
+                <div className="noticeDate">이메일</div>
+                <div className="updateOrDelete"></div>
+                {/* 수정은 로그인한 회원이 하도록 기능 옮기기 */}
+              </TableHead>
+              <Scrollable>
+                <div>
+                  {state.map((e) => (
+                    <MemberList
+                      key={e.member_id}
+                      removePost={removePost}
+                      state={e}
+                      isLoading={isLoading}
+                      hasItems={hasItems}
+                    />
+                  ))}
+                </div>
+              </Scrollable>{" "}
+            </ul>
+          </div>
+        </ListWrapper>
       </div>
     </>
   );

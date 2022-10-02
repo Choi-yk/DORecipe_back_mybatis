@@ -88,7 +88,7 @@ const CompleteRecipe = ({ recipeState }) => {
 
     axios({
       method: "POST",
-      url: "http://localhost:9000/recipe/insertRecipeComplete",
+      url: "/recipe/insertRecipeComplete",
       headers: {
         "Content-Type": "multipart/form-data",
       },
