@@ -304,15 +304,16 @@ public class RecipeVO {
 		return order_path;
 	}
 
-	String uploadDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 
 	public void setOrder_path(String order_path) {
-		if(order_path.contains("https://recipe")) {//크롤링했던 거 주소
-			this.order_path=order_path;
-		} else {//사용자 등록레시피
-		this.order_path = "/img/recipe/steps/"+ uploadDate +
-				"/"+UUID.randomUUID().toString()+"_"+order_path;}
-			
+//		String uploadDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+//		if(order_path.contains("https://recipe")) {//크롤링했던 거 주소
+//			this.order_path=order_path;
+//		} else {//사용자 등록레시피
+//		this.order_path = "/img/recipe/steps/"+ uploadDate +
+//				"/"+UUID.randomUUID().toString()+"_"+order_path;}
+		System.out.println("order_path:~~~~~~~~~~~~~~~~"+order_path);
+		this.order_path=order_path;
 	}
 
 
@@ -425,6 +426,7 @@ public class RecipeVO {
 
 
 	public void setOrderVoList_path(List<String> orderVoList_path) {
+		
 		this.orderVoList_path = orderVoList_path;
 	}
 

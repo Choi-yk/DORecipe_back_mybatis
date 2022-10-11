@@ -13,7 +13,6 @@ const RecipeList = ({ recipeState }) => {
       <RecipeWrap>
         <>
           <ItemWrap onClick={onClickRecipe}>
-            {/* <ItemWrap > */}
             <div>
               <>
                 <img

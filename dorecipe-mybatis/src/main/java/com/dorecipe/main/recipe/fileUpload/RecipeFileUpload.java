@@ -48,9 +48,9 @@ public class RecipeFileUpload {
 			String saveThumbnailName = uploadPathThumbnail + File.separator +
 					folderPath +File.separator + uuid +"_"+originalName;
 		
-			System.out.println("전체경로" + saveThumbnailName);
+//			System.out.println("전체경로" + saveThumbnailName);
 			Path saveThumbnailPath = Paths.get(saveThumbnailName);		
-			System.out.println("savename: "+saveThumbnailPath);
+//			System.out.println("savename: "+saveThumbnailPath);
 			
 			//db저장 이미지 경로
 			String uploadDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
@@ -76,20 +76,28 @@ public class RecipeFileUpload {
 		for(int i= 0; i<uploadFiles.length; i++) {
 		String originalName = uploadFiles[i].getOriginalFilename();	//클라이언트의 이미지 퍼일명
 		System.out.println("originalName:"+ originalName);
-		String fileName =originalName.substring(originalName.lastIndexOf("//")+1);	//마지막 //뒤의 파일이름가져오기
-		System.out.println("fileName:"+ fileName);
+//		String fileName =originalName.substring(originalName.lastIndexOf("//")+1);	//마지막 //뒤의 파일이름가져오기
+//		System.out.println("fileName:"+ fileName);
 		//날짜폴더
 		String folderPath = makeFolder();
 		//랜덤 파일명으로 바꿔주기 (중복 방지)
 		String uuid = UUID.randomUUID().toString();
 		//저장할 이미지 이름들
 		
-		String saveStepImgNames = uploadPathStepImages + File.separator +
-				folderPath +File.separator + uuid +"_"+originalName;
-		Path saveStepImgsPath = Paths.get(saveStepImgNames);
-		System.out.println("savename: "+saveStepImgsPath);
+		String saveStepImgName = uploadPathStepImages + File.separator +
+				folderPath +File.separator + uuid +"_"+i +"_"+originalName;
+		Path saveStepImgsPath = Paths.get(saveStepImgName);
+//		System.out.println("savename: "+saveStepImgsPath);
 
+		
+//		//db저장 이미지 경로
+		String uploadDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+		String recipe_order_path = "/img/recipe/steps/"+ uploadDate + "/"+uuid+"_"+originalName;
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+recipe_order_path);
+		recipeVO.setOrder_path(recipe_order_path);
+		
 		try {
+			System.out.println("uploadFiles[i]: "+uploadFiles[i]);
 			uploadFiles[i].transferTo(saveStepImgsPath);
 		} catch (IOException e) {
 			e.printStackTrace();

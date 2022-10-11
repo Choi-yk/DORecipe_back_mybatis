@@ -31,6 +31,7 @@ const CompleteRecipeList = () => {
     if (member_id !== undefined) {
       Axios();
     }
+    // }, [member_id, recipeState]);
   }, [member_id]);
 
   // 작성한 레시피 정보 가져오기
@@ -42,7 +43,7 @@ const CompleteRecipeList = () => {
     console.log("작성중레시피 가져오니?" + member_id);
     axios({
       url: "/recipe/recordingType1",
-      method: "Post",
+      method: "POST",
       data: formData,
       baseURL: "http://localhost:9000",
       // baseURL: process.env.REACT_APP_HOST,
@@ -73,17 +74,6 @@ const CompleteRecipeList = () => {
               )}
             </div>
           </Scrollable>
-          {/* {
-                    C_recipeState.length !== 0
-                    ?
-                    C_recipeState.map((e) => (
-                        <CompleteList
-                            C_recipeState={e}
-                        />  
-                    ))
-                    :
-                    <NullRecipe />
-                } */}
         </div>
       </div>
     </>
@@ -105,14 +95,14 @@ const SectionTitle = styled.div`
 `;
 
 const Scrollable = styled.section`
-  width: 100%;
+  width: 90%;
   margin: 1em auto;
 
   & > div {
-    padding: 2rem;
     height: 30em;
-    overflow-y: auto;
+    overflow-x: auto;
     margin: 0 auto;
+    padding: 1em 0;
 
     ::-webkit-scrollbar {
       width: 0.5rem;

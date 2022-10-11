@@ -7,13 +7,12 @@ h2 {
   margin: 0 auto;
 }
 
-.inline{
+.inline {
   display: inline;
 }
 
 /* 표 */
 .tableHead {
-  
   display: inline-flex;
   width: 100%;
   justify-content: center;
@@ -23,7 +22,7 @@ h2 {
   /* margin-bottom: 1em 0; */
 }
 
-.finDate{
+.finDate {
   font-size: smaller;
 }
 
@@ -74,6 +73,10 @@ h2 {
   margin-left: 1em;
 }
 
-.bottom{
+.bottom {
   margin-bottom: 300px;
+}
+
+.noticeTitle:hover {
+  cursor: pointer;
 }

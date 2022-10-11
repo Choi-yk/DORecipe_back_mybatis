@@ -219,28 +219,28 @@ for (let count = 6978100; count < 6978200; count++) {
     console.log(response);
     console.log("성공?");
   });
-  // axios({
-  //   method: "POST",
-  //   url: "http://localhost:9000/recipe/save",
-  //   headers: {
-  //     "Content-Type": "multipart/form-data",
-  //   },
-  //   data: data,
-  //   // data: formData,
-  // }).then((response) => {
-  //   // for (let value of data.values()) {
-  //   //   console.log(value);
-  //   // }
-  //   console.log(response);
-  //   console.log("성공?");
-  // });
+  axios({
+    method: "POST",
+    url: "http://localhost:9000/recipe/save",
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    data: data,
+    // data: formData,
+  }).then((response) => {
+    // for (let value of data.values()) {
+    //   console.log(value);
+    // }
+    console.log(response);
+    console.log("성공?");
+  });
 
   // const stepData = {
-  //   recipe_num:count-6978100,
-  //   order_num:steps[],
-  //   order_explain:stepDescription,
-  //   order_path:stepImg,
-  // }
+  //   recipe_num: count - 6978100,
+  //   // order_num:steps[],
+  //   order_explain: stepDescription,
+  //   order_path: stepImg,
+  // };
   // for (let i = 0; i < steps.length; i++) {
   //   const data = {
   //     recipe_num: `${recipeOrderResult[0].recipe_num}`,
@@ -248,74 +248,74 @@ for (let count = 6978100; count < 6978200; count++) {
   //     order_explain: `${recipeOrderResult[i].stepDescription}`,
   //     order_path: `${recipeOrderResult[i].stepImg}`,
   //   };
-  //   // console.log("data", data);
+  // console.log("data", data);
 
-  //   axios({
-  //     method: "POST",
-  //     url: "http://localhost:9000/recipe/insertRecipeOrderCheerio",
-  //     headers: { "Content-Type": "multipart/form-data" },
-  //     data: data,
-  //     // data: recipeOrderResult,
-  //   }).then((response) => {
-  //     console.log(response.data);
-  //   });
+  axios({
+    method: "POST",
+    url: "http://localhost:9000/recipe/insertRecipeOrderCheerio",
+    headers: { "Content-Type": "multipart/form-data" },
+    data: data,
+    // data: recipeOrderResult,
+  }).then((response) => {
+    console.log(response.data);
+  });
   // }
 
-  // for (let i = 0; i < steps.length; i++) {
-  //   recipeOrderResult.push({
-  //     recipe_num: count - 6978100,
-  //     steps: i + 1,
-  //     stepDescription: $(`#stepdescr${i + 1}`)
-  //       .text()
-  //       .replace(/\n/g, " "),
-  //     stepImg: $(`#stepDiv${i + 1}`)
-  //       .find("img")
-  //       .attr("src"),
-  //   });
-  // }
+  for (let i = 0; i < steps.length; i++) {
+    recipeOrderResult.push({
+      recipe_num: count - 6978100,
+      steps: i + 1,
+      stepDescription: $(`#stepdescr${i + 1}`)
+        .text()
+        .replace(/\n/g, " "),
+      stepImg: $(`#stepDiv${i + 1}`)
+        .find("img")
+        .attr("src"),
+    });
+  }
 
-  // const formData = new FormData();
-  // formData.append("data", blob);
+  const formData = new FormData();
+  formData.append("data", blob);
   // 레시피 배열 수 만큼 append 시켜 주기
-  // for (let i = 0; i < recipeOrderResult.length; i++) {
-  //   formData.append(`orderVoList[${i}].recipe_num`, count);
-  //   formData.append(`orderVoList[${i}].order_num`, i + 1);
-  //   formData.append(
-  //     `orderVoList[${i}].order_explain`,
-  //     recipeOrderResult[i].stepDescription
-  //   );
-  //   formData.append(`orderVoList[${i}].recipe_imgs_steps`, stepImg[i]);
-  //   formData.append(
-  //     `orderVoList[${i}].order_path`,
-  //     recipeOrderResult[i].stepImg
-  //   );
-  // }
+  for (let i = 0; i < recipeOrderResult.length; i++) {
+    formData.append(`orderVoList[${i}].recipe_num`, count);
+    formData.append(`orderVoList[${i}].order_num`, i + 1);
+    formData.append(
+      `orderVoList[${i}].order_explain`,
+      recipeOrderResult[i].stepDescription
+    );
+    formData.append(`orderVoList[${i}].recipe_imgs_steps`, stepImg[i]);
+    formData.append(
+      `orderVoList[${i}].order_path`,
+      recipeOrderResult[i].stepImg
+    );
+  }
   // let orderVoList = [];
 
-  // let recipeOrderData = [];
-  // let orderVoList = [];
-  // for (let i = 0; i < recipeOrderResult.length; i++) {
-  //   recipeOrderData.push(
-  //     // (orderVoList[i] = [
-  //     {
-  //       recipe_num: count,
-  //       order_num: i + 1,
-  //       stepDescription: recipeOrderResult[i].stepDescription,
-  //       stepImg: recipeOrderResult[i].stepImg,
-  //     }
-  //     // ])
-  //   );
-  // }
+  let recipeOrderData = [];
+  let orderVoList = [];
+  for (let i = 0; i < recipeOrderResult.length; i++) {
+    recipeOrderData.push(
+      // (orderVoList[i] = [
+      {
+        recipe_num: count,
+        order_num: i + 1,
+        stepDescription: recipeOrderResult[i].stepDescription,
+        stepImg: recipeOrderResult[i].stepImg,
+      }
+      // / ])
+    );
+  }
 
-  // axios({
-  //   method: "POST",
-  //   url: "http://localhost:9000/recipe/insertRecipeOrderCheerio",
-  //   headers: { "Content-Type": "multipart/form-data" },
-  //   data: data,
-  //   // data: recipeOrderResult,
-  // }).then((response) => {
-  //   console.log(response.data);
-  // });
+  axios({
+    method: "POST",
+    url: "http://localhost:9000/recipe/insertRecipeOrderCheerio",
+    headers: { "Content-Type": "multipart/form-data" },
+    data: data,
+    // data: recipeOrderResult,
+  }).then((response) => {
+    console.log(response.data);
+  });
   // .catch((e) => {
   //   console.log(e);
   //   // alert("임시저장 실패.");

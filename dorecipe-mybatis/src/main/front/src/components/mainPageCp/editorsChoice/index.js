@@ -88,7 +88,7 @@ const EditorsChoiceSection = () => {
                 <SwiperSlide className="slide1" key={e.recipe_rank}>
                   <Link to={`notice/${e.recipe_name}`} className="links">
                     {/* <RecipeWrap key={e}> */}
-                    <RecipeWrap>
+                    <RecipeWrap key={e.recipe_rank}>
                       {/* <RecipeRank>{e.recipe_rank}</RecipeRank>{" "} */}
                       <RecipeImg key={e.recipeImg}>
                         <img
