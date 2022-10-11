@@ -202,7 +202,7 @@ const RecipeDetailModal = () => {
               <hr />
               <StepRecipe detailState={detailState} />
             </div>
-            <div>
+            <div style={{ marginTop: "1em" }}>
               <div>
                 <span className="accented"> 완성 사진 </span>Completed Recipe
                 Images
