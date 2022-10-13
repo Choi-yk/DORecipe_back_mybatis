@@ -16,7 +16,7 @@ const NoticePage = () => {
       notice_creDate: "",
     },
   ]);
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const [BtnState, setBtnState] = useState(user.auth.user);
   useEffect(() => {
     if (!user.auth.user) {

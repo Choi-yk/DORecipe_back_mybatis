@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 const CreateRecipeForm = () => {
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const [member_id, setMemberId] = useState();
   const navigate = useNavigate();
   const params = useParams();

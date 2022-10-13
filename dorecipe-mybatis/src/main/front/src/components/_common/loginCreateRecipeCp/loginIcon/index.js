@@ -14,7 +14,7 @@ const AccountIcon = () => {
   //페이지 이동
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
 
   const onClickLogOut = useCallback(() => {
     //로그아웃 시키고 메인페이지로

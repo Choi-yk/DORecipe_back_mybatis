@@ -20,7 +20,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { historylocation } from "../../reduxRefresh/helpers/history";
 
 const EditRecipeForm = () => {
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const [member_id, setMemberId] = useState();
   const navigate = useNavigate();
 

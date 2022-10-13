@@ -249,7 +249,7 @@ function TabContent(props) {
   let [notice_title, onChangeNoticeTitle, setNoticeTitle] = useInput("");
   let [notice_content, onChangeNoticeContent, setNoticeContent] = useInput("");
 
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

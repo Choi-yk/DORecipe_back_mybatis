@@ -146,13 +146,13 @@ public class RecipeController extends RecipeFileUpload{
 			recipeService.insertRecipeOrder(recipeVO);
 			System.out.println("레시피 등록됨 근데 upload파일이 null임 - Controller");
 			return "redirect:/recipe/list";
-		} else {
-			stepsfileUpload(recipeVO,uploadFiles);
-			recipeService.insertRecipeOrder(recipeVO);
-			
 		}
+		
+		stepsfileUpload(recipeVO,uploadFiles);
+		recipeService.insertRecipeOrder(recipeVO);
+
 		System.out.println("레시피 순서 정상 등록");
-		return recipeVO.toString();
+		return recipeVO.toString()+"***********************************";
 	}
 	
 	//레시피 목록
@@ -176,7 +176,7 @@ public class RecipeController extends RecipeFileUpload{
 		completedImgfileUpload(recipeVO,uploadFiles);
 		recipeService.insertRecipeComplete(recipeVO);
 		System.out.println("레시피 완성 정상 등록");
-		return recipeVO.toString();
+		return recipeVO.toString()+" : insertRecipeComplete***********************";
 	}
 	
 	

@@ -21,7 +21,7 @@ const RecordingRecipeList = () => {
     },
   ]);
 
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const [recipeLength, setRecipeLength] = useState(); //레시피 삭제 감지
   const [member_id, setMemberId] = useState();
   useEffect(() => {

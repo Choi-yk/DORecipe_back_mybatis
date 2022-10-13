@@ -13,7 +13,7 @@ import Message from "../../../reduxRefresh/reducers/message";
 
 const MemberInfoForm = () => {
   const userMsg = useSelector((state) => state.message);
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const [userState, setUserState] = useState();
   const [currentUserName, setCurrentUserName] = useState();
   const [currentUserId, setCurrentUserId] = useState();

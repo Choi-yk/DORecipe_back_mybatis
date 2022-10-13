@@ -7,20 +7,25 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "./style.css";
 
-const CompleteList = ({ C_recipeState }) => {
+const CompleteList = ({
+  completedRecipeState,
+  recipeLength,
+  setRecipeLength,
+}) => {
   const navigate = useNavigate();
 
   const onClickRecipeDetails = () => {
-    navigate(`/recipe/search/details/${C_recipeState.recipe_num}`);
+    navigate(`/recipe/search/details/${completedRecipeState.recipe_num}`);
   };
 
   const deleteRecipe = () => {
-    console.log(C_recipeState.recipe_num);
     axios
-      .get("http://localhost:9000/recipe/delete/" + C_recipeState.recipe_num)
+      .get(
+        "http://localhost:9000/recipe/delete/" + completedRecipeState.recipe_num
+      )
       .then((result) => {
         console.log("result", result);
-        // setRecipeLength(recipeLength - 1);
+        setRecipeLength(recipeLength - 1);
       })
       .catch(() => {
         console.log("삭제실패");
@@ -42,19 +47,19 @@ const CompleteList = ({ C_recipeState }) => {
           <div onClick={onClickRecipeDetails}>
             <img
               className="card-img-top card-img-size CRcard "
-              src={C_recipeState.recipe_rpath}
+              src={completedRecipeState.recipe_rpath}
               alt="profileImage"
             />
           </div>
           <div className="card-title" onClick={onClickRecipeDetails}>
-            {C_recipeState.recipe_title.length < 12
-              ? C_recipeState.recipe_title
-              : C_recipeState.recipe_title.slice(0, 11) + "..."}
+            {completedRecipeState.recipe_title.length < 12
+              ? completedRecipeState.recipe_title
+              : completedRecipeState.recipe_title.slice(0, 11) + "..."}
           </div>
           <Float>
-            <div>{C_recipeState.information_level}</div>
-            {/* <div className="floatRight">{C_recipeState.information_time}</div> */}
-            <div>{C_recipeState.information_time}</div>
+            <div>{completedRecipeState.information_level}</div>
+            {/* <div className="floatRight">{completedRecipeState.information_time}</div> */}
+            <div>{completedRecipeState.information_time}</div>
           </Float>
         </li>
       </RecipeWrap>

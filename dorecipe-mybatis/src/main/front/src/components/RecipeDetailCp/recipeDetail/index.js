@@ -14,7 +14,7 @@ const RecipeDetailModal = () => {
   let location = useLocation();
   const lastIndex = location.pathname.lastIndexOf(search);
   const param = location.pathname.substring(lastIndex).replace("/", ""); //레시피 번호 가져오기
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const params = useParams();
   const navigate = useNavigate();
   const onClickBack = () => {
@@ -208,9 +208,9 @@ const RecipeDetailModal = () => {
                 Images
               </div>
               <hr />
-              {detailState[0].completion_path1 ? (
+              {detailState[0].completion_path1 !== "null" ? (
                 <CompletedRecipeImages>
-                  {detailState[0].completion_path1 && (
+                  {detailState[0].completion_path1 !== "null" && (
                     <Img
                       src={detailState[0].completion_path1}
                       alt={detailState[0].completion_path1}

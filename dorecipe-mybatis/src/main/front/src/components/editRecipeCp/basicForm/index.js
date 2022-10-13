@@ -34,7 +34,7 @@ const BasicForm = () => {
 
   // member_id 가져오기
 
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const [member_id, setMemberId] = useState("");
   useEffect(() => {
     // if (user.auth.isLoggedIn) {

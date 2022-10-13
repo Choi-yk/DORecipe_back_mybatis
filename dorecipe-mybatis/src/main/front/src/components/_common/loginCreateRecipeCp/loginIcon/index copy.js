@@ -20,7 +20,7 @@ const AccountIcon = () => {
   // const user = useSelector((state) => state);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   // const currentUser = user.auth.user;
 
   // const [userState, setCurrentUser] = useState(user);

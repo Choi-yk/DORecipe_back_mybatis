@@ -48,7 +48,7 @@ const RecipeOrderDrag = ({ recipeState }) => {
   // const [fileName, file.name]
 
   // member_id 가져오기
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const [member_id, setMemberId] = useState();
   useEffect(() => {
     // console.log("현재 로그인 아이디 : ", user.auth.user.username);
@@ -191,7 +191,7 @@ const RecipeOrderDrag = ({ recipeState }) => {
             data[i].stepDescription
           );
           formData.append(`recipe_imgs_steps`, stepState[i].stepImg);
-          // console.log("stepImg", data[i].stepImg.File.name);
+          console.log("stepImg", data[i].stepImg.File);
 
           formData.append(
             `orderVoList[${i}].order_path`,
