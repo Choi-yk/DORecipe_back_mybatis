@@ -42,7 +42,7 @@ import ModifyRecipePage from "./pages/modifyRecipePage";
 
 function App() {
   const userMsg = useSelector((state) => state.message);
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const dispatch = useDispatch();
 
   console.log("user", user);

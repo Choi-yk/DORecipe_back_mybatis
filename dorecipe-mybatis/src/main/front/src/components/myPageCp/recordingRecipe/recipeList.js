@@ -7,7 +7,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const RecordList = ({ recipeState, recipeLength, setRecipeLength }) => {
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const navigate = useNavigate();
   const goToDraftRecipe = () => {
     console.log("goToDraftRecipe", user);

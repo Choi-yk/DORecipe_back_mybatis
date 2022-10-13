@@ -45,7 +45,7 @@ const EventDetailPage = () => {
             <br />
           </div>
           <h5>
-            참여기간 : {state.event_creDate}~{state.event_finDate}
+            참여기간 : {state.event_creDate} ~ {state.event_finDate}
           </h5>
           <br />
           <h2>{state.event_title}</h2>

@@ -8,7 +8,7 @@ import "./style.css";
 import { useSelector } from "react-redux";
 
 const CreateRecipeIcon = () => {
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
 
   // const auth = useSelector((state) =>
   //   state.auth.user.roles.includes("ROLE_ADMIN")

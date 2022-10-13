@@ -28,7 +28,7 @@ const CommentCp = () => {
   var Index = 0;
 
   const navigate = useNavigate();
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
 
   useEffect(() => {
     console.log("user", user);

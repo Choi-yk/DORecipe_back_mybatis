@@ -1,13 +1,13 @@
-package com.dorecipe.main;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class DorecipeMybatisApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-}
+//package com.dorecipe.main;
+//
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
+//
+//@SpringBootTest
+//class DorecipeMybatisApplicationTests {
+//
+//	@Test
+//	void contextLoads() {
+//	}
+//
+//}

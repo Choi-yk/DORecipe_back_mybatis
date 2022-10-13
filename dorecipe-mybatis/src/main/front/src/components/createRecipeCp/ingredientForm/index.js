@@ -20,6 +20,8 @@ const IngredientForm = ({ recipeState }) => {
     },
   ]);
 
+  console.log("recipeState", recipeState);
+
   const IngreAmountRef = useRef();
   const inputFocus = useRef();
 
@@ -64,18 +66,18 @@ const IngredientForm = ({ recipeState }) => {
     (e) => {
       e.preventDefault();
       console.log("ingredients", ingredients);
-      let ingreCopy = [...ingredients];
+      // let ingreCopy = [...ingredients];
 
       const data = ingredients;
       const blob = new Blob([JSON.stringify(data)], {
         type: "application.json",
       });
-      console.log("data", data);
+      console.log("data~~~~~~~~~~~", data);
       const formData = new FormData();
       formData.append("data", blob);
       //레시피 배열 수 만큼 append 시켜 주기
       for (let i = 0; i < data.length; i++) {
-        formData.append(`orderVoList[${i}].recipe_num`, recipeState);
+        formData.append(`orderVoList[${i}].recipe_num`, parseInt(recipeState));
         formData.append(`orderVoList[${i}].ing_num`, data[i].ingredient_num);
         formData.append(
           `orderVoList[${i}].ing_ingredient`,
@@ -92,11 +94,12 @@ const IngredientForm = ({ recipeState }) => {
         url: "/recipe/insertRecipeIngredients",
         headers: { "Content-Type": "multipart/form-data" },
         data: formData,
+        baseURL: "http://localhost:9000",
       }).then((response) => {
         console.log(response.data);
       });
     },
-    [ingredients]
+    [ingredients, recipeState]
   );
 
   return (
@@ -146,23 +149,10 @@ const IngredientForm = ({ recipeState }) => {
                               type="text"
                               ref={inputFocus}
                               onChange={(e) => {
-                                // setInput(IngreAmountRef.current);
                                 handleFormChange(index, e);
                               }}
-                              // key={index}
-                              // onBlur={(e) => {
-                              //   setIngredientInputs(e, item, index);
-
-                              //   // IngreAmountRef.current = item.ingredient_name;
-                              //   // console.log(IngreAmountRef.current);
-                              // }}
                               name="ingredient_name"
                               value={index.ingredient_name}
-                              // value={
-                              //   item.ingredient_name !== ""
-                              //     ? item.ingredient_name
-                              //     : item.ingredient_name[index]
-                              // }
                               placeholder={
                                 index % 4 == 0
                                   ? "소금"
@@ -183,22 +173,20 @@ const IngredientForm = ({ recipeState }) => {
                               name="ingredient_amount"
                               ref={IngreAmountRef}
                               placeholder={
-                                index % 4 == 0
+                                index % 4 === 0
                                   ? "1꼬집"
-                                  : index % 4 == 1
+                                  : index % 4 === 1
                                   ? "300g"
-                                  : index % 4 == 2
+                                  : index % 4 === 2
                                   ? "6알"
-                                  : index % 4 == 3
+                                  : index % 4 === 3
                                   ? "1/2t"
                                   : ""
                               }
                               onChange={(e) => {
-                                // setInput(IngreAmountRef.current);
                                 handleFormChange(index, e);
                               }}
                               value={index.ingredient_amount}
-                              // value={item.ingredient_amount}
                             />
                           </div>
                         </div>

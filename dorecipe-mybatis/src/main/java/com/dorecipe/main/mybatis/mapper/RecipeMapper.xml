@@ -29,7 +29,7 @@
   	</select>
 
   	
- 	<!-- 레시피 등록 -->
+ 	<!-- 레시피 임시등록 -->
   	<insert id="recipeTemporarySave" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">		
   		insert into recipe
 		(recipe_title,recipe_savetype,recipe_introduce,recipe_url,recipe_rpath,
@@ -56,13 +56,7 @@
   	;
   	</insert>
   	
- 
-   	<!--재료 순서 등록 크롤링한 거-->
-    <insert id="insertRecipeOrderCheerio" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
-  	insert into r_order(recipe_num,order_num,order_explain,order_path) values
-  	(#{recipe_num}, #{order_num},#{order_explain}, #{order_path});
-  	</insert>
- 
+  
     <insert id="insertRecipeIngredients" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
   	insert into r_ingredient(recipe_num,ing_num,ing_ingredient,ing_amount) values
   	<foreach collection="orderVoList" item="item" separator=",">
@@ -71,14 +65,8 @@
   	;
   	</insert>
   	
-  	
-  	<!--재료 등록 크롤링한 거-->
-    <insert id="insertRecipeIngredientsCheerio" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
-  	insert into r_ingredient(recipe_num,ing_num,ing_ingredient,ing_amount) values
-  	(#{recipe_num}, #{ing_num},#{ing_ingredient}, #{ing_amount});
-  	</insert>
-  	
-  	
+ 
+ 	
   	<!-- 레시피 수정 -->
   	<update id="updateRecipe" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
   		update recipe
@@ -102,7 +90,7 @@
   		update recipe set recipe_savetype = #{recipe_savetype} where recipe_num = #{recipe_num} ; 			
   	</update>-->
   	
-  	<!-- 레시피 재료 임시저장 -->
+  	<!-- 레시피 재료 임시저장에서 등록으로 바꾸기 -->
   	<update id="updateRecipeSaveType" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
   		update recipe set recipe_savetype = 0 where recipe_num = #{recipe_num} ; 			
   	</update>
@@ -111,7 +99,7 @@
   	<update id="insertRecipeComplete" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO" >
   		update recipe 
   		set
-  		recipe_savetype = 1,  		
+  		recipe_savetype = 0,  		
   		completion_path1 = #{completion_path1},
   		completion_path2 = #{completion_path2},
   		completion_path3 = #{completion_path3},
@@ -193,7 +181,7 @@
 	  order by recipe_num desc
   	</select>
   	  	
-	<!-- 레시피 상세 검색 -->
+	<!-- 레시피 상세 검색 (등록한거만)-->
 	<select id="showDetailSearchRecipe" resultType="com.dorecipe.main.recipe.vo.RecipeVO"  parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
 	  select m.member_id , r.recipe_num, r.recipe_title, r.recipe_savetype, r.recipe_url, r.recipe_rpath, 
 	  r.information_person, r.information_level, r.information_time,r.recipe_introduce,
@@ -207,13 +195,13 @@
 	  left outer join r_order
 	  on r_order.recipe_num=r.recipe_num
 	  where 
-	  r.recipe_num = #{recipe_num} and
-      r.recipe_saveType = 0
+	  r.recipe_num = #{recipe_num}
+      and r.recipe_saveType = 0
 	  group by order_num 
 	  order by order_num asc
   	</select>
   	
-  	
+  	<!-- 레시피 상세 검색 임시저장한 거만)-->
   	<select id="showDetailTemporySaved" resultType="com.dorecipe.main.recipe.vo.RecipeVO"  parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
 	  select m.member_id , r.recipe_num, r.recipe_title, r.recipe_savetype, r.recipe_url, r.recipe_rpath, 
 	  r.information_person, r.information_level, r.information_time,r.recipe_introduce,
@@ -228,7 +216,7 @@
 	  on r_order.recipe_num=r.recipe_num
 	  where 
 	  r.recipe_num = #{recipe_num} and
-      r.recipe_saveType = 1
+     r.recipe_saveType = 1
 	  group by order_num 
 	  order by order_num asc
   	</select>
@@ -264,7 +252,9 @@
   		comment_path = #{comment_path}
   		where comment_num = #{comment_num};			
   	</update>
-  	  	<!--레시피 좋아요-->
+  	
+  	
+ <!--레시피 좋아요-->
   	<select id="getRecipeLikes" resultType="Integer"   parameterType="Integer">
 	  select sum(likes) as r_like from r_like where recipe_num=#{recipe_num};
   	</select>
@@ -283,5 +273,21 @@
   		delete from r_like 
   		where member_id=#{param1} and recipe_num=#{param2};	
   	</delete>
+
+
+<!-- 크롤링 *********************************************************************** -->
+   	<!--재료 순서 등록 크롤링한 거-->
+    <insert id="insertRecipeOrderCheerio" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  	insert into r_order(recipe_num,order_num,order_explain,order_path) values
+  	(#{recipe_num}, #{order_num},#{order_explain}, #{order_path});
+  	</insert>
+
+  	
+  	<!--재료 등록 크롤링한 거-->
+    <insert id="insertRecipeIngredientsCheerio" parameterType="com.dorecipe.main.recipe.dao.RecipeDAO">
+  	insert into r_ingredient(recipe_num,ing_num,ing_ingredient,ing_amount) values
+  	(#{recipe_num}, #{ing_num},#{ing_ingredient}, #{ing_amount});
+  	</insert>
+
 
 </mapper>

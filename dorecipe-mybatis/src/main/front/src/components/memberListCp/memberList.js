@@ -7,6 +7,7 @@ const MemberList = ({ removePost, state, isLoading, hasItems, countState }) => {
     removePost(state.member_id);
   };
 
+  console.log("state", state);
   return (
     <>
       {hasItems === 0 ? (

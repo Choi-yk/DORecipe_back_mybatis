@@ -73,42 +73,68 @@ const BestRecipe = () => {
   }
   console.log(state);
 
-  axios
-    // .get(process.env.REACT_APP_HOST + "/recipe/search/details/")
-    .get("http://localhost:9000/recipe/search/details/")
-    .then((result) => {
-      console.log(result);
-      setState(result.data);
-    });
+  // useState(() => {
+  //   axios
+  //     // .get(process.env.REACT_APP_HOST + "/recipe/search/details/")
+  //     .get("http://localhost:9000/recipe/search/details/")
+  //     .then((result) => {
+  //       console.log(result);
+  //       setState(result.data);
+  //     });
+  // }, []);
 
   return (
     <>
       <BestRecipeWrap>
         <h3>BEST 레시피</h3>
         <div>
-          <FlexWrap>
-            {state.map((e) => {
-              return (
-                <>
-                  {" "}
-                  <Link to={`recipe/${e.recipe_rank}`} className="links">
-                    <RecipeWrap key={e}>
-                      <RecipeRank>{e.recipe_rank}</RecipeRank>{" "}
-                      <RecipeImg>
-                        <img
-                          className="bannerimg"
-                          src={e.recipeImg}
-                          alt="bannerimg"
-                        ></img>
-                      </RecipeImg>
-                      <div className="recipe_name">{e.recipe_name}</div>
-                      <div className="user_name">{e.user_name}</div>
-                    </RecipeWrap>
-                  </Link>
-                </>
-              );
-            })}
-          </FlexWrap>
+          {state.map((e) => {
+            return (
+              <>
+                <FlexWrap>
+                  <div key={e}>
+                    {/* {e.recipe_rank < 5 ? ( */}
+                    <Link to={`recipe/${e.recipe_rank}`} className="links">
+                      <RecipeWrap key={e}>
+                        <RecipeRank key={e.recipe_rank}>
+                          {e.recipe_rank}
+                        </RecipeRank>{" "}
+                        <RecipeImg>
+                          <img
+                            className="bannerimg"
+                            src={e.recipeImg}
+                            key={e.recipeImg}
+                            alt="bannerimg"
+                          ></img>
+                        </RecipeImg>
+                        <div className="recipe_name">{e.recipe_name}</div>
+                        <div className="user_name">{e.user_name}</div>
+                      </RecipeWrap>
+                    </Link>
+                    {/* ) : ( */}
+                    {/* <Link to={`recipe/${e.recipe_rank}`} className="links">
+                        <RecipeWrap key={e}>
+                          <RecipeRank key={e.recipe_rank}>
+                            {e.recipe_rank}
+                          </RecipeRank>{" "}
+                          <RecipeImg>
+                            <img
+                              className="bannerimg"
+                              src={e.recipeImg}
+                              key={e.recipeImg}
+                              alt="bannerimg"
+                            ></img>
+                          </RecipeImg>
+                          <div className="recipe_name">{e.recipe_name}</div>
+                          <div className="user_name">{e.user_name}</div>
+                        </RecipeWrap>
+                      </Link> */}
+                    {/* )} */}
+                  </div>
+                </FlexWrap>
+              </>
+            );
+          })}
         </div>
       </BestRecipeWrap>
     </>
@@ -138,7 +164,7 @@ const RecipeWrap = styled.div`
 const FlexWrap = styled.div`
   width: fit-content;
   display: inline-flex;
-  flex-wrap: wrap;
+  flex-wrap: no-wrap;
   justify-content: space-evenly;
 `;
 const RecipeImg = styled.div`

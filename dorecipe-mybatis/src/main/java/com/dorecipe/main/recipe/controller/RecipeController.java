@@ -146,11 +146,13 @@ public class RecipeController extends RecipeFileUpload{
 			recipeService.insertRecipeOrder(recipeVO);
 			System.out.println("레시피 등록됨 근데 upload파일이 null임 - Controller");
 			return "redirect:/recipe/list";
-		} 
+		}
+		
 		stepsfileUpload(recipeVO,uploadFiles);
 		recipeService.insertRecipeOrder(recipeVO);
+
 		System.out.println("레시피 순서 정상 등록");
-		return recipeVO.toString();
+		return recipeVO.toString()+"***********************************";
 	}
 	
 	//레시피 목록
@@ -174,7 +176,7 @@ public class RecipeController extends RecipeFileUpload{
 		completedImgfileUpload(recipeVO,uploadFiles);
 		recipeService.insertRecipeComplete(recipeVO);
 		System.out.println("레시피 완성 정상 등록");
-		return recipeVO.toString();
+		return recipeVO.toString()+" : insertRecipeComplete***********************";
 	}
 	
 	
@@ -274,9 +276,12 @@ public class RecipeController extends RecipeFileUpload{
 	//레시피 상세 검색 결과 자세히 보기
 	@GetMapping("/search/details/{recipe_num}")
 	public List<RecipeVO> showDetailSearchRecipe(@PathVariable("recipe_num")Integer recipe_num) {
-		System.out.println("레시피번호 검색 : " + recipe_num);		
+		System.out.println("레시피번호 검색 ~~~ : " + recipe_num);		
 		return recipeService.showDetailSearchRecipe(recipe_num);
 	}
+	
+	
+
 	//레시피 상세 검색 결과 자세히 보기
 	@GetMapping("/temporary/{recipe_num}")
 	public List<RecipeVO> showDetailTemporySaved(@PathVariable("recipe_num")Integer recipe_num) {

@@ -48,7 +48,7 @@ const RecipeOrderDrag = ({ recipeState }) => {
   // const [fileName, file.name]
 
   // member_id 가져오기
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const [member_id, setMemberId] = useState();
   useEffect(() => {
     // console.log("현재 로그인 아이디 : ", user.auth.user.username);

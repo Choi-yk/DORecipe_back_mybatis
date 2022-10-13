@@ -14,8 +14,7 @@ import RecipeList from "./recipeList";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUtensils } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../reduxRefresh/actions/auth.js";
+import { useSelector } from "react-redux";
 
 const DetailSearch = () => {
   const [optionState, setOptionState] = useState([
@@ -35,21 +34,17 @@ const DetailSearch = () => {
 
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.isLoggedIn);
-  // useDispatch(login())
   const auth = useSelector((state) => state.auth.user);
   const [authState, setAuthState] = useState();
+
   const createRecipeLink = () => {
     navigate("/recipe/create");
-    // authState.roles.includes("ROLE_USER")
-    //   ? navigate("/recipe/create")
-    //   : alert("레시피 등록은 일반회원만 가능합니다.");
   };
   useEffect(() => {
     if (user) {
       setAuthState(auth);
     }
   }, []);
-  // console.log("DetailSearch!!!!!!!!!", auth.state.curentUser);
 
   const [categoryStates, setCategoryStates] = useState([
     "전체",
@@ -257,7 +252,7 @@ const DetailSearch = () => {
       const data = {
         recipe_num: 0,
         recipe_title: "",
-        recipe_savetype: 1, //임시저장말고 등록한 거만 보이도록
+        recipe_savetype: 1, //임시저장
         recipe_rpath: "",
         category_kind: optionState[0],
         category_theme: optionState[1],
@@ -281,20 +276,17 @@ const DetailSearch = () => {
             param2: data.category_theme,
             param3: data.category_way,
             param4: data.category_ing,
-            param5: 1, //임시저장말고 등록한 거만 보이도록
+            param5: 1, //임시저장
           },
         })
         .then(function (response) {
           console.log(response.data);
           setRecipeState(response.data);
-          // setResponseData(response.data);
-          // console.log("responseData", responseData);
         })
         .catch((e) => console.log(e));
     },
     [optionState]
   );
-  // console.log("responseData", responseData);
   console.log("recipeState", recipeState);
   return (
     <>
@@ -426,7 +418,6 @@ const DetailSearch = () => {
           <MediumBtn onClick={searchRecipe}>검색</MediumBtn>
         </SubmitBtnWrap>
         <SearchResults>
-          {/* <SearchResults onClick={onHandleModal}> */}
           <SearchResultFlex>
             {recipeState.length > 0 ? (
               recipeState.map((e) => (

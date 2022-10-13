@@ -34,7 +34,7 @@ const BasicForm = () => {
 
   // member_id 가져오기
 
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const [member_id, setMemberId] = useState("");
   useEffect(() => {
     // if (user.auth.isLoggedIn) {
@@ -109,12 +109,16 @@ const BasicForm = () => {
           "Content-Type": "multipart/form-data",
         },
         data: formData,
-      }).then((response) => {
-        for (let value of formData.values()) {
-          console.log(value);
-        }
-        console.log("성공?");
-      });
+      })
+        .then((response) => {
+          for (let value of formData.values()) {
+            console.log(value);
+          }
+          console.log("성공?");
+        })
+        .catch(() => {
+          console.log("실패ㅠㅠㅠㅠ");
+        });
     },
     [
       recipe_title,
@@ -178,7 +182,7 @@ const BasicForm = () => {
                 value={category_kind}
                 onChange={onChangeKind}
               >
-                <option value="전체">종류별</option>
+                <option>종류별</option>
                 <option value="전체">전체</option>
                 <option value="밑반찬">밑반찬</option>
                 <option value="메인반찬">메인반찬</option>

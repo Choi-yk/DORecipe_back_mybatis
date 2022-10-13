@@ -14,7 +14,7 @@ const RecipeDetailModal = () => {
   let location = useLocation();
   const lastIndex = location.pathname.lastIndexOf(search);
   const param = location.pathname.substring(lastIndex).replace("/", ""); //레시피 번호 가져오기
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const params = useParams();
   const navigate = useNavigate();
   const onClickBack = () => {
@@ -65,63 +65,66 @@ const RecipeDetailModal = () => {
     const searchParam = params.recipeId;
     if (searchParam !== undefined) {
       axios
-        .get("/recipe/search/details/" + searchParam)
+        .get("http://localhost:9000/recipe/search/details/" + searchParam)
+        // .get("/recipe/search/details/" + 1)
+        // .get("/recipe/detail/search/" + searchParam)
         .then(function (response) {
           setDetailState(response.data);
+          console.log("/search/details/", response.data);
         })
         .catch((e) => console.log(e));
       axios
-        .get("/recipe/getIngredientList/" + searchParam)
+        .get("http://localhost:9000/recipe/getIngredientList/" + searchParam)
         .then(function (response) {
           setIngredientState(response.data);
         })
         .catch((e) => console.log(e));
-      axios
-        .get("/recipe/getRecipeLikes/", {
-          params: { recipe_num: searchParam },
-        })
-        .then(function (response) {
-          console.log(response.data);
-          response.data ? setRecipeLikes(response.data) : setRecipeLikes(0);
-        })
-        .catch((e) => console.log(e));
-      axios
-        .get("/getLikedMember/", {
-          params: { param1: detailState[0].member_id, param2: searchParam },
-        })
-        .then(function (response) {
-          console.log("heartstate", response.data);
-          response.data
-            ? setHeartState(faHeart)
-            : setHeartState(faHeartCirclePlus);
-        })
-        .catch((e) => console.log(e));
+      // axios
+      //   .get("/recipe/getRecipeLikes/", {
+      //     params: { recipe_num: searchParam },
+      //   })
+      //   .then(function (response) {
+      //     console.log(response.data);
+      //     response.data ? setRecipeLikes(response.data) : setRecipeLikes(0);
+      //   })
+      //   .catch((e) => console.log(e));
+      // axios
+      //   .get("/getLikedMember/", {
+      //     params: { param1: detailState[0].member_id, param2: searchParam },
+      //   })
+      //   .then(function (response) {
+      //     console.log("heartstate", response.data);
+      //     response.data
+      //       ? setHeartState(faHeart)
+      //       : setHeartState(faHeartCirclePlus);
+      //   })
+      //   .catch((e) => console.log(e));
     }
   }, []);
 
-  const getRecipeLikes = axios
-    .get("/recipe/getRecipeLikes/", {
-      params: { recipe_num: searchParam },
-    })
-    .then(function (response) {
-      console.log(response.data);
-      response.data ? setRecipeLikes(response.data) : setRecipeLikes(0);
-    })
-    .catch((e) => console.log(e));
+  // const getRecipeLikes = axios
+  //   .get("/recipe/getRecipeLikes/", {
+  //     params: { recipe_num: searchParam },
+  //   })
+  //   .then(function (response) {
+  //     console.log(response.data);
+  //     response.data ? setRecipeLikes(response.data) : setRecipeLikes(0);
+  //   })
+  //   .catch((e) => console.log(e));
 
   const onLikeHandler = () => {
     const searchParam = params.recipeId;
     if (heartState === faHeart) {
       //좋아요를 누른 상태
-      axios
-        .get("/recipe/removeLikes", {
-          params: {
-            param1: loginState, //좋아요 누른 사람
-            param2: searchParam,
-          },
-        })
-        .then(setHeartState(faHeartCirclePlus))
-        .then(getRecipeLikes);
+      // axios
+      //   .get("/recipe/removeLikes", {
+      //     params: {
+      //       param1: loginState, //좋아요 누른 사람
+      //       param2: searchParam,
+      //     },
+      //   })
+      //   .then(setHeartState(faHeartCirclePlus))
+      //   .then(getRecipeLikes);
     } else if (heartState === faHeartCirclePlus) {
       axios
         .get("/recipe/insertLikes", {
@@ -199,6 +202,58 @@ const RecipeDetailModal = () => {
               <hr />
               <StepRecipe detailState={detailState} />
             </div>
+            <div style={{ marginTop: "1em" }}>
+              <div>
+                <span className="accented"> 완성 사진 </span>Completed Recipe
+                Images
+              </div>
+              <hr />
+              {detailState[0].completion_path1 !== "null" ? (
+                <CompletedRecipeImages>
+                  {detailState[0].completion_path1 !== "null" && (
+                    <Img
+                      src={detailState[0].completion_path1}
+                      alt={detailState[0].completion_path1}
+                    />
+                  )}
+                  {detailState[0].completion_path2 !== "null" && (
+                    <Img
+                      src={detailState[0].completion_path2}
+                      alt={detailState[0].completion_path2}
+                    />
+                  )}
+                  {detailState[0].completion_path3 !== "null" && (
+                    <Img
+                      src={detailState[0].completion_path3}
+                      alt={detailState[0].completion_path3}
+                    />
+                  )}
+                  {detailState[0].completion_path4 !== "null" && (
+                    <Img
+                      src={detailState[0].completion_path4}
+                      alt={detailState[0].completion_path4}
+                    />
+                  )}
+                </CompletedRecipeImages>
+              ) : (
+                <div style={{ textAlign: "center" }}>
+                  등록된 완성 사진이 없습니다.
+                </div>
+              )}
+            </div>
+            <div style={{ marginTop: "1em" }}>
+              <div>
+                <span className="accented"> 레시피 꿀팁 </span>Recipe Tips
+              </div>
+              <hr />
+              {detailState[0].completion_tip ? (
+                detailState[0].completion_tip
+              ) : (
+                <div style={{ textAlign: "center" }}>
+                  등록된 레시피 꿀팁이 없습니다.
+                </div>
+              )}
+            </div>
           </RecipeWrap>
         </BackGround>
       </>
@@ -239,6 +294,12 @@ const RecipeWrap = styled.div`
   & div .clickable {
     cursor: pointer;
   }
+`;
+const CompletedRecipeImages = styled.div`
+  display: inline-flex;
+  justify-content: center;
+  gap: 2em;
+  width: 100%;
 `;
 const IngredientsWrap = styled.div`
   margin-bottom: 1em;
@@ -293,5 +354,10 @@ const CreDateLikeWrap = styled.div`
     margin-right: 0.2em;
   }
 `;
-
+const Img = styled.img`
+  width: 8em;
+  max-height: 8em;
+  /* min-width: 8em;
+  min-height: 8em; */
+`;
 export default RecipeDetailModal;

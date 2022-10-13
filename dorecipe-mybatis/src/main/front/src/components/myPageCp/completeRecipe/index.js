@@ -21,17 +21,42 @@ const CompleteRecipeList = () => {
     },
   ]);
 
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const [member_id, setMemberId] = useState();
+  const [loadingState, setLoadingState] = useState(true);
 
+  const [recipeLength, setRecipeLength] = useState(); //레시피 삭제 감지
+  // useEffect(() => {
+  //   setMemberId(user.auth.user.username);
+  //   getCompletedRecipe();
+  // }, [member_id]);
   useEffect(() => {
     //작성한 레시피 정보
-    console.log("작성한레시피" + member_id);
-    setMemberId(user.auth.user.username);
-    if (member_id !== undefined) {
-      Axios();
+    // console.log("작성한레시피" + member_id);
+    // setMemberId(user.auth.user.username);
+    // if (member_id !== undefined) {
+    //   Axios();
+    // }
+    if (user.auth.isLoggedIn) {
+      setMemberId(user.auth.user.username);
+      if (user.auth.user.username !== undefined) {
+        Axios();
+      }
     }
-  }, [member_id]);
+    //   // }, [member_id, recipeState]);
+  }, [recipeLength]);
+  // }, [member_id, recipeState.length]);
+  // const getCompletedRecipe = useCallback(() => {
+  //   axios({
+  //     url: "/recipe/recordingType1",
+  //     method: "POST",
+  //     data: formData,
+  //     baseURL: "http://localhost:9000",
+  //     // baseURL: process.env.REACT_APP_HOST,
+  //   }).then(function (response) {
+  //     setRecipeState(response.data);
+  //   });
+  // }, [member_id, recipeState]);
 
   // 작성한 레시피 정보 가져오기
   // member_id가 ~인 레시피의 컬럼들을 다 가져와야지!
@@ -40,15 +65,21 @@ const CompleteRecipeList = () => {
 
   function Axios() {
     console.log("작성중레시피 가져오니?" + member_id);
+
     axios({
       url: "/recipe/recordingType1",
-      method: "Post",
+      method: "POST",
       data: formData,
       baseURL: "http://localhost:9000",
       // baseURL: process.env.REACT_APP_HOST,
-    }).then(function (response) {
-      setRecipeState(response.data);
-    });
+    })
+      .then(function (response) {
+        setRecipeState(response.data);
+        setRecipeLength(response.data.length);
+      })
+      .then(() => {
+        setLoadingState(false);
+      });
   }
 
   return (
@@ -64,26 +95,22 @@ const CompleteRecipeList = () => {
           </SectionTitle>
           <Scrollable>
             <div>
-              {recipeState.length !== 0 ? (
+              {loadingState ? (
+                <div>로딩중</div>
+              ) : recipeState.length !== 0 ? (
                 recipeState.map((e) => (
-                  <CompleteList key={e.recipe_num} C_recipeState={e} />
+                  <CompleteList
+                    key={e.recipe_num}
+                    completedRecipeState={e}
+                    recipeLength={recipeLength}
+                    setRecipeLength={setRecipeLength}
+                  />
                 ))
               ) : (
                 <NullRecipe />
               )}
             </div>
           </Scrollable>
-          {/* {
-                    C_recipeState.length !== 0
-                    ?
-                    C_recipeState.map((e) => (
-                        <CompleteList
-                            C_recipeState={e}
-                        />  
-                    ))
-                    :
-                    <NullRecipe />
-                } */}
         </div>
       </div>
     </>
@@ -105,14 +132,14 @@ const SectionTitle = styled.div`
 `;
 
 const Scrollable = styled.section`
-  width: 100%;
+  width: 90%;
   margin: 1em auto;
 
   & > div {
-    padding: 2rem;
     height: 30em;
-    overflow-y: auto;
+    overflow-x: auto;
     margin: 0 auto;
+    padding: 1em 0;
 
     ::-webkit-scrollbar {
       width: 0.5rem;

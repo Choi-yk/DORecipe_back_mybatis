@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import "./style.css";
 
 const EventList = ({ removePost, state, BtnState }) => {
   // 현재 년-월-일 구해서 event_finDate와 비교
@@ -11,9 +12,14 @@ const EventList = ({ removePost, state, BtnState }) => {
   let date = today.getDate();
   let day = String(year + "-" + month + "-" + date);
   //--------------------
+  const navigate = useNavigate();
 
   const removePostOnclick = () => {
     removePost(state.event_num);
+  };
+
+  const onClickEventDetail = () => {
+    navigate(`/event/detail/${state.event_num}`);
   };
 
   return (
@@ -21,17 +27,15 @@ const EventList = ({ removePost, state, BtnState }) => {
       <li>
         <div className="noticeNo">{state.event_num}</div>
 
-        <Link className="noticeTitle" to={`/event/detail/${state.event_num}`}>
+        <span className="noticeTitle" onClick={onClickEventDetail}>
           {state.event_title}
-        </Link>
+        </span>
 
         <div className="noticeDate">
           {state.event_creDate}~{state.event_finDate}
-          {
-          state.event_finDate < day 
-          ? (<span className="finDate"> [종료]</span>) 
-          : null
-          }
+          {state.event_finDate < day ? (
+            <span className="finDate"> [종료]</span>
+          ) : null}
         </div>
         {BtnState && (
           <div className="updateOrDelete">

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Autoplay, Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { Navigation, Pagination, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
@@ -15,12 +15,12 @@ import CompleteRecipe from "./completeRecipeForm";
 import RecipeOrderDrag from "./recipeStepForm";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { historylocation } from "../../reduxRefresh/helpers/history";
 
 const EditRecipeForm = () => {
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const [member_id, setMemberId] = useState();
   const navigate = useNavigate();
 

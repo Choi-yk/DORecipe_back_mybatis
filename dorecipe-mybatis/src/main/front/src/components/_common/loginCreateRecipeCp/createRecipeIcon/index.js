@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 const CreateRecipeIcon = () => {
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const [userState, setUserState] = useState(user);
   const [iconState, setIcon] = useState(faPencil);
 

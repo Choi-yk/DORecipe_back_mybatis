@@ -18,7 +18,7 @@ const EventPage = () => {
       event_finDate: "",
     },
   ]);
-  const user = useSelector((state) => state);
+  const user = useSelector((auth) => auth);
   const [BtnState, setBtnState] = useState(user.auth.user);
   useEffect(() => {
     if (!user.auth.user) {
@@ -69,17 +69,17 @@ const EventPage = () => {
                 {BtnState && <div className="updateOrDelete">수정 및 삭제</div>}
               </div>
               <Scrollable>
-              <div>
-              {state.map((e) => (
-                <EventList
-                  key={e.event_num}
-                  removePost={removePost}
-                  BtnState={BtnState}
-                  // updatePost={updatePost}
-                  state={e}
-                />
-              ))}
-              </div>
+                <div>
+                  {state.map((e) => (
+                    <EventList
+                      key={e.event_num}
+                      removePost={removePost}
+                      BtnState={BtnState}
+                      // updatePost={updatePost}
+                      state={e}
+                    />
+                  ))}
+                </div>
               </Scrollable>
             </ul>
           </div>
@@ -90,7 +90,6 @@ const EventPage = () => {
   );
 };
 export default EventPage;
-
 
 const Scrollable = styled.section`
   width: 100%;
